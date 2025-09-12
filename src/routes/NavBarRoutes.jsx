@@ -11,7 +11,6 @@ export function NavBarRoutes(){
         <Route path='/afiliados' element={<Afiliados />}/>
         <Route path='/prestadores' element={<Prestadores />}/>
         <Route path='/agenda' element={<Agenda />}/>
-        <Route path='*' element={<Dashboard />} />
       </Routes>
   )
 }

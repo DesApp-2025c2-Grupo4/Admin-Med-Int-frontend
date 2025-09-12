@@ -13,4 +13,8 @@ header{
   #root{
     flex-direction: column;
   }
+  main{
+    width: 100vw;
+    padding: 1rem;
+  }
 }
