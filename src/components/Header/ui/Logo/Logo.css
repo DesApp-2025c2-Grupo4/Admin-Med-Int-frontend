@@ -1,0 +1,16 @@
+/* Estilos de contenedor */
+.header__logo-container{
+  text-align: center;
+}
+.header__logo-container img{
+  max-height: 3.5rem;
+  max-width: 100%;
+}
+
+/* Mediquery */
+
+@media (max-width: 1200px) {
+  .header__logo-container img{
+    max-height: 2rem;
+  }
+}
