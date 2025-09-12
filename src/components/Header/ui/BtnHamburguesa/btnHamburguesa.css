@@ -1,0 +1,35 @@
+.btnHamburguesa__containes{
+  width: 30px;
+  height: 20px;
+  display:none;
+  flex-direction: column;
+  justify-content: space-between;  
+  transition: all ease .2s;
+}
+
+.btnHamburguesa__line{
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+}
+
+
+@media (max-width: 1200px) {
+  .btnHamburguesa__containes{
+    display: flex;
+  }
+  .close{
+    justify-content: center;
+    align-items: center;
+    & .f1{
+      transform: rotate(40deg)translate(-1px, 3px);
+    }
+    & .f2{
+      display: none;
+    }
+    & .f3{
+      transform: rotate(-40deg)translate(-1.5px, -4px);
+    }
+  }
+}
