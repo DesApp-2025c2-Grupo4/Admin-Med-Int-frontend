@@ -1,14 +1,14 @@
 export const navPrestadoresItems = [
     {
         name: 'Gestionar Prestadores',
-        path: '/'
+        path: '/prestadores/gestionar'
     },
     {
         name: 'Nuevo Prestador',
-        path: '/'
+        path: '/prestadores/nuevo-prestador'
     },
     {
         name: 'Reportes',
-        path: '/'
+        path: '/prestadores/reportes'
     },
 ]

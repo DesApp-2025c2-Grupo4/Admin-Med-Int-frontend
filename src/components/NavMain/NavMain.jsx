@@ -16,7 +16,12 @@ export function NavMain({listItems}){
             <ul className="nav-main__list-container">
                 {
                     listItems?.map((item,index) => 
-                        <NavLink className="nav-main__list-item-container" key={index}>{item.name}</NavLink>
+                        <NavLink 
+                        className={({ isActive }) => `nav-main__list-item-container ${isActive ? 'activeLink' : ''}`}
+                        key={index} 
+                        to={item.path}>
+                            {item.name}
+                        </NavLink>
                     )
                 }
             </ul>

@@ -4,9 +4,12 @@ import { NavBarRoutes } from './routes/NavBarRoutes.jsx'
 function App() {
   return (
     <>
+      {/* Header de todas las pantallas */}
       <Header />
-      {/* Rutas Para el navBar */}
+
+      {/* Main principal */}
       <main>
+        {/* Rutas Para el navBar */}
         <NavBarRoutes />
       </main>
     </>
