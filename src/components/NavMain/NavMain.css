@@ -36,9 +36,9 @@
 }
 
 .activeLink{
-    background-color: #F0F2F9 !important;
-    border: 1.5px solid rgba(0, 0, 0, 0.208) !important;
-    &:hover{
-      background-color:#fcfdff !important;
-    }
+  background-color: #F0F2F9 !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.208) !important;
+  &:hover{
+    background-color:#fcfdff !important;
+  }
 }

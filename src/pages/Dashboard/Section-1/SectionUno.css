@@ -1,0 +1,5 @@
+.dashboard__section-1{
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

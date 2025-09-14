@@ -1,0 +1,44 @@
+.card-data__container{
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-width: 200px;
+  transition: transform ease .2s;
+  padding: 1.5rem;
+  &:hover{
+    transform: scale(1.02);
+  }
+}
+
+.card-data__aside{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-data__title{
+  color: #08172ba6;
+  font-size: calc(15px + 0.2vw);
+}
+.card-data__number{
+  color: #08315E;
+  font-weight: 600;
+  font-size: calc(16px + 0.9vw);
+  animation: animarNumero .2s ;
+}
+.card-data__description{
+  color: #08172ba6;
+  font-size: calc(12px + 0.1vw);
+  font-weight: 600;
+  transition: color ease 2s;
+}
+
+@keyframes animarNumero {
+  0%{
+    transform: scale(0.5);
+  }
+  100%{
+    transform: scale(1);
+  }
+}

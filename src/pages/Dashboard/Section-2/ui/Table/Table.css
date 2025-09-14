@@ -1,0 +1,69 @@
+/* Estilos de contenedor de la tabla */
+.table__container{
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(0, 0, 0, 0.267);
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Thead */
+.table__thead-tr{
+  display: flex;
+}
+.table__thead-th{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  color: #08172bbd;
+  font-size: calc(12px + 0.2vw);
+  height: 3rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.267);
+  min-width: 200px;
+}
+
+/* Tbody */
+.table__tbody{
+  display: flex;
+  flex-direction: column;
+}
+.table__tbody-tr{
+  display: flex;
+  &:hover{
+    background-color: #08172b15;
+  }
+}
+.table__tbody-td{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 3rem;
+  color: #08172bbd;
+  font-size: calc(11px + 0.2vw);
+  border-right: 1px solid rgba(0, 0, 0, 0.267);
+  min-width: 200px;
+}
+
+
+/* Centrar loader */
+.centrar{
+  padding: 3rem 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Eliminar borde derecho*/
+.sinBorde{
+  border-right: none;
+}
+.resaltar{
+  padding: 0.5rem 0.5rem;
+  min-width: 100px;
+  background-color: #a4c7f4d2;
+  font-weight: 600;
+  border-radius: 20px;
+}

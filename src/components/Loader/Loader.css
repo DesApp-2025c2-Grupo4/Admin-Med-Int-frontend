@@ -1,0 +1,41 @@
+.loader__container{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  position: relative;
+  animation: animationLoader 2s linear infinite;
+}
+.loader__circle{
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  border-radius: 50%;
+}
+.circle__uno{
+  left: 0;
+  top: 0;
+  background-color: #08315E;
+}
+.circle__dos{
+  top: 0;
+  right: 0;
+  background-color: #08172ba6;
+}
+.circle__tres{
+  bottom: 0;
+  left: 0;
+  background-color: #08172ba6;
+}
+.circle__cuatro{
+  bottom:0;
+  right: 0;
+  background-color: #08315E;
+}
+@keyframes animationLoader {
+  0%{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
