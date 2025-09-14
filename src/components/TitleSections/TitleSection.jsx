@@ -1,4 +1,11 @@
 import './TitleSection.css'
-export function TitleSection({text}){
-  return <h2 className="title-section__container">{text}</h2>
+import { BarChart } from '../../assets/icons/DashboardIcons/BarChart'
+export function TitleSection({text,icon=false}){
+  return (
+    <div className='title-section__container'>
+      <h2 className="title-section__text">{text}</h2>
+      {icon && <BarChart/> }
+    </div>
+  )
+
 }

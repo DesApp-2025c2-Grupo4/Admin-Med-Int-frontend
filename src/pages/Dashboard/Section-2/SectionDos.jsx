@@ -8,7 +8,7 @@ export function SectionDos(){
   const {loadingAfiliados,afiliadosRecientes} = useGetAfiliadosRecientes()
   return (
     <section className='section-dos__container box-border'>
-      <TitleSection text='Afiliados Recientes'/>
+      <TitleSection text='Afiliados Recientes' icon={true}/>
       <TableAfiliados 
         loadingAfiliados={loadingAfiliados}
         listHeader={headerTableAfiliados}

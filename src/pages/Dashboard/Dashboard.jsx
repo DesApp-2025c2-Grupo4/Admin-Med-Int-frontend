@@ -2,6 +2,7 @@ import { TitlePrincipal } from '../../components/TitlePrincipal/TitlePrincipal'
 import { SubTitlePrincipal } from '../../components/SubTitlePrincipal/SubTitlePrincipal'
 import { SectionUno } from './Section-1/SectionUno'
 import { SectionDos } from './Section-2/SectionDos'
+import { SectionTres } from './Section-3/SectionTres'
 
 export function Dashboard(){
   return(
@@ -15,6 +16,9 @@ export function Dashboard(){
 
       {/* Afiliados mas recientes */}
       <SectionDos />
+
+      {/* Prestadores mas recientes */}
+      <SectionTres />
     </>
   )
 }
