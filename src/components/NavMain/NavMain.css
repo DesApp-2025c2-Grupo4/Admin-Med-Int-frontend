@@ -27,7 +27,7 @@
     font-weight: 600;
     white-space: nowrap;
     min-width: 150px;
-    background-color: #E3ECF9;
+    background-color: #e3ecf900;
     transition: all ease .2s;
     &:hover{
         background-color:#f4f9ff ;
@@ -42,3 +42,13 @@
     background-color:#fcfdff !important;
   }
 }
+@media (max-width: 540px){
+  .nav-main__container{
+    margin-top: 0;
+    border-radius: 20px;
+  }
+  .nav-main__list-container{
+    flex-direction: column;
+    gap: 0;
+  }
+} 
