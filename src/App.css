@@ -6,6 +6,11 @@ main{
   flex-direction: column;
   gap: 1rem;
 }
+body {
+  font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  color: #1f2937; 
+}
+
 header{
   width: 20vw;
 }

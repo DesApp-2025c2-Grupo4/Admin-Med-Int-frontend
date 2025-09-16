@@ -1,0 +1,1 @@
+export const InputPlanMedico = ["Cobre", "Plata", "Oro"]

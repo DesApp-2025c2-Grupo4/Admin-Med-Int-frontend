@@ -1,0 +1,1 @@
+export const InputTipoDoc = ["DNI", "CUIL"]
