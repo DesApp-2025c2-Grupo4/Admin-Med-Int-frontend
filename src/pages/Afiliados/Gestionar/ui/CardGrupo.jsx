@@ -15,12 +15,14 @@ export function CardGrupo({
     <>
       <section className="card_container box-border">
         <section className="body-cardGrupo">
-          <h1 className="titleGrupo">
-            Grupo Familiar {credencial} | {nombre} {apellido}
-          </h1>
-          <p className="descriptionGrupo">
-            Plan: {planMedico} | Fecha Alta: {fechaAlta}
-          </p>
+          <div className="container_data">
+            <h1 className="titleGrupo">
+              Grupo Familiar {credencial} | {nombre} {apellido}
+            </h1>
+            <p className="descriptionGrupo">
+              Plan: {planMedico} | Fecha Alta: {fechaAlta}
+            </p>
+          </div>
           <div className="container_icons">
             <Link>
               <DeleteIcon></DeleteIcon>
