@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import './CardData.css'
 import { Loader } from '../../../../components/Loader/Loader'
+import { formatearNumero } from '../../../../utils/formatearNumero'
 export function CardData({title,Icon,number,description, link,name, loading}){
   return(
     <article className='card-data__container box-border'>
@@ -12,7 +13,7 @@ export function CardData({title,Icon,number,description, link,name, loading}){
         {/* Numero de la card */}
         {
           // En caso de estar cargando muestra el loader
-          loading ? <Loader /> : <p className='card-data__number'>{number}</p>
+          loading ? <Loader /> : <p className='card-data__number'>{formatearNumero(number)}</p>
         }
 
         {/* Descripcion de la card */}
