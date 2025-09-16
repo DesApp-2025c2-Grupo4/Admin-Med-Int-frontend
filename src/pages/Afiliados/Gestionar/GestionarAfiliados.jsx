@@ -6,7 +6,6 @@ import { listAfiliados } from "./../../../Mock/listAfiliados.js";
 
 export function GestionarAfiliados() {
   const titulares = listAfiliados?.filter((l) => l.esTitular);
-  console.log(titulares);
   return (
     <>
       <TitleSection text="Gestión de Afiliados"></TitleSection>
