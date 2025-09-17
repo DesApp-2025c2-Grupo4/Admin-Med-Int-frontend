@@ -1,6 +1,6 @@
 import '../Section-2/ui/Table/Table.css'
 import { Loader } from '../../../components/Loader/Loader'
-export function TablePrestadores({listHeader,data, loadingPrestadores}){
+export function TablePrestadores({listHeader,data}){
   /*
     Descripcion: este componente renderiza la tabla de afiliados del dashboard, los estilos son reutilizables para las demas tablas colocando las mismas clases.
     Entrada: 
@@ -48,15 +48,8 @@ export function TablePrestadores({listHeader,data, loadingPrestadores}){
       {/* Body de la tabla */}
 
       {/* Controlamos si esta cargando para centrar loader */}
-      <tbody className={`table__tbody-container ${loadingPrestadores ? 'centrar':''}`}>
+      <tbody className={`table__tbody-container`}>
         {
-          /* Controlamos loader */
-          loadingPrestadores ? 
-              <tr>
-                <td>
-                  {<Loader />}
-                </td>  
-              </tr> :
               data?.map(d => {
                 return(
                   <tr className='table__tbody-tr' key={d.prestadorId}>
