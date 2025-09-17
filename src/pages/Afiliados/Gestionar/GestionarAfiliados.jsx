@@ -10,7 +10,27 @@ export function GestionarAfiliados() {
     <>
       <TitleSection text="Gestión de Afiliados"></TitleSection>
       <section className="section_container box-border">
-        <SearchIcon></SearchIcon>
+        <div className="container_search">
+          <input
+            className="search box-border"
+            type="text"
+            placeholder="Buscar"
+          ></input>
+          <select className="container_select box-border">
+            <option value="" className="text">
+              Filtrar
+            </option>
+            <option value="credencial">Credencial</option>
+            <option value="nombre">Nombre</option>
+            <option value="apellido">Apellido</option>
+            <option value="grupo">Grupo Familiar</option>
+            <option value="fechaNac">Fecha de nacimiento</option>
+            <option value="direccion">Dirección</option>
+          </select>
+          <div className="container_icon_search">
+            <SearchIcon></SearchIcon>
+          </div>
+        </div>
         <section className="section_cards">
           {titulares.map((a) => (
             <CardGrupo
