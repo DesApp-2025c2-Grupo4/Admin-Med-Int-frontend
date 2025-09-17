@@ -7,11 +7,15 @@ import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTi
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { CalendarButton } from '../../../../components/ui/CalendarButton/CalendarButton.jsx'
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
+import { AddMember } from "../../../../components/ui/AddMember/AddMember.jsx"
+import { RegisterGroup } from "../../../../components/ui/RegisterGroup/RegisterGroup.jsx"
+import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/InputCalendar.jsx'
 import './FormGrupoFamilia.css'
 
 export function FormGrupoFamilia() {
     return (
         <form className="form-grupo-familia">
+            <SubTitleSection text="Datos del titular" />
             <div className="form-row">
                 <InputSelect text="Tipo de documento" listaDeOpciones={InputTipoDoc}/>
                 <InputText text="Numero de documento"/>
@@ -48,14 +52,22 @@ export function FormGrupoFamilia() {
                 <div className="input-with-button">
                     <InputText text="Situaciones terapéuticas" />
                     <AddButton />
-                    <CalendarButton />
+                    <InputCalendar text="fecha" className="input-calendar"/>
                 </div>
-                <div className="checkboxes">
-                    <input type="checkbox" id="cronico" value="Cronico"/>
-                    <label htmlFor="cronico">Crónico</label>
-                    <input type="checkbox" id="indefinido" value="Duracion indefinida"/>
-                    <label htmlFor="indefinido">Duración indefinida</label>
+                <div className="checkbox-group">
+                    <label>
+                        <input type="radio" name='situacion' />
+                        Crónico
+                    </label>
+                    <label>
+                        <input type="radio" name='situacion' />
+                        Duración indefinida
+                    </label>
                 </div>
+            </div>
+            <div className="button-container">
+                <AddMember />
+                <RegisterGroup />
             </div>
         </form>
     )

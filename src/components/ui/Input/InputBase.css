@@ -23,6 +23,7 @@
   background-color: #fff;
   outline: none;
   transition: border 0.2s ease, box-shadow 0.2s ease;
+  color: #6b7280;
 }
 
 .input-container input:focus,
