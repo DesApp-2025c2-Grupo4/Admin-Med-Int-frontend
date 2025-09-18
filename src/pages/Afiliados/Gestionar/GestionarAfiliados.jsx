@@ -35,7 +35,7 @@ export function GestionarAfiliados() {
           {titulares.map((a) => (
             <CardGrupo
               key={a.personaId}
-              credencial={a.personaId}
+              credencial={a.credencial}
               nombre={a.nombre}
               apellido={a.apellido}
               fechaAlta={a.fechaAlta}

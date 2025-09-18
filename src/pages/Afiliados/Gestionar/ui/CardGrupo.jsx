@@ -14,7 +14,6 @@ export function CardGrupo({
   return (
     <>
       <section className="card_container box-border">
-        <section className="body-cardGrupo">
           <div className="container_data">
             <h1 className="titleGrupo">
               Grupo Familiar {credencial} | {nombre} {apellido}
@@ -34,7 +33,6 @@ export function CardGrupo({
               <ModifierIcon></ModifierIcon>
             </Link>
           </div>
-        </section>
       </section>
     </>
   );
