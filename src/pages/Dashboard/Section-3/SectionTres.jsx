@@ -2,16 +2,24 @@ import { TitleSection } from "../../../components/TitleSections/TitleSection";
 import { useGetPrestadoresRecientes } from '../../../hooks/useGetPrestadoresRecientes'
 import { TablePrestadores } from "./TablePrestadores";
 import { headerTablePrestadores } from "../../../constants/Dashboard/headerTablePrestadores";
+import { Loader } from "../../../components/Loader/Loader";
 export function SectionTres(){
   const { loadingPrestadores, prestadoresRecientes } = useGetPrestadoresRecientes()
   return(
     <section className="box-border">
       <TitleSection text='Prestadores mas recientes' icon={true}/>
-      <TablePrestadores 
-        loadingPrestadores={loadingPrestadores} 
-        listHeader={headerTablePrestadores}
-        data={prestadoresRecientes}
-      />
+      {
+        loadingPrestadores ? 
+        <div className="centrar">
+          <Loader />
+        </div> :
+        <TablePrestadores 
+          loadingPrestadores={loadingPrestadores} 
+          listHeader={headerTablePrestadores}
+          data={prestadoresRecientes}
+        />
+      }
+      
     </section>
   )
 }

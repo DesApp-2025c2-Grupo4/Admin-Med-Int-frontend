@@ -1,6 +1,6 @@
 import './Table.css'
 import { Loader } from '../../../../../components/Loader/Loader'
-export function TableAfiliados({listHeader,data, loadingAfiliados}){
+export function TableAfiliados({listHeader,data}){
   /*
     Descripcion: este componente renderiza la tabla de afiliados del dashboard, los estilos son reutilizables para las demas tablas colocando las mismas clases.
     Entrada: 
@@ -48,15 +48,8 @@ export function TableAfiliados({listHeader,data, loadingAfiliados}){
       {/* Body de la tabla */}
 
       {/* Controlamos si esta cargando para centrar loader */}
-      <tbody className={`table__tbody-container ${loadingAfiliados ? 'centrar':''}`}>
+      <tbody className={`table__tbody-container`}>
         {
-          /* Controlamos loader */
-          loadingAfiliados ? 
-              <tr>
-                <td>
-                  {<Loader />}
-                </td>  
-              </tr> :
               data?.map(d => {
                 return(
                   <tr className='table__tbody-tr' key={d.personaId}>
