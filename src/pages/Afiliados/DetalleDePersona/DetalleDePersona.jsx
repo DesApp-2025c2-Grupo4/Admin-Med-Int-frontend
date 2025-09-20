@@ -19,7 +19,9 @@ export function DetalleDePersona(){
         {/* Renderizados condicionales */}
         {
           loadingPersona ?
-          <Loader /> : //Muestra el Loader en caso de estar cargando
+          <div className="contendor_loader-detalle">
+            <Loader />
+          </div> : //Muestra el Loader en caso de estar cargando
           error ? //Muestra el error en caso de estar cargando
           <h2 className='message-error'>{error}</h2> :
           <TodosLosDetalles persona={persona} />
