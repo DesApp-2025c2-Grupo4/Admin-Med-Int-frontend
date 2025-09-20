@@ -1,8 +1,17 @@
-import { listAfiliados } from '../../Mock/listAfiliados.js'
-export function getDetalleDePersona(id){
+import { listGrupos } from '../../Mock/listGrupos.js'
+
+export function getDetalleDePersona(id) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(listAfiliados[0]); // simula respuesta del backend
-    }, 7000);
+      for (const grupo of listGrupos) {
+        const integrante = grupo.integrantes.find(i => i.personaId === Number(id))
+        if (integrante) {
+          resolve({ ...integrante, idGrupo: grupo.idGrupo, nroGrupo: grupo.nroGrupo,planMedico:grupo.planMedico })
+          return
+        }
+      }
+      // Si no lo encontró
+      resolve(null)
+    }, 700)
   })
-} 
+}
