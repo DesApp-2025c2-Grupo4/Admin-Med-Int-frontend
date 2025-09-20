@@ -5,3 +5,10 @@
   justify-content: center;
   align-items: center;
 }
+.message-error{
+  text-align: center;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
