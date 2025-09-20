@@ -1,0 +1,41 @@
+/* Contenedor de boton */
+.copy-btn__container{
+  padding: 5px; 
+}
+/* Estilos de boton de checj */
+.icon-check-container{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: animarEntradaBtn .2s linear;
+}
+.icon-check-container span{
+  font-size: calc(10px + 0.1vw);
+  font-weight: 600 !important;
+  color: rgba(0, 128, 0, 0.719);
+}
+
+/* Estilos de boton de copy */
+.icon-copy-container {
+  animation: animarEntradaBtn .3s linear;
+  opacity: 0.2;
+  cursor: pointer;
+  transition: all ease .2s;
+}
+
+.icon-copy-container:hover {
+  opacity: 1;
+}
+
+.icon-copy-container:hover path {
+  stroke: #037dff;
+}
+
+@keyframes animarEntradaBtn {
+  0%{
+    transform: scale(0.2);
+  }
+  100%{
+    transform: scale(1);
+  }
+}

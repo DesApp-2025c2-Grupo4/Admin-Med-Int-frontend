@@ -1,6 +1,7 @@
 export const listAfiliados = [
   {
-    personaId: "0000001-01",
+    credencial: "0000001-01",
+    personaId: 1,
     situacionesTerapeuticas: [
       {
         situacionId: 1,
@@ -25,7 +26,8 @@ export const listAfiliados = [
     planMedico: { planId: 1, descripcion: "Oro" },
   },
   {
-    personaId: "0000002-01",
+    credencial: "0000002-01",
+    personaId: 2,
     situacionesTerapeuticas: [
       {
         situacionId: 2,
@@ -50,7 +52,8 @@ export const listAfiliados = [
     planMedico: { planId: 2, descripcion: "Plata" },
   },
   {
-    personaId: "0000003-01",
+    credencial: "0000003-01",
+    personaId: 3,
     situacionesTerapeuticas: [],
     direcciones: [{ direccionId: 3, calle: "Mitre", nro: 456 }],
     telefonos: [{ telefonoId: 3, nroTelefono: "1145678901" }],
@@ -67,7 +70,8 @@ export const listAfiliados = [
     planMedico: { planId: 3, descripcion: "Bronce" },
   },
   {
-    personaId: "0000004-01",
+    credencial: "0000004-01",
+    personaId: 4,
     situacionesTerapeuticas: [
       {
         situacionId: 3,
@@ -92,7 +96,8 @@ export const listAfiliados = [
     planMedico: { planId: 1, descripcion: "Oro" },
   },
   {
-    personaId: "0000005-01",
+    credencial: "0000005-01",
+    personaId: 5,
     situacionesTerapeuticas: [],
     direcciones: [{ direccionId: 5, calle: "Sarmiento", nro: 321 }],
     telefonos: [{ telefonoId: 5, nroTelefono: "1167890123" }],
@@ -109,7 +114,8 @@ export const listAfiliados = [
     planMedico: { planId: 2, descripcion: "Plata" },
   },
   {
-    personaId: "0000006-01",
+    credencial: "0000006-01",
+    personaId: 6,
     situacionesTerapeuticas: [
       {
         situacionId: 4,
@@ -134,7 +140,8 @@ export const listAfiliados = [
     planMedico: { planId: 1, descripcion: "Oro" },
   },
   {
-    personaId: "0000007-01",
+    credencial: "0000007-01",
+    personaId: 7,
     situacionesTerapeuticas: [],
     direcciones: [{ direccionId: 7, calle: "9 de Julio", nro: 999 }],
     telefonos: [{ telefonoId: 7, nroTelefono: "1189012345" }],
@@ -151,7 +158,8 @@ export const listAfiliados = [
     planMedico: { planId: 3, descripcion: "Bronce" },
   },
   {
-    personaId: "0000008-01",
+    credencial: "0000008-01",
+    personaId: 8,
     situacionesTerapeuticas: [
       {
         situacionId: 5,
@@ -176,7 +184,8 @@ export const listAfiliados = [
     planMedico: { planId: 2, descripcion: "Plata" },
   },
   {
-    personaId: "0000009-01",
+    credencial: "0000009-01",
+    personaId: 9,
     situacionesTerapeuticas: [],
     direcciones: [{ direccionId: 9, calle: "Mitre", nro: 456 }],
     telefonos: [{ telefonoId: 9, nroTelefono: "1101234567" }],
@@ -193,7 +202,8 @@ export const listAfiliados = [
     planMedico: { planId: 1, descripcion: "Oro" },
   },
   {
-    personaId: "0000010-01",
+    credencial: "0000010-01",
+    personaId: 10,
     situacionesTerapeuticas: [
       {
         situacionId: 6,

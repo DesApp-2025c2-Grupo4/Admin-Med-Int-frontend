@@ -53,7 +53,7 @@ export function TableAfiliados({listHeader,data}){
               data?.map(d => {
                 return(
                   <tr className='table__tbody-tr' key={d.personaId}>
-                    <td className='table__tbody-td'>{d.personaId}</td>
+                    <td className='table__tbody-td'>{d.credencial}</td>
                     <td className='table__tbody-td'>{`${d.nombre}, ${d.apellido}`}</td>
                     <td className='table__tbody-td'>{d.fechaAlta}</td>
                     <td className='table__tbody-td'>{d.mail}</td>
