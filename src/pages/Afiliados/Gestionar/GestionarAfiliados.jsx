@@ -2,10 +2,9 @@ import "./GestionarAfiliados.css";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { CardGrupo } from "./ui/CardGrupo.jsx";
 import { SearchIcon } from "./icons/SearchIcon.jsx";
-import { listAfiliados } from "./../../../Mock/listAfiliados.js";
+import { listGrupos } from "./../../../Mock/listGrupos.js";
 
 export function GestionarAfiliados() {
-  const titulares = listAfiliados?.filter((l) => l.esTitular);
   return (
     <>
       <TitleSection text="Gestión de Afiliados"></TitleSection>
@@ -32,16 +31,17 @@ export function GestionarAfiliados() {
           </div>
         </div>
         <section className="section_cards">
-          {titulares.map((a) => (
+          {listGrupos?.map((grupo) => (
             <CardGrupo
-              key={a.personaId}
-              credencial={a.credencial}
-              nombre={a.nombre}
-              apellido={a.apellido}
-              fechaAlta={a.fechaAlta}
-              planMedico={a.planMedico.descripcion}
-            ></CardGrupo>
-          ))}
+              key={grupo.idGrupo}
+              credencial={grupo.nroGrupo}
+              nombre={grupo.integrantes.find((i) => i.esTitular)?.nombre}
+              apellido={grupo.integrantes.find((i) => i.esTitular)?.apellido}
+              fechaAlta={grupo.fechaAlta}
+              planMedico={grupo.planMedico.descripcion}
+              integrantes={grupo.integrantes}
+            />
+          )) || []}
         </section>
       </section>
     </>

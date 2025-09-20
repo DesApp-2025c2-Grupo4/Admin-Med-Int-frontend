@@ -3,9 +3,9 @@ import { DeleteIcon } from "../icons/DeleteIcon";
 import { ModifierIcon } from "../icons/ModifierIcon";
 import { UsersIcon } from "../icons/UsersIcon";
 import "./CardGrupo.css";
-import { TableAfiliados } from "../../../Dashboard/Section-2/ui/Table/TableAfiliados";
 import { headerTableGrupoFamiliar } from "../../../../constants/Afiliados/Gestionar/headerTableGrupoFamiliar";
-import { useGetAfiliadosRecientes } from "../../../../hooks/useGetAfiliadosRecientes";
+import { listGrupos } from "../../../../Mock/listGrupos";
+import { TableIntegrantes } from "./TableIntegrantes";
 
 export function CardGrupo({
   credencial,
@@ -13,9 +13,8 @@ export function CardGrupo({
   apellido,
   fechaAlta,
   planMedico,
+  integrantes,
 }) {
-  
-  const {loadingAfiliados,afiliadosRecientes} = useGetAfiliadosRecientes()
   return (
     <>
       <section className="card_container box-border">
@@ -38,18 +37,13 @@ export function CardGrupo({
             <ModifierIcon></ModifierIcon>
           </Link>
         </div>
-        {/*<table>
-          <thead className="table__thead-container">
-            <tr className="table__thead-tr">
-              <th>
-                hola
-              </th>
-            </tr>
-          </thead>
-        </table>*/}
-        <TableAfiliados loadingAfiliados={loadingAfiliados}
-                listHeader={headerTableGrupoFamiliar}
-                data={afiliadosRecientes}></TableAfiliados>
+        <div className="container_tableIntegrantes">
+          <TableIntegrantes
+            loadingGrupos={false}
+            listHeader={headerTableGrupoFamiliar}
+            data={[{ integrantes }]}
+          ></TableIntegrantes>
+        </div>
       </section>
     </>
   );
