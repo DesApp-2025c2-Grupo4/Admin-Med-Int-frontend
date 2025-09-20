@@ -9,7 +9,7 @@ export function InputCalendar({ text }) {
 
   return (
     <div className='input-container'>
-      <label htmlFor={text}></label>
+      <label htmlFor={text}>{text}</label>
       <DatePicker
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
