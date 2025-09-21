@@ -124,7 +124,7 @@ export function TableIntegrantes({ listHeader, data, loadingGrupos }) {
                       {i.parentesco ? i.parentesco : "TITULAR"}
                     </td>
                     <td id="icons" className="tableGrupo__tbody-td sinBorde">
-                      <Link>
+                      <Link to={'/afiliados/gestionar/detalles/persona/'+i.personaId}>
                         <DetailsIcon></DetailsIcon>
                       </Link>
                       <Link>
