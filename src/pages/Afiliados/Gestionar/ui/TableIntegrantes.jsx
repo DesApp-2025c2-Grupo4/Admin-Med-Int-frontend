@@ -77,51 +77,53 @@ export function TableIntegrantes({ listHeader, data, loadingGrupos }) {
   const integrantes = data?.flatMap((g) => g.integrantes) || [];
 
   return (
-    <table className="tableGrupo__container">
-      {/* Header de la tabla */}
-      <thead className="tableGrupo__thead-container">
-        <tr className="tableGrupo__thead-tr">
-          {listHeader?.map((head, index) => (
-            <th
-              className={`tableGrupo__thead-th ${
-                index === listHeader.length - 1 ? "sinBorde" : ""
-              }`}
-              key={index}
-            >
-              {head}
-            </th>
-          ))}
-        </tr>
-      </thead>
+    <div className="tableGrupo__container">
+      <table className="tableGrupo__table">
+        {/* Header de la tabla */}
+        <thead className="tableGrupo__thead-container">
+          <tr className="tableGrupo__thead-tr">
+            {listHeader?.map((head, index) => (
+              <th
+                className={`tableGrupo__thead-th ${
+                  index === listHeader.length - 1 ? "sinBorde" : ""
+                }`}
+                key={index}
+              >
+                {head}
+              </th>
+            ))}
+          </tr>
+        </thead>
 
-      {/* Body de la tabla */}
+        {/* Body de la tabla */}
 
-      {/* Controlamos si esta cargando para centrar loader */}
+        {/* Controlamos si esta cargando para centrar loader */}
 
-      <tbody
-        className={`tableGrupo__tbody-container ${
-          loadingGrupos ? "centrar" : ""
-        }`}
-      >
-        {
-          /* Controlamos loader */
-          loadingGrupos ? (
-            <tr>
-              <td>{<Loader />}</td>
-            </tr>
-          ) : (
-            integrantes?.map((i) => {
-              return (
-                <tr className="tableGrupo__tbody-tr" key={i.personaId}>
-                  <td className="tableGrupo__tbody-td">{i.credencial}</td>
-                  <td className="tableGrupo__tbody-td">{`${i.nombre}, ${i.apellido}`}</td>
-                  <td className="tableGrupo__tbody-td">{i.dni}</td>
-                  <td className="tableGrupo__tbody-td">{i.fechaNacimiento}</td>
-                  <td className="tableGrupo__tbody-td">
-                    {i.parentesco ? i.parentesco : "TITULAR"}
-                  </td>
-                  <td className="tableGrupo__tbody-td sinBorde ">
-                    <div className="container_icons">
+        <tbody
+          className={`tableGrupo__tbody-container ${
+            loadingGrupos ? "centrar" : ""
+          }`}
+        >
+          {
+            /* Controlamos loader */
+            loadingGrupos ? (
+              <tr>
+                <td collSpan={listHeader.length}>{<Loader />}</td>
+              </tr>
+            ) : (
+              integrantes?.map((i) => {
+                return (
+                  <tr className="tableGrupo__tbody-tr" key={i.personaId}>
+                    <td className="tableGrupo__tbody-td">{i.credencial}</td>
+                    <td className="tableGrupo__tbody-td">{`${i.nombre}, ${i.apellido}`}</td>
+                    <td className="tableGrupo__tbody-td">{i.dni}</td>
+                    <td className="tableGrupo__tbody-td">
+                      {i.fechaNacimiento}
+                    </td>
+                    <td className="tableGrupo__tbody-td">
+                      {i.parentesco ? i.parentesco : "TITULAR"}
+                    </td>
+                    <td id="icons" className="tableGrupo__tbody-td sinBorde">
                       <Link>
                         <DetailsIcon></DetailsIcon>
                       </Link>
@@ -131,14 +133,14 @@ export function TableIntegrantes({ listHeader, data, loadingGrupos }) {
                       <Link>
                         <ModifierIcon></ModifierIcon>
                       </Link>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })
-          )
-        }
-      </tbody>
-    </table>
+                    </td>
+                  </tr>
+                );
+              })
+            )
+          }
+        </tbody>
+      </table>
+    </div>
   );
 }

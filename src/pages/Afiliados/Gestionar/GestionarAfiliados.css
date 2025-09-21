@@ -36,6 +36,10 @@ option {
     color: #08172bbd
 }
 
+.container_icon_search{
+    cursor: pointer;
+}
+
 @media (max-width: 623px) {
     .container_search {
         flex-direction: column;
