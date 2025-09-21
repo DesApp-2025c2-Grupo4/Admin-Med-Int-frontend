@@ -4,7 +4,6 @@ import { ModifierIcon } from "../icons/ModifierIcon";
 import { UsersIcon } from "../icons/UsersIcon";
 import "./CardGrupo.css";
 import { headerTableGrupoFamiliar } from "../../../../constants/Afiliados/Gestionar/headerTableGrupoFamiliar";
-import { listGrupos } from "../../../../Mock/listGrupos";
 import { TableIntegrantes } from "./TableIntegrantes";
 
 export function CardGrupo({
