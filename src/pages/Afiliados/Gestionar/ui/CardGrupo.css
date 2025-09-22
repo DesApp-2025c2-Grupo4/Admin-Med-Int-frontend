@@ -30,12 +30,16 @@
     &:hover {
         transform: scale(1.02)
     }
+    padding-bottom: 1rem;
 }
 
 .container_tableIntegrantes{
     padding-top: 1rem;
 }
 
+.contraer{
+    display: none;
+}
 
 @media (max-width: 482px) {
     .container_icons{

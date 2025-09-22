@@ -5,6 +5,7 @@ import { UsersIcon } from "../icons/UsersIcon";
 import "./CardGrupo.css";
 import { headerTableGrupoFamiliar } from "../../../../constants/Afiliados/Gestionar/headerTableGrupoFamiliar";
 import { TableIntegrantes } from "./TableIntegrantes";
+import { useState } from "react";
 
 export function CardGrupo({
   credencial,
@@ -14,6 +15,13 @@ export function CardGrupo({
   planMedico,
   integrantes,
 }) {
+
+  let  [contraer, setContraer] = useState(false) 
+
+  const modificarCard = () => {
+    setContraer(!contraer);
+  }
+
   return (
     <>
       <section className="card_container box-border">
@@ -29,14 +37,16 @@ export function CardGrupo({
           <Link>
             <DeleteIcon></DeleteIcon>
           </Link>
-          <Link>
-            <UsersIcon></UsersIcon>
-          </Link>
+          <div onClick={modificarCard} style={{ cursor: "pointer" }}>
+            <UsersIcon />
+          </div>
           <Link>
             <ModifierIcon></ModifierIcon>
           </Link>
         </div>
-        <div className="container_tableIntegrantes">
+        <div
+          className={`container_tableIntegrantes ${contraer ? "contraer" : ""}`}
+        >
           <TableIntegrantes
             loadingGrupos={false}
             listHeader={headerTableGrupoFamiliar}

@@ -16,7 +16,6 @@ export function useGetDetallePersona(id) {
 
         if (data) {
           setPersona(data)
-          console.log(data)
         } else {
           setError("Resultado no encontrado")
         }

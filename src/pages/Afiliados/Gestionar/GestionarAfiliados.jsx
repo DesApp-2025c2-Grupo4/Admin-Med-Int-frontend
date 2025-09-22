@@ -4,15 +4,18 @@ import { CardGrupo } from "./ui/CardGrupo.jsx";
 import { SearchIcon } from "./icons/SearchIcon.jsx";
 import { listGrupos } from "./../../../Mock/listGrupos.js";
 import { useState } from "react";
+import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
 
 export function GestionarAfiliados() {
   const [allGrupos, setAllGrupos] = useState(listGrupos);
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("");
+  
+  useCambiarTitulo({ title: 'Gestión de Afiliados' })
 
   const filtrar = () => {
     if (!busqueda || !filtro) {
-      // si no hay búsqueda o filtro, muestro todos
+      // si no hay búsqueda o filtro, muestro todos los grupos
       setAllGrupos(listGrupos);
       return;
     }
