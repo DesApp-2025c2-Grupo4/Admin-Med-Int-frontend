@@ -4,13 +4,16 @@ import { useGetDetallePersona } from '../../../hooks/useGetDetalleDePersona'
 import { Loader } from '../../../components/Loader/Loader'
 import { TitleSection } from '../../../components/TitleSections/TitleSection'
 import { TodosLosDetalles } from './TodosLosDetalles/TodosLosDetalles'
-export function DetalleDePersona(){
+import { useCambiarTitulo } from '../../../hooks/useCambiarTitulo'
+export function DetalleDePersona() {
   //Obtengo el id
   const { id } = useParams()
 
   //Hago llamada al backend
   const { error, loadingPersona, persona }=useGetDetallePersona(id) 
   
+  useCambiarTitulo({ title: "Detalle de Afiliado" });
+
   return(
     <>
       <section className='section-detalle-persona__container box-border'>
