@@ -24,7 +24,10 @@ export function CardGrupo({
 
   return (
     <>
-      <section className="card_container box-border">
+      <section
+        className="card_container box-border"
+        style={{ paddingBottom: contraer ? "1rem" : "0" }}
+      >
         <div className="container_data">
           <h1 className="titleGrupo">
             Grupo Familiar {credencial} | {nombre} {apellido}
