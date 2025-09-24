@@ -1,0 +1,85 @@
+.modal__container-max{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.493);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+.modal__container{
+  padding: 3rem;
+  background-color: rgb(240, 248, 255);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: animarEntradaModals .3s linear;
+}
+
+.modal__header-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.modal__text{
+  font-size: calc(10px + 0.5vw);
+  text-align: center;
+  font-weight: 600;
+  color: #08315E;
+}
+.modal__btns-container{
+  display: flex;
+  gap: 1rem;
+  & button{
+    width: 100px;
+    height: 40px;
+    font-weight: 600;
+    font-family: sans-serif;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: calc(11px + 0.2vw);
+    transition: all ease .2s;
+    &:hover{
+      opacity: 0.9;
+    }
+    &:active{
+      transform: scale(0.9);
+    }
+  }
+}
+.modal__btn-cancelar{
+  background-color: rgba(255, 0, 0, 0.507);
+  color: rgb(255, 255, 255);
+}
+.modal__btn-confirmar{
+  background-color: #08315E;
+  color: white;
+}
+@keyframes animarEntradaModals {
+  0%{
+    transform: scale(0.3);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 450px) {
+  .modal__container{
+    padding: 1rem;
+  }
+  .modal__btns-container button{
+    width: 80px;
+    height: 30px;
+  }
+}

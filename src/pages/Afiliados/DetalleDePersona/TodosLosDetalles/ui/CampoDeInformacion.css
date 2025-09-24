@@ -1,0 +1,33 @@
+.info__container{
+  flex: 1;
+  width: 100%;
+  min-width: 200px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding: 1rem;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &:hover{
+    border-color: rgba(0, 174, 255, 0.103);
+    & .info__title{
+      color: #184681b2;
+    }
+  }
+}
+.info-data-container{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.info__title{
+  font-size: calc(13px + 0.1vw);
+  color: #16376193;
+}
+
+.info__text{
+  font-family: sans-serif;
+  font-size: calc(11px + 0.1vw);
+  font-weight: 600;
+  color: #00000086;
+}

@@ -1,0 +1,75 @@
+/* Estilos de contenedor de la tabla */
+.tableGrupo__container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tableGrupo__table {
+    display: table;
+    border-collapse: collapse;
+    border-top: 1px solid rgba(0, 0, 0, 0.267);
+    width: max-content;
+    min-width: 100%;
+}
+
+/* Thead */
+.tableGrupo__thead-tr {
+    display: table-row;
+}
+
+.tableGrupo__thead-th {
+    display: table-cell;
+    align-items: center;
+    color: #08172bbd;
+    font-size: calc(12px + 0.2vw);
+    height: 3rem;
+    border-right: 1px solid rgba(0, 0, 0, 0.267);
+    min-width: 200px;
+}
+
+/* Tbody */
+.tableGrupo__tbody {
+    display: table-row-group;
+}
+
+.tableGrupo__tbody-tr {
+    display: table-row;
+
+    &:hover {
+        background-color: #08172b15;
+    }
+
+}
+
+.tableGrupo__tbody-td {
+    display: table-cell;
+    text-align: center;
+    height: 3rem;
+    color: #08172bbd;
+    font-size: calc(11px + 0.2vw);
+    border-right: 1px solid rgba(0, 0, 0, 0.267);
+    min-width: 200px;
+
+}
+
+
+/* Centrar loader */
+.centrar {
+    padding: 3rem 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Eliminar borde derecho*/
+.sinBorde {
+    border-right: none;
+}
+
+#icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem
+}
