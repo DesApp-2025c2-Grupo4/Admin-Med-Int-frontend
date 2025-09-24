@@ -7,15 +7,13 @@ import { InputSituacionesTerapeuticas } from "../../../../constants/Inputs/Input
 import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTitleSection.jsx"
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
-import { AddMember } from "../../../../components/ui/AddMember/AddMember.jsx"
-import { RegisterGroup } from "../../../../components/ui/RegisterGroup/RegisterGroup.jsx"
 import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/InputCalendar.jsx'
 import './FormGrupoFamilia.css'
 import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
 
-export function FormGrupoFamilia() {
+export function FormGrupoFamilia({text}) {
     const [newSituacion, setNewSituacion] = useState("");
     const [isIndefinida, setIsIndefinida] = useState(false);
     const [fechaInicio, setFechaInicio] = useState(null); 
@@ -126,7 +124,7 @@ export function FormGrupoFamilia() {
 
     return (
         <form className="form-grupo-familia">
-            <SubTitleSection text="Datos del titular" />
+            <SubTitleSection text={text} />
             <div className="form-row">
                 <InputSelect 
                     text="Tipo de documento" 
@@ -187,7 +185,7 @@ export function FormGrupoFamilia() {
                         {dataForm.emails.map((email, index) => (
                             <ContactCard key={`email-${index}`} texto={email} />
                         ))}
-                </div>
+                    </div>
                 </div>
                 <div className="input-with-button">
                     <InputText text="Dirección"
@@ -237,28 +235,31 @@ export function FormGrupoFamilia() {
                         <AddButton onClick={addSituacion} className="button-add" />
                         
                         <div className="radio-group-and-calendars">
-                            <div className='checkbox-items' >
-                                <label>
-                                    <input 
-                                        type="radio" 
-                                        name='situacion' 
-                                        value="cronica"
-                                        checked={!isIndefinida}
-                                        onChange={handleSituacionTypeChange} />
-                                    Crónico
-                                </label>
+                            <div className="checkbox-group">
+                                <div className='checkbox-items' >
+                                    <label>
+                                        <input 
+                                            type="radio" 
+                                            name='situacion' 
+                                            value="cronica"
+                                            checked={!isIndefinida}
+                                            onChange={handleSituacionTypeChange} />
+                                        Crónico
+                                    </label>
+                                </div>
+                                <div className="checkbox-items">
+                                    <label>
+                                        <input 
+                                            type="radio" 
+                                            name='situacion' 
+                                            value="indefinida"
+                                            checked={isIndefinida}
+                                            onChange={handleSituacionTypeChange} />
+                                        Duración indefinida
+                                    </label>
+                                </div>
                             </div>
-                            <div className="checkbox-items">
-                                <label>
-                                    <input 
-                                        type="radio" 
-                                        name='situacion' 
-                                        value="indefinida"
-                                        checked={isIndefinida}
-                                        onChange={handleSituacionTypeChange} />
-                                    Duración indefinida
-                                </label>
-                            </div>
+                            
                             {isIndefinida && (
                                 <>
                                     <InputCalendar 
@@ -285,10 +286,6 @@ export function FormGrupoFamilia() {
                     </div>
                 </div>
             )}
-            <div className="button-container">
-                <AddMember />
-                <RegisterGroup />
-            </div>
         </form>
     )
 }
