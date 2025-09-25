@@ -41,7 +41,7 @@
     transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-option {
+.option_gestionar {
     background: #E3ECF9;
     color: #08172bbd
 }
