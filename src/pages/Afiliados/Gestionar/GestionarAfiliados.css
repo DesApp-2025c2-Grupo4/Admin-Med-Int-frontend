@@ -10,6 +10,14 @@
     width: 19rem;
     height: 2.6rem;
     padding: 1rem;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.search:focus,
+.container_select:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.15);
 }
 
 .container_search {
@@ -29,6 +37,8 @@
     cursor: pointer;
     color: #7c7b7b;
     padding: 0.6rem;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 option {

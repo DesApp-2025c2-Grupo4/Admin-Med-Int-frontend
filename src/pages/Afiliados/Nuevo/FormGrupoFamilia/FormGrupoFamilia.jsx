@@ -38,7 +38,6 @@ export function FormGrupoFamilia({text}) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log(value)
         setDataForm((prev) => ({
             ...prev,
             [name]: value,
