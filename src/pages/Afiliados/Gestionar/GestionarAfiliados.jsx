@@ -99,15 +99,27 @@ export function GestionarAfiliados() {
             value={filtro}
             onChange={(e) => setFiltro(e.target.value)}
           >
-            <option value="" className="text">
+            <option value="" className="option_gestionar">
               Filtrar
             </option>
-            <option value="credencial">Credencial</option>
-            <option value="nombre">Nombre</option>
-            <option value="apellido">Apellido</option>
-            <option value="grupo">Grupo Familiar</option>
-            <option value="fechaNac">Fecha de nacimiento</option>
-            <option value="direccion">Dirección</option>
+            <option value="credencial" className="option_gestionar">
+              Credencial
+            </option>
+            <option value="nombre" className="option_gestionar">
+              Nombre
+            </option>
+            <option value="apellido" className="option_gestionar">
+              Apellido
+            </option>
+            <option value="grupo" className="option_gestionar">
+              Grupo Familiar
+            </option>
+            <option value="fechaNac" className="option_gestionar">
+              Fecha de nacimiento
+            </option>
+            <option value="direccion" className="option_gestionar">
+              Dirección
+            </option>
           </select>
           <div
             className="container_icon_search"
