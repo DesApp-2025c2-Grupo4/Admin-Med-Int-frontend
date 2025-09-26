@@ -4,13 +4,18 @@ import { BtnHamburguesa } from '../BtnHamburguesa/BtnHamburguesa'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom';
 //Componente de un ítem de de la lista
-function Item({item}){
+function Item({
+    item,
+    setShowNavBar
+  }){
   return(
-    <NavLink className={
+    <NavLink 
+      className={
       ({ isActive }) =>
         `nav-bar__container-item${isActive ? ' active' : ''}`
       } 
       to={item.path}
+      onClick={()=>setShowNavBar(false)}
     >
       {<item.icon />} 
       <span className='nav-bar__item-text'>{item.name}</span>
@@ -30,7 +35,7 @@ export function NavBar(){
         <ul className={`nav-bar__contenainer-list ${showNavBar ? 'show' : 'hidden'}`}>
           {
             navBarItems.map((item,index)=>
-            <Item key={index} item={item}/>
+            <Item key={index} item={item} setShowNavBar={setShowNavBar}/>
           )
           }
         </ul>
