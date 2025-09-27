@@ -1,7 +1,7 @@
 //modificar para que me permita recibir datos 
 //guiarse con detalleDePersona.jsx
 
-import './FormGrupoFamilia.css'
+import './FormModificarIntegrante.css'
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx"
 import { InputSelect } from "../../../../components/ui/Input/InputSelect/InputSelect.jsx"
 import { InputTipoDoc } from "../../../../constants/Inputs/InputTipoDoc.js" 
@@ -11,12 +11,11 @@ import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTi
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
 import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/InputCalendar.jsx'
-import './FormGrupoFamilia.css'
 import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
 
-export function FormGrupoFamilia({text}) {
+export function FormModificarIntegrante({text}) {
     const [newSituacion, setNewSituacion] = useState("");
     const [isIndefinida, setIsIndefinida] = useState(false);
     const [fechaInicio, setFechaInicio] = useState(null); 
@@ -125,7 +124,7 @@ export function FormGrupoFamilia({text}) {
     };
 
     return (
-        <form className="form-grupo-familia">
+        <form className="form-modificar-integrante">
             <SubTitleSection text={text} />
             <div className="form-row">
                 <InputSelect 
