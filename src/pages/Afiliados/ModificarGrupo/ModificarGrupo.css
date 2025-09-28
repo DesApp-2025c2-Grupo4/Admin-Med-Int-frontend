@@ -5,3 +5,8 @@
     padding: 1.5rem;
     gap: 1.1rem;
 }
+
+.conteiner_loader-modificar{
+    display: flex;
+    justify-content: center;
+}

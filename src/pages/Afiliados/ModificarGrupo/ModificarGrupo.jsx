@@ -20,7 +20,7 @@ export function ModificarGrupo() {
         <TitleSection text="Modificar Grupo Familiar"></TitleSection>
         <section className="section_cards_modificarGrupo">
           {loadingGrupos ? (
-            <div className="contendor_loader-modificar">
+            <div className="conteiner_loader-modificar">
               <Loader />
             </div> //Muestra el Loader en caso de estar cargando
           ) : error ? ( //Muestra el error en caso de estar cargando
