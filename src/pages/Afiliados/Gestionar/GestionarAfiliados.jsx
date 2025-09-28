@@ -1,7 +1,7 @@
 import "./GestionarAfiliados.css";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { CardGrupo } from "./ui/CardGrupo.jsx";
-import { SearchIcon } from "./icons/SearchIcon.jsx";
+import { SearchIcon } from "../../../assets/icons/Afiliados/SearchIcon.jsx";
 import { listGrupos } from "./../../../Mock/listGrupos.js";
 import { useState } from "react";
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
@@ -84,8 +84,8 @@ export function GestionarAfiliados() {
 
   return (
     <>
-      <TitleSection text="Gestión de Afiliados"></TitleSection>
       <section className="section_container box-border">
+        <TitleSection text="Gestión de Afiliados"></TitleSection>
         <div className="container_search">
           <input
             className="search box-border"
@@ -133,6 +133,7 @@ export function GestionarAfiliados() {
           {allGrupos?.map((grupo) => (
             <CardGrupo
               key={grupo.idGrupo}
+              idGrupo={grupo.idGrupo}
               credencial={grupo.nroGrupo}
               nombre={grupo.integrantes.find((i) => i.esTitular)?.nombre}
               apellido={grupo.integrantes.find((i) => i.esTitular)?.apellido}

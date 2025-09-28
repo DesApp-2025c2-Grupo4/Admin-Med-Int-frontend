@@ -1,13 +1,14 @@
 import { Link } from "react-router";
-import { DeleteIcon } from "../icons/DeleteIcon";
-import { ModifierIcon } from "../icons/ModifierIcon";
-import { UsersIcon } from "../icons/UsersIcon";
+import { DeleteIcon } from "../../../../assets/icons/Afiliados/DeleteIcon";
+import { ModifierIcon } from "../../../../assets/icons/Afiliados/ModifierIcon";
+import { UsersIcon } from "../../../../assets/icons/Afiliados/UsersIcon";
 import "./CardGrupo.css";
 import { headerTableGrupoFamiliar } from "../../../../constants/Afiliados/Gestionar/headerTableGrupoFamiliar";
 import { TableIntegrantes } from "./TableIntegrantes";
 import { useState } from "react";
 
 export function CardGrupo({
+  idGrupo,
   credencial,
   nombre,
   apellido,
@@ -43,7 +44,7 @@ export function CardGrupo({
           <div onClick={modificarCard} style={{ cursor: "pointer" }}>
             <UsersIcon />
           </div>
-          <Link>
+          <Link to={"/afiliados/gestionar/modificar-grupo-familiar/" + idGrupo}>
             <ModifierIcon></ModifierIcon>
           </Link>
         </div>

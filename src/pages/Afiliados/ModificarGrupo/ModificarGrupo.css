@@ -1,0 +1,7 @@
+.section_cards_modificarGrupo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    gap: 1.1rem;
+}
