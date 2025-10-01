@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useDeleteGroup } from "../../../../hooks/useDeleteGroup";
 import { Loader } from "../../../../components/Loader/Loader";
 import { ModalDeConfirmacion } from '../../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
-import { AddMemberIcon } from "../icons/AddMemberIcon";
+import { AddMemberIcon } from "../../../../assets/icons/Afiliados/AddMemberIcon";
 
 export function CardGrupo({
   idGrupo,
