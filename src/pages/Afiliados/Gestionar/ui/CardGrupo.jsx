@@ -16,12 +16,11 @@ export function CardGrupo({
   planMedico,
   integrantes,
 }) {
-
-  let  [contraer, setContraer] = useState(false) 
+  let [contraer, setContraer] = useState(false);
 
   const modificarCard = () => {
     setContraer(!contraer);
-  }
+  };
 
   return (
     <>
