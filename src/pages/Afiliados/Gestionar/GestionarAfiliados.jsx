@@ -1,22 +1,31 @@
 import "./GestionarAfiliados.css";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { CardGrupo } from "./ui/CardGrupo.jsx";
-import { SearchIcon } from "./icons/SearchIcon.jsx";
-import { listGrupos } from "./../../../Mock/listGrupos.js";
-import { useState } from "react";
+import { SearchIcon } from "../../../assets/icons/Afiliados/SearchIcon.jsx";
+import { Loader } from "../../../components/Loader/Loader.jsx";
+import { useState, useEffect } from "react";
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
+import { useGetAllGrupos } from "../../../hooks/useGetAllGrupos.jsx";
+import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection.jsx";
 
 export function GestionarAfiliados() {
-  const [allGrupos, setAllGrupos] = useState(listGrupos);
+  const { loadingGrupos, grupos } = useGetAllGrupos();
+  const [allGrupos, setAllGrupos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("");
-  
-  useCambiarTitulo({ title: 'Gestión de Afiliados' })
+
+  useCambiarTitulo({ title: "Gestión de Afiliados" });
+
+  useEffect(() => {
+    if (grupos) {
+      setAllGrupos(grupos);
+    }
+  }, [grupos]);
 
   const filtrar = () => {
     if (!busqueda || !filtro) {
       // si no hay búsqueda o filtro, muestro todos los grupos
-      setAllGrupos(listGrupos);
+      setAllGrupos(grupos);
       return;
     }
 
@@ -24,7 +33,7 @@ export function GestionarAfiliados() {
 
     switch (filtro) {
       case "credencial":
-        resultado = listGrupos.filter((g) =>
+        resultado = grupos.filter((g) =>
           g.integrantes.some(
             (i) =>
               i.credencial &&
@@ -34,7 +43,7 @@ export function GestionarAfiliados() {
         break;
 
       case "nombre":
-        resultado = listGrupos.filter((g) =>
+        resultado = grupos.filter((g) =>
           g.integrantes.some(
             (i) =>
               i.nombre &&
@@ -44,7 +53,7 @@ export function GestionarAfiliados() {
         break;
 
       case "apellido":
-        resultado = listGrupos.filter((g) =>
+        resultado = grupos.filter((g) =>
           g.integrantes.some(
             (i) =>
               i.apellido &&
@@ -54,13 +63,13 @@ export function GestionarAfiliados() {
         break;
 
       case "grupo":
-        resultado = listGrupos.filter((g) =>
+        resultado = grupos.filter((g) =>
           g.nroGrupo.toString().includes(busqueda)
         );
         break;
 
       case "fechaNac":
-        resultado = listGrupos.filter((g) =>
+        resultado = grupos.filter((g) =>
           g.integrantes.some(
             (i) => i.fechaNacimiento && i.fechaNacimiento.includes(busqueda)
           )
@@ -68,15 +77,18 @@ export function GestionarAfiliados() {
         break;
 
       case "direccion":
-        resultado = listGrupos.filter(
+        resultado = grupos.filter(
           (g) =>
             g.direccion &&
             g.direccion.toLowerCase().includes(busqueda.toLowerCase())
         );
         break;
+      case "todos":
+        resultado = grupos;
+        break;
 
       default:
-        resultado = listGrupos;
+        resultado = grupos;
     }
 
     setAllGrupos(resultado);
@@ -84,8 +96,8 @@ export function GestionarAfiliados() {
 
   return (
     <>
-      <TitleSection text="Gestión de Afiliados"></TitleSection>
       <section className="section_container box-border">
+        <TitleSection text="Gestión de Afiliados"></TitleSection>
         <div className="container_search">
           <input
             className="search box-border"
@@ -120,6 +132,9 @@ export function GestionarAfiliados() {
             <option value="direccion" className="option_gestionar">
               Dirección
             </option>
+            <option value="todos" className="option_gestionar">
+              Mostrar todos
+            </option>
           </select>
           <div
             className="container_icon_search"
@@ -130,17 +145,28 @@ export function GestionarAfiliados() {
           </div>
         </div>
         <section className="section_cards">
-          {allGrupos?.map((grupo) => (
-            <CardGrupo
-              key={grupo.idGrupo}
-              credencial={grupo.nroGrupo}
-              nombre={grupo.integrantes.find((i) => i.esTitular)?.nombre}
-              apellido={grupo.integrantes.find((i) => i.esTitular)?.apellido}
-              fechaAlta={grupo.fechaAlta}
-              planMedico={grupo.planMedico.descripcion}
-              integrantes={grupo.integrantes}
-            />
-          )) || []}
+          {loadingGrupos ? (
+            <div className="centrar">
+              <Loader />
+            </div>
+          ) : allGrupos && allGrupos.length > 0 ? (
+            allGrupos.map((grupo) => (
+              <CardGrupo
+                key={grupo.idGrupo}
+                idGrupo={grupo.idGrupo}
+                credencial={grupo.nroGrupo}
+                nombre={grupo.integrantes.find((i) => i.esTitular)?.nombre}
+                apellido={grupo.integrantes.find((i) => i.esTitular)?.apellido}
+                fechaAlta={grupo.fechaAlta}
+                planMedico={grupo.planMedico.descripcion}
+                integrantes={grupo.integrantes}
+              />
+            ))
+          ) : (
+            <div className="sin-resultados-section">
+              <SubTitleSection text={"No se encontraron resultados."} />
+            </div>
+          )}
         </section>
       </section>
     </>
