@@ -6,6 +6,7 @@ import "./CardGrupo.css";
 import { headerTableGrupoFamiliar } from "../../../../constants/Afiliados/Gestionar/headerTableGrupoFamiliar";
 import { TableIntegrantes } from "./TableIntegrantes";
 import { useState } from "react";
+import { AddMemberIcon } from "../icons/AddMemberIcon";
 
 export function CardGrupo({
   credencial,
@@ -45,6 +46,9 @@ export function CardGrupo({
           </div>
           <Link>
             <ModifierIcon></ModifierIcon>
+          </Link>
+          <Link to="/afiliados/agregar-integrante">
+            <AddMemberIcon />
           </Link>
         </div>
         <div
