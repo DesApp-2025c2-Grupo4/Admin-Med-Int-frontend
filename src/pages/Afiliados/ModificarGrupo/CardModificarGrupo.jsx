@@ -11,8 +11,8 @@ import "./CardModificarGrupo.css";
 export function CardModificarGrupo({ grupo }) {
   const [dataForm, setDataForm] = useState({
     planMedico: 1,
-    fechaAlta: "",
-    fechaBaja: "",
+    fechaAlta: '',
+    fechaBaja: ''
   });
 
   const handleChange = (e) => {
@@ -53,13 +53,13 @@ export function CardModificarGrupo({ grupo }) {
         />
         <InputDate
           text="Fecha de Registro"
-          name="fechaDeRegistro"
+          name="fechaAlta"
           value={dataForm.fechaAlta}
           handleChange={handleChange}
         />
         <InputDate
           text="Fecha de Baja"
-          name="fechaDeBaja"
+          name="fechaBaja"
           value={dataForm.fechaBaja}
           handleChange={handleChange}
         />
