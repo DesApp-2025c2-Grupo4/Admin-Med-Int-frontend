@@ -1,6 +1,3 @@
-//modificar para que me permita recibir datos 
-//guiarse con detalleDePersona.jsx
-
 import './FormModificarIntegrante.css'
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx"
 import { InputSelect } from "../../../../components/ui/Input/InputSelect/InputSelect.jsx"
@@ -11,11 +8,12 @@ import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTi
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
 import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/InputCalendar.jsx'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
+import { SaveButton } from "../../../../components/ui/SaveButton/SaveButton.jsx"
 
-export function FormModificarIntegrante({text}) {
+export function FormModificarIntegrante({ text, initialData }) {
     const [newSituacion, setNewSituacion] = useState("");
     const [isIndefinida, setIsIndefinida] = useState(false);
     const [fechaInicio, setFechaInicio] = useState(null); 
@@ -25,7 +23,7 @@ export function FormModificarIntegrante({text}) {
     const [currentDireccion, setCurrentDireccion] = useState('');
     const [tieneSituacion, setTieneSituacion] = useState(false);
 
-    const [dataForm,setDataForm] = useState({
+    const [dataForm, setDataForm] = useState({
         nombre:'',
         apellido: '',
         tipoDocumento: 1,
@@ -36,7 +34,25 @@ export function FormModificarIntegrante({text}) {
         emails:[],
         direcciones: [],
         situacionesTerapeuticas:[]
-    })
+    });
+
+    // Cargar datos iniciales cuando los reciba
+    useEffect(() => {
+        if (initialData) {
+            setDataForm({
+                nombre: initialData.nombre || '',
+                apellido: initialData.apellido || '',
+                tipoDocumento: initialData.tipoDocumento || 1,
+                nroDocumento: initialData.nroDocumento || '',
+                planMedico: initialData.planMedico || 1,
+                fechaNacimiento: initialData.fechaNacimiento || '',
+                telefonos: initialData.telefonos || [],
+                emails: initialData.emails || [],
+                direcciones: initialData.direcciones || [],
+                situacionesTerapeuticas: initialData.situacionesTerapeuticas || []
+            });
+        }
+    }, [initialData]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -77,14 +93,11 @@ export function FormModificarIntegrante({text}) {
     };
 
     const addSituacion = () => {
-        if (newSituacion === "" || newSituacion === null) {
-            return;
-        }
+        if (newSituacion === "" || newSituacion === null) return;
 
         const situacionSeleccionada = InputSituacionesTerapeuticas.find(
             (s) => s.id === parseInt(newSituacion, 10)
         );
-
         if (!situacionSeleccionada) return;
 
         const newSituacionObject = {
@@ -123,8 +136,25 @@ export function FormModificarIntegrante({text}) {
         }));
     };
 
+    // Enviar actualización al backend
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`/api/integrantes/${initialData.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dataForm),
+            });
+            if (!response.ok) throw new Error("Error al actualizar integrante");
+            alert("Integrante actualizado con éxito");
+        } catch (error) {
+            console.error(error);
+            alert("Hubo un error al actualizar");
+        }
+    };
+
     return (
-        <form className="form-modificar-integrante">
+        <form className="form-modificar-integrante" onSubmit={handleSubmit}>
             <SubTitleSection text={text} />
             <div className="form-row">
                 <InputSelect 
@@ -162,7 +192,6 @@ export function FormModificarIntegrante({text}) {
             </div>
 
             <SubTitleSection text="Información de contacto" />
-
             <div className="form-contacto">
                 <div className="input-with-button">
                     <InputText text="Teléfono"
@@ -287,6 +316,10 @@ export function FormModificarIntegrante({text}) {
                     </div>
                 </div>
             )}
+
+            <div className="button-container">
+                <SaveButton />
+            </div>
         </form>
     )
 }

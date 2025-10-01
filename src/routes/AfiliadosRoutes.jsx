@@ -4,6 +4,7 @@ import { NuevoGrupoFamiliar } from "../pages/Afiliados/Nuevo/NuevoGrupoFamilia.j
 import { Reporte } from "../pages/Afiliados/Reporte/Reporte.jsx";
 import { AgregarIntegrante } from "../pages/Afiliados/AgregarIntegrante/AgregarIntegrante.jsx";
 import { DetalleDePersona } from "../pages/Afiliados/DetalleDePersona/DetalleDePersona.jsx";
+import { ModificarIntegrante } from "../pages/Afiliados/ModificarIntegrante/ModificarIntegrante.jsx";
 export function AfiliadoRoutes(){
     return(
         <Routes>
@@ -12,6 +13,7 @@ export function AfiliadoRoutes(){
             <Route path="reportes" element={<Reporte />}/>
             <Route path="agregar-integrante" element={<AgregarIntegrante />} />
             <Route path="gestionar/detalles/persona/:id" element={<DetalleDePersona />} />
+            <Route path="gestionar/modificar/persona/:id" element={<ModificarIntegrante />} />
             {/* Opcional: ruta por defecto */}
             <Route index element={<GestionarAfiliados />} />
         </Routes>
