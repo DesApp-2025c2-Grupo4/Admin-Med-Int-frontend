@@ -13,14 +13,18 @@ export function useDeleteGroup({ setAllGrupos }) {
       const groupDeleted = await deleteGrupo({ id });
       if (!groupDeleted) {
         setError("No se encontró el grupo");
+        alert('Error al eliminar el grupo')
         return;
       }
-
+      else{
+        alert('Grupo eliminado correctamente')
+      }
       // Actualizar estado de todos los grupos
       setAllGrupos((prev) => prev.filter((g) => g.idGrupo !== id));
     } catch (error) {
       console.error(error);
       setError("Error al realizar la petición");
+      alert('Error al eliminar el grupo')
     } finally {
       setLoadingDelete(false);
     }

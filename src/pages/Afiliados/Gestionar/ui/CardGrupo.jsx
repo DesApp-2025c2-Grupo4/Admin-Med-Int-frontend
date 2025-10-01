@@ -22,8 +22,10 @@ export function CardGrupo({
   // 
   const {loadingDelete, error, deleteGroup} = useDeleteGroup({setAllGrupos})
 
-  // Funcion y estados para mostrar modal
+  // Estados para mostrar modal
   const [showModal, setShowModal] = useState(false)
+
+  // Funcion para mostrar modal
   const handleClickDelete = (funcionEliminar)=>{
     setShowModal(!showModal)
     funcionEliminar()
@@ -56,7 +58,11 @@ export function CardGrupo({
       {/* Retorno de seccion de la card */}
       <section
         className={`card_container box-border`}
-        style={{ paddingBottom: contraer ? "1rem" : "0" }}
+        style={
+          { paddingBottom: contraer ? "1rem" : "0",
+            backgroundColor: showModal ? '#0c243d56':'white'
+           }
+        }
       >
         {
           loadingDelete && 
