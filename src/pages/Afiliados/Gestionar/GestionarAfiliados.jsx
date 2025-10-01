@@ -160,6 +160,7 @@ export function GestionarAfiliados() {
                 fechaAlta={grupo.fechaAlta}
                 planMedico={grupo.planMedico.descripcion}
                 integrantes={grupo.integrantes}
+                setAllGrupos={setAllGrupos}
               />
             ))
           ) : (

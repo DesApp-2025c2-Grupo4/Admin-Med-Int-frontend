@@ -20,7 +20,6 @@ export function CardGrupo({
   planMedico,
   integrantes,
   setAllGrupos,
-  idGrupo
 }) {
   // 
   const {loadingDelete, error, deleteGroup} = useDeleteGroup({setAllGrupos})
