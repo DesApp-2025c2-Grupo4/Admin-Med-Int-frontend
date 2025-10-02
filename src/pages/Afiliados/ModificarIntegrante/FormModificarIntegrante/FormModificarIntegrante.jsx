@@ -11,9 +11,10 @@ import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/Inp
 import { useState, useEffect } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
-import { SaveButton } from "../../../../components/ui/SaveButton/SaveButton.jsx"
+//import { SaveButton } from "../../../../components/ui/SaveButton/SaveButton.jsx"
 
 export function FormModificarIntegrante({ text, initialData }) {
+    
     const [newSituacion, setNewSituacion] = useState("");
     const [isIndefinida, setIsIndefinida] = useState(false);
     const [fechaInicio, setFechaInicio] = useState(null); 
@@ -23,6 +24,8 @@ export function FormModificarIntegrante({ text, initialData }) {
     const [currentDireccion, setCurrentDireccion] = useState('');
     const [tieneSituacion, setTieneSituacion] = useState(false);
 
+
+    //que arranque el initialDAta ACA
     const [dataForm, setDataForm] = useState({
         nombre:'',
         apellido: '',
@@ -36,6 +39,7 @@ export function FormModificarIntegrante({ text, initialData }) {
         situacionesTerapeuticas:[]
     });
 
+    console.log(dataForm)
     // Cargar datos iniciales cuando los reciba
     useEffect(() => {
         if (initialData) {
@@ -43,7 +47,7 @@ export function FormModificarIntegrante({ text, initialData }) {
                 nombre: initialData.nombre || '',
                 apellido: initialData.apellido || '',
                 tipoDocumento: initialData.tipoDocumento || 1,
-                nroDocumento: initialData.nroDocumento || '',
+                nroDocumento: initialData.dni || '',
                 planMedico: initialData.planMedico || 1,
                 fechaNacimiento: initialData.fechaNacimiento || '',
                 telefonos: initialData.telefonos || [],
@@ -53,6 +57,8 @@ export function FormModificarIntegrante({ text, initialData }) {
             });
         }
     }, [initialData]);
+
+    console.log(dataForm)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -201,7 +207,7 @@ export function FormModificarIntegrante({ text, initialData }) {
                     <AddButton onClick={addTelefono} className="button-add" />
                      <div className="saved-items-container">
                         {dataForm.telefonos.map((tel, index) => (
-                            <ContactCard key={`tel-${index}`} texto={tel} />
+                            <ContactCard key={`tel-${index}`} texto={tel.nroTelefono} />
                         ))}
                     </div>
                 </div>
@@ -213,7 +219,7 @@ export function FormModificarIntegrante({ text, initialData }) {
                     <AddButton onClick={addEmail} className="button-add" />
                     <div className="saved-items-container">
                         {dataForm.emails.map((email, index) => (
-                            <ContactCard key={`email-${index}`} texto={email} />
+                            <ContactCard key={`email-${index}`} texto={email.descripcion} />
                         ))}
                     </div>
                 </div>
@@ -225,7 +231,7 @@ export function FormModificarIntegrante({ text, initialData }) {
                     <AddButton onClick={addDireccion} className="button-add"/>
                     <div className="saved-items-container">
                         {dataForm.direcciones.map((dir, index) => (
-                            <ContactCard key={`dir-${index}`} texto={dir} />
+                            <ContactCard key={`dir-${index}`} texto={dir.descripcion} />
                         ))}
                     </div>
                 </div>
@@ -318,7 +324,7 @@ export function FormModificarIntegrante({ text, initialData }) {
             )}
 
             <div className="button-container">
-                <SaveButton />
+                {/* <SaveButton /> */}
             </div>
         </form>
     )
