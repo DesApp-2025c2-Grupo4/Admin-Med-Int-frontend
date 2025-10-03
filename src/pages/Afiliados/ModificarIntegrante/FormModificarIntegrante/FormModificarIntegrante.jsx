@@ -3,11 +3,9 @@ import { InputText } from "../../../../components/ui/Input/InputText/InputText.j
 import { InputSelect } from "../../../../components/ui/Input/InputSelect/InputSelect.jsx"
 import { InputTipoDoc } from "../../../../constants/Inputs/InputTipoDoc.js" 
 import { InputPlanMedico } from "../../../../constants/Inputs/InputPlanMedico.js"
-import { InputSituacionesTerapeuticas } from "../../../../constants/Inputs/InputSituacionesTerapeuticas.js"
 import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTitleSection.jsx"
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
-import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/InputCalendar.jsx'
 import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
@@ -15,14 +13,9 @@ import { SaveButton } from "../../../../components/ui/SaveButton/SaveButton.jsx"
 
 export function FormModificarIntegrante({ text, initialData }) {
     
-    const [newSituacion, setNewSituacion] = useState("");
-    const [isIndefinida, setIsIndefinida] = useState(false);
-    const [fechaInicio, setFechaInicio] = useState(null); 
-    const [fechaFinal, setFechaFinal] = useState(null);
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion] = useState('');
-    const [tieneSituacion, setTieneSituacion] = useState(false);
 
     const [dataForm, setDataForm] = useState({
         nombre: initialData.nombre || '',
@@ -51,7 +44,7 @@ export function FormModificarIntegrante({ text, initialData }) {
         }));
     };
 
-    // ➕ Agregar contacto
+    // Agregar contacto
     const addTelefono = () => {
         if (currentTelefono.trim() !== '') {
             setDataForm((prev) => ({
@@ -80,7 +73,7 @@ export function FormModificarIntegrante({ text, initialData }) {
         }
     };
 
-    // ❌ Eliminar contacto
+    //  Eliminar contacto
     const removeTelefono = (id) => {
         setDataForm((prev) => ({
             ...prev,
@@ -97,51 +90,6 @@ export function FormModificarIntegrante({ text, initialData }) {
         setDataForm((prev) => ({
             ...prev,
             direcciones: prev.direcciones.filter((d) => d.id !== id),
-        }));
-    };
-
-    // Situaciones terapéuticas
-    const addSituacion = () => {
-        if (newSituacion === "" || newSituacion === null) return;
-
-        const situacionSeleccionada = InputSituacionesTerapeuticas.find(
-            (s) => s.id === parseInt(newSituacion, 10)
-        );
-        if (!situacionSeleccionada) return;
-
-        const newSituacionObject = {
-            id: situacionSeleccionada.id,
-            descripcion: situacionSeleccionada.descripcion,
-            esCronica: !isIndefinida,
-            fechaInicio: isIndefinida ? fechaInicio : null,
-            fechaFinal: isIndefinida ? fechaFinal : null
-        };
-
-        setDataForm((prev) => ({
-            ...prev,
-            situacionesTerapeuticas: [
-                ...prev.situacionesTerapeuticas,
-                newSituacionObject,
-            ],
-        }));
-
-        setNewSituacion("");
-        setFechaInicio(null);
-        setFechaFinal(null);
-    };
-
-    const handleSituacionTypeChange = (e) => {
-        const isIndefinidaSelected = e.target.value === 'indefinida';
-        setIsIndefinida(isIndefinidaSelected);
-    
-        const updatedSituaciones = dataForm.situacionesTerapeuticas.map((s) => ({
-            ...s,
-            esCronica: !isIndefinidaSelected,
-        }));
-    
-        setDataForm((prev) => ({
-            ...prev,
-            situacionesTerapeuticas: updatedSituaciones,
         }));
     };
 
@@ -254,7 +202,40 @@ export function FormModificarIntegrante({ text, initialData }) {
             </div>
 
             <SubTitleSection text="Situaciones terapéuticas" />
-            {/* ... resto del código de situaciones igual que antes ... */}
+            <div className="form-situaciones">
+                <div className="input-with-button">
+                    {/* <InputSelect
+                        text="Situación"
+                        name="situaciones"
+                        listaDeOpciones={InputSituacionesTerapeuticas}
+                        //value={newSituacion}
+                       // handleChange={(e) => setNewSituacion(e.target.value)}
+                    /> */}
+                    {/* <InputCalendar
+                        text="Fecha inicio"
+                        name="fechaInicio"
+                        value={fechaInicio}
+                       // handleChange={(e) => setFechaInicio(e.target.value)}
+                    />
+                    <InputCalendar
+                        text="Fecha final"
+                        name="fechaFinal"
+                        value={fechaFinal}
+                        //handleChange={(e) => setFechaFinal(e.target.value)}
+                    />
+                    < AddButton onClick={addSituacion} /> */}
+                </div>
+
+                <div className="saved-items-container">
+                    {dataForm.situacionesTerapeuticas.map((sit) => (
+                        <SituacionCard
+                            key={sit.id}
+                            situacion={sit}
+                           // onDelete={() => removeSituacion(sit.id)}
+                        />
+                    ))}
+                </div>
+            </div>
 
             <div className="button-container">
                 <SaveButton />
