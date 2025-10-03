@@ -25,40 +25,18 @@ export function FormModificarIntegrante({ text, initialData }) {
     const [tieneSituacion, setTieneSituacion] = useState(false);
 
 
-    //que arranque el initialDAta ACA
     const [dataForm, setDataForm] = useState({
-        nombre:'',
-        apellido: '',
-        tipoDocumento: 1,
-        nroDocumento:'',
-        planMedico: 1,
-        fechaNacimiento: '',
-        telefonos: [],
-        emails:[],
-        direcciones: [],
-        situacionesTerapeuticas:[]
+    nombre: initialData.nombre || '',
+    apellido: initialData.apellido || '',
+    tipoDocumento: initialData.tipoDocumento || 1,
+    nroDocumento: initialData.dni || '',
+    planMedico: initialData.planMedico || 1,
+    fechaNacimiento: initialData.fechaNacimiento || '',
+    telefonos: initialData.telefonos || [],
+    emails: initialData.emails || [],
+    direcciones: initialData.direcciones,
+    situacionesTerapeuticas: initialData.situacionesTerapeuticas || []
     });
-
-    console.log(dataForm)
-    // Cargar datos iniciales cuando los reciba
-    useEffect(() => {
-        if (initialData) {
-            setDataForm({
-                nombre: initialData.nombre || '',
-                apellido: initialData.apellido || '',
-                tipoDocumento: initialData.tipoDocumento || 1,
-                nroDocumento: initialData.dni || '',
-                planMedico: initialData.planMedico || 1,
-                fechaNacimiento: initialData.fechaNacimiento || '',
-                telefonos: initialData.telefonos || [],
-                emails: initialData.emails || [],
-                direcciones: initialData.direcciones || [],
-                situacionesTerapeuticas: initialData.situacionesTerapeuticas || []
-            });
-        }
-    }, [initialData]);
-
-    console.log(dataForm)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
