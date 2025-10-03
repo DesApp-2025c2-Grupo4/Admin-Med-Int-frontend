@@ -8,7 +8,7 @@ import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTi
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
 import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/InputCalendar.jsx'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
 import { SaveButton } from "../../../../components/ui/SaveButton/SaveButton.jsx"
@@ -24,18 +24,23 @@ export function FormModificarIntegrante({ text, initialData }) {
     const [currentDireccion, setCurrentDireccion] = useState('');
     const [tieneSituacion, setTieneSituacion] = useState(false);
 
-
     const [dataForm, setDataForm] = useState({
-    nombre: initialData.nombre || '',
-    apellido: initialData.apellido || '',
-    tipoDocumento: initialData.tipoDocumento || 1,
-    nroDocumento: initialData.dni || '',
-    planMedico: initialData.planMedico || 1,
-    fechaNacimiento: initialData.fechaNacimiento || '',
-    telefonos: initialData.telefonos || [],
-    emails: initialData.emails || [],
-    direcciones: initialData.direcciones,
-    situacionesTerapeuticas: initialData.situacionesTerapeuticas || []
+        nombre: initialData.nombre || '',
+        apellido: initialData.apellido || '',
+        tipoDocumento: initialData.tipoDocumento?.tipoDocId || 1,
+        nroDocumento: initialData.dni || '',
+        planMedico: initialData.planMedico?.planId || 1,
+        fechaNacimiento: initialData.fechaNacimiento || '',
+        telefonos: initialData.telefonos?.map(t => ({ id: t.telefonoId, descripcion: t.nroTelefono })) || [],
+        emails: initialData.mail?.map(m => ({ id: m.id, descripcion: m.descripcion })) || [],
+        direcciones: initialData.direcciones?.map(d => ({ id: d.direccionId, descripcion: `${d.calle} ${d.nro}` })) || [],
+        situacionesTerapeuticas: initialData.situacionesTerapeuticas?.map(s => ({
+            id: s.situacionId,
+            descripcion: s.descripcion,
+            esCronica: s.esCronica,
+            fechaInicio: s.fechaInicio,
+            fechaFinal: s.fechaFin
+        })) || []
     });
 
     const handleChange = (e) => {
@@ -50,7 +55,7 @@ export function FormModificarIntegrante({ text, initialData }) {
         if (currentTelefono.trim() !== '') {
             setDataForm((prev) => ({
                 ...prev,
-                telefonos: [...prev.telefonos, currentTelefono.trim()],
+                telefonos: [...prev.telefonos, { id: Date.now(), descripcion: currentTelefono.trim() }],
             }));
             setCurrentTelefono(''); 
         }
@@ -60,7 +65,7 @@ export function FormModificarIntegrante({ text, initialData }) {
         if (currentEmail.trim() !== '') {
             setDataForm((prev) => ({
                 ...prev,
-                emails: [...prev.emails, currentEmail.trim()],
+                emails: [...prev.emails, { id: Date.now(), descripcion: currentEmail.trim() }],
             }));
             setCurrentEmail(''); 
         }
@@ -70,7 +75,7 @@ export function FormModificarIntegrante({ text, initialData }) {
         if (currentDireccion.trim() !== '') {
             setDataForm((prev) => ({
                 ...prev,
-                direcciones: [...prev.direcciones, currentDireccion.trim()],
+                direcciones: [...prev.direcciones, { id: Date.now(), descripcion: currentDireccion.trim() }],
             }));
             setCurrentDireccion(''); 
         }
@@ -85,7 +90,7 @@ export function FormModificarIntegrante({ text, initialData }) {
         if (!situacionSeleccionada) return;
 
         const newSituacionObject = {
-            idSituacion: situacionSeleccionada.id,
+            id: situacionSeleccionada.id,
             descripcion: situacionSeleccionada.descripcion,
             esCronica: !isIndefinida,
             fechaInicio: isIndefinida ? fechaInicio : null,
@@ -184,8 +189,8 @@ export function FormModificarIntegrante({ text, initialData }) {
                         handleChange={(e) => setCurrentTelefono(e.target.value)}/>
                     <AddButton onClick={addTelefono} className="button-add" />
                      <div className="saved-items-container">
-                        {dataForm.telefonos.map((tel, index) => (
-                            <ContactCard key={`tel-${index}`} texto={tel.nroTelefono} />
+                        {dataForm.telefonos.map((tel) => (
+                            <ContactCard key={tel.id} texto={tel.descripcion} />
                         ))}
                     </div>
                 </div>
@@ -196,8 +201,8 @@ export function FormModificarIntegrante({ text, initialData }) {
                         handleChange={(e) => setCurrentEmail(e.target.value)} />
                     <AddButton onClick={addEmail} className="button-add" />
                     <div className="saved-items-container">
-                        {dataForm.emails.map((email, index) => (
-                            <ContactCard key={`email-${index}`} texto={email.descripcion} />
+                        {dataForm.emails.map((email) => (
+                            <ContactCard key={email.id} texto={email.descripcion} />
                         ))}
                     </div>
                 </div>
@@ -208,8 +213,8 @@ export function FormModificarIntegrante({ text, initialData }) {
                         handleChange={(e) => setCurrentDireccion(e.target.value)} />
                     <AddButton onClick={addDireccion} className="button-add"/>
                     <div className="saved-items-container">
-                        {dataForm.direcciones.map((dir, index) => (
-                            <ContactCard key={`dir-${index}`} texto={dir.descripcion} />
+                        {dataForm.direcciones.map((dir) => (
+                            <ContactCard key={dir.id} texto={dir.descripcion} />
                         ))}
                     </div>
                 </div>
@@ -294,15 +299,15 @@ export function FormModificarIntegrante({ text, initialData }) {
                     </div>
                     
                     <div className="situaciones-list">
-                        {dataForm.situacionesTerapeuticas.map((s, index) => (
-                            <SituacionCard key={index} situacion={s} />
+                        {dataForm.situacionesTerapeuticas.map((s) => (
+                            <SituacionCard key={s.id} situacion={s} />
                         ))}
                     </div>
                 </div>
             )}
 
             <div className="button-container">
-                { <SaveButton /> }
+                <SaveButton />
             </div>
         </form>
     )
