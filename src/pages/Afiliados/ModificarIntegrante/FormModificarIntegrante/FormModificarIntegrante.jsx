@@ -11,7 +11,7 @@ import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/Inp
 import { useState, useEffect } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
-//import { SaveButton } from "../../../../components/ui/SaveButton/SaveButton.jsx"
+import { SaveButton } from "../../../../components/ui/SaveButton/SaveButton.jsx"
 
 export function FormModificarIntegrante({ text, initialData }) {
     
@@ -302,7 +302,7 @@ export function FormModificarIntegrante({ text, initialData }) {
             )}
 
             <div className="button-container">
-                {/* <SaveButton /> */}
+                { <SaveButton /> }
             </div>
         </form>
     )
