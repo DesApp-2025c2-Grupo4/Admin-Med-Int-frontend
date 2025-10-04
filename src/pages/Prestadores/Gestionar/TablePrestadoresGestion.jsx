@@ -27,6 +27,7 @@ export function TablePrestadoresGestion({
                 tipoPrestador: 'Independiente',
                 telefonos: [{ idTelefono: 9, nro: '2321320' }],
                 direccion: [{ idDireccion: 9, calle: 'Mitre', nro: 456 }],
+                codigoPostal: "1358",
                 cuilCuit: '20345678909',
                 especialidad: [{ idEspecialidad: 9, descripcion: 'Oftalmologia' }]
             }
@@ -56,53 +57,51 @@ export function TablePrestadoresGestion({
         {/* Controlamos si esta cargando para centrar loader */}
 
         <tbody className="tablePrestador__tbody-container">
-          {
-            data?.map((d) => {
-              return (
-                <tr className="tablePrestador__tbody-tr" key={d.prestadorId}>
-                  <td className="tablePrestador__tbody-td">{d.cuilCuit}</td>
-                  <td className="tablePrestador__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
-                  <td className="tablePrestador__tbody-td">{d.codigoPostal}</td>
-                  <td className="tablePrestador__tbody-td">
-                    {d.especialidad.length > 1 ? (
-                      <>
-                        <span
-                          data-tooltip-id={`tooltip-${d.prestadorId}`}
-                          data-tooltip-content={d.especialidad
-                            .map((e) => e.descripcion)
-                            .join(",\n")}
-                          className="cursor-help text-blue-600 font-medium"
-                        >
-                          {d.especialidad[0].descripcion}...
-                        </span>
-                        <Tooltip
-                          id={`tooltip-${d.prestadorId}`}
-                          place="top"
-                          style={{ background: "#255d99ff" }}
-                        />
-                      </>
-                    ) : (
-                      <span>{d.especialidad[0]?.descripcion}</span>
-                    )}
-                  </td>
-                  <td className="tablePrestador__tbody-td">
-                    <span className="resaltar">{d.tipoPrestador}</span>
-                  </td>
-                  <td id="icons" className="tablePrestador__tbody-td sinBorde">
-                    <Link>
-                      <DetailsIcon></DetailsIcon>
-                    </Link>
-                    <Link>
-                      <DeleteIcon></DeleteIcon>
-                    </Link>
-                    <Link>
-                      <ModifierIcon></ModifierIcon>
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })
-          }
+          {data?.map((d) => {
+            return (
+              <tr className="tablePrestador__tbody-tr" key={d.prestadorId}>
+                <td className="tablePrestador__tbody-td">{d.cuilCuit}</td>
+                <td className="tablePrestador__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
+                <td className="tablePrestador__tbody-td">{d.codigoPostal}</td>
+                <td className="tablePrestador__tbody-td">
+                  {d.especialidad.length > 1 ? (
+                    <>
+                      <span
+                        data-tooltip-id={`tooltip-${d.prestadorId}`}
+                        data-tooltip-content={d.especialidad
+                          .map((e) => e.descripcion)
+                          .join(",\n")}
+                        className="cursor-help text-blue-600 font-medium"
+                      >
+                        {d.especialidad[0].descripcion}...
+                      </span>
+                      <Tooltip
+                        id={`tooltip-${d.prestadorId}`}
+                        place="top"
+                        style={{ background: "#255d99ff" }}
+                      />
+                    </>
+                  ) : (
+                    <span>{d.especialidad[0]?.descripcion}</span>
+                  )}
+                </td>
+                <td className="tablePrestador__tbody-td">
+                  <span className="resaltar">{d.tipoPrestador}</span>
+                </td>
+                <td id="icons" className="tablePrestador__tbody-td sinBorde">
+                  <Link>
+                    <DetailsIcon></DetailsIcon>
+                  </Link>
+                  <Link>
+                    <DeleteIcon></DeleteIcon>
+                  </Link>
+                  <Link>
+                    <ModifierIcon></ModifierIcon>
+                  </Link>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
