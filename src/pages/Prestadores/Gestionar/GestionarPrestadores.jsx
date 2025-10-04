@@ -3,9 +3,11 @@ import { TitleSection } from "../../../components/TitleSections/TitleSection";
 import { SearchIcon } from "../../../assets/icons/Afiliados/SearchIcon";
 import { useGetAllPrestadores } from "../../../hooks/useGetAllPrestadores";
 import { useState, useEffect } from "react";
+import { headerTablePrestadores } from "./../../../constants/Prestadores/headerTablePrestadoresGestión";
+import { TablePrestadoresGestion } from "./TablePrestadoresGestion";
 
 export function GestionarPrestadores() {
-  const { loadingGrupos, prestadores } = useGetAllPrestadores();
+  const { loadingPrestadores, prestadores } = useGetAllPrestadores();
   const [allPrestadores, setAllPrestadores] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("");
@@ -48,7 +50,9 @@ export function GestionarPrestadores() {
       case "especialidad":
         resultado = prestadores.filter((p) =>
           p.especialidad.some(
-            (e)=> e.descripcion && e.descripcion.toLowerCase().includes(busqueda.toLowerCase())
+            (e) =>
+              e.descripcion &&
+              e.descripcion.toLowerCase().includes(busqueda.toLowerCase())
           )
         );
         break;
@@ -66,14 +70,14 @@ export function GestionarPrestadores() {
         );
         break; */
       case "todos":
-        resultado = grupos;
+        resultado = prestadores;
         break;
 
       default:
-        resultado = grupos;
+        resultado = prestadores;
     }
 
-    setAllGrupos(resultado);
+    setAllPrestadores(resultado);
   };
 
   return (
@@ -126,6 +130,13 @@ export function GestionarPrestadores() {
             <SearchIcon></SearchIcon>
           </div>
         </div>
+        <section className="section-tabla-prestadores">
+          <TablePrestadoresGestion
+            listHeader={headerTablePrestadores}
+            data={prestadores}
+            loadingPrestadores={loadingPrestadores}
+          ></TablePrestadoresGestion>
+        </section>
       </section>
     </>
   );

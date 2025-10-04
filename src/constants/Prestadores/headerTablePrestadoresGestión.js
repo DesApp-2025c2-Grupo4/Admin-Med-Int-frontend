@@ -4,4 +4,5 @@ export const headerTablePrestadores = [
   "Código postal",
   "Especialidad",
   "Tipo de prestador",
+  "Acciones"
 ];

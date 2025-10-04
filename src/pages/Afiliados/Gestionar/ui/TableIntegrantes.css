@@ -73,3 +73,10 @@
     align-items: center;
     gap: 0.2rem
 }
+
+.loader-table{
+   display: flex;
+   justify-content: center;
+   align-items: center; 
+   padding: 2rem;
+}
