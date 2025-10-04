@@ -10,7 +10,7 @@ export function PrestadoresRoutes(){
       <Route path="gestionar" element={<GestionarPrestadores />} />
       <Route path="nuevo-prestador" element={<NuevoPrestador />} />
       <Route path="reportes" element={<ReportePrestador />} />
-      <Route path="modificar-prestador" element={<ModificarPrestador />} />
+      <Route path="modificar-prestador/:id" element={<ModificarPrestador />} />
       
       {/* Opcional: ruta por defecto */}
       <Route index element={<GestionarPrestadores />} />
