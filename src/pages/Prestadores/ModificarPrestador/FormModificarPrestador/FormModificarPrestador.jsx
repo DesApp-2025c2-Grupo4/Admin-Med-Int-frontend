@@ -7,31 +7,35 @@ import { ContactCard } from '../../../../components/ui/Cards/ContactCard/Contact
 import { InputCheckbox } from '../../../../components/ui/Input/InputCheckbox/InputCheckbox.jsx';
 
 export function FormModificarPrestador({ text, initialData }) {
-    const [tipoPrestador, setTipoPrestador] = useState('independiente'); 
+    const [tipoPrestador, setTipoPrestador] = useState(
+        initialData.tipoPrestador?.toLowerCase() === "centro" ? "centro" : "independiente"
+    ); 
+
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion] = useState('');
 
     const [dataForm, setDataForm] = useState({
-        cuilCuit: '',
-        nombreCompleto: initialData.nombreCompleto || '',
-        lugarIndependiente: '', 
-        lugarCentro: '',    
-        telefonos: [],
-        emails: [],
-        direcciones: [],
-        medicinaGeneral: false,
-        psiquiatria: false,
-        nutricion: false,
-        neurologia: false,
-        oftalmologia: false,
-        urologia: false,
-        cardiologia: false,
-        ginecologia: false,
-        kinesiologia: false,
-        pediatria: false,
-        traumatologia: false,
-        oncologia: false
+        cuilCuit: initialData.cuilCuit || '',
+        nombreCompleto: `${initialData.nombre || ''} ${initialData.apellido || ''}`.trim(),
+        lugarIndependiente: tipoPrestador === "independiente" ? initialData.lugarIndependiente || '' : '',
+        lugarCentro: tipoPrestador === "centro" ? initialData.lugarCentro || '' : '',    
+        telefonos: initialData.telefonos?.map(t => t.nro) || [],
+        emails: initialData.email ? [initialData.email] : [],
+        direcciones: initialData.direccion?.map(d => `${d.calle} ${d.nro}`) || [],
+        medicinaGeneral: initialData.especialidad?.some(e => e.descripcion === "Medicina General") || false,
+        psicologia: initialData.especialidad?.some(e => e.descripcion === "Psicología") || false,
+        nutricion: initialData.especialidad?.some(e => e.descripcion === "Nutrición") || false,
+        neurologia: initialData.especialidad?.some(e => e.descripcion === "Neurología") || false,
+        oftalmologia: initialData.especialidad?.some(e => e.descripcion === "Oftalmología") || false,
+        urologia: initialData.especialidad?.some(e => e.descripcion === "Urología") || false,
+        cardiologia: initialData.especialidad?.some(e => e.descripcion === "Cardiología") || false,
+        ginecologia: initialData.especialidad?.some(e => e.descripcion === "Ginecología") || false,
+        kinesiologia: initialData.especialidad?.some(e => e.descripcion === "Kinesiología") || false,
+        pediatria: initialData.especialidad?.some(e => e.descripcion === "Pediatría") || false,
+        traumatologia: initialData.especialidad?.some(e => e.descripcion === "Traumatologia") || false,
+        oncologia: initialData.especialidad?.some(e => e.descripcion === "Oncología") || false,
+        psiquiatria: initialData.especialidad?.some(e => e.descripcion === "Psiquiatría") || false,
     });
 
     const handleChange = (e) => {
@@ -105,6 +109,7 @@ export function FormModificarPrestador({ text, initialData }) {
                     handleChange={handleChange}
                 />
             </div>
+
             <SubTitleSection text="Tipo de prestador" />
             <div className="form-section"> 
                 <div className="radio-group-horizontal"> 
@@ -157,6 +162,7 @@ export function FormModificarPrestador({ text, initialData }) {
                 <InputCheckbox label="Nutrición" name="nutricion" checked={dataForm.nutricion} onChange={handleChange} /> 
                 <InputCheckbox label="Ginecología" name="ginecologia" checked={dataForm.ginecologia} onChange={handleChange} />
                 <InputCheckbox label="Psiquiatría" name="psiquiatria" checked={dataForm.psiquiatria} onChange={handleChange} />
+                <InputCheckbox label="Neurología" name="neurologia" checked={dataForm.neurologia} onChange={handleChange} />
                 <InputCheckbox label="Oftalmología" name="oftalmologia" checked={dataForm.oftalmologia} onChange={handleChange} />
                 <InputCheckbox label="Urología" name="urologia" checked={dataForm.urologia} onChange={handleChange} />
                 <InputCheckbox label="Kinesiología" name="kinesiologia" checked={dataForm.kinesiologia} onChange={handleChange} /> 

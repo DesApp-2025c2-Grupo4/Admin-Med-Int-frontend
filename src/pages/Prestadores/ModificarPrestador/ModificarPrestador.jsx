@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { useGetDetallePrestador } from "../../../hooks/useGetDetalleDePrestador";
 import { Loader } from "../../../components/Loader/Loader";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
-import { FormModificarIntegrante } from "./FormModificarIntegrante/FormModificarIntegrante.jsx";
+import { FormModificarPrestador } from "./FormModificarPrestador/FormModificarPrestador.jsx";
 
 export function ModificarPrestador() {
   const { id } = useParams();
