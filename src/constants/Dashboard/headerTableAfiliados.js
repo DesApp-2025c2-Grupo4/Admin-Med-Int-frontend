@@ -1,6 +1,6 @@
 export const headerTableAfiliados=[
   'Credencial', 
-  'Nombre y Apellido',
+  'Nombre completo',
   'Fecha de Alta',
   'Email',
   'Plan'
