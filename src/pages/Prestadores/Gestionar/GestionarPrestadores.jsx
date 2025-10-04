@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { headerTablePrestadores } from "./../../../constants/Prestadores/headerTablePrestadoresGestión";
 import { TablePrestadoresGestion } from "./TablePrestadoresGestion";
 import { Loader } from "../../../components/Loader/Loader";
+import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection";
 
 export function GestionarPrestadores() {
   const { loadingPrestadores, prestadores } = useGetAllPrestadores();
@@ -63,14 +64,13 @@ export function GestionarPrestadores() {
           p.tipoPrestador.toLowerCase().includes(busqueda.toLowerCase())
         );
         break;
-      
+
       case "codigoPostal":
-        resultado = prestadores.filter(
-          (p) =>
-            p.codigoPostal.toString().includes(busqueda)
+        resultado = prestadores.filter((p) =>
+          p.codigoPostal.toString().includes(busqueda)
         );
-        break; 
-      
+        break;
+
       case "todos":
         resultado = prestadores;
         break;
@@ -133,17 +133,21 @@ export function GestionarPrestadores() {
           </div>
         </div>
         <section className="section-tabla-prestadores">
-          {
-            loadingPrestadores ?
-              <div className="centrar">
-                <Loader />
-              </div> :
-              <TablePrestadoresGestion
-                listHeader={headerTablePrestadores}
-                data={allPrestadores}
-                loadingPrestadores={loadingPrestadores}
-              ></TablePrestadoresGestion>
-          }
+          {loadingPrestadores ? (
+            <div className="centrar">
+              <Loader />
+            </div>
+          ) : allPrestadores && allPrestadores.length > 0 ? (
+            <TablePrestadoresGestion
+              listHeader={headerTablePrestadores}
+              data={allPrestadores}
+              loadingPrestadores={loadingPrestadores}
+            ></TablePrestadoresGestion>
+          ) : (
+            <div className="sin-resultados-section">
+              <SubTitleSection text={"No se encontraron resultados."} />
+            </div>
+          )}
         </section>
       </section>
     </>
