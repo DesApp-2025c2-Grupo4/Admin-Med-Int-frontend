@@ -16,7 +16,7 @@ export function ModificarPrestador() {
       ) : error ? (
         <h2 className="message-error">{error}</h2>
       ) : (
-        <FormModificarIntegrante text="Datos del prestador" initialData={prestador} />
+        <FormModificarPrestador text="Datos del prestador" initialData={prestador} />
       )}
     </section>
   );
