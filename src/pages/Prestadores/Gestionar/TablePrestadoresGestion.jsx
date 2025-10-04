@@ -1,5 +1,4 @@
-import "./TablePrestadoresGestion.css"
-import { Loader } from "./../../../components/Loader/Loader";
+import "./TablePrestadoresGestion.css";
 import { Link } from "react-router";
 import { DeleteIcon } from "../../../assets/icons/Afiliados/DeleteIcon";
 import { DetailsIcon } from "../../../assets/icons/Afiliados/DetailsIcon";
@@ -10,8 +9,7 @@ import { ToolTipIcon } from "../../../assets/icons/Prestadores/ToolTipIcon";
 
 export function TablePrestadoresGestion({
   listHeader,
-  data,
-  loadingPrestadores,
+  data
 }) {
   /*
     Descripcion: este componente renderiza la tabla de prestadores de la sección gestionar prestadores, los estilos son reutilizables para las
@@ -35,80 +33,78 @@ export function TablePrestadoresGestion({
         ]
   */
   return (
-    <table className="table__container">
-      {/* Header de la tabla */}
-      <thead className="table__thead-container">
-        <tr className="table__thead-tr">
-          {listHeader?.map((head, index) => (
-            <th
-              className={`table__thead-th ${
-                index === listHeader.length - 1 ? "sinBorde" : ""
-              }`}
-              key={index}
-            >
-              {head}
-            </th>
-          ))}
-        </tr>
-      </thead>
-
-      {/* Body de la tabla */}
-
-      {/* Controlamos si esta cargando para centrar loader */}
-
-      <tbody className={`table__tbody-container`}>
-        {loadingPrestadores ? (
-          <tr className="loader-table">
-            <td collSpan={listHeader.length} >{<Loader />}</td>
+    <div className="tablePrestador__container">
+      <table className="tablePrestador__table">
+        {/* Header de la tabla */}
+        <thead className="tablePrestador__thead-container">
+          <tr className="tablePrestador__thead-tr">
+            {listHeader?.map((head, index) => (
+              <th
+                className={`tablePrestador__thead-th ${
+                  index === listHeader.length - 1 ? "sinBorde" : ""
+                }`}
+                key={index}
+              >
+                {head}
+              </th>
+            ))}
           </tr>
-        ) : (
-          data?.map((d) => {
-            return (
-              <tr className="table__tbody-tr" key={d.prestadorId}>
-                <td className="table__tbody-td">{d.cuilCuit}</td>
-                <td className="table__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
-                <td className="table__tbody-td">{d.codigoPostal}</td>
-                <td className="table__tbody-td">
-                  {d.especialidad.length > 1 ? (
-                    <>
-                      <span
-                        data-tooltip-id={`tooltip-${d.prestadorId}`}
-                        data-tooltip-content={d.especialidad
-                          .map((e) => e.descripcion)
-                          .join(",\n")}
-                        className="cursor-help text-blue-600 font-medium"
-                      >
-                        <ToolTipIcon></ToolTipIcon>
-                      </span>
-                      <Tooltip
-                        id={`tooltip-${d.prestadorId}`}
-                        place="top"
-                        className="!bg-[#0A2E5D] !text-white !px-3 !py-2 !rounded-md !text-sm whitespace-pre-line"
-                      />
-                    </>
-                  ) : (
-                    <span>{d.especialidad[0]?.descripcion}</span>
-                  )}
-                </td>
-                <td className="table__tbody-td">
-                  <span className="resaltar">{d.tipoPrestador}</span>
-                </td>
-                <td id="icons" className="table__tbody-td sinBorde">
-                  <Link>
-                    <DetailsIcon></DetailsIcon>
-                  </Link>
-                  <Link>
-                    <DeleteIcon></DeleteIcon>
-                  </Link>
-                  <Link>
-                    <ModifierIcon></ModifierIcon>
-                  </Link>
-                </td>
-              </tr>
-            );
-          })
-        )}
-      </tbody>
-    </table>
+        </thead>
+
+        {/* Body de la tabla */}
+
+        {/* Controlamos si esta cargando para centrar loader */}
+
+        <tbody className="tablePrestador__tbody-container">
+          {
+            data?.map((d) => {
+              return (
+                <tr className="tablePrestador__tbody-tr" key={d.prestadorId}>
+                  <td className="tablePrestador__tbody-td">{d.cuilCuit}</td>
+                  <td className="tablePrestador__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
+                  <td className="tablePrestador__tbody-td">{d.codigoPostal}</td>
+                  <td className="tablePrestador__tbody-td">
+                    {d.especialidad.length > 1 ? (
+                      <>
+                        <span
+                          data-tooltip-id={`tooltip-${d.prestadorId}`}
+                          data-tooltip-content={d.especialidad
+                            .map((e) => e.descripcion)
+                            .join(",\n")}
+                          className="cursor-help text-blue-600 font-medium"
+                        >
+                          {d.especialidad[0].descripcion}...
+                        </span>
+                        <Tooltip
+                          id={`tooltip-${d.prestadorId}`}
+                          place="top"
+                          style={{ background: "#255d99ff" }}
+                        />
+                      </>
+                    ) : (
+                      <span>{d.especialidad[0]?.descripcion}</span>
+                    )}
+                  </td>
+                  <td className="tablePrestador__tbody-td">
+                    <span className="resaltar">{d.tipoPrestador}</span>
+                  </td>
+                  <td id="icons" className="tablePrestador__tbody-td sinBorde">
+                    <Link>
+                      <DetailsIcon></DetailsIcon>
+                    </Link>
+                    <Link>
+                      <DeleteIcon></DeleteIcon>
+                    </Link>
+                    <Link>
+                      <ModifierIcon></ModifierIcon>
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
   );
 }

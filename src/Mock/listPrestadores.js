@@ -120,6 +120,7 @@ export const listPrestador = [
     especialidad: [
       { idEspecialidad: 10, descripcion: "Gastroenterologia" },
       { idEspecialidad: 11, descripcion: "Pediatria" },
+      { idEspecialidad: 11, descripcion: "Oftalmologia" },
     ],
   },
 ];

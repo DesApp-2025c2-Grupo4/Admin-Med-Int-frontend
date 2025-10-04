@@ -5,6 +5,7 @@ import { useGetAllPrestadores } from "../../../hooks/useGetAllPrestadores";
 import { useState, useEffect } from "react";
 import { headerTablePrestadores } from "./../../../constants/Prestadores/headerTablePrestadoresGestión";
 import { TablePrestadoresGestion } from "./TablePrestadoresGestion";
+import { Loader } from "../../../components/Loader/Loader";
 
 export function GestionarPrestadores() {
   const { loadingPrestadores, prestadores } = useGetAllPrestadores();
@@ -62,13 +63,14 @@ export function GestionarPrestadores() {
           p.tipoPrestador.toLowerCase().includes(busqueda.toLowerCase())
         );
         break;
-
-      /* case "codigoPostal":
+      
+      case "codigoPostal":
         resultado = prestadores.filter(
           (p) =>
             p.codigoPostal.toString().includes(busqueda)
         );
-        break; */
+        break; 
+      
       case "todos":
         resultado = prestadores;
         break;
@@ -131,11 +133,17 @@ export function GestionarPrestadores() {
           </div>
         </div>
         <section className="section-tabla-prestadores">
-          <TablePrestadoresGestion
-            listHeader={headerTablePrestadores}
-            data={prestadores}
-            loadingPrestadores={loadingPrestadores}
-          ></TablePrestadoresGestion>
+          {
+            loadingPrestadores ?
+              <div className="centrar">
+                <Loader />
+              </div> :
+              <TablePrestadoresGestion
+                listHeader={headerTablePrestadores}
+                data={allPrestadores}
+                loadingPrestadores={loadingPrestadores}
+              ></TablePrestadoresGestion>
+          }
         </section>
       </section>
     </>
