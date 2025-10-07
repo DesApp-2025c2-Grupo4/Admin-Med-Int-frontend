@@ -107,8 +107,8 @@ export function TableIntegrantes({ listHeader, data, loadingGrupos }) {
           {
             /* Controlamos loader */
             loadingGrupos ? (
-              <tr>
-                <td collSpan={listHeader.length}>{<Loader />}</td>
+              <tr className="loader-table">
+                <td collSpan={listHeader.length} >{<Loader />}</td>
               </tr>
             ) : (
               integrantes?.map((i) => {

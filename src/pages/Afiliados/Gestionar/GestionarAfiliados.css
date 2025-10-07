@@ -54,6 +54,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 }
 
 @media (max-width: 623px) {

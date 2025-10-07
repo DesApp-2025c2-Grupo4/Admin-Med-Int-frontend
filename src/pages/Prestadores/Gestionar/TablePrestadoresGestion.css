@@ -1,23 +1,24 @@
 /* Estilos de contenedor de la tabla */
-.tableGrupo__container {
+.tablePrestador__container {
     width: 100%;
     overflow-x: auto;
+    display: block;
 }
 
-.tableGrupo__table {
+.tablePrestador__table {
     display: table;
     border-collapse: collapse;
     border-top: 1px solid rgba(0, 0, 0, 0.267);
-    width: max-content;
-    min-width: 100%;
+    width: 100%;
+    min-width: 1000px;
 }
 
 /* Thead */
-.tableGrupo__thead-tr {
+.tablePrestador__thead-tr {
     display: table-row;
 }
 
-.tableGrupo__thead-th {
+.tablePrestador__thead-th {
     display: table-cell;
     align-items: center;
     color: #08172bbd;
@@ -28,11 +29,11 @@
 }
 
 /* Tbody */
-.tableGrupo__tbody {
+.tablePrestador__tbody {
     display: table-row-group;
 }
 
-.tableGrupo__tbody-tr {
+.tablePrestador__tbody-tr {
     display: table-row;
 
     &:hover {
@@ -41,7 +42,7 @@
 
 }
 
-.tableGrupo__tbody-td {
+.tablePrestador__tbody-td {
     display: table-cell;
     text-align: center;
     height: 3rem;
@@ -50,16 +51,6 @@
     border-right: 1px solid rgba(0, 0, 0, 0.267);
     min-width: 200px;
 
-}
-
-
-/* Centrar loader */
-.centrar {
-    padding: 3rem 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* Eliminar borde derecho*/
