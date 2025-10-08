@@ -7,7 +7,7 @@
 }
 
 .input-container label {
-  font-size: 0.90rem;
+  font-size: calc(12px + 0.2vw);
   font-weight: 500;
   color: #6b7280; 
   margin-left: 0.25rem;
@@ -19,7 +19,7 @@
   padding: 0.40rem 0.45rem;
   border: 1px solid #d1d5db;
   border-radius: 12px; 
-  font-size: 1rem;
+  font-size: calc(11px + 0.2vw);
   background-color: #fff;
   outline: none;
   transition: border 0.2s ease, box-shadow 0.2s ease;

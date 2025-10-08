@@ -20,7 +20,7 @@ export const listAfiliados = [
     fechaNacimiento: "1990-08-22",
     mail: "pedro.gomez@mail.com",
     fechaAlta: "2024-08-14",
-    fechaBaja: null,
+    fechaBaja: "2025-10-14",
     parentesco: null,
     dni: "23444444",
     planMedico: { planId: 1, descripcion: "Oro" },

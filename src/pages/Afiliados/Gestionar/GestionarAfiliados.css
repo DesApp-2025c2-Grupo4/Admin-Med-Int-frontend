@@ -50,6 +50,13 @@
     cursor: pointer;
 }
 
+.sin-resultados-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
 @media (max-width: 623px) {
     .container_search {
         flex-direction: column;

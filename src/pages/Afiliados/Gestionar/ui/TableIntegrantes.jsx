@@ -1,9 +1,9 @@
 import "../ui/TableIntegrantes.css";
 import { Loader } from "../../../../components/Loader/Loader";
 import { Link } from "react-router";
-import { DeleteIcon } from "../icons/DeleteIcon";
-import { ModifierIcon } from "../icons/ModifierIcon";
-import { DetailsIcon } from "../icons/DetailsIcon";
+import { DeleteIcon } from "../../../../assets/icons/Afiliados/DeleteIcon";
+import { ModifierIcon } from "../../../../assets/icons/Afiliados/ModifierIcon";
+import { DetailsIcon } from "../../../../assets/icons/Afiliados/DetailsIcon";
 export function TableIntegrantes({ listHeader, data, loadingGrupos }) {
   /*
     Descripcion: este componente renderiza la tabla de afiliados del dashboard, los estilos son reutilizables para las demas tablas colocando las mismas clases.
@@ -107,8 +107,8 @@ export function TableIntegrantes({ listHeader, data, loadingGrupos }) {
           {
             /* Controlamos loader */
             loadingGrupos ? (
-              <tr>
-                <td collSpan={listHeader.length}>{<Loader />}</td>
+              <tr className="loader-table">
+                <td collSpan={listHeader.length} >{<Loader />}</td>
               </tr>
             ) : (
               integrantes?.map((i) => {

@@ -1,0 +1,55 @@
+/*RESULTADOS*/
+.resultados-container {
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.resultados-container h3 {
+  margin: 0 0 16px 0;
+  color: #08315e; 
+  font-size: 1.1rem;
+}
+
+.tabla-resultados {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-resultados th,
+.tabla-resultados td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.tabla-resultados th {
+  background-color: #08315e; 
+  color: #a4c7f4; 
+  font-weight: 600;
+}
+
+.tabla-resultados tr:hover {
+  background-color: #f1f3f4;
+}
+
+.tabla-resultados tbody tr:last-child td {
+  border-bottom: none; 
+}
+
+.mensaje-vacio {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #908e8b;
+  border: 1px solid #8db7ec;
+  border-radius: 4px;
+  color: #000000;
+  text-align: center;
+  font-style: italic;
+}
+
+

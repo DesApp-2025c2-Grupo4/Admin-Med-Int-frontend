@@ -1,6 +1,6 @@
 export const headerTableGrupoFamiliar = [
   "Credencial",
-  "Nombre y Apellido",
+  "Nombre completo",
   "DNI",
   "Fecha de nacimiento",
   "Parentesco",
