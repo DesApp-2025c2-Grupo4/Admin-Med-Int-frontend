@@ -141,7 +141,6 @@ export function GestionarPrestadores() {
             <TablePrestadoresGestion
               listHeader={headerTablePrestadores}
               data={allPrestadores}
-              loadingPrestadores={loadingPrestadores}
             ></TablePrestadoresGestion>
           ) : (
             <div className="sin-resultados-section">

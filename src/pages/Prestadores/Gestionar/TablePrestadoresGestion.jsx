@@ -5,15 +5,12 @@ import { DetailsIcon } from "../../../assets/icons/Afiliados/DetailsIcon";
 import { ModifierIcon } from "../../../assets/icons/Afiliados/ModifierIcon";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import { ToolTipIcon } from "../../../assets/icons/Prestadores/ToolTipIcon";
 
 export function TablePrestadoresGestion({
   listHeader,
   data
 }) {
   /*
-    Descripcion: este componente renderiza la tabla de prestadores de la sección gestionar prestadores, los estilos son reutilizables para las
-    demas tablas colocando las mismas clases.
     Entrada: 
       -> listHeader: Lista de encabezados para la tabla. Tiene la siguiente estructura
         listHeader: ['encabezado1',...,'encabezadoN']
