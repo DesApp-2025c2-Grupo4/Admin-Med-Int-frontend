@@ -7,14 +7,29 @@
   color: #08315e;
   display: flex;
   align-items: center;
+  justify-content: space-between; 
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
-.saved-items-container{
+.saved-items-container {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.delete-btn:hover {
+  color: darkred;
 }
 
 .delete-button {

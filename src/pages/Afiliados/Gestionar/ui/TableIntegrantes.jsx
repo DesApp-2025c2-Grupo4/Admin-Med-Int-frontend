@@ -130,7 +130,7 @@ export function TableIntegrantes({ listHeader, data, loadingGrupos }) {
                       <Link>
                         <DeleteIcon></DeleteIcon>
                       </Link>
-                      <Link>
+                      <Link to={'/afiliados/gestionar/modificar/persona/'+i.personaId}>
                         <ModifierIcon></ModifierIcon>
                       </Link>
                     </td>
