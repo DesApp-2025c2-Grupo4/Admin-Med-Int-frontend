@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getDetalleDePrestador } from "../services/prestadores/getDetalleDePrestador";
+import { getDetalleDePrestador } from "../services/prestadores/getDetallesPrestador";
 
-export function useGetDetalleDePrestador(id) {
+export function useGetDetallePrestador(id) {
   const [loadingPrestador, setLoadingPrestador] = useState(true);
   const [prestador, setPrestador] = useState(null);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ export function useGetDetalleDePrestador(id) {
 
     const fetchPrestador = async () => {
       try {
-        const data = await getDetallePrestador(id);
+        const data = await getDetalleDePrestador(id);
         if (!isMounted) return;
 
         if (data) {
