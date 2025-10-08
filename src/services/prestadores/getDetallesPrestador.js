@@ -1,9 +1,9 @@
-import { listPrestadores } from "../../Mock/listPrestadores.js";
+import { listPrestador } from "../../Mock/listPrestadores.js";
 
 export function getDetalleDePrestador(id) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const prestador = listPrestadores.find(
+      const prestador = listPrestador.find(
         (p) => p.prestadorId === Number(id)
       );
 
