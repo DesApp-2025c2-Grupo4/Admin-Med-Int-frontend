@@ -6,6 +6,8 @@ import { TitleSection } from "../../../components/TitleSections/TitleSection";
 import { SearchIcon } from "../../../assets/icons/Afiliados/SearchIcon";
 import { TableAgenda } from "./TableAgenda";
 import { headerTableAgenda } from "./../../../constants/Agenda/headerTableAgenda";
+import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection";
+import { Loader } from "../../../components/Loader/Loader";
 
 export function GestionarAgenda() {
   const { loadingAgenda, agenda } = useGetAgenda();
@@ -22,7 +24,7 @@ export function GestionarAgenda() {
         const prestador = prestadores.find(
           (p) => p.prestadorId === a.prestadorId
         );
-        return { ...a, prestador }; 
+        return { ...a, prestador };
       });
 
       setFullAgenda(agendaConPrestador);
@@ -43,26 +45,49 @@ export function GestionarAgenda() {
 
     const busq = busqueda.toLowerCase();
 
-    const resultado = fullAgenda.filter((a) => {
-      const p = a.prestador || {};
+    let resultado = [];
 
-      switch (filtro) {
-        case "nombre":
-          return p.nombre?.toLowerCase().includes(busq);
-        case "apellido":
-          return p.apellido?.toLowerCase().includes(busq);
-        case "especialidad":
-          return p.especialidad?.some((e) =>
+    switch (filtro) {
+      case "nombre":
+        resultado = fullAgenda.filter((a) =>
+          a.prestador?.nombre?.toLowerCase().includes(busq)
+        );
+        break;
+
+      case "apellido":
+        resultado = fullAgenda.filter((a) =>
+          a.prestador?.apellido?.toLowerCase().includes(busq)
+        );
+        break;
+
+      case "especialidad":
+        resultado = fullAgenda.filter((a) =>
+          a.prestador?.especialidad?.some((e) =>
             e.descripcion?.toLowerCase().includes(busq)
-          );
-        case "lugarDeAtención":
-          return p.direccion?.some((d) =>
+          )
+        );
+        break;
+
+      case "lugarDeAtención":
+        resultado = fullAgenda.filter((a) =>
+          a.prestador?.direccion?.some((d) =>
             d.calle?.toLowerCase().includes(busq)
+          )
+        );
+        break;
+
+      case "todos":
+        resultado = agenda.map((a) => {
+          const prestador = prestadores.find(
+            (p) => p.prestadorId === a.prestadorId
           );
-        default:
-          return fullAgenda;
-      }
-    });
+          return { ...a, prestador };
+        });
+        break;
+
+      default:
+        resultado = fullAgenda;
+    }
 
     setFullAgenda(resultado);
   };
@@ -111,9 +136,19 @@ export function GestionarAgenda() {
             <SearchIcon></SearchIcon>
           </div>
         </div>
-        <div>
-          <TableAgenda listHeader={headerTableAgenda} data={fullAgenda} />
-        </div>
+        <section className="section-tabla-agenda">
+          {loadingPrestadores && loadingAgenda ? (
+            <div className="centrar">
+              <Loader />
+            </div>
+          ) : fullAgenda && fullAgenda.length > 0 ? (
+            <TableAgenda listHeader={headerTableAgenda} data={fullAgenda} />
+          ) : (
+            <div className="sin-resultados-section">
+              <SubTitleSection text={"No se encontraron resultados."} />
+            </div>
+          )}
+        </section>
       </section>
     </>
   );

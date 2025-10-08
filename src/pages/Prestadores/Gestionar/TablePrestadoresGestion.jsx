@@ -75,7 +75,10 @@ export function TablePrestadoresGestion({
                       <Tooltip
                         id={`tooltip-${d.prestadorId}`}
                         place="top"
-                        style={{ background: "#255d99ff" }}
+                        style={{
+                          background: "#255d99ff",
+                          whiteSpace: "pre-line",
+                        }}
                       />
                     </>
                   ) : (

@@ -69,7 +69,10 @@ export function TableAgenda({ listHeader, data }) {
                       <Tooltip
                         id={`tooltip-${d.agendaId}`}
                         place="top"
-                        style={{ background: "#255d99ff" }}
+                        style={{
+                          background: "#255d99ff",
+                          whiteSpace: "pre-line",
+                        }}
                       />
                     </>
                   ) : (
@@ -77,38 +80,52 @@ export function TableAgenda({ listHeader, data }) {
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">
-                  {d.horario.length > 1 ? (
+                  {d.diaDeSemana.length > 1 ? (
                     <>
                       <span
-                        data-tooltip-id={`tooltip-${d.agendaId}`}
-                        data-tooltip-content={d.horario
-                          .map(
-                            (h) =>
-                              `${h.diaDescripcion || ""} ${h.horarioInicio} - ${
-                                h.horarioFinal
-                              } `
-                          )
+                        data-tooltip-id={`tooltip-horario-${d.agendaId}`}
+                        data-tooltip-content={d.diaDeSemana
+                          .map((dia) => {
+                            const horario = d.horario.find(
+                              (h) => h.idDia === dia.idDia
+                            );
+                            if (horario) {
+                              return `${dia.descripcion}: ${horario.horarioInicio} - ${horario.horarioFinal}`;
+                            } else {
+                              return `${dia.descripcion}: (sin horario)`;
+                            }
+                          })
                           .join(",\n")}
                         className="cursor-help text-blue-600 font-medium"
                       >
-                        {`${d.horario[0].diaDescripcion || ""} ${
-                          d.horario[0].horarioInicio
+                        {`${d.diaDeSemana[0].descripcion}: ${
+                          d.horario.find(
+                            (h) => h.idDia === d.diaDeSemana[0].idDia
+                          )?.horarioInicio || ""
+                        } - ${
+                          d.horario.find(
+                            (h) => h.idDia === d.diaDeSemana[0].idDia
+                          )?.horarioFinal || ""
                         }...`}
                       </span>
+
                       <Tooltip
-                        id={`tooltip-${d.agendaId}`}
+                        id={`tooltip-horario-${d.agendaId}`}
                         place="top"
-                        style={{ background: "#255d99ff" }}
+                        style={{
+                          background: "#255d99ff",
+                          whiteSpace: "pre-line",
+                        }}
                       />
                     </>
-                  ) : d.horario.length === 1 ? (
-                    <span>
-                      {`${d.horario[0].diaDescripcion || ""} ${
-                        d.horario[0].horarioInicio
-                      } - ${d.horario[0].horarioFinal}`}
-                    </span>
                   ) : (
-                    <span>-</span>
+                    <span>{`${d.diaDeSemana[0].descripcion}: ${
+                      d.horario.find((h) => h.idDia === d.diaDeSemana[0].idDia)
+                        ?.horarioInicio || ""
+                    } - ${
+                      d.horario.find((h) => h.idDia === d.diaDeSemana[0].idDia)
+                        ?.horarioFinal || ""
+                    }`}</span>
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">
@@ -128,7 +145,7 @@ export function TableAgenda({ listHeader, data }) {
                         id={`tooltip-direccion-${d.agendaId}`}
                         place="top"
                         style={{
-                          background: "#255d99ff"
+                          background: "#255d99ff",
                         }}
                       />
                     </>
@@ -155,7 +172,7 @@ export function TableAgenda({ listHeader, data }) {
                         id={`tooltip-telefono-${d.agendaId}`}
                         place="top"
                         style={{
-                          background: "#255d99ff"
+                          background: "#255d99ff",
                         }}
                       />
                     </>
@@ -164,9 +181,6 @@ export function TableAgenda({ listHeader, data }) {
                   )}
                 </td>
                 <td id="icons" className="tablePrestador__tbody-td sinBorde">
-                  <Link>
-                    <DetailsIcon></DetailsIcon>
-                  </Link>
                   <Link>
                     <DeleteIcon></DeleteIcon>
                   </Link>
