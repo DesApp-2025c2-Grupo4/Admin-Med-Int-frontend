@@ -3,13 +3,13 @@ import { InputDate } from "../../../../components/ui/Input/InputDate/InputDate.j
 import { useState } from "react";
 import { ReporteContainer } from "../ui/ReporteContainer/ReporteContainer.jsx";
 import { Button } from "../ui/Button/Button.jsx";
-import { listAfiliados } from "../../../../Mock/listAfiliados.js";
 import { useNavigate } from "react-router-dom";
 
-export function ReporteAltaPorPeriodos() {
+export function ReporteAltaPorPeriodos({data}) {
   const [periodo, setPeriodo] = useState({});
   const [resultados, setResultados] = useState();
   const navigate = useNavigate();
+  const datos = data;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,16 +27,16 @@ export function ReporteAltaPorPeriodos() {
     const desde = new Date(fechaDesde);
     const hasta = new Date(fechaHasta);
 
-    const afiliadosFiltrados = listAfiliados.filter((afiliado) => {
-      const fechaAltaDate = new Date(afiliado.fechaAlta);
+    const datosFiltrados = datos.filter((d) => {
+      const fechaAltaDate = new Date(d.fechaAlta);
       return fechaAltaDate >= desde && fechaAltaDate <= hasta;
     });
 
-    setResultados(afiliadosFiltrados);
+    setResultados(datosFiltrados);
     console.log(resultados);
     navigate("reporte-alta-generado", {
       state: {
-        resultados: afiliadosFiltrados,
+        resultados: datosFiltrados,
         fechaDesde: fechaDesde,
         fechaHasta: fechaHasta,
       },
