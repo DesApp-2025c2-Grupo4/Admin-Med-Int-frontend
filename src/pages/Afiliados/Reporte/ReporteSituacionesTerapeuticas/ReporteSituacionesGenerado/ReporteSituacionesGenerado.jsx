@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router";
-import { TablaResultados } from "../../ui/TablaResultados/TablaResultados";
-import { Button } from "../../ui/Button/Button";
+import { TablaResultados } from "../../../../../components/ui/TablaResultados/TablaResultados.jsx";
+import { Button } from "../../../../../components/ui/Button/Button.jsx";
 
 
 export function ReporteSituacionesGenerado() {

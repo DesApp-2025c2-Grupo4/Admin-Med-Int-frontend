@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Flecha } from "../../Icons/Flecha";
+import { Flecha } from "../../../assets/icons/Flecha.jsx";
 import "./ReporteContainer.css";
 
 export function ReporteContainer({

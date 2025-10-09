@@ -1,6 +1,6 @@
 import "./ReporteSituacionesTerapeuticas.css";
-import { ReporteContainer } from "../ui/ReporteContainer/ReporteContainer.jsx";
-import { Button } from "../ui/Button/Button.jsx";
+import { ReporteContainer } from "../../../../components/ui/ReporteContainer/ReporteContainer.jsx";
+import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx";
 import { useState } from "react";
 import { listGrupos } from "../../../../Mock/listGrupos.js";
