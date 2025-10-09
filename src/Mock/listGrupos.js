@@ -18,7 +18,7 @@ export const listGrupos = [
             fechaFin: null,
           },
           {
-            situacionId: 1,
+            situacionId: 2,
             descripcion: "Resfrio",
             esCronica: false,
             fechaInicio: "2020-01-01",
@@ -98,7 +98,7 @@ export const listGrupos = [
         personaId: 2,
         situacionesTerapeuticas: [
           {
-            situacionId: 2,
+            situacionId: 4,
             descripcion: "Hipertensión",
             esCronica: true,
             fechaInicio: "2019-05-10",
@@ -156,7 +156,7 @@ export const listGrupos = [
         personaId: 6,
         situacionesTerapeuticas: [
           {
-            situacionId: 4,
+            situacionId: 5,
             descripcion: "Colesterol Alto",
             esCronica: true,
             fechaInicio: "2018-04-01",
@@ -189,7 +189,7 @@ export const listGrupos = [
         personaId: 8,
         situacionesTerapeuticas: [
           {
-            situacionId: 5,
+            situacionId: 6,
             descripcion: "Alergia Estacional",
             esCronica: false,
             fechaInicio: "2023-09-01",
@@ -222,7 +222,7 @@ export const listGrupos = [
         personaId: 10,
         situacionesTerapeuticas: [
           {
-            situacionId: 6,
+            situacionId: 7,
             descripcion: "Hipotiroidismo",
             esCronica: true,
             fechaInicio: "2020-07-01",

@@ -2,6 +2,7 @@ import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx
 import { FormGrupoFamilia } from "./FormGrupoFamilia/FormGrupoFamilia.jsx"
 import { AddMember } from "../../../components/ui/AddMember/AddMember.jsx"
 import { RegisterGroup } from "../../../components/ui/RegisterGroup/RegisterGroup.jsx"
+import { Register } from "../../../components/ui/Register/Register.jsx"
 import './NuevoGrupoFamilia.css'
 export function NuevoGrupoFamiliar(){
     return (
@@ -9,8 +10,7 @@ export function NuevoGrupoFamiliar(){
             <TitleSection text="Nuevo Grupo Familiar" />
             <FormGrupoFamilia text="Datos del titular"/>
             <div className="button-container">
-                <AddMember />
-                <RegisterGroup />
+                <Register />
             </div>
         </section>
     )

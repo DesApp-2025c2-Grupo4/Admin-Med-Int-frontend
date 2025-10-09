@@ -7,17 +7,17 @@ import { InputSituacionesTerapeuticas } from "../../../../constants/Inputs/Input
 import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTitleSection.jsx"
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
-import { InputCalendar } from '../../../../components/ui/Input/InputCalendar/InputCalendar.jsx'
 import './FormGrupoFamilia.css'
 import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
 
 export function FormGrupoFamilia({text}) {
-    const [newSituacion, setNewSituacion] = useState("");
+
+    const [newSituacion, setNewSituacion] = useState("1"); 
     const [isIndefinida, setIsIndefinida] = useState(false);
-    const [fechaInicio, setFechaInicio] = useState(null); 
-    const [fechaFinal, setFechaFinal] = useState(null);
+    const [fechaInicio, setFechaInicio] = useState(''); 
+    const [fechaFinal, setFechaFinal] = useState('');
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion] = useState('');
@@ -43,56 +43,102 @@ export function FormGrupoFamilia({text}) {
             [name]: value,
         }));
     };
+    const handleDeleteItem = (listName, itemToDelete) => {
+        const normalizedItemToDelete = itemToDelete.trim().toUpperCase();
+        setDataForm(prev => ({
+            ...prev,
+            [listName]: prev[listName].filter(item => 
+                item.trim().toUpperCase() !== normalizedItemToDelete
+            ),
+        }));
+    };
+    const deleteTelefono = (telefono) => handleDeleteItem('telefonos', telefono);
+    const deleteEmail = (email) => handleDeleteItem('emails', email);
+    const deleteDireccion = (direccion) => handleDeleteItem('direcciones', direccion);
+    const deleteSituacion = (id) => {
+        setDataForm(prev => ({
+            ...prev,
+            situacionesTerapeuticas: prev.situacionesTerapeuticas.filter(s => s.idSituacion !== id)
+        }));
+    };
 
     const addTelefono = () => {
-        if (currentTelefono.trim() !== '') {
-            setDataForm((prev) => ({
-                ...prev,
-                telefonos: [...prev.telefonos, currentTelefono.trim()],
-            }));
-            setCurrentTelefono(''); 
+        const telefonoLimpio = currentTelefono.trim();
+        if (telefonoLimpio === '') return;
+        const isDuplicado = dataForm.telefonos.some(
+            (telGuardado) => telGuardado.trim() === telefonoLimpio
+        );
+        if (isDuplicado) {
+            return;
         }
+        setDataForm((prev) => ({
+            ...prev,
+            telefonos: [...prev.telefonos, telefonoLimpio],
+        }));
+        setCurrentTelefono(''); 
     };
 
     const addEmail = () => {
-        if (currentEmail.trim() !== '') {
-            setDataForm((prev) => ({
-                ...prev,
-                emails: [...prev.emails, currentEmail.trim()],
-            }));
-            setCurrentEmail(''); 
+        const emailLimpio = currentEmail.trim().toUpperCase();
+        if (emailLimpio === '') return;
+        const isDuplicado = dataForm.emails.some(
+            (emailGuardado) => emailGuardado.trim().toUpperCase() === emailLimpio
+        );
+        if (isDuplicado) {
+            return;
         }
+        setDataForm((prev) => ({
+            ...prev,
+            emails: [...prev.emails, currentEmail.trim()], 
+        }));
+        setCurrentEmail(''); 
     };
 
     const addDireccion = () => {
-        if (currentDireccion.trim() !== '') {
-            setDataForm((prev) => ({
-                ...prev,
-                direcciones: [...prev.direcciones, currentDireccion.trim()],
-            }));
-            setCurrentDireccion(''); 
+        const direccionLimpia = currentDireccion.trim().toUpperCase();
+        if (direccionLimpia === '') return;
+        const isDuplicado = dataForm.direcciones.some(
+            (dirGuardada) => dirGuardada.trim().toUpperCase() === direccionLimpia
+        );
+        if (isDuplicado) {
+            return;
         }
+        setDataForm((prev) => ({
+            ...prev,
+            direcciones: [...prev.direcciones, currentDireccion.trim()],
+        }));
+        setCurrentDireccion(''); 
     };
 
     const addSituacion = () => {
         if (newSituacion === "" || newSituacion === null) {
             return;
         }
-
         const situacionSeleccionada = InputSituacionesTerapeuticas.find(
             (s) => s.id === parseInt(newSituacion, 10)
         );
-
         if (!situacionSeleccionada) return;
+        const isCronica = !isIndefinida; 
+        if (!isCronica) { 
+            if (!fechaInicio || !fechaFinal) {
+                return;     
+            }
+        }
+        const isDuplicada = dataForm.situacionesTerapeuticas.some(
+            (s) => s.idSituacion === situacionSeleccionada.id
+        );
+        if (isDuplicada) {
+
+            return; 
+        }
 
         const newSituacionObject = {
             idSituacion: situacionSeleccionada.id,
             descripcion: situacionSeleccionada.descripcion,
-            esCronica: !isIndefinida,
-            fechaInicio: isIndefinida ? fechaInicio : null,
-            fechaFinal: isIndefinida ? fechaFinal : null
+            esCronica: isCronica,
+            fechaInicio: isCronica ? null : fechaInicio,
+            fechaFinal: isCronica ? null : fechaFinal
         };
-
         setDataForm((prev) => ({
             ...prev,
             situacionesTerapeuticas: [
@@ -100,29 +146,22 @@ export function FormGrupoFamilia({text}) {
                 newSituacionObject,
             ],
         }));
-
-        setNewSituacion("");
-        setFechaInicio(null);
-        setFechaFinal(null);
+        setFechaInicio('');
+        setFechaFinal('');
     };
-
     const handleSituacionTypeChange = (e) => {
         const isIndefinidaSelected = e.target.value === 'indefinida';
-        setIsIndefinida(isIndefinidaSelected);
-    
-        const updatedSituaciones = dataForm.situacionesTerapeuticas.map((s) => ({
-            ...s,
-            esCronica: !isIndefinidaSelected,
-        }));
-    
-        setDataForm((prev) => ({
-            ...prev,
-            situacionesTerapeuticas: updatedSituaciones,
-        }));
+        setIsIndefinida(isIndefinidaSelected); 
+    };
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+        console.log("Datos listos para enviar al backend:", dataForm);
     };
 
     return (
-        <form className="form-grupo-familia">
+        <form className="form-grupo-familia" onSubmit={handleSubmit}>
             <SubTitleSection text={text} />
             <div className="form-row">
                 <InputSelect 
@@ -162,18 +201,24 @@ export function FormGrupoFamilia({text}) {
             <SubTitleSection text="Información de contacto" />
 
             <div className="form-contacto">
+                {/* TELÉFONOS */}
                 <div className="input-with-button">
                     <InputText text="Teléfono"
                         name="telefonos"
                         value={currentTelefono}
                         handleChange={(e) => setCurrentTelefono(e.target.value)}/>
                     <AddButton onClick={addTelefono} className="button-add" />
-                     <div className="saved-items-container">
+                       <div className="saved-items-container">
                         {dataForm.telefonos.map((tel, index) => (
-                            <ContactCard key={`tel-${index}`} texto={tel} />
+                            <ContactCard 
+                                key={`tel-${index}`} 
+                                texto={tel} 
+                                onDelete={() => deleteTelefono(tel)} 
+                            />
                         ))}
                     </div>
                 </div>
+                {/* EMAILS */}
                 <div className="input-with-button">
                     <InputText text="Email"
                         name="emails"
@@ -182,10 +227,15 @@ export function FormGrupoFamilia({text}) {
                     <AddButton onClick={addEmail} className="button-add" />
                     <div className="saved-items-container">
                         {dataForm.emails.map((email, index) => (
-                            <ContactCard key={`email-${index}`} texto={email} />
+                            <ContactCard 
+                                key={`email-${index}`} 
+                                texto={email} 
+                                onDelete={() => deleteEmail(email)} 
+                            />
                         ))}
                     </div>
                 </div>
+                {/* DIRECCIONES */}
                 <div className="input-with-button">
                     <InputText text="Dirección"
                         name="direcciones"
@@ -194,7 +244,11 @@ export function FormGrupoFamilia({text}) {
                     <AddButton onClick={addDireccion} className="button-add"/>
                     <div className="saved-items-container">
                         {dataForm.direcciones.map((dir, index) => (
-                            <ContactCard key={`dir-${index}`} texto={dir} />
+                            <ContactCard 
+                                key={`dir-${index}`} 
+                                texto={dir} 
+                                onDelete={() => deleteDireccion(dir)} 
+                            />
                         ))}
                     </div>
                 </div>
@@ -231,7 +285,6 @@ export function FormGrupoFamilia({text}) {
                             listaDeOpciones={InputSituacionesTerapeuticas}
                             value={newSituacion}
                             handleChange={(e) => setNewSituacion(e.target.value)} />
-                        <AddButton onClick={addSituacion} className="button-add" />
                         
                         <div className="radio-group-and-calendars">
                             <div className="checkbox-group">
@@ -261,13 +314,13 @@ export function FormGrupoFamilia({text}) {
                             
                             {isIndefinida && (
                                 <>
-                                    <InputCalendar 
+                                    <InputDate 
                                         text="Fecha de inicio" 
                                         name="fechaInicio"
                                         required={true}
                                         value={fechaInicio}
                                         handleChange={(e) => setFechaInicio(e.target.value)} />
-                                    <InputCalendar 
+                                    <InputDate 
                                         text="Fecha de fin" 
                                         name="fechaFinal"
                                         required={true} 
@@ -276,11 +329,16 @@ export function FormGrupoFamilia({text}) {
                                 </>
                             )}
                         </div>
+                        <AddButton onClick={addSituacion} className="button-add" />
                     </div>
                     
                     <div className="situaciones-list">
                         {dataForm.situacionesTerapeuticas.map((s, index) => (
-                            <SituacionCard key={index} situacion={s} />
+                            <SituacionCard 
+                                key={index} 
+                                situacion={s}
+                                onDelete={() => deleteSituacion(s.idSituacion)} 
+                            />
                         ))}
                     </div>
                 </div>

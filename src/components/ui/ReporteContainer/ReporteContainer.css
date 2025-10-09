@@ -1,0 +1,25 @@
+.reporte-container {
+    /* width: 600px;  */
+    cursor: pointer; 
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reporte-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.rotated {
+  transform: rotate(180deg);  /* Rota 180° (flecha hacia abajo) */
+  transition: transform 0.3s ease; 
+}
+
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 250px;
+}

@@ -1,0 +1,52 @@
+.container_form_modificarGrupo {
+    border-top: 1px solid rgba(0, 0, 0, 0.267);
+}
+
+.card_container_modificarGrupo {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    transition: transform .2s ease;
+
+    &:hover {
+        transform: scale(1.02)
+    }
+
+    padding-bottom: 1rem;
+}
+
+.container_data_modificarGrupo {
+    padding: 1.5rem 1.5rem 1rem 1.5rem !important;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.container_form_modificarGrupo {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    gap: 2rem;
+}
+
+.container_botones_modificarGrupo {
+    display: flex;
+    justify-content: right;
+    gap: 1.1rem;
+    padding: 0.1rem 1.2rem;
+}
+
+@media (max-width:640px) {
+    .container_form_modificarGrupo {
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width:540px) {
+    .container_botones_modificarGrupo {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

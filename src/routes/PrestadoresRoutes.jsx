@@ -3,17 +3,19 @@ import { GestionarPrestadores } from '../pages/Prestadores/Gestionar/GestionarPr
 import { NuevoPrestador } from '../pages/Prestadores/NuevoPrestador/NuevoPrestador.jsx'
 import { ReportePrestador } from '../pages/Prestadores/Reporte/ReportePrestador.jsx'
 import { ModificarPrestador } from '../pages/Prestadores/ModificarPrestador/ModificarPrestador.jsx'
+import { ReporteAltaGenerado } from "../pages/Prestadores/Reporte/ReporteAltaGenerado/ReporteAltaGenerado.jsx"
 
-export function PrestadoresRoutes(){
-  return(
+export function PrestadoresRoutes() {
+  return (
     <Routes>
       <Route path="gestionar" element={<GestionarPrestadores />} />
       <Route path="nuevo-prestador" element={<NuevoPrestador />} />
       <Route path="reportes" element={<ReportePrestador />} />
       <Route path="modificar-prestador/:id" element={<ModificarPrestador />} />
-      
+      <Route path="reportes/reporte-alta-generado" element={<ReporteAltaGenerado />}
+      />
       {/* Opcional: ruta por defecto */}
       <Route index element={<GestionarPrestadores />} />
     </Routes>
-  )
+  );
 }
