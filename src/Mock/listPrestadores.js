@@ -122,8 +122,14 @@ export const listPrestador = [
     apellido: "Gutierrez",
     email: "andres.gutierrez@algo.com",
     tipoPrestador: "Centro Médico",
-    telefonos: [{ idTelefono: 10, nro: "2321321" }],
-    direccion: [{ idDireccion: 10, calle: "Corrientes", nro: 2020 }],
+    telefonos: [
+      { idTelefono: 10, nro: "2321321" },
+      { idTelefono: 11, nro: "5456146" },
+    ],
+    direccion: [
+      { idDireccion: 10, calle: "Corrientes", nro: 2020 },
+      { idDireccion: 11, calle: "Cabildo", nro: 2544 },
+    ],
     codigoPostal: "5851",
     cuilCuit: "30567890130",
     especialidad: [
