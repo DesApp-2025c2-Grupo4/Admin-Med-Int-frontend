@@ -1,6 +1,6 @@
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
-import { ReporteAltaPorPeriodos } from "../../Afiliados/Reporte/ReporteAltaPorPeriodos/ReporteAltaPorPeriodos.jsx";
+import { ReporteAltaPorPeriodos } from "../../../components/ReporteAltaPorPeriodos/ReporteAltaPorPeriodos.jsx";
 import "./Reporte.css"
 import { listPrestador } from "../../../Mock/listPrestadores.js";
 

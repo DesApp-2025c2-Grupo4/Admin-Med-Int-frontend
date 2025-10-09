@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "../../../../../components/ui/Button/Button.jsx";
-import { TablaResultados } from "../../../../../components/ui/TablaResultados/TablaResultados.jsx";
+import { Button } from "../../../../components/ui/Button/Button.jsx";
+import { TablaResultados } from "../../../../components/ui/TablaResultados/TablaResultados.jsx";
 
 export function ReporteAltaGenerado() {
   const location = useLocation();

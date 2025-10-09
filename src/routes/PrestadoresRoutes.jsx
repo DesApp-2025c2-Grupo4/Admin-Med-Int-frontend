@@ -10,7 +10,6 @@ export function PrestadoresRoutes() {
       <Route path="gestionar" element={<GestionarPrestadores />} />
       <Route path="nuevo-prestador" element={<NuevoPrestador />} />
       <Route path="reportes" element={<ReportePrestador />} />
-
       <Route path="reportes/reporte-alta-generado" element={<ReporteAltaGenerado />}
       />
 

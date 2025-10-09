@@ -1,8 +1,8 @@
 import "./ReporteAltaPorPeriodos.css";
-import { InputDate } from "../../../../components/ui/Input/InputDate/InputDate.jsx";
+import { InputDate } from "../ui/Input/InputDate/InputDate.jsx";
 import { useState } from "react";
-import { ReporteContainer } from "../../../../components/ui/ReporteContainer/ReporteContainer.jsx";
-import { Button } from "../../../../components/ui/Button/Button.jsx";
+import { ReporteContainer } from "../ui/ReporteContainer/ReporteContainer.jsx";
+import { Button } from "../ui/Button/Button.jsx";
 import { useNavigate } from "react-router-dom";
 
 export function ReporteAltaPorPeriodos({data}) {

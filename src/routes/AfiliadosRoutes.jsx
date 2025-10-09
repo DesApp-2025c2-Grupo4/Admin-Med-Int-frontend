@@ -5,7 +5,7 @@ import { Reporte } from "../pages/Afiliados/Reporte/Reporte.jsx";
 import { AgregarIntegrante } from "../pages/Afiliados/AgregarIntegrante/AgregarIntegrante.jsx";
 import { DetalleDePersona } from "../pages/Afiliados/DetalleDePersona/DetalleDePersona.jsx";
 import { ModificarGrupo } from "../pages/Afiliados/ModificarGrupo/ModificarGrupo.jsx";
-import { ReporteAltaGenerado } from "../pages/Afiliados/Reporte/ReporteAltaPorPeriodos/ReporteAltaGenerado/ReporteAltaGenerado.jsx";
+import { ReporteAltaGenerado } from "../pages/Afiliados/Reporte/ReporteAltaGenerado/ReporteAltaGenerado.jsx";
 import { ReporteSituacionesGenerado } from "../pages/Afiliados/Reporte/ReporteSituacionesTerapeuticas/ReporteSituacionesGenerado/ReporteSituacionesGenerado.jsx";
 
 export function AfiliadoRoutes(){
