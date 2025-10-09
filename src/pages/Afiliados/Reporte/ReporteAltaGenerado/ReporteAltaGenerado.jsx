@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "../../ui/Button/Button.jsx";
-import { TablaResultados } from "../../ui/TablaResultados/TablaResultados.jsx";
+import { Button } from "../../../../components/ui/Button/Button.jsx";
+import { TablaResultados } from "../../../../components/ui/TablaResultados/TablaResultados.jsx";
 
 export function ReporteAltaGenerado() {
   const location = useLocation();
@@ -23,7 +23,7 @@ export function ReporteAltaGenerado() {
     <>
       {resultados.length > 0 ? (
         <TablaResultados 
-        datos={resultados}
+          datos={resultados}
           columnas={columnasAfiliados}
           keyField="personaId"
           titulo={`Resultados del Reporte de Afiliados dados de alta en el período desde: ${fechaDesde} hasta: ${fechaHasta} `} />

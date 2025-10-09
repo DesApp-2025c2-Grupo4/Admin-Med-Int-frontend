@@ -1,8 +1,10 @@
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
-import { ReporteAltaPorPeriodos } from "./ReporteAltaPorPeriodos/ReporteAltaPorPeriodos.jsx";
+import { ReporteAltaPorPeriodos } from "../../../components/ReporteAltaPorPeriodos/ReporteAltaPorPeriodos.jsx";
 import { ReporteSituacionesTerapeuticas } from "./ReporteSituacionesTerapeuticas/ReporteSituacionesTerapeuticas.jsx";
 import "./Reporte.css"
+import { listAfiliados } from "../../../Mock/listAfiliados.js";
+
 
 export function Reporte (){
   
@@ -13,7 +15,7 @@ export function Reporte (){
             <TitleSection text="Reportes de afiliados"/>
             <div className="reportes-contenedor">
                 <ReporteSituacionesTerapeuticas/>
-                <ReporteAltaPorPeriodos/>
+                <ReporteAltaPorPeriodos data={listAfiliados}/>
             </div>
         </div>
     )

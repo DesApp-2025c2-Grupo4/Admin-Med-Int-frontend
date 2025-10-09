@@ -10,6 +10,7 @@ export const listPrestador = [
     codigoPostal: "1536",
     cuilCuit: "20345678901",
     especialidad: [{ idEspecialidad: 1, descripcion: "Traumatologia" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 2,
@@ -22,6 +23,7 @@ export const listPrestador = [
     codigoPostal: "1265",
     cuilCuit: "30567890123",
     especialidad: [{ idEspecialidad: 2, descripcion: "Cardiologia" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 3,
@@ -34,6 +36,7 @@ export const listPrestador = [
     codigoPostal: "1536",
     cuilCuit: "20345678903",
     especialidad: [{ idEspecialidad: 3, descripcion: "Odontologia" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 4,
@@ -46,6 +49,7 @@ export const listPrestador = [
     codigoPostal: "1306",
     cuilCuit: "30567890124",
     especialidad: [{ idEspecialidad: 4, descripcion: "Pediatria" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 5,
@@ -58,6 +62,7 @@ export const listPrestador = [
     codigoPostal: "2485",
     cuilCuit: "20345678905",
     especialidad: [{ idEspecialidad: 5, descripcion: "Neurologia" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 6,
@@ -70,6 +75,7 @@ export const listPrestador = [
     codigoPostal: "2254",
     cuilCuit: "30567890126",
     especialidad: [{ idEspecialidad: 6, descripcion: "Dermatologia" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 7,
@@ -82,6 +88,7 @@ export const listPrestador = [
     codigoPostal: "1536",
     cuilCuit: "20345678907",
     especialidad: [{ idEspecialidad: 7, descripcion: "Ginecologia" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 8,
@@ -94,6 +101,7 @@ export const listPrestador = [
     codigoPostal: "1675",
     cuilCuit: "30567890128",
     especialidad: [{ idEspecialidad: 8, descripcion: "Psiquiatria" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 9,
@@ -106,6 +114,7 @@ export const listPrestador = [
     codigoPostal: "1358",
     cuilCuit: "20345678909",
     especialidad: [{ idEspecialidad: 9, descripcion: "Oftalmologia" }],
+    fechaAlta: "2019-01-15"
   },
   {
     prestadorId: 10,
@@ -122,5 +131,6 @@ export const listPrestador = [
       { idEspecialidad: 11, descripcion: "Pediatria" },
       { idEspecialidad: 11, descripcion: "Oftalmologia" },
     ],
+    fechaAlta: "2019-01-15"
   },
 ];
