@@ -57,7 +57,7 @@ export function TableAfiliados({listHeader,data}){
                     <td className='table__tbody-td'>{`${d.nombre}, ${d.apellido}`}</td>
                     <td className='table__tbody-td'>{d.fechaAlta}</td>
                     <td className='table__tbody-td'>{d.mail}</td>
-                    <td className='table__tbody-td sinBorde '><span className='resaltar'>{d.planMedico.descripcion}</span></td>
+                    {/* <td className='table__tbody-td sinBorde '><span className='resaltar'>{d.planMedico.descripcion}</span></td> */}
                   </tr> 
                 )
               })

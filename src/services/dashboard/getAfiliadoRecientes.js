@@ -1,7 +1,8 @@
-import { listAfiliados } from "../../Mock/listAfiliados"
-export const getAfiliadoRecientes = async()=>{
+export const getAfiliadoRecientes = async () => {
+  const res = await fetch('http://localhost:4000/persona')
+  const data = await res.json()
   //Despues reemplazar por la logica
-  const afiliadosOrdenados = listAfiliados.sort((a, b) => {
+  const afiliadosOrdenados = data.sort((a, b) => {
     return new Date(b.fechaAlta) - new Date(a.fechaAlta);
   });
   return new Promise((resolve) => {
