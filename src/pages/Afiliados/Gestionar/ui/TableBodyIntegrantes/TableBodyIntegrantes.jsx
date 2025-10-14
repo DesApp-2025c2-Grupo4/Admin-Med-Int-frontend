@@ -88,7 +88,9 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
                       </Link>
                       {
                         i.esTitular ?
-                        <DeleteIcon></DeleteIcon> :
+                        <Link onClick={()=>alert('No se puede eliminar al titular')}>
+                          <DeleteIcon></DeleteIcon> 
+                        </Link>:
                         <Link onClick={()=> handleClickEliminar(i.personaId)}>
                           <DeleteIcon></DeleteIcon>
                         </Link>

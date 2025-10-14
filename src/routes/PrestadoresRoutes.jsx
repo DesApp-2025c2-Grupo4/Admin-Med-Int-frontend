@@ -4,6 +4,7 @@ import { NuevoPrestador } from '../pages/Prestadores/NuevoPrestador/NuevoPrestad
 import { ReportePrestador } from '../pages/Prestadores/Reporte/ReportePrestador.jsx'
 import { ModificarPrestador } from '../pages/Prestadores/ModificarPrestador/ModificarPrestador.jsx'
 import { ReporteAltaGenerado } from "../pages/Prestadores/Reporte/ReporteAltaGenerado/ReporteAltaGenerado.jsx"
+import { DetalleDePrestador } from './../pages/Prestadores/DetalleDePrestador/DetalleDePrestador.jsx';
 
 export function PrestadoresRoutes() {
   return (
@@ -12,10 +13,10 @@ export function PrestadoresRoutes() {
       <Route path="nuevo-prestador" element={<NuevoPrestador />} />
       <Route path="reportes" element={<ReportePrestador />} />
       <Route path="modificar-prestador/:id" element={<ModificarPrestador />} />
-      <Route path="reportes/reporte-alta-generado" element={<ReporteAltaGenerado />}
-      />
+      <Route path="reportes/reporte-alta-generado" element={<ReporteAltaGenerado />} />
+      <Route path="gestionar/detalle/:id" element={<DetalleDePrestador />} />
       {/* Opcional: ruta por defecto */}
-      <Route index element={<GestionarPrestadores />} />
+      <Route path="*" element={<GestionarPrestadores />} />
     </Routes>
   );
 }
