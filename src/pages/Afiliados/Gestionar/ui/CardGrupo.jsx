@@ -63,7 +63,7 @@ export function CardGrupo({
         style={
           { paddingBottom: contraer ? "1rem" : "0",
             backgroundColor: showModal ? '#0c243d56':'white'
-           }
+          }
         }
       >
         {
@@ -100,7 +100,7 @@ export function CardGrupo({
           <TableIntegrantes
             loadingGrupos={false}
             listHeader={headerTableGrupoFamiliar}
-            data={[{ integrantes }]}
+            data={integrantes}
           ></TableIntegrantes>
         </div>
       </section>

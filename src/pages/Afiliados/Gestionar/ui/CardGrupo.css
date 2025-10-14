@@ -28,9 +28,6 @@
     flex-direction: column;
     transition: transform .2s ease;
     position: relative;
-    &:hover {
-        transform: scale(1.02)
-    }
 }
 
 .container_tableIntegrantes{
