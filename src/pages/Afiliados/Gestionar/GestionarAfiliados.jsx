@@ -13,7 +13,6 @@ export function GestionarAfiliados() {
   const [allGrupos, setAllGrupos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("");
-
   useCambiarTitulo({ title: "Gestión de Afiliados" });
 
   useEffect(() => {
