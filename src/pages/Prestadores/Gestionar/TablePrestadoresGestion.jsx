@@ -89,7 +89,7 @@ export function TablePrestadoresGestion({
                   <span className="resaltar">{d.tipoPrestador}</span>
                 </td>
                 <td id="icons" className="tablePrestador__tbody-td sinBorde">
-                  <Link>
+                  <Link to={`detalle/${d.prestadorId}`}>
                     <DetailsIcon></DetailsIcon>
                   </Link>
                   <Link>

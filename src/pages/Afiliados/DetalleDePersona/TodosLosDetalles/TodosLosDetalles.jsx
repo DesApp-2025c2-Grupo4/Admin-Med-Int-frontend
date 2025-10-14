@@ -12,7 +12,7 @@ export function TodosLosDetalles({persona}){
       {/* Detalles de contacto */}
       <SectionDetallesContacto persona ={persona} /> 
       {/* <SectionDetallesDeGrupo persona = {persona} /> */}
-      <ButtonEditar />
+      <ButtonEditar path={`/afiliados/gestionar/modificar/persona/${persona.personaId}`}/>
     </>
   )
 }

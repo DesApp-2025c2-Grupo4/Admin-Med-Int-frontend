@@ -1,6 +1,7 @@
 import { listPrestador } from "../../Mock/listPrestadores.js";
 
 export function getDetalleDePrestador(id) {
+  console.log(listPrestador)
   return new Promise((resolve) => {
     setTimeout(() => {
       const prestador = listPrestador.find(
@@ -12,6 +13,6 @@ export function getDetalleDePrestador(id) {
       } else {
         resolve(null);
       }
-    }, 700); 
+    }, 3000); 
   });
 }
