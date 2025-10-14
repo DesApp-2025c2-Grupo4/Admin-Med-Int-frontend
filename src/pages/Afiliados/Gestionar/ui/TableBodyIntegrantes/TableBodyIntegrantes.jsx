@@ -81,7 +81,7 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
                     <td className="tableGrupo__tbody-td">
                       {i.parentesco ? i.parentesco : "TITULAR"}
                     </td>
-                    <td id="icons" className="tableGrupo__tbody-tdsinBorde">
+                    <td id="icons" className="tableGrupo__tbody-td sinBorde">
                       
                       <Link to={'/afiliados/gestionar/detalles/persona/'+i.personaId}>
                         <DetailsIcon></DetailsIcon>
