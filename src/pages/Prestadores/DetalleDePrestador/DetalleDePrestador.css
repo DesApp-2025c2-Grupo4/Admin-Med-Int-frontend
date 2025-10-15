@@ -12,3 +12,14 @@
   justify-content: center;
   align-items: center;
 }
+.section-detalle-persona__container{
+  animation: animarEntrada .2s linear;
+}
+
+@keyframes animarEntrada {
+  0%{
+    transform: scale(0.5);
+  }100%{
+    transform: scale(1);
+  }
+}

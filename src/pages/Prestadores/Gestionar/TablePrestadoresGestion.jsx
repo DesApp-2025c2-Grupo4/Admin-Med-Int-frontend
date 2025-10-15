@@ -5,7 +5,9 @@ import { DetailsIcon } from "../../../assets/icons/Afiliados/DetailsIcon";
 import { ModifierIcon } from "../../../assets/icons/Afiliados/ModifierIcon";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-
+import { useState } from "react";
+import { ModalDeConfirmacion} from '../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
+import { useEliminarUnPrestador } from "../../../hooks/Prestador/useEliminarUnPrestador";
 export function TablePrestadoresGestion({
   listHeader,
   data
@@ -30,8 +32,38 @@ export function TablePrestadoresGestion({
             }
         ]
   */
+  //estados de prestadores
+  const [prestadores, setPrestadores] = useState(data)
+  //Estado de modal
+  const [showModal, setShowModal] = useState(false)
+  //Estado del prestador a eliminar
+  const [idPrestador, setIdPrestador] = useState()
+  //Llamada al hook
+  const {error, loading,eliminarPrestador} = useEliminarUnPrestador(setPrestadores)
+
+  //Funcion de eliminar
+  const handleEliminarPrestador = ()=>{
+    setShowModal(false)
+    eliminarPrestador(idPrestador)
+    setIdPrestador(null)
+  }
+  //HandleClick
+  const handleClick = (id)=>{
+    setShowModal(true)
+    setIdPrestador(id)
+  }
+  //Retorno
   return (
     <div className="tablePrestador__container">
+      {/* Modal para confirmar eliminacion */}
+      {
+        showModal &&
+        <ModalDeConfirmacion 
+          text={'¿Seguro que deseas eliminar?'}
+          funcionCancelar={()=>setShowModal(false)}
+          funcionConfirmar={handleEliminarPrestador}
+        />
+      }
       <table className="tablePrestador__table">
         {/* Header de la tabla */}
         <thead className="tablePrestador__thead-container">
@@ -54,9 +86,9 @@ export function TablePrestadoresGestion({
         {/* Controlamos si esta cargando para centrar loader */}
 
         <tbody className="tablePrestador__tbody-container">
-          {data?.map((d) => {
+          {prestadores?.map((d) => {
             return (
-              <tr className="tablePrestador__tbody-tr" key={d.prestadorId}>
+              <tr className="tablePrestador__tbody-tr" key={d.prestadorId} style={{position: 'relative'}}>
                 <td className="tablePrestador__tbody-td">{d.cuilCuit}</td>
                 <td className="tablePrestador__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
                 <td className="tablePrestador__tbody-td">{d.codigoPostal}</td>
@@ -92,7 +124,7 @@ export function TablePrestadoresGestion({
                   <Link to={`detalle/${d.prestadorId}`}>
                     <DetailsIcon></DetailsIcon>
                   </Link>
-                  <Link>
+                  <Link onClick={()=>handleClick(d.prestadorId)}>
                     <DeleteIcon></DeleteIcon>
                   </Link>
                   <Link>
