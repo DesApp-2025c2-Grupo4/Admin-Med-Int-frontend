@@ -95,7 +95,7 @@ export function TablePrestadoresGestion({
                   <Link>
                     <DeleteIcon></DeleteIcon>
                   </Link>
-                  <Link>
+                  <Link to={`/prestadores/modificar-prestador/${d.prestadorId}`}>
                     <ModifierIcon></ModifierIcon>
                   </Link>
                 </td>
