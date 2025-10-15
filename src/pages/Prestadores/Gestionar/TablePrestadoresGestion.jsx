@@ -127,7 +127,7 @@ export function TablePrestadoresGestion({
                   <Link onClick={()=>handleClick(d.prestadorId)}>
                     <DeleteIcon></DeleteIcon>
                   </Link>
-                  <Link>
+                  <Link to={`/prestadores/modificar-prestador/${d.prestadorId}`}>
                     <ModifierIcon></ModifierIcon>
                   </Link>
                 </td>
