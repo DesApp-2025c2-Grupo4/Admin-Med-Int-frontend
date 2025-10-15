@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { TablaResultados } from "../../../../components/ui/TablaResultados/TablaResultados.jsx";
+import { headerTablaResultadosAltaPeriodo } from "../../../../constants/Afiliados/Reportes/headerTablaResultadosAltaPeriodo.js";
 
 export function ReporteAltaGenerado() {
   const location = useLocation();
@@ -11,20 +12,13 @@ export function ReporteAltaGenerado() {
   const handleVolver = () => {
     navigate(-1);
   };
-
-  const columnasAfiliados = [
-    { titulo: "Credencial", field: "credencial" },
-    { titulo: "Nombre", field: "nombre" },
-    { titulo: "Apellido", field: "apellido" },
-    { titulo: "Fecha Alta", field: "fechaAlta" }
-  ];
-
+  
   return (
     <>
       {resultados.length > 0 ? (
         <TablaResultados 
           datos={resultados}
-          columnas={columnasAfiliados}
+          columnas={headerTablaResultadosAltaPeriodo}
           keyField="personaId"
           titulo={`Resultados del Reporte de Afiliados dados de alta en el período desde: ${fechaDesde} hasta: ${fechaHasta} `} />
       ) : (
