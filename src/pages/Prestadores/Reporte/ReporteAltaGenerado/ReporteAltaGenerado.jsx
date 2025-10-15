@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { TablaResultados } from "../../../../components/ui/TablaResultados/TablaResultados.jsx";
+import { headerTablaResultadosAltaPeriodo } from "../../../../constants/Prestadores/Reportes/headerTablaResultadosAltaPeriodo.js";
 
 export function ReporteAltaGenerado() {
   const location = useLocation();
@@ -12,19 +13,12 @@ export function ReporteAltaGenerado() {
     navigate(-1);
   };
 
-  const columnasAfiliados = [
-    { titulo: "Cuil/Cuit", field: "cuilCuit" },
-    { titulo: "Nombre", field: "nombre" },
-    { titulo: "Tipo de prestador", field: "tipoPrestador" },
-    { titulo: "Fecha Alta", field: "fechaAlta" }
-  ];
-
   return (
     <>
       {resultados.length > 0 ? (
         <TablaResultados 
           datos={resultados}
-          columnas={columnasAfiliados}
+          columnas={headerTablaResultadosAltaPeriodo}
           keyField="prestadorId"
           titulo={`Resultados del Reporte de Prestadores dados de alta en el período desde: ${fechaDesde} hasta: ${fechaHasta} `} />
       ) : (
