@@ -5,9 +5,8 @@ import { useGetAllPrestadores } from "../../../hooks/useGetAllPrestadores";
 import { useState, useEffect } from "react";
 import { headerTablePrestadores } from "./../../../constants/Prestadores/headerTablePrestadoresGestión";
 import { TablePrestadoresGestion } from "./TablePrestadoresGestion";
-import { Loader } from "../../../components/Loader/Loader";
 import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection";
-
+import { LoaderConTexto } from '../../../components/LoaderConTexto/LoaderConTexto'
 export function GestionarPrestadores() {
   const { loadingPrestadores, prestadores } = useGetAllPrestadores();
   const [allPrestadores, setAllPrestadores] = useState([]);
@@ -134,8 +133,8 @@ export function GestionarPrestadores() {
         </div>
         <section className="section-tabla-prestadores">
           {loadingPrestadores ? (
-            <div className="centrar">
-              <Loader />
+            <div style={{marginBottom: '1rem'}}>
+              <LoaderConTexto />
             </div>
           ) : allPrestadores && allPrestadores.length > 0 ? (
             <TablePrestadoresGestion
