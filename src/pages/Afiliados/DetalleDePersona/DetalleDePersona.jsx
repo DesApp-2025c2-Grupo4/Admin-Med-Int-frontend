@@ -17,7 +17,9 @@ export function DetalleDePersona() {
 
   //Pantalla que se muestra en caso de estar cargando
   if(loadingPersona) return(
-    <LoaderConTexto />
+    <div className="contendor_loader-detalle">
+      <LoaderConTexto />
+    </div>
   )
 
   //En caso de error
