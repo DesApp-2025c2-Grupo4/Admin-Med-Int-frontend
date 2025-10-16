@@ -25,7 +25,7 @@ export function FormModificarIntegrante({ text, initialData }) {
         planMedico: initialData.planMedico?.planId || 1,
         fechaNacimiento: initialData.fechaNacimiento || '',
         telefonos: initialData.telefonos?.map(t => ({ id: t.telefonoId, descripcion: t.nroTelefono })) || [],
-        emails: initialData.mail?.map(m => ({ id: m.id, descripcion: m.descripcion })) || [],
+        emails: initialData.email?.map(m => ({ id: m.id, descripcion: m.descripcion })) || [],
         direcciones: initialData.direcciones?.map(d => ({ id: d.direccionId, descripcion: `${d.calle} ${d.nro}` })) || [],
         situacionesTerapeuticas: initialData.situacionesTerapeuticas?.map(s => ({
             id: s.situacionId,

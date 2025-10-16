@@ -6,6 +6,6 @@ export const getGruposFamiliares = async ()=>{
   return new Promise((resolve) => {
       setTimeout(() => {
         resolve(data); // simula respuesta del backend
-      }, 3000);
+      }, 1000);
     });
 }

@@ -6,6 +6,6 @@ export const getCountAfiliados = async () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(size); // simula respuesta del backend
-    }, 5000);
+    }, 1000);
   });
 };

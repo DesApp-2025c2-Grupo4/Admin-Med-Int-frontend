@@ -12,6 +12,6 @@ export const eliminarUnIntegrante = async (id) => {
 
   //Espero un poco
   return new Promise((resolve) => {
-    setTimeout(() => resolve(integranteEliminado), 3000);
+    setTimeout(() => resolve(integranteEliminado), 1000);
   });
 }

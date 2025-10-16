@@ -13,6 +13,6 @@ export function getDetalleDePrestador(id) {
       } else {
         resolve(null);
       }
-    }, 3000); 
+    }, 1000); 
   });
 }

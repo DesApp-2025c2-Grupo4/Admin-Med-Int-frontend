@@ -16,6 +16,6 @@ export function getGrupoFamiliar(id) {
 
       // Si no lo encontró
       resolve(null);
-    }, 700);
+    }, 1000);
   });
 }

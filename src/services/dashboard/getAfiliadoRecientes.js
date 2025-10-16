@@ -9,6 +9,6 @@ export const getAfiliadoRecientes = async () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(afiliadosOrdenados.slice(0, 5)); // simula respuesta del backend
-    }, 7000);
+    }, 1000);
   });
 }
