@@ -1,5 +1,6 @@
 import './Table.css'
-import { Loader } from '../../../../../components/Loader/Loader'
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 export function TableAfiliados({listHeader,data}){
   /*
     Descripcion: este componente renderiza la tabla de afiliados del dashboard, los estilos son reutilizables para las demas tablas colocando las mismas clases.
@@ -50,16 +51,44 @@ export function TableAfiliados({listHeader,data}){
       {/* Controlamos si esta cargando para centrar loader */}
       <tbody className={`table__tbody-container`}>
         {
-              data?.map(d => {
-                return(
-                  <tr className='table__tbody-tr' key={d.personaId}>
-                    <td className='table__tbody-td'>{d.credencial}</td>
-                    <td className='table__tbody-td'>{`${d.nombre}, ${d.apellido}`}</td>
-                    <td className='table__tbody-td'>{d.fechaAlta}</td>
-                    <td className='table__tbody-td'>{d.mail}</td>
-                    {/* <td className='table__tbody-td sinBorde '><span className='resaltar'>{d.planMedico.descripcion}</span></td> */}
-                  </tr> 
-                )
+          data?.map(d => {
+                return (
+                  <tr className="table__tbody-tr" key={d.personaId}>
+                    <td className="table__tbody-td">{d.credencial}</td>
+                    <td className="table__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
+                    <td className="table__tbody-td">{d.fechaAlta}</td>
+                    <td className="table__tbody-td">
+                      {d.email.length > 1 ? (
+                        <>
+                          <span
+                            data-tooltip-id={`tooltip-${d.personaId}`}
+                            data-tooltip-content={d.email
+                              .map((e) => e.descripcion)
+                              .join(",\n")}
+                            className="cursor-help text-blue-600 font-medium"
+                          >
+                            {d.email[0].descripcion}...
+                          </span>
+                          <Tooltip
+                            id={`tooltip-${d.personaId}`}
+                            place="top"
+                            style={{
+                              background: "#255d99ff",
+                              whiteSpace: "pre-line",
+                            }}
+                          />
+                        </>
+                      ) : (
+                        <span>{d.email[0]?.descripcion}</span>
+                      )}
+                    </td>
+                    <td className="table__tbody-td sinBorde ">
+                      <span className="resaltar">
+                        {d.grupo?.planMedico?.descripcion}
+                      </span>
+                    </td>
+                  </tr>
+                );
               })
         }
         
