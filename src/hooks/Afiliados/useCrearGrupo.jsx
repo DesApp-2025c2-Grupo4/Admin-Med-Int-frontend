@@ -18,6 +18,7 @@ export function useCrearGrupo(){
       setData(grupoCreado)
     } catch (error) {
       console.error(error)
+      alert(error)
       setError('Error al crear un grupo :'+error)
     }finally{
       setLoading(false)
