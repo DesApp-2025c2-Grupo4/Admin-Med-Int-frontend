@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
 import { TablaResultados } from "../../../../../components/ui/TablaResultados/TablaResultados.jsx";
 import { Button } from "../../../../../components/ui/Button/Button.jsx";
-
+import { headerTablaResultadosSituaciones } from "../../../../../constants/Afiliados/Reportes/headerTablaResultadosSituaciones.js";
 
 export function ReporteSituacionesGenerado() {
   const location = useLocation();
@@ -14,31 +14,12 @@ export function ReporteSituacionesGenerado() {
     navigate(-1);
   };
 
-  const columnasSituaciones = [
-  { titulo: "Descripción", field: "descripcion" },
-  { 
-    titulo: "¿es Crónica?", 
-    field: "esCronica",
-    render: (valor) => (valor ? "Sí" : "No"),
-  },
-  { 
-    titulo: "Fecha Inicio", 
-    field: "fechaInicio",
-    render: (valor) => new Date(valor).toLocaleDateString(),
-  },
-  { 
-    titulo: "Fecha Fin", 
-    field: "fechaFin",
-    render: (valor) => valor ? new Date(valor).toLocaleDateString() : "Crónica",
-  },
-]
-
   return (
     <>
     {situaciones.length > 0 ? (
         <TablaResultados
             datos={situaciones}
-            columnas={columnasSituaciones}
+            columnas={headerTablaResultadosSituaciones}
             keyField="personaId"
             titulo={`Resultados del Reporte de situaciones terapéuticas de ${integrante.nombre} ${integrante.apellido}`}
         />

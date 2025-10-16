@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 export function ReporteAltaPorPeriodos({data}) {
   const [periodo, setPeriodo] = useState({});
-  const [resultados, setResultados] = useState();
   const navigate = useNavigate();
   const datos = data;
 
@@ -32,8 +31,6 @@ export function ReporteAltaPorPeriodos({data}) {
       return fechaAltaDate >= desde && fechaAltaDate <= hasta;
     });
 
-    setResultados(datosFiltrados);
-    console.log(resultados);
     navigate("reporte-alta-generado", {
       state: {
         resultados: datosFiltrados,
