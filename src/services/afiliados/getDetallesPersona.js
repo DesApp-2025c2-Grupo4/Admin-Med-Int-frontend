@@ -1,17 +1,11 @@
-import { listGrupos } from '../../Mock/listGrupos.js'
-
-export function getDetalleDePersona(id) {
+const URL_API = import.meta.env.VITE_URL_API;
+export async function getDetalleDePersona(id) {
+  const res = await fetch(`${URL_API}/persona/${id}`)
+  const data = await res.json()
+  console.log(data)
   return new Promise((resolve) => {
     setTimeout(() => {
-      for (const grupo of listGrupos) {
-        const integrante = grupo.integrantes.find(i => i.personaId === Number(id))
-        if (integrante) {
-          resolve({ ...integrante, idGrupo: grupo.idGrupo, nroGrupo: grupo.nroGrupo,planMedico:grupo.planMedico })
-          return
-        }
-      }
-      // Si no lo encontró
-      resolve(null)
-    }, 700)
+      resolve(data)
+    }, 2000)
   })
 }
