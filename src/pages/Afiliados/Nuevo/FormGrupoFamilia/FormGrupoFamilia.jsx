@@ -12,8 +12,9 @@ import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
 
-export function FormGrupoFamilia({text}) {
-
+export function FormGrupoFamilia({text, component, funcionSubmit}) {
+    //Creo el boton
+    const ButtonComponent = component
     const [newSituacion, setNewSituacion] = useState("1"); 
     const [isIndefinida, setIsIndefinida] = useState(false);
     const [fechaInicio, setFechaInicio] = useState(''); 
@@ -26,16 +27,17 @@ export function FormGrupoFamilia({text}) {
     const [dataForm,setDataForm] = useState({
         nombre:'',
         apellido: '',
-        tipoDocumento: 1,
-        nroDocumento:'',
-        planMedico: 1,
+        tipoDocId: 1,
+        dni:'',
+        planId: 1,
         fechaNacimiento: '',
         telefonos: [],
         emails:[],
         direcciones: [],
-        situacionesTerapeuticas:[]
+        situacionesTerapeuticas:[],
+        parentensco:'Hermano'
     })
-
+    console.log(dataForm)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setDataForm((prev) => ({
@@ -58,7 +60,7 @@ export function FormGrupoFamilia({text}) {
     const deleteSituacion = (id) => {
         setDataForm(prev => ({
             ...prev,
-            situacionesTerapeuticas: prev.situacionesTerapeuticas.filter(s => s.idSituacion !== id)
+            situacionesTerapeuticas: prev.situacionesTerapeuticas.filter(s => s.situacionId !== id)
         }));
     };
 
@@ -125,7 +127,7 @@ export function FormGrupoFamilia({text}) {
             }
         }
         const isDuplicada = dataForm.situacionesTerapeuticas.some(
-            (s) => s.idSituacion === situacionSeleccionada.id
+            (s) => s.situacionId === situacionSeleccionada.id
         );
         if (isDuplicada) {
 
@@ -133,7 +135,7 @@ export function FormGrupoFamilia({text}) {
         }
 
         const newSituacionObject = {
-            idSituacion: situacionSeleccionada.id,
+            situacionId: situacionSeleccionada.id,
             descripcion: situacionSeleccionada.descripcion,
             esCronica: isCronica,
             fechaInicio: isCronica ? null : fechaInicio,
@@ -166,13 +168,13 @@ export function FormGrupoFamilia({text}) {
             <div className="form-row">
                 <InputSelect 
                     text="Tipo de documento" 
-                    name='tipoDocumento'
+                    name='tipoDocId'
                     listaDeOpciones={InputTipoDoc}
                     handleChange={handleChange}
-                    value={dataForm.tipoDocumento} />
+                    value={dataForm.tipoDocId} />
                 <InputText text="Numero de documento"
-                    name="nroDocumento"
-                    value={dataForm.nroDocumento}
+                    name="dni"
+                    value={dataForm.dni}
                     handleChange={handleChange} />
                 <InputText text="Nombres"
                     name="nombre"
@@ -192,10 +194,18 @@ export function FormGrupoFamilia({text}) {
                     handleChange={handleChange}
                     />
                 <InputSelect text="Plan medico" 
-                    name='planMedico'
+                    name='planId'
                     listaDeOpciones={InputPlanMedico}
-                    value={dataForm.planMedico}
+                    value={dataForm.planId}
                     handleChange={handleChange} />
+            </div>
+            <div className='form-row'>
+                <InputText
+                    text={'Parentesco'}
+                    name={'parentensco'}
+                    value={dataForm.parentensco}
+                    handleChange={handleChange}
+                />
             </div>
 
             <SubTitleSection text="Información de contacto" />
@@ -337,12 +347,17 @@ export function FormGrupoFamilia({text}) {
                             <SituacionCard 
                                 key={index} 
                                 situacion={s}
-                                onDelete={() => deleteSituacion(s.idSituacion)} 
+                                onDelete={() => deleteSituacion(s.situacionId)} 
                             />
                         ))}
                     </div>
                 </div>
             )}
+            <div className="button-container">
+                <div onClick={()=>funcionSubmit(dataForm)} style={{cursor:'pointer'}}>
+                    <ButtonComponent />
+                </div>
+            </div>
         </form>
     )
 }
