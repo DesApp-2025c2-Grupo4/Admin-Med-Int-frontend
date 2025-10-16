@@ -3,15 +3,18 @@ import { FormGrupoFamilia } from "./FormGrupoFamilia/FormGrupoFamilia.jsx"
 import { AddMember } from "../../../components/ui/AddMember/AddMember.jsx"
 import { RegisterGroup } from "../../../components/ui/RegisterGroup/RegisterGroup.jsx"
 import { Register } from "../../../components/ui/Register/Register.jsx"
+import { useCrearGrupo } from '../../../hooks/Afiliados/useCrearGrupo.jsx'
 import './NuevoGrupoFamilia.css'
 export function NuevoGrupoFamiliar(){
+    const {loading, crearUnGrupo, error} = useCrearGrupo()
     return (
         <section className="section__nuevo-grupo-familiar-container box-border">
             <TitleSection text="Nuevo Grupo Familiar" />
-            <FormGrupoFamilia text="Datos del titular"/>
-            <div className="button-container">
-                <Register />
-            </div>
+            <FormGrupoFamilia 
+                text="Datos del titular"
+                component={Register}
+                funcionSubmit={crearUnGrupo}
+            />
         </section>
     )
 }

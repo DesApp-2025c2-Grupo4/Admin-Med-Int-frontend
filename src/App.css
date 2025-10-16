@@ -1,4 +1,3 @@
-
 .div__main-principal{
   animation: animarMainPrincipal .2s linear;  
   width: calc(80vw);
@@ -33,7 +32,7 @@ header{
   #root{
     flex-direction: column;
   }
-  main{
+  .div__main-principal{
     padding: 1rem;
     min-width: calc(100vw);
   }
