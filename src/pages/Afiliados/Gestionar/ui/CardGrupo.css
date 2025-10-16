@@ -28,6 +28,7 @@
     flex-direction: column;
     transition: transform .2s ease;
     position: relative;
+    animation: animarCard .2s linear;
 }
 
 .container_tableIntegrantes{
@@ -64,4 +65,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Animacion de la Card */
+@keyframes animarCard {
+    0%{
+        opacity: 0.5;
+        transform: scale(0.5);
+    }100%{
+        opacity: 1;
+        transform: scale(1);
+    }
 }
