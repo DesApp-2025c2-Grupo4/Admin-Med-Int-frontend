@@ -19,7 +19,7 @@ export function SectionDetallesContacto({persona}){
       <div className="info-row" style={{margin: '1rem 0'}}>
         <CampoInformacionLista
           title={'Email/s'}
-          lista={persona.mail}
+          lista={persona.email}
           campo={'descripcion'}
         />
       </div>
