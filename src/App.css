@@ -33,7 +33,7 @@ header{
   #root{
     flex-direction: column;
   }
-  main{
+  .div__main-principal{
     padding: 1rem;
     min-width: calc(100vw);
   }
