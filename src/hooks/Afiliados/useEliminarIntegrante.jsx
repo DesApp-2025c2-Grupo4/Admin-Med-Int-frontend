@@ -8,7 +8,7 @@ export function useEliminarIntegrante({setIntegrantes}){
     setLoading(true)
     try {
       const integranteEliminado = await eliminarUnIntegrante(id)
-      if(!integranteEliminado){
+      if(integranteEliminado === 0){
         setError('No se pudo eliminar el integrante')
       }else{
         setData(integranteEliminado)
