@@ -1,4 +1,6 @@
-main{
+
+.div__main-principal{
+  animation: animarMainPrincipal .2s linear;  
   width: calc(80vw);
   padding: 2rem;
   min-height: 100vh;
@@ -34,5 +36,16 @@ header{
   main{
     padding: 1rem;
     min-width: calc(100vw);
+  }
+}
+
+@keyframes animarMainPrincipal {
+  0%{
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100%{
+    transform: scale(1);
+    opacity: 1;
   }
 }

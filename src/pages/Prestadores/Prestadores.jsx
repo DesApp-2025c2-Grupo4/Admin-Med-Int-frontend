@@ -5,11 +5,11 @@ import { navPrestadoresItems } from "../../constants/navPrestadoresItems"
 import { PrestadoresRoutes } from "../../routes/PrestadoresRoutes"
 export function Prestadores(){
   return(
-    <>
+    <div className='div__main-principal'>
       <TitlePrincipal text='Prestadores'/>
       <SubTitlePrincipal text='Administración de médicos, centros médicos' />
       <NavMain listItems={navPrestadoresItems}/>
       <PrestadoresRoutes />
-    </>   
+    </div>   
   )
 }

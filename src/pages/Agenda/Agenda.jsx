@@ -6,7 +6,7 @@ import { AgendaRoutes } from "../../routes/AgendaRoutes";
 
 export function Agenda(){
   return(
-    <>
+    <div className='div__main-principal'>
       {/* Encabezado de la pagina*/}
       <TitlePrincipal text='Agendas' />
       <SubTitlePrincipal text='Administrador de agendas de turnos médicos por prestador y especialidad' />
@@ -16,6 +16,6 @@ export function Agenda(){
 
       {/* Rutas donde se renderiza el contenido */}
       <AgendaRoutes />
-    </>
+    </div>
   )
 }

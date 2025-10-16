@@ -10,7 +10,7 @@ export function Dashboard(){
   useCambiarTitulo({title: 'Dashboard'})
   //Retorno
   return(
-    <>
+    <div className='div__main-principal'>
       {/* Header de mi pantalla */}
       <TitlePrincipal text='Dashboard'/>
       <SubTitlePrincipal text='Resumen del estado actual del sistema de medicina integral' />
@@ -23,6 +23,6 @@ export function Dashboard(){
 
       {/* Prestadores mas recientes */}
       <SectionTres />
-    </>
+    </div>
   )
 }
