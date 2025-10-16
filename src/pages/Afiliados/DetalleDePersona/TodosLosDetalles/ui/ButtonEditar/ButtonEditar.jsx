@@ -7,9 +7,8 @@ export function ButtonEditar({path}){
   return(
     <div 
       className='button-editar-container' 
-      style={{cursor:'pointer'}}
     >
-      <span className='btn-editar-container' onClick={()=> navigate(path)}>
+      <span className='btn-editar-container' onClick={()=> navigate(path)} style={{cursor:'pointer'}}>
         <EditIcon />
         Modificar Datos
       </span>
