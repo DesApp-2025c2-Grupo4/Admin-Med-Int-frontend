@@ -11,7 +11,7 @@ import './FormGrupoFamilia.css'
 import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
-
+import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
 export function FormGrupoFamilia({text, component, funcionSubmit}) {
     //Creo el boton
     const ButtonComponent = component
@@ -220,7 +220,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                         {dataForm.telefonos.map((tel, index) => (
                             <ContactCard 
                                 key={`tel-${index}`} 
-                                texto={tel} 
+                                texto={formatearTelefono(tel)} 
                                 onDelete={() => deleteTelefono(tel)} 
                             />
                         ))}
