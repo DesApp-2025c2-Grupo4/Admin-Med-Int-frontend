@@ -90,7 +90,7 @@ export function CardGrupo({
           <Link to={"/afiliados/gestionar/modificar-grupo-familiar/" + idGrupo}>
             <ModifierIcon></ModifierIcon>
           </Link>
-          <Link to="/afiliados/agregar-integrante">
+          <Link to={`/afiliados/agregar-integrante/${idGrupo}`}>
             <AddMemberIcon />
           </Link>
         </div>

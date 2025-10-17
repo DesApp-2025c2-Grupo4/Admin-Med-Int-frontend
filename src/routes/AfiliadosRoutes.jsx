@@ -18,7 +18,7 @@ export function AfiliadoRoutes(){
         <Route path="reportes" element={<Reporte />} />
         <Route path="reportes/reporte-alta-generado" element={<ReporteAltaGenerado />}/>
         <Route path="reportes/reporte-situaciones-generado" element={<ReporteSituacionesGenerado />}/>
-        <Route path="agregar-integrante" element={<AgregarIntegrante />} />
+        <Route path="agregar-integrante/:id" element={<AgregarIntegrante />} />
         <Route path="gestionar/detalles/persona/:id" element={<DetalleDePersona />}/>
         <Route path="gestionar/modificar/persona/:id" element={<ModificarIntegrante />} />
         {/* Opcional: ruta por defecto */}
