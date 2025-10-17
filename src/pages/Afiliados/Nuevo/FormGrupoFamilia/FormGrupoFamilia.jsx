@@ -18,12 +18,11 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
     const [newSituacion, setNewSituacion] = useState("1"); 
     const [isIndefinida, setIsIndefinida] = useState(false);
     const [fechaInicio, setFechaInicio] = useState(''); 
-    const [fechaFinal, setFechaFinal] = useState('');
+    const [fechaFin, setFechaFin] = useState('');
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion] = useState('');
     const [tieneSituacion, setTieneSituacion] = useState(false);
-
     const [dataForm,setDataForm] = useState({
         nombre:'',
         apellido: '',
@@ -37,7 +36,6 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         situacionesTerapeuticas:[],
         parentensco:'Hermano'
     })
-    console.log(dataForm)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setDataForm((prev) => ({
@@ -122,7 +120,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         if (!situacionSeleccionada) return;
         const isCronica = !isIndefinida; 
         if (!isCronica) { 
-            if (!fechaInicio || !fechaFinal) {
+            if (!fechaInicio || !fechaFin) {
                 return;     
             }
         }
@@ -139,7 +137,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
             descripcion: situacionSeleccionada.descripcion,
             esCronica: isCronica,
             fechaInicio: isCronica ? null : fechaInicio,
-            fechaFinal: isCronica ? null : fechaFinal
+            fechaFin: isCronica ? null : fechaFin
         };
         setDataForm((prev) => ({
             ...prev,
@@ -149,7 +147,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
             ],
         }));
         setFechaInicio('');
-        setFechaFinal('');
+        setFechaFin('');
     };
     const handleSituacionTypeChange = (e) => {
         const isIndefinidaSelected = e.target.value === 'indefinida';
@@ -332,10 +330,10 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                                         handleChange={(e) => setFechaInicio(e.target.value)} />
                                     <InputDate 
                                         text="Fecha de fin" 
-                                        name="fechaFinal"
+                                        name="fechaFin"
                                         required={true} 
-                                        value={fechaFinal}
-                                        handleChange={(e) => setFechaFinal(e.target.value)} />
+                                        value={fechaFin}
+                                        handleChange={(e) => setFechaFin(e.target.value)} />
                                 </>
                             )}
                         </div>
