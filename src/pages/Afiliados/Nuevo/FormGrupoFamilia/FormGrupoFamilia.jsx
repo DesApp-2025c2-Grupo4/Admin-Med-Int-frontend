@@ -11,7 +11,7 @@ import './FormGrupoFamilia.css'
 import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
-
+import { formularioCrearIntegrantesSchema } from '../../../../validations/formularioCrearIntegranteSchema.js'
 export function FormGrupoFamilia({text, component, funcionSubmit}) {
     //Creo el boton
     const ButtonComponent = component
@@ -23,8 +23,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion] = useState('');
     const [tieneSituacion, setTieneSituacion] = useState(false);
-
-    const [dataForm,setDataForm] = useState({
+    const [errores, setErrores] = useState({
         nombre:'',
         apellido: '',
         tipoDocId: 1,
@@ -37,7 +36,19 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         situacionesTerapeuticas:[],
         parentensco:'Hermano'
     })
-    console.log(dataForm)
+    const [dataForm,setDataForm] = useState({
+        nombre:'',
+        apellido: '',
+        tipoDocId: 1,
+        dni:'',
+        planId: 1,
+        fechaNacimiento: '',
+        telefonos: [],
+        emails:[],
+        direcciones: [],
+        situacionesTerapeuticas:[],
+        parentensco:'Titular'
+    })
     const handleChange = (e) => {
         const { name, value } = e.target;
         setDataForm((prev) => ({
@@ -157,9 +168,24 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
     };
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault(); 
-        console.log("Datos listos para enviar al backend:", dataForm);
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Llegué')
+    try {
+        await formularioCrearIntegrantesSchema.validate(dataForm, { abortEarly: false });
+        setErrores({});
+        console.log("✅ Formulario válido:", dataForm);
+        funcionSubmit(dataForm); // si querés mandar los datos al backend
+    } catch (err) {
+        if (err.inner) {
+        const newErrors = {};
+        err.inner.forEach((e) => {
+            newErrors[e.path] = e.message;
+        });
+        setErrores(newErrors);
+        console.log("❌ Errores:", newErrors);
+        }
+    }
     };
 
     return (
@@ -175,37 +201,37 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                 <InputText text="Numero de documento"
                     name="dni"
                     value={dataForm.dni}
-                    handleChange={handleChange} />
+                    handleChange={handleChange} 
+                    error= {errores.dni}
+                    />
+                    
                 <InputText text="Nombres"
                     name="nombre"
                     value={dataForm.nombre}
-                    handleChange={handleChange} />
+                    handleChange={handleChange} 
+                    error= {errores.nombre}
+                    />
             </div>
 
             <div className="form-row">
                 <InputText text="Apellidos"
                     name="apellido"
                     value={dataForm.apellido}
-                    handleChange={handleChange}/>
+                    handleChange={handleChange}
+                    error={errores.apellido}
+                    />
                 <InputDate 
                     text="Fecha de nacimiento" 
                     name="fechaNacimiento"
                     value={dataForm.fechaNacimiento}
                     handleChange={handleChange}
+                    error={errores.fechaNacimiento}
                     />
                 <InputSelect text="Plan medico" 
                     name='planId'
                     listaDeOpciones={InputPlanMedico}
                     value={dataForm.planId}
                     handleChange={handleChange} />
-            </div>
-            <div className='form-row'>
-                <InputText
-                    text={'Parentesco'}
-                    name={'parentensco'}
-                    value={dataForm.parentensco}
-                    handleChange={handleChange}
-                />
             </div>
 
             <SubTitleSection text="Información de contacto" />
@@ -354,7 +380,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                 </div>
             )}
             <div className="button-container">
-                <div onClick={()=>funcionSubmit(dataForm)} style={{cursor:'pointer'}}>
+                <div onClick={handleSubmit} style={{cursor:'pointer'}}>
                     <ButtonComponent />
                 </div>
             </div>

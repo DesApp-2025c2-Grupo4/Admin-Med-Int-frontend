@@ -31,3 +31,10 @@
   border-color: #1976d2;
   box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.15);
 }
+.error-message-form{
+  color: rgba(255, 88, 88, 0.747);
+  font-size: calc(10px + 0.2vw);
+}
+.border-error{
+  border-color:rgba(255, 88, 88, 0.747) !important;
+}

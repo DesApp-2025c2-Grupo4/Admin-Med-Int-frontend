@@ -4,8 +4,8 @@ import { Register } from "../../../components/ui/Register/Register.jsx"
 import { useCrearGrupo } from '../../../hooks/Afiliados/useCrearGrupo.jsx'
 import { LoaderConTexto } from '../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import './NuevoGrupoFamilia.css'
+import { useState } from "react"
 export function NuevoGrupoFamiliar(){
-    const v = true
     const {loading, crearUnGrupo, error} = useCrearGrupo()
     return (
         <section className="section__nuevo-grupo-familiar-container box-border" style={{position:'relative'}}>
