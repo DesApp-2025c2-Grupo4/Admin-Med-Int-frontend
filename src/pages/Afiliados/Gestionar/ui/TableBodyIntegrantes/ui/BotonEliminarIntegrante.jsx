@@ -9,13 +9,13 @@ export function BotonEliminarIntegrante({esTitular, id, handleClick}){
         <button 
           disabled={true} 
           style={{background:'none',border:'none'}}
-          data-tooltip-id={`tooltip-${id}`}
+          data-tooltip-id={`tooltip-${id}1`}
           data-tooltip-content='Accion Inválida'
           className="cursor-help text-blue-600 font-medium"
           >
           <DeleteIcon color={'#550b0b67'}></DeleteIcon> 
           <Tooltip 
-            id={`tooltip-${id}`}
+            id={`tooltip-${id}1`}
             place="bottom"
             style={{
               whiteSpace: "pre-line",

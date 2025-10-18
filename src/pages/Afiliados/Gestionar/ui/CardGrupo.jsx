@@ -84,10 +84,10 @@ export function CardGrupo({
         {/* BOTONES DE CARD DE GRUPO */}
 
         <div className="container_icons">
-          <BotonEliminarGrupo id={idGrupo} funcion={()=>setShowModal(!showModal)} />
-          <BotonDesplegarIntegrantes id={idGrupo} funcion={modificarCard} />
-          <BotonEditarGrupo id={idGrupo}/>
-          <BotonAgregarIntegrante id={idGrupo} />
+          <BotonEliminarGrupo id={credencial} funcion={()=>setShowModal(!showModal)} />
+          <BotonDesplegarIntegrantes id={credencial} funcion={modificarCard} />
+          <BotonEditarGrupo id={credencial}/>
+          <BotonAgregarIntegrante id={credencial} />
         </div>
 
         {/* TABLA DE INTEGRANTES */}
@@ -112,13 +112,13 @@ const BotonDesplegarIntegrantes = ({id,funcion})=>{
     <div 
       onClick={funcion} 
       style={{ cursor: "pointer" }}
-      data-tooltip-id={`tooltip-${id}8`}
+      data-tooltip-id={`tooltip-${id}`}
       data-tooltip-content='Desplegar'
       className="cursor-help text-blue-600 font-medium" 
     >
       <UsersIcon />
       <Tooltip 
-          id={`tooltip-${id}8`}
+          id={`tooltip-${id}`}
           place="top"
           style={{
             whiteSpace: "pre-line",
@@ -131,13 +131,13 @@ const BotonAgregarIntegrante=({id})=>{
   return(
     <Link 
       to={`/afiliados/agregar-integrante/${id}`}
-      data-tooltip-id={`tooltip-${id}7`}
+      data-tooltip-id={`tooltip-${id}`}
       data-tooltip-content='Agregar Integrante'
       className="cursor-help text-blue-600 font-medium"      
     >
       <AddMemberIcon />
       <Tooltip 
-          id={`tooltip-${id}7`}
+          id={`tooltip-${id}`}
           place="top"
           style={{
             whiteSpace: "pre-line",
