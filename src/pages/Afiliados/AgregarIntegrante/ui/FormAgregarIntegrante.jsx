@@ -15,7 +15,6 @@ import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConT
 export function FormAgregarIntegrante({ component }) {
   const { error, data, loading, crearUnIntegrante} = useCrearIntegrante()
   const { id } = useParams()
-  const ButtonComponent = component
   const [newSituacion, setNewSituacion] = useState("1")
   const [isIndefinida, setIsIndefinida] = useState(false)
   const [fechaInicio, setFechaInicio] = useState('')

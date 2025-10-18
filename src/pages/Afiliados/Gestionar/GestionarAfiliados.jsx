@@ -7,8 +7,11 @@ import { useState, useEffect } from "react";
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
 import { useGetAllGrupos } from "../../../hooks/useGetAllGrupos.jsx";
 import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection.jsx";
+import { useParams } from "react-router";
 
 export function GestionarAfiliados() {
+  const {credencial} = useParams()
+  console.log(credencial)
   const { loadingGrupos, grupos } = useGetAllGrupos();
   const [allGrupos, setAllGrupos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -93,6 +96,18 @@ export function GestionarAfiliados() {
     setAllGrupos(resultado);
   };
 
+  //Busco en caso de tener credencial
+  useEffect(()=>{
+    if(credencial){
+      setBusqueda(credencial.toString())
+      setFiltro('credencial')
+    }
+  },[credencial])
+  useEffect(() => {
+    if (busqueda && filtro && grupos?.length > 0) {
+      filtrar();
+    }
+  }, [busqueda, filtro, grupos]);
   return (
     <>
       <section className="section_container box-border">

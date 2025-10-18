@@ -17,7 +17,7 @@ export const useCrearIntegrante = () => {
       alert('Integrante creado con éxito')
       console.log(integranteCreado)
       setData(integranteCreado)
-      navigate('/afiliados/gestionar')
+      navigate('/afiliados/gestionar/'+integranteCreado.credencial)
     } catch (error) {
       console.log(error)
       alert(error)
