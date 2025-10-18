@@ -56,7 +56,7 @@ function crearObjetoGrupo(data){
   }
 }
 
-function crearObjetoPersona(data,idGrupo){
+export function crearObjetoPersona(data,idGrupo){
   //Obtengo fecha actual
   const hoy = new Date();
   const fechaFormateada = hoy.toISOString().split('T')[0];
@@ -94,8 +94,8 @@ function crearObjetoPersona(data,idGrupo){
   nombre: data.nombre,
   apellido: data.apellido,
   parentesco: data.parentesco,
-  dni: "23123123",
-  fechaNacimiento: "1980-05-10",
+  dni: data.dni,
+  fechaNacimiento: data.fechaNacimiento,
   fechaAlta: fechaFormateada,
   fechaBaja: null,
   idGrupo: idGrupo,
