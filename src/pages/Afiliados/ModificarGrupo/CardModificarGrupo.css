@@ -7,11 +7,7 @@
     justify-content: space-between;
     flex-direction: column;
     transition: transform .2s ease;
-
-    &:hover {
-        transform: scale(1.02)
-    }
-
+    animation: animarCard .2s linear;
     padding-bottom: 1rem;
 }
 
@@ -24,9 +20,9 @@
 
 .container_form_modificarGrupo {
     display: flex;
-    justify-content: space-between;
     padding: 1.5rem;
-    gap: 2rem;
+    gap: 4rem;
+    flex-wrap: wrap;
 }
 
 .container_botones_modificarGrupo {
@@ -48,5 +44,15 @@
     .container_botones_modificarGrupo {
         flex-wrap: wrap;
         justify-content: center;
+    }
+}
+/* Animacion de la Card */
+@keyframes animarCard {
+    0%{
+        opacity: 0.5;
+        transform: scale(0.5);
+    }100%{
+        opacity: 1;
+        transform: scale(1);
     }
 }

@@ -8,7 +8,7 @@ export function CardSituacion({situacion}){
           {situacion.esCronica ? '(Cronico)' : '(Temporal)'}
         </p>
         <p className='info__text'>
-          {`${situacion.fechaInicio} ${situacion.esCronica ? '' : ' / ' + situacion.fechaFin}`}
+          {`${situacion.fechaInicio} / ${situacion.fechaFin ? situacion.fechaFin : 'N/A'}`}
         </p>
       </div>
 

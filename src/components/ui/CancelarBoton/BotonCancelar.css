@@ -1,0 +1,17 @@
+.btn-cancelar-registrar{
+  display: flex;
+  width: 150px;
+  padding: 0.8rem 1rem;
+  background-color: #08315E;
+  justify-content: center;
+  align-items: center;
+  font-size: medium;
+  font-weight: 600;
+  gap: 0.5rem;
+  border-radius: 50px;
+  color: #A4C7F4;
+  transition: all ease .2s;
+  &:hover{
+    background-color: #08325ee7
+  }
+}

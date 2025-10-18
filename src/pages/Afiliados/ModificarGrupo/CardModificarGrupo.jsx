@@ -57,17 +57,12 @@ export function CardModificarGrupo({ grupo }) {
           value={dataForm.fechaAlta}
           handleChange={handleChange}
         />
-        <InputDate
-          text="Fecha de Baja"
-          name="fechaBaja"
-          value={dataForm.fechaBaja}
-          handleChange={handleChange}
-        />
       </div>
       <div className="container_botones_modificarGrupo">
         <AddMember />
-        <RegisterGroup />
+        <RegisterGroup text={'Guardar Cambios'}/>
       </div>
     </section>
   );
 }
+

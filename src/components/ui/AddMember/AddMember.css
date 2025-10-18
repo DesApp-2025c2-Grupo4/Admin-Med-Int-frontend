@@ -1,0 +1,25 @@
+.btn-agregar-miembro-grupo{
+  font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  display: flex;
+  font-size: medium;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: none;
+  font-size: medium;
+  background-color: #08315E;
+  color: #A4C7F4;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  transition: all ease .2s;
+  & .add-signo{
+    font-size: larger;
+  }
+  & .add-texto{
+    font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  &:hover{
+    background-color: #07294ee0;
+  }
+}

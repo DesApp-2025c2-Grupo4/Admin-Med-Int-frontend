@@ -109,6 +109,7 @@ export function GestionarAfiliados() {
             className="container_select box-border"
             value={filtro}
             onChange={(e) => setFiltro(e.target.value)}
+            style={{paddingRight:'20px'}}
           >
             <option value="" className="option_gestionar">
               Filtrar
