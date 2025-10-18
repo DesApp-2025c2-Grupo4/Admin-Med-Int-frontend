@@ -1,6 +1,6 @@
 import '../BaseCard.css';
 import { IconDelete } from '../../IconDelete/IconDelete';
-export function SituacionCard({ situacion, onDelete }) {
+export function SituacionCard({ situacion, onDelete,mostrarBtn=true}) {
     const getFechaFormateada = (dateString) => {
         if (!dateString) return null;
 
@@ -9,28 +9,36 @@ export function SituacionCard({ situacion, onDelete }) {
     };
 
     const fechaInicio = getFechaFormateada(situacion.fechaInicio);
-    const fechaFinal = getFechaFormateada(situacion.fechaFinal);
+    const fechaFinal = getFechaFormateada(situacion.fechaFin);
 
     return (
-        <div className="card-container situacion-card-with-delete">
+        <div className="card-container ">
             <div className="situacion-info">
-                <span className="situacion-descripcion">{situacion.descripcion}</span>
-
-                <span className="situacion-estado">
-                    {situacion.esCronica 
-                        ? ' - Crónica' 
-                        : ` - Inicio: ${fechaInicio} | Fin: ${fechaFinal}`
-                    }
+                <span className="card-situacion-text card-situacion-titulo">{situacion.descripcion}</span>
+                <span className="card-situacion-text">
+                    Es crónica: <strong style={{fontWeight:600}}>{situacion.esCronica ? 'Sí' : 'No'}</strong>
+                </span>
+                <span className="card-situacion-text">
+                    Fecha Inicio: <strong style={{fontWeight:600}}>{situacion.esCronica? 'N/A' : fechaInicio}</strong>
+                </span>
+                <span className="card-situacion-text">
+                    Fecha Fin: <strong style={{fontWeight:600}}>{situacion.esCronica? 'N/A' : fechaFinal}</strong>
                 </span>
             </div>
+            {
+                mostrarBtn &&
+                <div className="container-btns-card">
+                    <button 
+                        onClick={onDelete} 
+                        className="delete-button " 
+                        aria-label={`Eliminar ${situacion.descripcion}`}
+                    >
+                        <IconDelete /> Eliminar
+                    </button>
+                </div>
+            }
 
-            <button 
-                onClick={onDelete} 
-                className="delete-button" 
-                aria-label={`Eliminar ${situacion.descripcion}`}
-            >
-                <IconDelete />
-            </button>
+
         </div>
     );
 }

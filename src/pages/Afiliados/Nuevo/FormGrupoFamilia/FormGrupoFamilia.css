@@ -26,7 +26,7 @@
 /* Contenedor para el input y el botón de agregar */
 .input-with-button {
   display: flex;
-  align-items: flex-end; 
+  align-items: flex-end !important; 
   gap: 1rem; 
   flex-wrap: wrap;
 }
@@ -67,16 +67,9 @@
 /* Contenedor para los botones de acción principales */
 .button-container {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 1rem auto;
+  align-items: center;
 }
 
-/* Estilos para los botones principales */
-.button-container button {
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
-}
 
 /* Contenedor para los grupos de checkboxes/radios */
 .checkbox-group {
@@ -105,40 +98,12 @@
   accent-color: #a4c7f4;
 }
 
-/* Estilos para el botón de agregar (+) */
-.add-button {
-  border: none;
-  outline: none;
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0; 
-}
-
-.add-button:focus {
-  outline: none;
-}
-
 /* Contenedor para la lista de tarjetas de situaciones */
 .situaciones-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1rem;
-}
-
-/* Estilos para las tarjetas de situación */
-.situacion-card {
-  background-color: #e9f1fb;
-  border: 1px solid #a4c7f4;
-  border-radius: 12px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  color: #08315e;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Contenedor para los radio buttons y los calendarios */

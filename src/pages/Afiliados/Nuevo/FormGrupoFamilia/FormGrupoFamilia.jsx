@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
 import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
+import { BotonCancelar } from '../../../../components/ui/CancelarBoton/BotonCancelar.jsx'
 export function FormGrupoFamilia({text, component, funcionSubmit}) {
     //Creo el boton
     const ButtonComponent = component
@@ -34,7 +35,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         emails:[],
         direcciones: [],
         situacionesTerapeuticas:[],
-        parentensco:'Hermano'
+        parentensco:'Titular'
     })
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -197,14 +198,6 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                     value={dataForm.planId}
                     handleChange={handleChange} />
             </div>
-            <div className='form-row'>
-                <InputText
-                    text={'Parentesco'}
-                    name={'parentensco'}
-                    value={dataForm.parentensco}
-                    handleChange={handleChange}
-                />
-            </div>
 
             <SubTitleSection text="Información de contacto" />
 
@@ -215,8 +208,8 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                         name="telefonos"
                         value={currentTelefono}
                         handleChange={(e) => setCurrentTelefono(e.target.value)}/>
-                    <AddButton onClick={addTelefono} className="button-add" />
-                       <div className="saved-items-container">
+                    <AddButton onClick={addTelefono}/>
+                    <div className="saved-items-container">
                         {dataForm.telefonos.map((tel, index) => (
                             <ContactCard 
                                 key={`tel-${index}`} 
@@ -292,7 +285,9 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                             name="newSituacion"
                             listaDeOpciones={InputSituacionesTerapeuticas}
                             value={newSituacion}
-                            handleChange={(e) => setNewSituacion(e.target.value)} />
+                            handleChange={(e) => setNewSituacion(e.target.value)} 
+                            requerido={false}
+                            />
                         
                         <div className="radio-group-and-calendars">
                             <div className="checkbox-group">
@@ -352,8 +347,9 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                 </div>
             )}
             <div className="button-container">
+                <BotonCancelar path={'/afiliados/gestionar'}/>
                 <div onClick={()=>funcionSubmit(dataForm)} style={{cursor:'pointer'}}>
-                    <ButtonComponent />
+                    <ButtonComponent text='Registrar Grupo'/>
                 </div>
             </div>
         </form>

@@ -1,0 +1,20 @@
+/* Estilos para el botón de agregar (+) */
+.add-button {
+  width: 30px;
+  height: 30px;
+  background-color: #A4C7F4;
+  color: #08315E;
+  border-radius: 50%;
+  border: 1px solid #08325e7a;
+  font-size: 18px;
+  font-family:Helvetica, sans-serif;
+  font-weight: 400;
+  transition: all ease .4s;
+  cursor: pointer;
+  &:hover{
+    transform: scale(1);
+    background-color: #08315E;
+    color: #a4ccff;
+    border-color: #0a3e77;
+  }
+}

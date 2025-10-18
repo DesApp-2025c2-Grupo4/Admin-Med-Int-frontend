@@ -1,11 +1,10 @@
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx"
 import { FormGrupoFamilia } from "./FormGrupoFamilia/FormGrupoFamilia.jsx"
-import { Register } from "../../../components/ui/Register/Register.jsx"
 import { useCrearGrupo } from '../../../hooks/Afiliados/useCrearGrupo.jsx'
 import { LoaderConTexto } from '../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import './NuevoGrupoFamilia.css'
+import { RegisterGroup } from "../../../components/ui/RegisterGroup/RegisterGroup.jsx"
 export function NuevoGrupoFamiliar(){
-    const v = true
     const {loading, crearUnGrupo, error} = useCrearGrupo()
     return (
         <section className="section__nuevo-grupo-familiar-container box-border" style={{position:'relative'}}>
@@ -18,7 +17,7 @@ export function NuevoGrupoFamiliar(){
             <TitleSection text="Nuevo Grupo Familiar" />
             <FormGrupoFamilia 
                 text="Datos del titular"
-                component={Register}
+                component={RegisterGroup}
                 funcionSubmit={crearUnGrupo}
             />
         </section>

@@ -1,0 +1,18 @@
+.btn-register-group__contenedor{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #A4C7F4;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: none;
+  font-size: medium;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #08315E;
+  cursor: pointer;
+  transition: all ease .2s;
+  &:hover{
+    background-color: #a4c7f4ab
+  }
+}

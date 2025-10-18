@@ -1,13 +1,12 @@
+/*Estilos de contenedor principal*/
 .card-container {
-  background-color: #e9f1fb00;
   border: 1px solid #59637050;
-  border-top: 3px solid rgba(0, 128, 0, 0.292);
+  border-top: 3px solid #094789b6;
   border-radius: 5px;
-  color: #08315e;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 200px;
+  max-width: 250px;
   flex: 1;
   justify-content: center; 
   animation: animarEntrada .1s linear;
@@ -56,6 +55,32 @@
   font-weight: 200;
   font-size: calc(12px + 0.05vw);
 }
+/* Situaciones terapeuticas */
+.situacion-info{
+  width: 100%;
+  padding: 10px 10px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.card-situacion-text{
+  color: rgba(0, 0, 0, 0.537);
+  font-weight: 200;
+  font-size: calc(12px + 0.05vw);
+}
+.card-situacion-titulo{
+  font-weight: 600;
+  font-size: calc(14px + 0.05vw);
+  text-align: center !important;
+  width: 100%;
+  padding: 10px 0;
+}
+
+
+/* Animaciones de card */
+
 .fade-out{
   animation: animarSalida .1s linear;
 }
