@@ -1,9 +1,6 @@
 import './FormGrupoFamilia.css'
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx"
 import { InputSelect } from "../../../../components/ui/Input/InputSelect/InputSelect.jsx"
-import { InputTipoDoc } from "../../../../constants/Inputs/InputTipoDoc.js" 
-import { InputPlanMedico } from "../../../../constants/Inputs/InputPlanMedico.js"
-import { InputSituacionesTerapeuticas } from "../../../../constants/Inputs/InputSituacionesTerapeuticas.js"
 import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTitleSection.jsx"
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
@@ -13,7 +10,10 @@ import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/Sit
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
 import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
 import { BotonCancelar } from '../../../../components/ui/CancelarBoton/BotonCancelar.jsx'
+import { useDataFormAfiliados } from '../../../../hooks/Formularios/useDataFormAfiliados.jsx'
 export function FormGrupoFamilia({text, component, funcionSubmit}) {
+    //OBTENGO DATOS DEL FORMULARIO
+    const {errorDataForm,datosParaFormulario}=useDataFormAfiliados()
     //Creo el boton
     const ButtonComponent = component
     const [newSituacion, setNewSituacion] = useState("1"); 
@@ -115,7 +115,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         if (newSituacion === "" || newSituacion === null) {
             return;
         }
-        const situacionSeleccionada = InputSituacionesTerapeuticas.find(
+        const situacionSeleccionada = datosParaFormulario?.situacionesTerapeuticas?.find(
             (s) => s.id === parseInt(newSituacion, 10)
         );
         if (!situacionSeleccionada) return;
@@ -160,7 +160,13 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         e.preventDefault(); 
         console.log("Datos listos para enviar al backend:", dataForm);
     };
+    
+    //En caso de no poder cargar datos del formulario
+    if(!datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos){
+        return <h2>No se pudieron cargar los datos para el formulario</h2>
+    }
 
+    //En caso que salga todo bien
     return (
         <form className="form-grupo-familia" onSubmit={handleSubmit}>
             <SubTitleSection text={text} />
@@ -168,7 +174,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                 <InputSelect 
                     text="Tipo de documento" 
                     name='tipoDocId'
-                    listaDeOpciones={InputTipoDoc}
+                    listaDeOpciones={datosParaFormulario.tiposDeDocumentos}
                     handleChange={handleChange}
                     value={dataForm.tipoDocId} />
                 <InputText text="Numero de documento"
@@ -194,7 +200,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                     />
                 <InputSelect text="Plan medico" 
                     name='planId'
-                    listaDeOpciones={InputPlanMedico}
+                    listaDeOpciones={datosParaFormulario.planesMedicos}
                     value={dataForm.planId}
                     handleChange={handleChange} />
             </div>
@@ -283,7 +289,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                         <InputSelect 
                             text="Situación terapéutica"
                             name="newSituacion"
-                            listaDeOpciones={InputSituacionesTerapeuticas}
+                            listaDeOpciones={datosParaFormulario.situacionesTerapeuticas}
                             value={newSituacion}
                             handleChange={(e) => setNewSituacion(e.target.value)} 
                             requerido={false}

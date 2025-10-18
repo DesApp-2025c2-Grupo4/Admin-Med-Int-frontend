@@ -12,8 +12,10 @@ import { useParams } from 'react-router'
 import { listaParentescos } from '../../../../constants/listaParentescos.js'
 import { useCrearIntegrante } from '../../../../hooks/Afiliados/useCrearIntegrante.jsx'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
+import { useDataFormAfiliados } from '../../../../hooks/Formularios/useDataFormAfiliados.jsx'
 export function FormAgregarIntegrante({ component }) {
   const { error, data, loading, crearUnIntegrante} = useCrearIntegrante()
+  const {errorDataForm,datosParaFormulario}=useDataFormAfiliados()
   const { id } = useParams()
   const [newSituacion, setNewSituacion] = useState("1")
   const [isIndefinida, setIsIndefinida] = useState(false)
@@ -152,6 +154,11 @@ export function FormAgregarIntegrante({ component }) {
   const funcionEnviar = () =>{
     crearUnIntegrante(dataForm)
   }
+  //En caso de no poder cargar datos del formulario
+    if(!datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos){
+        return <h2>No se pudieron cargar los datos para el formulario</h2>
+    }
+  
   return (
     <>
       {
@@ -166,7 +173,7 @@ export function FormAgregarIntegrante({ component }) {
           <InputSelect
             text="Tipo de documento"
             name="tipoDocId"
-            listaDeOpciones={InputTipoDoc}
+            listaDeOpciones={datosParaFormulario.tiposDeDocumentos}
             handleChange={handleChange}
             value={dataForm.tipoDocId}
           />
@@ -299,7 +306,7 @@ export function FormAgregarIntegrante({ component }) {
               <InputSelect
                 text="Situación terapéutica"
                 name="newSituacion"
-                listaDeOpciones={InputSituacionesTerapeuticas}
+                listaDeOpciones={datosParaFormulario.situacionesTerapeuticas}
                 value={newSituacion}
                 handleChange={(e) => setNewSituacion(e.target.value)}
               />
