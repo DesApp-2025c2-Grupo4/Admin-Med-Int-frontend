@@ -84,10 +84,10 @@ export function CardGrupo({
         {/* BOTONES DE CARD DE GRUPO */}
 
         <div className="container_icons">
-          <BotonEliminarGrupo id={credencial} funcion={()=>setShowModal(!showModal)} />
-          <BotonDesplegarIntegrantes id={credencial} funcion={modificarCard} />
-          <BotonEditarGrupo id={credencial}/>
-          <BotonAgregarIntegrante id={credencial} />
+          <BotonEliminarGrupo id={idGrupo} funcion={()=>setShowModal(!showModal)} credencial={credencial}/>
+          <BotonDesplegarIntegrantes id={idGrupo} funcion={modificarCard} credencial={credencial}/>
+          <BotonEditarGrupo id={idGrupo} credencial={credencial}/>
+          <BotonAgregarIntegrante id={idGrupo} credencial={credencial}/>
         </div>
 
         {/* TABLA DE INTEGRANTES */}
@@ -107,18 +107,18 @@ export function CardGrupo({
 }
 
 //Botones de Card
-const BotonDesplegarIntegrantes = ({id,funcion})=>{
+const BotonDesplegarIntegrantes = ({id,funcion,credencial})=>{
   return(
     <div 
       onClick={funcion} 
       style={{ cursor: "pointer" }}
-      data-tooltip-id={`tooltip-${id}`}
+      data-tooltip-id={`tooltip-${credencial}`}
       data-tooltip-content='Desplegar'
       className="cursor-help text-blue-600 font-medium" 
     >
       <UsersIcon />
       <Tooltip 
-          id={`tooltip-${id}`}
+          id={`tooltip-${credencial}`}
           place="top"
           style={{
             whiteSpace: "pre-line",
@@ -127,17 +127,17 @@ const BotonDesplegarIntegrantes = ({id,funcion})=>{
     </div>
   )
 }
-const BotonAgregarIntegrante=({id})=>{
+const BotonAgregarIntegrante=({id,credencial})=>{
   return(
     <Link 
       to={`/afiliados/agregar-integrante/${id}`}
-      data-tooltip-id={`tooltip-${id}`}
+      data-tooltip-id={`tooltip-${credencial}`}
       data-tooltip-content='Agregar Integrante'
       className="cursor-help text-blue-600 font-medium"      
     >
       <AddMemberIcon />
       <Tooltip 
-          id={`tooltip-${id}`}
+          id={`tooltip-${credencial}`}
           place="top"
           style={{
             whiteSpace: "pre-line",
@@ -146,17 +146,17 @@ const BotonAgregarIntegrante=({id})=>{
     </Link>
   )
 }
-const BotonEliminarGrupo =({id,funcion})=>{
+const BotonEliminarGrupo =({id,funcion,credencial})=>{
   return(
     <Link 
       onClick={funcion}
-      data-tooltip-id={`tooltip-${id}`}
+      data-tooltip-id={`tooltip-${credencial}`}
       data-tooltip-content='Eliminar Grupo'
       className="cursor-help text-blue-600 font-medium"
       >
       <DeleteIcon></DeleteIcon>
       <Tooltip 
-          id={`tooltip-${id}`}
+          id={`tooltip-${credencial}`}
           place="top"
           style={{
             whiteSpace: "pre-line",
@@ -165,18 +165,18 @@ const BotonEliminarGrupo =({id,funcion})=>{
     </Link>
   )
 }
-const BotonEditarGrupo = ({id})=>{
+const BotonEditarGrupo = ({id,credencial})=>{
   return(
     <>
       <Link 
         to={"/afiliados/gestionar/modificar-grupo-familiar/" + id}
-        data-tooltip-id={`tooltip-${id}5`}
+        data-tooltip-id={`tooltip-${credencial}`}
         data-tooltip-content='Editar Grupo'
         className="cursor-help text-blue-600 font-medium"
       >
         <ModifierIcon></ModifierIcon>
         <Tooltip 
-          id={`tooltip-${id}5`}
+          id={`tooltip-${credencial}`}
           place="top"
           style={{
             whiteSpace: "pre-line",

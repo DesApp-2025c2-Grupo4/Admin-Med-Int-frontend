@@ -86,13 +86,13 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
                     </td>
                     {/* Botones de acciones*/}
                     <td id="icons" className="tableGrupo__tbody-td sinBorde">
-                      <BotonDetallesDeIntegrante id={i.credencial}/>
+                      <BotonDetallesDeIntegrante id={i.personaId}/>
                       <BotonEliminarIntegrante 
                         handleClick={handleClickEliminar} 
                         esTitular={i.esTitular}
-                        id={i.credencial}
+                        id={i.personaId}
                         />
-                      <BotonModificarIntegrante id={i.credencial} />
+                      <BotonModificarIntegrante id={i.personaId} />
 
                     </td>
                   </tr>
