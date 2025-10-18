@@ -130,7 +130,7 @@ const BotonDesplegarIntegrantes = ({id,funcion})=>{
 const BotonAgregarIntegrante=({id})=>{
   return(
     <Link 
-      to="/afiliados/agregar-integrante"
+      to={`/afiliados/agregar-integrante/${id}`}
       data-tooltip-id={`tooltip-${id}7`}
       data-tooltip-content='Agregar Integrante'
       className="cursor-help text-blue-600 font-medium"      
@@ -150,13 +150,13 @@ const BotonEliminarGrupo =({id,funcion})=>{
   return(
     <Link 
       onClick={funcion}
-      data-tooltip-id={`tooltip-${id}6`}
+      data-tooltip-id={`tooltip-${id}`}
       data-tooltip-content='Eliminar Grupo'
       className="cursor-help text-blue-600 font-medium"
       >
       <DeleteIcon></DeleteIcon>
       <Tooltip 
-          id={`tooltip-${id}6`}
+          id={`tooltip-${id}`}
           place="top"
           style={{
             whiteSpace: "pre-line",
