@@ -1,6 +1,7 @@
 import '../InputBase.css'
 import { Tooltip } from 'react-tooltip'
 export function InputText({text, name, value, handleChange, requerido = true,error}){
+    console.log(error == [])
     return (
         <div className='input-container'>
             <label htmlFor={name}>

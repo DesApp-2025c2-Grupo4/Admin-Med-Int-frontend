@@ -28,13 +28,13 @@ export function SituacionCard({ situacion, onDelete,mostrarBtn=true}) {
             {
                 mostrarBtn &&
                 <div className="container-btns-card">
-                    <button 
+                    <div
                         onClick={onDelete} 
                         className="delete-button " 
                         aria-label={`Eliminar ${situacion.descripcion}`}
                     >
                         <IconDelete /> Eliminar
-                    </button>
+                    </div>
                 </div>
             }
 
