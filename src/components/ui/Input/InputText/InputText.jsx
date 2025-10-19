@@ -1,6 +1,7 @@
 import '../InputBase.css'
 import { Tooltip } from 'react-tooltip'
-export function InputText({text, name, value, handleChange, requerido = true}){
+export function InputText({text, name, value, handleChange, requerido = true,error}){
+    console.log(error == [])
     return (
         <div className='input-container'>
             <label htmlFor={name}>
@@ -23,7 +24,9 @@ export function InputText({text, name, value, handleChange, requerido = true}){
                     </>
                 }
             </label>
-            <input type="text" name={name} value={value} onChange={handleChange} />
-        </div>
+            <input type="text" name={name} value={value} onChange={handleChange} className={error ? 'border-error':''}
+            />
+            {error && <span className='error-message-form'>{error}</span>}
+       </div>
     )
 }

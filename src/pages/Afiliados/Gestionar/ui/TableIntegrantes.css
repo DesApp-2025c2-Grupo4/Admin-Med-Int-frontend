@@ -24,9 +24,12 @@
     font-size: calc(12px + 0.2vw);
     height: 3rem;
     border-right: 1px solid rgba(0, 0, 0, 0.267);
-    min-width: 200px;
+    min-width: 150px;
 }
-
+/* PARA ACHICAR EL ESTADO */
+.th-estado{
+    min-width: 100px;
+}
 /* Tbody */
 .tableGrupo__tbody {
     display: table-row-group;
@@ -51,7 +54,11 @@
     min-width: 200px;
 }
 
-
+.tableGrupo__tbody-td-estado{
+    padding-left: 15px;
+    border-right:1px solid rgba(0, 0, 0, 0.267);
+    text-align: center;
+}
 /* Centrar loader */
 .centrar {
     padding: 3rem 0;

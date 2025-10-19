@@ -24,7 +24,7 @@ export function AgregarIntegrante(){
   return (
     <section className="section__nuevo-grupo-familiar-container box-border">
       <TitleSection text={`Grupo ${grupoFamiliar.nroGrupo} | Agregar Integrante`} />
-      <FormAgregarIntegrante component={AddMember}/>
+      <FormAgregarIntegrante grupo={grupoFamiliar}/>
     </section>
   )
 }

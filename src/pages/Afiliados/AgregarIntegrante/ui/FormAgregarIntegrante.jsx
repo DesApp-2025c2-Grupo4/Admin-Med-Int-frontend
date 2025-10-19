@@ -1,7 +1,5 @@
 import { InputText } from '../../../../components/ui/Input/InputText/InputText.jsx'
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx'
-import { InputTipoDoc } from '../../../../constants/Inputs/InputTipoDoc.js'
-import { InputSituacionesTerapeuticas } from '../../../../constants/Inputs/InputSituacionesTerapeuticas.js'
 import { SubTitleSection } from '../../../../components/ui/SubTitleSection/SubTitleSection.jsx'
 import { AddButton } from '../../../../components/ui/AddButton/AddButton.jsx'
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
@@ -13,9 +11,18 @@ import { listaParentescos } from '../../../../constants/listaParentescos.js'
 import { useCrearIntegrante } from '../../../../hooks/Afiliados/useCrearIntegrante.jsx'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import { useDataFormAfiliados } from '../../../../hooks/Formularios/useDataFormAfiliados.jsx'
-export function FormAgregarIntegrante({ component }) {
-  const { error, data, loading, crearUnIntegrante} = useCrearIntegrante()
-  const {errorDataForm,datosParaFormulario}=useDataFormAfiliados()
+import { formularioCrearIntegrantesSchema } from '../../../../validations/formularioCrearIntegranteSchema.js'
+import { validarNumeroDeTelefono } from '../../../../validations/validarNumeroDeTelefono.js'
+import { validarEmail } from '../../../../validations/validarEmail.js'
+import { validarDireccion } from '../../../../validations/validarDireccion.js'
+import { BotonCancelar } from '../../../../components/ui/CancelarBoton/BotonCancelar.jsx'
+import { RegisterGroup } from '../../../../components/ui/RegisterGroup/RegisterGroup.jsx'
+import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
+import { validarFormulario } from '../../../../validations/validarFormulario.js'
+
+export function FormAgregarIntegrante({ grupo }) {
+  const { error, data, loading, crearUnIntegrante } = useCrearIntegrante()
+  const { datosParaFormulario } = useDataFormAfiliados()
   const { id } = useParams()
   const [newSituacion, setNewSituacion] = useState("1")
   const [isIndefinida, setIsIndefinida] = useState(false)
@@ -25,6 +32,9 @@ export function FormAgregarIntegrante({ component }) {
   const [currentEmail, setCurrentEmail] = useState('')
   const [currentDireccion, setCurrentDireccion] = useState('')
   const [tieneSituacion, setTieneSituacion] = useState(false)
+  //Errores
+  const [errores, setErrores] = useState({})
+
   const [dataForm, setDataForm] = useState({
     idGrupo: id,
     nombre: '',
@@ -36,8 +46,11 @@ export function FormAgregarIntegrante({ component }) {
     emails: [],
     direcciones: [],
     situacionesTerapeuticas: [],
-    parentesco: listaParentescos[0]
+    parentesco: listaParentescos[0],
+    fechaAlta: new Date().toISOString().split('T')[0],
+    fechaBaja: ''
   })
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setDataForm((prev) => ({
@@ -59,7 +72,6 @@ export function FormAgregarIntegrante({ component }) {
   const deleteTelefono = (telefono) => handleDeleteItem('telefonos', telefono)
   const deleteEmail = (email) => handleDeleteItem('emails', email)
   const deleteDireccion = (direccion) => handleDeleteItem('direcciones', direccion)
-
   const deleteSituacion = (id) => {
     setDataForm(prev => ({
       ...prev,
@@ -68,13 +80,14 @@ export function FormAgregarIntegrante({ component }) {
   }
 
   const addTelefono = () => {
+    setErrores(prev => ({ ...prev, telefonos: '' }))
     const telefonoLimpio = currentTelefono.trim()
-    if (telefonoLimpio === '') return
-    const isDuplicado = dataForm.telefonos.some(
-      (telGuardado) => telGuardado.trim() === telefonoLimpio
-    )
-    if (isDuplicado) return
-    setDataForm((prev) => ({
+    const errorDeTelefono = validarNumeroDeTelefono(telefonoLimpio, dataForm.telefonos)
+    if (errorDeTelefono) {
+      setErrores(prev => ({ ...prev, telefonos: errorDeTelefono }))
+      return
+    }
+    setDataForm(prev => ({
       ...prev,
       telefonos: [...prev.telefonos, telefonoLimpio],
     }))
@@ -82,13 +95,15 @@ export function FormAgregarIntegrante({ component }) {
   }
 
   const addEmail = () => {
+    setErrores(prev=>({...prev, emails:''}))
+    setErrores(prev => ({ ...prev, emails: '' }))
     const emailLimpio = currentEmail.trim().toUpperCase()
-    if (emailLimpio === '') return
-    const isDuplicado = dataForm.emails.some(
-      (emailGuardado) => emailGuardado.trim().toUpperCase() === emailLimpio
-    )
-    if (isDuplicado) return
-    setDataForm((prev) => ({
+    const errorEmail = validarEmail(emailLimpio, dataForm.emails)
+    if (errorEmail) {
+      setErrores(prev => ({ ...prev, emails: errorEmail }))
+      return
+    }
+    setDataForm(prev => ({
       ...prev,
       emails: [...prev.emails, currentEmail.trim()],
     }))
@@ -96,13 +111,14 @@ export function FormAgregarIntegrante({ component }) {
   }
 
   const addDireccion = () => {
+    setErrores(prev => ({ ...prev, direcciones: '' }))
     const direccionLimpia = currentDireccion.trim().toUpperCase()
-    if (direccionLimpia === '') return
-    const isDuplicado = dataForm.direcciones.some(
-      (dirGuardada) => dirGuardada.trim().toUpperCase() === direccionLimpia
-    )
-    if (isDuplicado) return
-    setDataForm((prev) => ({
+    const erroresDeDirecciones = validarDireccion(direccionLimpia, dataForm.direcciones)
+    if (erroresDeDirecciones) {
+      setErrores(prev => ({ ...prev, direcciones: erroresDeDirecciones }))
+      return
+    }
+    setDataForm(prev => ({
       ...prev,
       direcciones: [...prev.direcciones, currentDireccion.trim()],
     }))
@@ -111,14 +127,15 @@ export function FormAgregarIntegrante({ component }) {
 
   const addSituacion = () => {
     if (newSituacion === "" || newSituacion === null) return
-    const situacionSeleccionada = InputSituacionesTerapeuticas.find(
+
+    const situacionSeleccionada = datosParaFormulario?.situacionesTerapeuticas?.find(
       (s) => s.id === parseInt(newSituacion, 10)
     )
     if (!situacionSeleccionada) return
+
     const isCronica = !isIndefinida
-    if (!isCronica) {
-      if (!fechaInicio || !fechaFin) return
-    }
+    if (!isCronica && (!fechaInicio || !fechaFin)) return
+
     const isDuplicada = dataForm.situacionesTerapeuticas.some(
       (s) => s.situacionId === situacionSeleccionada.id
     )
@@ -131,7 +148,8 @@ export function FormAgregarIntegrante({ component }) {
       fechaInicio: isCronica ? null : fechaInicio,
       fechaFin: isCronica ? null : fechaFin
     }
-    setDataForm((prev) => ({
+
+    setDataForm(prev => ({
       ...prev,
       situacionesTerapeuticas: [
         ...prev.situacionesTerapeuticas,
@@ -146,102 +164,126 @@ export function FormAgregarIntegrante({ component }) {
     const isIndefinidaSelected = e.target.value === 'indefinida'
     setIsIndefinida(isIndefinidaSelected)
   }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("Datos listos para enviar al backend:", dataForm)
-  }
-  const funcionEnviar = () =>{
+    
+    const erroresDeFormulario = validarFormulario(dataForm, grupo)
+    console.log(erroresDeFormulario)
+    
+    // Si hay al menos un error (valor distinto de null), se detiene el submit
+    const hayErrores = Object.values(erroresDeFormulario).some(value => value !== null)
+    
+    if (hayErrores) {
+      setErrores(erroresDeFormulario)
+      return
+    }
+
+    // Si no hay errores, se procede
     crearUnIntegrante(dataForm)
   }
-  //En caso de no poder cargar datos del formulario
-    if(!datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos){
-        return <h2>No se pudieron cargar los datos para el formulario</h2>
-    }
-  
+
+  if (!datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos) {
+    return <h2>No se pudieron cargar los datos para el formulario</h2>
+  }
+
   return (
     <>
-      {
-        loading &&
+      {loading &&
         <div className="conteiner-loader-formulario">
-          <LoaderConTexto text={'Enviando Formulario'}/>
-        </div>  
+          <LoaderConTexto text={'Enviando Formulario'} />
+        </div>
       }
       <form className="form-grupo-familia" onSubmit={handleSubmit}>
-        <SubTitleSection text="Datos Personales" />
+        <SubTitleSection text={'Datos Principales'} />
         <div className="form-row">
           <InputSelect
             text="Tipo de documento"
-            name="tipoDocId"
+            name='tipoDocId'
             listaDeOpciones={datosParaFormulario.tiposDeDocumentos}
             handleChange={handleChange}
-            value={dataForm.tipoDocId}
-          />
-          <InputText
-            text="Numero de documento"
+            value={dataForm.tipoDocId} />
+          <InputText text="Numero de documento"
             name="dni"
             value={dataForm.dni}
             handleChange={handleChange}
+            error={errores.dni}
           />
-          <InputText
-            text="Nombres"
+          <InputText text="Nombres"
             name="nombre"
             value={dataForm.nombre}
             handleChange={handleChange}
+            error={errores.nombre}
           />
         </div>
 
         <div className="form-row">
-          <InputText
-            text="Apellidos"
+          <InputText text="Apellidos"
             name="apellido"
             value={dataForm.apellido}
             handleChange={handleChange}
+            error={errores.apellido}
           />
           <InputDate
             text="Fecha de nacimiento"
             name="fechaNacimiento"
             value={dataForm.fechaNacimiento}
             handleChange={handleChange}
+            error={errores.fechaNacimiento}
           />
-          <InputSelect
-            text="Parentesco"
-            name="parentesco"
+          <InputSelect text="Parentesco"
+            name='parentesco'
             listaDeOpciones={listaParentescos}
-            handleChange={handleChange}
             value={dataForm.parentesco}
+            handleChange={handleChange} />
+        </div>
+
+        <SubTitleSection text="Información de Ingreso" />
+        <div className="form-row">
+          <InputDate
+            text="Fecha de Alta"
+            name="fechaAlta"
+            value={dataForm.fechaAlta}
+            handleChange={handleChange}
+            error={errores.fechaAlta}
+          />
+          <InputDate
+            text="Fecha de Baja"
+            name="fechaBaja"
+            value={dataForm.fechaBaja}
+            handleChange={handleChange}
+            requerido={false}
+            error={errores.fechaBaja}
           />
         </div>
-        <SubTitleSection text="Información de contacto" />
 
+        <SubTitleSection text="Información de contacto" />
         <div className="form-contacto">
           {/* TELÉFONOS */}
           <div className="input-with-button">
-            <InputText
-              text="Teléfono"
+            <InputText text="Teléfono"
               name="telefonos"
               value={currentTelefono}
               handleChange={(e) => setCurrentTelefono(e.target.value)}
+              error={errores.telefonos }
             />
-            <AddButton onClick={addTelefono} className="button-add" />
+            <AddButton onClick={addTelefono} />
             <div className="saved-items-container">
               {dataForm.telefonos.map((tel, index) => (
                 <ContactCard
                   key={`tel-${index}`}
-                  texto={tel}
+                  texto={formatearTelefono(tel)}
                   onDelete={() => deleteTelefono(tel)}
                 />
               ))}
             </div>
           </div>
-
           {/* EMAILS */}
           <div className="input-with-button">
-            <InputText
-              text="Email"
+            <InputText text="Email"
               name="emails"
               value={currentEmail}
               handleChange={(e) => setCurrentEmail(e.target.value)}
+              error={errores.emails}
             />
             <AddButton onClick={addEmail} className="button-add" />
             <div className="saved-items-container">
@@ -254,14 +296,13 @@ export function FormAgregarIntegrante({ component }) {
               ))}
             </div>
           </div>
-
           {/* DIRECCIONES */}
           <div className="input-with-button">
-            <InputText
-              text="Dirección"
+            <InputText text="Dirección"
               name="direcciones"
               value={currentDireccion}
               handleChange={(e) => setCurrentDireccion(e.target.value)}
+              error={errores.direcciones }
             />
             <AddButton onClick={addDireccion} className="button-add" />
             <div className="saved-items-container">
@@ -281,21 +322,19 @@ export function FormAgregarIntegrante({ component }) {
           <label>
             <input
               type="radio"
-              name="tieneSituacion"
+              name='tieneSituacion'
               value="true"
               checked={tieneSituacion === true}
-              onChange={(e) => setTieneSituacion(e.target.value === 'true')}
-            />
+              onChange={(e) => setTieneSituacion(e.target.value === 'true')} />
             Posee situación terapéutica
           </label>
           <label>
             <input
               type="radio"
-              name="tieneSituacion"
+              name='tieneSituacion'
               value="false"
               checked={tieneSituacion === false}
-              onChange={(e) => setTieneSituacion(e.target.value === 'true')}
-            />
+              onChange={(e) => setTieneSituacion(e.target.value === 'true')} />
             No posee situación terapéutica
           </label>
         </div>
@@ -309,19 +348,19 @@ export function FormAgregarIntegrante({ component }) {
                 listaDeOpciones={datosParaFormulario.situacionesTerapeuticas}
                 value={newSituacion}
                 handleChange={(e) => setNewSituacion(e.target.value)}
+                requerido={false}
               />
 
               <div className="radio-group-and-calendars">
                 <div className="checkbox-group">
-                  <div className="checkbox-items">
+                  <div className='checkbox-items'>
                     <label>
                       <input
                         type="radio"
-                        name="situacion"
+                        name='situacion'
                         value="cronica"
                         checked={!isIndefinida}
-                        onChange={handleSituacionTypeChange}
-                      />
+                        onChange={handleSituacionTypeChange} />
                       Crónico
                     </label>
                   </div>
@@ -329,11 +368,10 @@ export function FormAgregarIntegrante({ component }) {
                     <label>
                       <input
                         type="radio"
-                        name="situacion"
+                        name='situacion'
                         value="indefinida"
                         checked={isIndefinida}
-                        onChange={handleSituacionTypeChange}
-                      />
+                        onChange={handleSituacionTypeChange} />
                       Duración indefinida
                     </label>
                   </div>
@@ -346,15 +384,13 @@ export function FormAgregarIntegrante({ component }) {
                       name="fechaInicio"
                       required={true}
                       value={fechaInicio}
-                      handleChange={(e) => setFechaInicio(e.target.value)}
-                    />
+                      handleChange={(e) => setFechaInicio(e.target.value)} />
                     <InputDate
                       text="Fecha de fin"
                       name="fechaFin"
                       required={true}
                       value={fechaFin}
-                      handleChange={(e) => setFechaFin(e.target.value)}
-                    />
+                      handleChange={(e) => setFechaFin(e.target.value)} />
                   </>
                 )}
               </div>
@@ -374,12 +410,12 @@ export function FormAgregarIntegrante({ component }) {
         )}
 
         <div className="button-container">
-          <div onClick={ funcionEnviar} style={{ cursor: 'pointer' }}>
-            <button>Registrar Integrante</button>
+          <BotonCancelar path={'/afiliados/gestionar'} />
+          <div onClick={handleSubmit} style={{ cursor: 'pointer' }}>
+            <RegisterGroup text='Registrar Integrante' />
           </div>
         </div>
       </form>
     </>
-    
   )
 }

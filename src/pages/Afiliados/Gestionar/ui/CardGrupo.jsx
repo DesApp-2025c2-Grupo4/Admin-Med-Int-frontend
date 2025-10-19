@@ -11,6 +11,7 @@ import { Loader } from "../../../../components/Loader/Loader";
 import { ModalDeConfirmacion } from '../../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
 import { AddMemberIcon } from "../../../../assets/icons/Afiliados/AddMemberIcon";
 import { Tooltip } from "react-tooltip";
+import { IconoEstado } from "../../../../components/IconoEstado/IconoEstado";
 export function CardGrupo({
   idGrupo,
   credencial,
@@ -20,7 +21,9 @@ export function CardGrupo({
   planMedico,
   integrantes,
   setAllGrupos,
+  esActivo
 }) {
+  console.log(esActivo)
   // 
   const {loadingDelete, error, deleteGroup} = useDeleteGroup({setAllGrupos})
 
@@ -72,14 +75,20 @@ export function CardGrupo({
             <Loader />  
           </div>
         }
-        <div className="container_data">
-          <h1 className="titleGrupo">
-            Grupo Familiar {credencial} | {nombre} {apellido}
-          </h1>
-          <p className="descriptionGrupo">
-            Plan: {planMedico} | Fecha Alta: {fechaAlta}
-          </p>
-        </div>
+        <article
+          className="container-header__Card"
+        >
+          <div className="container_data">
+            <h1 className="titleGrupo">
+              Grupo Familiar {credencial} | {nombre} {apellido}
+            </h1>
+            <p className="descriptionGrupo">
+              Plan: {planMedico} | Fecha Alta: {fechaAlta}
+            </p>
+          </div>
+          <IconoEstado estado={esActivo}/>
+        </article>
+        
 
         {/* BOTONES DE CARD DE GRUPO */}
 

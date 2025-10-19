@@ -14,6 +14,7 @@ export function ContactCard({ texto, onDelete }) {
                 <button
                     onClick={handleClick} 
                     className="delete-button" 
+                    type='button'
                 >
                     <IconDelete />
                     Eliminar
@@ -23,13 +24,3 @@ export function ContactCard({ texto, onDelete }) {
         </div>
     );
 }
-
-// import '../BaseCard.css';
-
-// export function ContactCard({ texto }) {
-//     return (
-//         <div className="card-container">
-//             <span>{texto}</span>
-//         </div>
-//     );
-// }
