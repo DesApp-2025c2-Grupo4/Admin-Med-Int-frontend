@@ -23,7 +23,12 @@ export function InputDate({text, name, value, handleChange,requerido=true}){
                     </>
                 }
             </label>
-            <input type="date" value = {value} name={name} onChange={handleChange}/>
+            <input 
+                type="date" 
+                value = {value} 
+                name={name} 
+                onChange={handleChange} 
+            />
         </div>
     )
 }

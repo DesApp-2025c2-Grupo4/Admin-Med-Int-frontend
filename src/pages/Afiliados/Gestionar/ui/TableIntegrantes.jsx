@@ -10,7 +10,12 @@ export function TableIntegrantes({ listHeader, data }) {
           <tr className="tableGrupo__thead-tr">
             {listHeader?.map((head, index) => (
               <th
-                className={`tableGrupo__thead-th ${
+                className={`tableGrupo__thead-th 
+                  ${head === 'Estado' ? 
+                    'th-estado':
+                    ''
+                  }
+                  ${
                   index === listHeader.length - 1 ? "sinBorde" : ""
                 }`}
                 key={index}

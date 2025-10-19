@@ -1,9 +1,7 @@
 import { useState } from "react"
 import { useEliminarIntegrante } from "../../../../../hooks/Afiliados/useEliminarIntegrante"
-import { Link } from "react-router";
-import { DeleteIcon } from "../../../../../assets/icons/Afiliados/DeleteIcon";
-import { ModifierIcon } from "../../../../../assets/icons/Afiliados/ModifierIcon";
 import { ModalDeConfirmacion } from "../../../../../components/ModalDeConfirmacion/ModalDeConfirmacion";
+import { IconoEstado } from '../../../../../components/IconoEstado/IconoEstado'
 import { Loader } from "../../../../../components/Loader/Loader";
 import { BotonDetallesDeIntegrante } from "./ui/BotonDetallesDeIntegrante";
 import { BotonEliminarIntegrante } from './ui/BotonEliminarIntegrante';
@@ -75,6 +73,7 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
               integrantes?.map((i) => {
                 return (
                   <tr className="tableGrupo__tbody-tr" key={i.personaId}>
+                    <td className="tableGrupo__tbody-td-estado"><IconoEstado estado={i.esActivo}/></td>
                     <td className="tableGrupo__tbody-td">{i.credencial}</td>
                     <td className="tableGrupo__tbody-td">{`${i.nombre}, ${i.apellido}`}</td>
                     <td className="tableGrupo__tbody-td">{i.dni}</td>
@@ -82,7 +81,7 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
                       {i.fechaNacimiento}
                     </td>
                     <td className="tableGrupo__tbody-td">
-                      {i.parentesco ? i.parentesco : "TITULAR"}
+                      {i.parentesco ? i.parentesco : "Titular"}
                     </td>
                     {/* Botones de acciones*/}
                     <td id="icons" className="tableGrupo__tbody-td sinBorde">

@@ -1,7 +1,7 @@
 .titleGrupo {
     color: #08172bbd;
     font-size: calc(12px + 0.2vw);
-    padding-bottom: 0.7rem;
+    padding-bottom: 1rem;
 }
 
 .descriptionGrupo {
@@ -11,7 +11,6 @@
 }
 
 .container_data{
-    padding: 1.5rem 1.5rem 0 1.5rem !important;
 }
 
 .container_icons{
@@ -24,10 +23,8 @@
 
 .card_container {
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     transition: transform .2s ease;
-    position: relative;
     animation: animarCard .2s linear;
 }
 
@@ -45,7 +42,13 @@
     }
 }
 
-
+.container-header__Card{
+    padding-right: 1.5rem;
+    width: 100% !important;
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0 1.5rem !important;
+}
 /* Estilos de contendor de loader */
 
 .cotainer-loader-card{

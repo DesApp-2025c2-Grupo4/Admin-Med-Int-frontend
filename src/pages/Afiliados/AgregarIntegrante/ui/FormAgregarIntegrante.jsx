@@ -1,6 +1,5 @@
 import { InputText } from '../../../../components/ui/Input/InputText/InputText.jsx'
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx'
-import { InputTipoDoc } from '../../../../constants/Inputs/InputTipoDoc.js'
 import { InputSituacionesTerapeuticas } from '../../../../constants/Inputs/InputSituacionesTerapeuticas.js'
 import { SubTitleSection } from '../../../../components/ui/SubTitleSection/SubTitleSection.jsx'
 import { AddButton } from '../../../../components/ui/AddButton/AddButton.jsx'
@@ -13,7 +12,7 @@ import { listaParentescos } from '../../../../constants/listaParentescos.js'
 import { useCrearIntegrante } from '../../../../hooks/Afiliados/useCrearIntegrante.jsx'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import { useDataFormAfiliados } from '../../../../hooks/Formularios/useDataFormAfiliados.jsx'
-export function FormAgregarIntegrante({ component }) {
+export function FormAgregarIntegrante({grupo}) {
   const { error, data, loading, crearUnIntegrante} = useCrearIntegrante()
   const {errorDataForm,datosParaFormulario}=useDataFormAfiliados()
   const { id } = useParams()
@@ -36,7 +35,9 @@ export function FormAgregarIntegrante({ component }) {
     emails: [],
     direcciones: [],
     situacionesTerapeuticas: [],
-    parentesco: listaParentescos[0]
+    parentesco: listaParentescos[0],
+    fechaAlta: new Date().toISOString().split('T')[0],
+    fechaBaja: ''
   })
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -111,7 +112,7 @@ export function FormAgregarIntegrante({ component }) {
 
   const addSituacion = () => {
     if (newSituacion === "" || newSituacion === null) return
-    const situacionSeleccionada = InputSituacionesTerapeuticas.find(
+    const situacionSeleccionada = datosParaFormulario.situacionesTerapeuticas.find(
       (s) => s.id === parseInt(newSituacion, 10)
     )
     if (!situacionSeleccionada) return
@@ -212,6 +213,22 @@ export function FormAgregarIntegrante({ component }) {
             value={dataForm.parentesco}
           />
         </div>
+        <SubTitleSection text="Información de Ingreso" />
+            <div className="form-row">
+                <InputDate 
+                    text="Fecha de Alta" 
+                    name="fechaAlta"
+                    value={dataForm.fechaAlta}
+                    handleChange={handleChange}
+                    />
+                <InputDate 
+                    text="Fecha de Baja" 
+                    name="fechaBaja"
+                    value={dataForm.fechaBaja}
+                    handleChange={handleChange}
+                    requerido={false}
+                    />
+            </div>
         <SubTitleSection text="Información de contacto" />
 
         <div className="form-contacto">

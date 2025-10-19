@@ -35,7 +35,9 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         emails:[],
         direcciones: [],
         situacionesTerapeuticas:[],
-        parentensco:'Titular'
+        parentensco:'Titular',
+        fechaAlta: new Date().toISOString().split('T')[0],
+        fechaBaja: ''
     })
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -187,6 +189,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                     handleChange={handleChange} />
             </div>
 
+
             <div className="form-row">
                 <InputText text="Apellidos"
                     name="apellido"
@@ -204,7 +207,22 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                     value={dataForm.planId}
                     handleChange={handleChange} />
             </div>
-
+            <SubTitleSection text="Información de Ingreso" />
+            <div className="form-row">
+                <InputDate 
+                    text="Fecha de Alta" 
+                    name="fechaAlta"
+                    value={dataForm.fechaAlta}
+                    handleChange={handleChange}
+                    />
+                <InputDate 
+                    text="Fecha de Baja" 
+                    name="fechaBaja"
+                    value={dataForm.fechaBaja}
+                    handleChange={handleChange}
+                    requerido={false}
+                    />
+            </div>
             <SubTitleSection text="Información de contacto" />
 
             <div className="form-contacto">
