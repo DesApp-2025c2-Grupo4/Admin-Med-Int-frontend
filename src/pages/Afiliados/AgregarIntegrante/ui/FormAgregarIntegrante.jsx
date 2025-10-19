@@ -11,7 +11,6 @@ import { listaParentescos } from '../../../../constants/listaParentescos.js'
 import { useCrearIntegrante } from '../../../../hooks/Afiliados/useCrearIntegrante.jsx'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import { useDataFormAfiliados } from '../../../../hooks/Formularios/useDataFormAfiliados.jsx'
-import { formularioCrearIntegrantesSchema } from '../../../../validations/formularioCrearIntegranteSchema.js'
 import { validarNumeroDeTelefono } from '../../../../validations/validarNumeroDeTelefono.js'
 import { validarEmail } from '../../../../validations/validarEmail.js'
 import { validarDireccion } from '../../../../validations/validarDireccion.js'
@@ -171,7 +170,7 @@ export function FormAgregarIntegrante({ grupo }) {
     console.log(erroresDeFormulario)
     
     // Si hay al menos un error (valor distinto de null), se detiene el submit
-    const hayErrores = Object.values(erroresDeFormulario).some(value => value !== null)
+    const hayErrores = Object.values(erroresDeFormulario).some(value => value !== '')
     
     if (hayErrores) {
       setErrores(erroresDeFormulario)

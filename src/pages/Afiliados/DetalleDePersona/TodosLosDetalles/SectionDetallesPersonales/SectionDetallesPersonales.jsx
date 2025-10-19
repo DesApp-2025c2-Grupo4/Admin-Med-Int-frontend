@@ -32,6 +32,12 @@ export function SectionDetallesPersonales({persona}){
           info={persona.fechaAlta}
         />
         <CampoDeInformacion
+          title={'Fecha de Baja'}
+          info={persona.fechaBaja? persona.fechaBaja : 'N/A'}
+        />
+      </div>
+      <div className="info-row">
+        <CampoDeInformacion
           title={'Parentesco'}
           info={persona.esTitular ? 'Titular' : persona.parentesco}
         />

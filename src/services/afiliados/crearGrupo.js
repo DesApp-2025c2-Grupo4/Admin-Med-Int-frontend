@@ -41,7 +41,7 @@ export const crearGrupo = async (dataForm)=>{
   const titular = await resTitular.json()
   console.log("titular: ", titular)
   console.log("Grupo:",grupo)
-  return titular
+  return {grupo,titular}
 }
 
 //Funciones auxiliares

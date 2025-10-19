@@ -144,7 +144,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
     e.preventDefault()
     const erroresDeFormulario = validarFormulario(dataForm)
     // Si hay al menos un error (valor distinto de null), se detiene el submit
-    const hayErrores = Object.values(erroresDeFormulario).some(value => value !== null)
+    const hayErrores = Object.values(erroresDeFormulario).some(value => value !== '')
     
     if (hayErrores) {
       setErrores(erroresDeFormulario)
