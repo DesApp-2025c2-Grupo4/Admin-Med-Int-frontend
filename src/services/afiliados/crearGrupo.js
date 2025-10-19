@@ -39,28 +39,27 @@ export const crearGrupo = async (dataForm)=>{
     throw new Error('Error al crear el titular')
   }
   const titular = await resTitular.json()
-
+  console.log("titular: ", titular)
+  console.log("Grupo:",grupo)
   return titular
 }
 
 //Funciones auxiliares
 
 function crearObjetoGrupo(data){
-  //Obtengo fecha actual
-  const hoy = new Date();
-  const fechaFormateada = hoy.toISOString().split('T')[0];
+  
 
   return {
     planId : data.planId,
-    fechaAlta: fechaFormateada
+    fechaAlta: data.fechaAlta,
+    fechaBaja:data.fechaBaja || null
   }
 }
 
-function crearObjetoPersona(data,idGrupo){
+export function crearObjetoPersona(data,idGrupo){
   //Obtengo fecha actual
   const hoy = new Date();
   const fechaFormateada = hoy.toISOString().split('T')[0];
-
   //Formateo direcciones
   const direccionesFormateadas = data.direcciones.map(d=>{
     return {
@@ -90,19 +89,25 @@ function crearObjetoPersona(data,idGrupo){
       fechaInicio: s.fechaInicio || fechaFormateada
     }
   })
-  return {
-  nombre: data.nombre,
-  apellido: data.apellido,
-  parentesco: data.parentesco,
-  dni: "23123123",
-  fechaNacimiento: "1980-05-10",
-  fechaAlta: fechaFormateada,
-  fechaBaja: null,
-  idGrupo: idGrupo,
-  tipoDocId: data.tipoDocId,
-  direcciones: direccionesFormateadas,
-  telefonos: telefonosFormateados,
-  emails: emailFormateados,
-  situacionesTerapeuticas: situacionesFormateadas
-};
+
+  //Creo el objeto
+
+  const integrante = {
+    nombre: data.nombre,
+    apellido: data.apellido,
+    parentesco: data.parentesco,
+    dni: data.dni,
+    fechaNacimiento: data.fechaNacimiento,
+    fechaAlta: data.fechaAlta,
+    fechaBaja: data.fechaBaja || null,
+    idGrupo: idGrupo,
+    tipoDocId: data.tipoDocId,
+    direcciones: direccionesFormateadas,
+    telefonos: telefonosFormateados,
+    emails: emailFormateados,
+    situacionesTerapeuticas: situacionesFormateadas
+  };
+
+  console.log(integrante)
+  return integrante
 }

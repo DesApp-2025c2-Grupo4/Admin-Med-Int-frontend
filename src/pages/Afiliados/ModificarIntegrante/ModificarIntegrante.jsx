@@ -8,16 +8,24 @@ export function ModificarIntegrante() {
   const { id } = useParams();
   const { error, loadingPersona, persona } = useGetDetallePersona(id);
 
+  //En caso de estar cargando
+  if(loadingPersona){
+    return(
+      <div className="contendor_loader-detalle">
+        <Loader />
+      </div>
+    )
+  }
+  //En caso de error
+  if(error){
+    return(
+      <h2 className="message-error">{error}</h2>
+    )
+  }
   return (
     <section className="section__modificar-integrante-container box-border">
       <TitleSection text="Modificar Integrante" />
-      {loadingPersona ? (
-        <Loader />
-      ) : error ? (
-        <h2 className="message-error">{error}</h2>
-      ) : (
-        <FormModificarIntegrante text="Datos del integrante" initialData={persona} />
-      )}
+      <FormModificarIntegrante text="Datos del integrante" initialData={persona} />
     </section>
   );
 }

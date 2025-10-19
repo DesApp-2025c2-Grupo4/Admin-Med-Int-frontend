@@ -1,9 +1,6 @@
 import './FormGrupoFamilia.css'
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx"
 import { InputSelect } from "../../../../components/ui/Input/InputSelect/InputSelect.jsx"
-import { InputTipoDoc } from "../../../../constants/Inputs/InputTipoDoc.js" 
-import { InputPlanMedico } from "../../../../constants/Inputs/InputPlanMedico.js"
-import { InputSituacionesTerapeuticas } from "../../../../constants/Inputs/InputSituacionesTerapeuticas.js"
 import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTitleSection.jsx"
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx"
 import { InputDate } from '../../../../components/ui/Input/InputDate/InputDate.jsx'
@@ -11,14 +8,19 @@ import './FormGrupoFamilia.css'
 import { useState } from 'react'
 import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/SituacionCard.jsx'
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
+import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
+import { BotonCancelar } from '../../../../components/ui/CancelarBoton/BotonCancelar.jsx'
+import { useDataFormAfiliados } from '../../../../hooks/Formularios/useDataFormAfiliados.jsx'
 import { formularioCrearIntegrantesSchema } from '../../../../validations/formularioCrearIntegranteSchema.js'
 export function FormGrupoFamilia({text, component, funcionSubmit}) {
+    //OBTENGO DATOS DEL FORMULARIO
+    const {errorDataForm,datosParaFormulario}=useDataFormAfiliados()
     //Creo el boton
     const ButtonComponent = component
     const [newSituacion, setNewSituacion] = useState("1"); 
     const [isIndefinida, setIsIndefinida] = useState(false);
     const [fechaInicio, setFechaInicio] = useState(''); 
-    const [fechaFinal, setFechaFinal] = useState('');
+    const [fechaFin, setFechaFin] = useState('');
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion] = useState('');
@@ -47,8 +49,11 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         emails:[],
         direcciones: [],
         situacionesTerapeuticas:[],
-        parentensco:'Titular'
+        parentensco:'Titular',
+        fechaAlta: new Date().toISOString().split('T')[0],
+        fechaBaja: ''
     })
+    console.log(dataForm)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setDataForm((prev) => ({
@@ -127,13 +132,13 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         if (newSituacion === "" || newSituacion === null) {
             return;
         }
-        const situacionSeleccionada = InputSituacionesTerapeuticas.find(
+        const situacionSeleccionada = datosParaFormulario?.situacionesTerapeuticas?.find(
             (s) => s.id === parseInt(newSituacion, 10)
         );
         if (!situacionSeleccionada) return;
         const isCronica = !isIndefinida; 
         if (!isCronica) { 
-            if (!fechaInicio || !fechaFinal) {
+            if (!fechaInicio || !fechaFin) {
                 return;     
             }
         }
@@ -150,7 +155,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
             descripcion: situacionSeleccionada.descripcion,
             esCronica: isCronica,
             fechaInicio: isCronica ? null : fechaInicio,
-            fechaFinal: isCronica ? null : fechaFinal
+            fechaFin: isCronica ? null : fechaFin
         };
         setDataForm((prev) => ({
             ...prev,
@@ -160,7 +165,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
             ],
         }));
         setFechaInicio('');
-        setFechaFinal('');
+        setFechaFin('');
     };
     const handleSituacionTypeChange = (e) => {
         const isIndefinidaSelected = e.target.value === 'indefinida';
@@ -187,7 +192,13 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
         }
     }
     };
+    
+    //En caso de no poder cargar datos del formulario
+    if(!datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos){
+        return <h2>No se pudieron cargar los datos para el formulario</h2>
+    }
 
+    //En caso que salga todo bien
     return (
         <form className="form-grupo-familia" onSubmit={handleSubmit}>
             <SubTitleSection text={text} />
@@ -195,7 +206,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                 <InputSelect 
                     text="Tipo de documento" 
                     name='tipoDocId'
-                    listaDeOpciones={InputTipoDoc}
+                    listaDeOpciones={datosParaFormulario.tiposDeDocumentos}
                     handleChange={handleChange}
                     value={dataForm.tipoDocId} />
                 <InputText text="Numero de documento"
@@ -213,6 +224,7 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                     />
             </div>
 
+
             <div className="form-row">
                 <InputText text="Apellidos"
                     name="apellido"
@@ -229,11 +241,26 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                     />
                 <InputSelect text="Plan medico" 
                     name='planId'
-                    listaDeOpciones={InputPlanMedico}
+                    listaDeOpciones={datosParaFormulario.planesMedicos}
                     value={dataForm.planId}
                     handleChange={handleChange} />
             </div>
-
+            <SubTitleSection text="Información de Ingreso" />
+            <div className="form-row">
+                <InputDate 
+                    text="Fecha de Alta" 
+                    name="fechaAlta"
+                    value={dataForm.fechaAlta}
+                    handleChange={handleChange}
+                    />
+                <InputDate 
+                    text="Fecha de Baja" 
+                    name="fechaBaja"
+                    value={dataForm.fechaBaja}
+                    handleChange={handleChange}
+                    requerido={false}
+                    />
+            </div>
             <SubTitleSection text="Información de contacto" />
 
             <div className="form-contacto">
@@ -243,12 +270,12 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                         name="telefonos"
                         value={currentTelefono}
                         handleChange={(e) => setCurrentTelefono(e.target.value)}/>
-                    <AddButton onClick={addTelefono} className="button-add" />
-                       <div className="saved-items-container">
+                    <AddButton onClick={addTelefono}/>
+                    <div className="saved-items-container">
                         {dataForm.telefonos.map((tel, index) => (
                             <ContactCard 
                                 key={`tel-${index}`} 
-                                texto={tel} 
+                                texto={formatearTelefono(tel)} 
                                 onDelete={() => deleteTelefono(tel)} 
                             />
                         ))}
@@ -318,9 +345,11 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                         <InputSelect 
                             text="Situación terapéutica"
                             name="newSituacion"
-                            listaDeOpciones={InputSituacionesTerapeuticas}
+                            listaDeOpciones={datosParaFormulario.situacionesTerapeuticas}
                             value={newSituacion}
-                            handleChange={(e) => setNewSituacion(e.target.value)} />
+                            handleChange={(e) => setNewSituacion(e.target.value)} 
+                            requerido={false}
+                            />
                         
                         <div className="radio-group-and-calendars">
                             <div className="checkbox-group">
@@ -358,10 +387,10 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                                         handleChange={(e) => setFechaInicio(e.target.value)} />
                                     <InputDate 
                                         text="Fecha de fin" 
-                                        name="fechaFinal"
+                                        name="fechaFin"
                                         required={true} 
-                                        value={fechaFinal}
-                                        handleChange={(e) => setFechaFinal(e.target.value)} />
+                                        value={fechaFin}
+                                        handleChange={(e) => setFechaFin(e.target.value)} />
                                 </>
                             )}
                         </div>
@@ -380,8 +409,9 @@ export function FormGrupoFamilia({text, component, funcionSubmit}) {
                 </div>
             )}
             <div className="button-container">
+                <BotonCancelar path={'/afiliados/gestionar'}/>
                 <div onClick={handleSubmit} style={{cursor:'pointer'}}>
-                    <ButtonComponent />
+                    <ButtonComponent text='Registrar Grupo'/>
                 </div>
             </div>
         </form>

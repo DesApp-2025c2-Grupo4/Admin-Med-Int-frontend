@@ -32,7 +32,7 @@ export function FormModificarIntegrante({ text, initialData }) {
             descripcion: s.descripcion,
             esCronica: s.esCronica,
             fechaInicio: s.fechaInicio,
-            fechaFinal: s.fechaFin
+            fechaFin: s.fechaFin
         })) || []
     });
 
@@ -157,7 +157,7 @@ export function FormModificarIntegrante({ text, initialData }) {
                         value={currentTelefono}
                         handleChange={(e) => setCurrentTelefono(e.target.value)}/>
                     <AddButton onClick={addTelefono} className="button-add" />
-                     <div className="saved-items-container">
+                        <div className="saved-items-container">
                         {dataForm.telefonos.map((tel) => (
                             <ContactCard 
                                 key={tel.id} 
@@ -231,6 +231,7 @@ export function FormModificarIntegrante({ text, initialData }) {
                         <SituacionCard
                             key={sit.id}
                             situacion={sit}
+                            mostrarBtn={false}
                            // onDelete={() => removeSituacion(sit.id)}
                         />
                     ))}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteGrupo } from "../services/afiliados/deleteGrupo";
+import { deleteGrupo } from "../../services/afiliados/deleteGrupo";
 
 export function useDeleteGroup({ setAllGrupos }) {
   const [loadingDelete, setLoadingDelete] = useState(false);
@@ -10,7 +10,7 @@ export function useDeleteGroup({ setAllGrupos }) {
 
     try {
       // NOTA: La BD debe devolver el grupo eliminado
-      const groupDeleted = await deleteGrupo({ id });
+      const groupDeleted = await deleteGrupo(id);
       if (!groupDeleted) {
         setError("No se encontró el grupo");
         alert('Error al eliminar el grupo')

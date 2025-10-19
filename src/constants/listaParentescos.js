@@ -1,0 +1,20 @@
+export const listaParentescos = [
+  "Esposo/a",
+  "Concubino/a",
+  "Hijo/a",
+  "Hijastro/a",
+  "Padre",
+  "Madre",
+  "Suegro/a",
+  "Yerno",
+  "Nuera",
+  "Hermano/a",
+  "Cuñado/a",
+  "Abuelo/a",
+  "Nieto/a",
+  "Tío/a",
+  "Sobrino/a",
+  "Primo/a",
+  "Tutor/a",
+  "Otro"
+];
