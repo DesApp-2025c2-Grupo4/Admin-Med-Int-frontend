@@ -1,6 +1,7 @@
-import '../Section-2/ui/Table/Table.css'
-import { Loader } from '../../../components/Loader/Loader'
-export function TablePrestadores({listHeader,data}){
+import "../Section-2/ui/Table/Table.css";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
+export function TablePrestadores({ listHeader, data }) {
   /*
     Descripcion: este componente renderiza la tabla de afiliados del dashboard, los estilos son reutilizables para las demas tablas colocando las mismas clases.
     Entrada: 
@@ -27,21 +28,21 @@ export function TablePrestadores({listHeader,data}){
           }
         ]
   */
-  return(
+  return (
     <table className="table__container">
-
       {/* Header de la tabla */}
       <thead className="table__thead-container">
-        <tr className='table__thead-tr'>
-          {
-            listHeader?.map((head,index) => 
-            <th 
-              className={`table__thead-th ${index === listHeader.length - 1 ? 'sinBorde' : ''}`}
+        <tr className="table__thead-tr">
+          {listHeader?.map((head, index) => (
+            <th
+              className={`table__thead-th ${
+                index === listHeader.length - 1 ? "sinBorde" : ""
+              }`}
               key={index}
-              >
+            >
               {head}
-            </th>)
-          }
+            </th>
+          ))}
         </tr>
       </thead>
 
@@ -49,21 +50,68 @@ export function TablePrestadores({listHeader,data}){
 
       {/* Controlamos si esta cargando para centrar loader */}
       <tbody className={`table__tbody-container`}>
-        {
-              data?.map(d => {
-                return(
-                  <tr className='table__tbody-tr' key={d.prestadorId}>
-                    <td className='table__tbody-td'>{d.cuilCuit}</td>
-                    <td className='table__tbody-td'>{`${d.nombre}, ${d.apellido}`}</td>
-                    <td className='table__tbody-td'>{d.telefonos[0].nro}</td>
-                    <td className='table__tbody-td'>{d.email}</td>
-                    <td className='table__tbody-td sinBorde '><span className='resaltar'>{d.tipoPrestador}</span></td>
-                  </tr> 
-                )
-              })
-        }
-        
+        {data?.map((d) => {
+          return (
+            <tr className="table__tbody-tr" key={d.prestadorId}>
+              <td className="table__tbody-td">{d.cuilCuit}</td>
+              <td className="table__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
+              <td className="table__tbody-td">
+                {d.telefonos.length > 1 ? (
+                  <>
+                    <span
+                      data-tooltip-id={`tooltip-${d.prestadorId}`}
+                      data-tooltip-content={d.telefonos
+                        .map((t) => `tel: ${t.nroTelefono}`)
+                        .join(",\n")}
+                      className="cursor-help text-blue-600 font-medium"
+                    >
+                      {d.telefonos[0].nroTelefono}...
+                    </span>
+                    <Tooltip
+                      id={`tooltip-${d.prestadorId}`}
+                      place="top"
+                      style={{
+                        background: "#255d99ff",
+                        whiteSpace: "pre-line",
+                      }}
+                    />
+                  </>
+                ) : (
+                  <span>{d.telefonos[0]?.nroTelefono}</span>
+                )}
+              </td>
+              <td className="table__tbody-td">
+                {d.email.length > 1 ? (
+                  <>
+                    <span
+                      data-tooltip-id={`tooltip-${d.prestadorId}`}
+                      data-tooltip-content={d.email
+                        .map((e) => e.descripcion)
+                        .join(",\n")}
+                      className="cursor-help text-blue-600 font-medium"
+                    >
+                      {d.email[0].descripcion}...
+                    </span>
+                    <Tooltip
+                      id={`tooltip-${d.prestadorId}`}
+                      place="top"
+                      style={{
+                        background: "#255d99ff",
+                        whiteSpace: "pre-line",
+                      }}
+                    />
+                  </>
+                ) : (
+                  <span>{d.email[0]?.descripcion}</span>
+                )}
+              </td>
+              <td className="table__tbody-td sinBorde ">
+                <span className="resaltar">{d.tipoPrestador}</span>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
-  )
+  );
 }
