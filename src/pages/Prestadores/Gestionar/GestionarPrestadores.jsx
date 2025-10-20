@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { headerTablePrestadores } from "./../../../constants/Prestadores/headerTablePrestadoresGestión";
 import { TablePrestadoresGestion } from "./TablePrestadoresGestion";
 import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection";
-import { LoaderConTexto } from '../../../components/LoaderConTexto/LoaderConTexto'
+import { LoaderConTexto } from "../../../components/LoaderConTexto/LoaderConTexto";
 export function GestionarPrestadores() {
   const { loadingPrestadores, prestadores } = useGetAllPrestadores();
   const [allPrestadores, setAllPrestadores] = useState([]);
@@ -50,7 +50,7 @@ export function GestionarPrestadores() {
 
       case "especialidad":
         resultado = prestadores.filter((p) =>
-          p.especialidad.some(
+          p.especialidad?.some(
             (e) =>
               e.descripcion &&
               e.descripcion.toLowerCase().includes(busqueda.toLowerCase())
@@ -66,7 +66,9 @@ export function GestionarPrestadores() {
 
       case "codigoPostal":
         resultado = prestadores.filter((p) =>
-          p.codigoPostal.toString().includes(busqueda)
+          p.direccion?.some(
+            (d) => d.codigoPostal && d.codigoPostal.includes(busqueda)
+          )
         );
         break;
 
@@ -78,7 +80,7 @@ export function GestionarPrestadores() {
         resultado = prestadores;
     }
 
-    setAllPrestadores(resultado);
+    setAllPrestadores([...resultado]);;
   };
 
   return (
@@ -133,7 +135,7 @@ export function GestionarPrestadores() {
         </div>
         <section className="section-tabla-prestadores">
           {loadingPrestadores ? (
-            <div style={{marginBottom: '1rem'}}>
+            <div style={{ marginBottom: "1rem" }}>
               <LoaderConTexto />
             </div>
           ) : allPrestadores && allPrestadores.length > 0 ? (

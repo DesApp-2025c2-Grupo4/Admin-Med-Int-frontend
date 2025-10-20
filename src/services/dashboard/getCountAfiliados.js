@@ -1,5 +1,6 @@
+const URL_API = import.meta.env.VITE_URL_API;
 export const getCountAfiliados = async () => {
-  const res = await fetch('http://localhost:4000/persona')
+  const res = await fetch(`${URL_API}/persona`)
   const data = await res.json()
   const size = Object.keys(data).length
   //Despues reemplazar por la logica

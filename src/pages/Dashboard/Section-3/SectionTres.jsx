@@ -7,7 +7,7 @@ export function SectionTres(){
   const { loadingPrestadores, prestadoresRecientes } = useGetPrestadoresRecientes()
   return(
     <section className="box-border">
-      <TitleSection text='Prestadores mas recientes' icon={true}/>
+      <TitleSection text='Prestadores Recientes' icon={true}/>
       {
         loadingPrestadores ? 
         <div className="centrar">
