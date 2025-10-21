@@ -8,7 +8,6 @@ import { SituacionCard } from '../../../../components/ui/Cards/SituacionCard/Sit
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx'
 import { useParams } from 'react-router'
 import { listaParentescos } from '../../../../constants/listaParentescos.js'
-import { useCrearIntegrante } from '../../../../hooks/Afiliados/useCrearIntegrante.jsx'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import { useDataFormAfiliados } from '../../../../hooks/Formularios/useDataFormAfiliados.jsx'
 import { validarNumeroDeTelefono } from '../../../../validations/validarNumeroDeTelefono.js'
@@ -19,9 +18,8 @@ import { RegisterGroup } from '../../../../components/ui/RegisterGroup/RegisterG
 import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
 import { validarFormulario } from '../../../../validations/validarFormulario.js'
 
-export function FormAgregarIntegrante({ grupo }) {
-  const { error, data, loading, crearUnIntegrante } = useCrearIntegrante()
-  const { datosParaFormulario } = useDataFormAfiliados()
+export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
+  const { loadingDataForm, datosParaFormulario } = useDataFormAfiliados()
   const { id } = useParams()
   const [newSituacion, setNewSituacion] = useState("1")
   const [isIndefinida, setIsIndefinida] = useState(false)
@@ -178,20 +176,21 @@ export function FormAgregarIntegrante({ grupo }) {
     }
 
     // Si no hay errores, se procede
-    crearUnIntegrante(dataForm)
+    funcionSubmit(dataForm)
   }
-
+  if(loadingDataForm){
+    return(
+      <div className="contendor_loader-detalle">
+        <LoaderConTexto text={'Cargando formulario.'}/>
+      </div>
+    )
+  }
   if (!datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos) {
     return <h2>No se pudieron cargar los datos para el formulario</h2>
   }
 
   return (
     <>
-      {loading &&
-        <div className="conteiner-loader-formulario">
-          <LoaderConTexto text={'Enviando Formulario'} />
-        </div>
-      }
       <form className="form-grupo-familia" onSubmit={handleSubmit}>
         <SubTitleSection text={'Datos Principales'} />
         <div className="form-row">

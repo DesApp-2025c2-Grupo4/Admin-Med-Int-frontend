@@ -4,7 +4,7 @@ import { getGruposFamiliares } from "../services/afiliados/getGruposFamiliares";
 export function useGetAllGrupos() {
   const [grupos, setGrupos] = useState(null);
   const [loadingGrupos, setLoadingGrupos] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState();
 
   useEffect(() => {
     const fetchGrupos = async () => {

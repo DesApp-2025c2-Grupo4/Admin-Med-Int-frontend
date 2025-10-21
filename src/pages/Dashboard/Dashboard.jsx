@@ -4,10 +4,15 @@ import { SectionUno } from './Section-1/SectionUno'
 import { SectionDos } from './Section-2/SectionDos'
 import { SectionTres } from './Section-3/SectionTres'
 import { useCambiarTitulo } from '../../hooks/useCambiarTitulo'
-import { ModalDeConfirmacion } from '../../components/ModalDeConfirmacion/ModalDeConfirmacion'
+import { useGetAfiliadosRecientes } from '../../hooks/useGetAfiliadosRecientes'
+import { useGetPrestadoresRecientes } from '../../hooks/useGetPrestadoresRecientes'
 export function Dashboard(){
   //Cambiar titulo de la pagina
   useCambiarTitulo({title: 'Dashboard'})
+
+  //Obtengo afiliados recientes
+  const { loadingAfiliados, afiliadosRecientes } = useGetAfiliadosRecientes() 
+  const { loadingPrestadores, prestadoresRecientes } = useGetPrestadoresRecientes()
   //Retorno
   return(
     <div className='div__main-principal'>
@@ -16,13 +21,18 @@ export function Dashboard(){
       <SubTitlePrincipal text='Resumen del estado actual del sistema de medicina integral' />
 
       {/* Estadisticas numéricas */}
-      <SectionUno />
+      <SectionUno 
+        loadingAfiliados={loadingAfiliados} 
+        countAfiliados={afiliadosRecientes?.length}
+        loadingPrestadores={loadingPrestadores}
+        countPrestadores={prestadoresRecientes?.length}
+      />
 
       {/* Afiliados mas recientes */}
-      <SectionDos />
+      <SectionDos loadingAfiliados={loadingAfiliados} afiliadosRecientes={afiliadosRecientes}/>
 
       {/* Prestadores mas recientes */}
-      <SectionTres />
+      <SectionTres loadingPrestadores={loadingPrestadores} prestadoresRecientes={prestadoresRecientes}/>
     </div>
   )
 }

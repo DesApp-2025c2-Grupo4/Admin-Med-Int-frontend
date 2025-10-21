@@ -7,13 +7,8 @@ import { CardData } from '../ui/CardData/CardData.jsx'
 
 //Estilos
 import './SectionUno.css'
-import { useGetCountAfiliados } from '../../../hooks/useGetCountAfiliados.jsx'
-import { useGetCountPrestadores } from '../../../hooks/useGetCountPrestadores.jsx'
 
-export function SectionUno(){
-  //Obtengo datos
-  const { loadingAfiliados, countAfiliados } = useGetCountAfiliados() 
-  const { loadingPrestadores, countPrestadores } = useGetCountPrestadores() 
+export function SectionUno({loadingAfiliados,countAfiliados, loadingPrestadores,countPrestadores}){
 
   //Retorno
   return(

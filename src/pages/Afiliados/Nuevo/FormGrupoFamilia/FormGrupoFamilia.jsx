@@ -14,10 +14,10 @@ import { validarEmail } from '../../../../validations/validarEmail.js'
 import { validarDireccion } from '../../../../validations/validarDireccion.js'
 import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
 import { validarFormulario } from '../../../../validations/validarFormulario.js'
-
+import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
 export function FormGrupoFamilia({ text, component, funcionSubmit }) {
   // OBTENGO DATOS DEL FORMULARIO
-  const { datosParaFormulario } = useDataFormAfiliados()
+  const { loadingDataForm, datosParaFormulario } = useDataFormAfiliados()
   const ButtonComponent = component
 
   const [newSituacion, setNewSituacion] = useState("1")
@@ -152,8 +152,15 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
     }
     funcionSubmit(dataForm)
   }
-
-  if (!datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos) {
+  if(loadingDataForm){
+    return(
+      <div className="contendor_loader-detalle">
+        <LoaderConTexto text={'Cargando formulario.'}/>
+      </div>
+    )
+    
+  }
+  if (!loadingDataForm && !datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos) {
     return <h2>No se pudieron cargar los datos para el formulario</h2>
   }
 

@@ -15,7 +15,7 @@ export const crearGrupo = async (dataForm)=>{
   })
 
   //En caso de error
-  if(!resGrupo.ok) throw new Error(`Error en la solicitud: ${resGrupo.status}`);
+  if(!resGrupo.ok) throw new Error(`Error en la solicitud: ${resGrupo}`);
 
   //Que salga todo bien
   const grupo = await resGrupo.json()

@@ -7,6 +7,7 @@ export const useCrearIntegrante = () => {
   const [error, setError] = useState('')
   const [data, setData] = useState('')
   const crearUnIntegrante = async (data)=>{
+    setLoading(true)
     try {
       const integranteCreado = await crearIntegrante(data)
       if(!integranteCreado){
