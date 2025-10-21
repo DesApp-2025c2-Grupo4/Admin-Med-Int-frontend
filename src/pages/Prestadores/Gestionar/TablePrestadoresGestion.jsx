@@ -118,7 +118,7 @@ export function TablePrestadoresGestion({ listHeader, data }) {
                       />
                     </>
                   ) : (
-                    <span>{`${d.direccion[0].codigoPostal}`}</span>
+                    <span>{`${d.direccion[0]?.codigoPostal}`}</span>
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">

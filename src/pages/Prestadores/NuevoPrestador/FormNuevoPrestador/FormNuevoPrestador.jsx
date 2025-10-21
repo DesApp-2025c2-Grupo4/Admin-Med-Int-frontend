@@ -5,6 +5,8 @@ import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTi
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx';
 import { InputCheckbox } from '../../../../components/ui/Input/InputCheckbox/InputCheckbox.jsx';
+import { Register } from '../../../../components/ui/Register/Register.jsx';
+import { crearPrestador } from '../../../../services/prestadores/crearPrestador.js';
 
 export function FormNuevoPrestador({ text }) {
     const [tipoPrestador, setTipoPrestador] = useState('independiente'); 
@@ -21,6 +23,7 @@ export function FormNuevoPrestador({ text }) {
         emails: [],
         direcciones: [],
         medicinaGeneral: false,
+        psicologia: false,
         psiquiatria: false,
         nutricion: false,
         neurologia: false,
@@ -36,11 +39,9 @@ export function FormNuevoPrestador({ text }) {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        const newValue = type === 'checkbox' ? checked : value;
-
-        setDataForm((prev) => ({
+        setDataForm(prev => ({
             ...prev,
-            [name]: newValue,
+            [name]: type === 'checkbox' ? checked : value
         }));
     };
 
@@ -49,8 +50,8 @@ export function FormNuevoPrestador({ text }) {
         setTipoPrestador(selectedType);
         setDataForm((prev) => ({
             ...prev,
-            lugarIndependiente: selectedType === 'centro' ? '' : prev.lugarIndependiente,
-            lugarCentro: selectedType === 'independiente' ? '' : prev.lugarCentro,
+            lugarIndependiente: selectedType === 'Centro' ? '' : prev.lugarIndependiente,
+            lugarCentro: selectedType === 'Independiente' ? '' : prev.lugarCentro,
         }));
     };
 
@@ -84,9 +85,38 @@ export function FormNuevoPrestador({ text }) {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Datos del Prestador:", dataForm, "Tipo de Prestador:", tipoPrestador);
+        try {
+            const especialidadesSeleccionadas = Object.keys(dataForm)
+                .filter(key => [
+                "medicinaGeneral",
+                "psicologia",
+                "cardiologia",
+                "nutricion",
+                "psiquiatria",
+                "neurologia",
+                "oftalmologia",
+                "urologia",
+                "ginecologia",
+                "kinesiologia",
+                "pediatria",
+                "traumatologia",
+                "oncologia"
+                ].includes(key) && dataForm[key]);
+
+            const bodyToSend = {
+                ...dataForm,
+                especialidades: especialidadesSeleccionadas
+            };
+
+            const nuevoPrestador = await crearPrestador(bodyToSend, tipoPrestador);
+            console.log('Prestador creado:', nuevoPrestador);
+            alert('Prestador creado correctamente');
+        } catch (error) {
+            console.error(error);
+            alert('Hubo un error al crear el prestador');
+    }
     };
 
     return (
@@ -214,6 +244,9 @@ export function FormNuevoPrestador({ text }) {
                         ))}
                     </div>
                 </div>
+            </div>
+            <div className="button-container">
+                <Register onClick={handleSubmit} />
             </div>
         </form>
     );
