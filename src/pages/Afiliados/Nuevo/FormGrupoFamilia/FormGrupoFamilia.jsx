@@ -412,7 +412,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
         </div>
       )}
 
-      <div className="button-container">
+      <div className="buttons-container__form">
         <BotonCancelar path={'/afiliados/gestionar'} />
         <div onClick={handleSubmit} style={{ cursor: 'pointer' }}>
           <ButtonComponent text='Registrar Grupo' />
