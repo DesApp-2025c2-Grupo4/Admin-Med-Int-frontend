@@ -10,19 +10,21 @@ export function SectionContacto({prestador}){
       <div className="info-row">
         <CampoInformacionLista 
           title={'Telefonos'}
-          lista={prestador.telefonos}
-          campo={'nro'}
+          lista={prestador.telefonos} 
+          campo={'nroTelefono'}
         />
         <CampoInformacionLista
           title={'Direcciones'}
-          lista={prestador.direccion}
-          campo={'direcciones'}
+          lista={prestador.direccion?.map(d => ({
+            descripcion: `${d.calle} - ${d.nro ?? 'S/N'}, CP: ${d.codigoPostal}`
+           }))}
+          campo={'descripcion'}
         />
       </div>
       <div className="info-row">
         <CampoDeInformacion
-          title={'Email'}
-          info={prestador.email}
+          title={'Emails'}
+          info={prestador.email?.map(e => e.descripcion).join(', ')}
         />
       </div>
     </section>
