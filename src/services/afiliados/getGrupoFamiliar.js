@@ -1,21 +1,17 @@
-import { listGrupos } from "../../Mock/listGrupos.js";
+const URL_API = import.meta.env.VITE_URL_API;
 
-export function getGrupoFamiliar(id) {
+export async function getGrupoFamiliar(id) {
+  //Peticion
+  const res = await fetch(`${URL_API}/grupo/${id}`)
+
+  //En caso de error
+  if(!res.ok) throw new Error('Error al obtener el grupo')
+
+  //En caso de que salga todo bien
+  const data = await res.json() 
   return new Promise((resolve) => {
     setTimeout(() => {
-      const g = listGrupos.find((g) => g.idGrupo === Number(id));
-      if (g) {
-        resolve({
-          ...g,
-          idGrupo: g.idGrupo,
-          nroGrupo: g.nroGrupo,
-          planMedico: g.planMedico,
-        });
-        return;
-      }
-
-      // Si no lo encontró
-      resolve(null);
+      resolve(data);
     }, 1000);
   });
 }

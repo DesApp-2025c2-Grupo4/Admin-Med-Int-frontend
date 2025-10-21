@@ -1,11 +1,11 @@
 // validarFecha.js
-export const validarFecha = (fecha, maximo, minimo) => {
+export const validarFecha = (fecha, maximo, minimo,requerido = true) => {
   console.log(fecha)
-  if (!fecha) return 'Campo requerido';
+  if (!fecha && requerido) return 'Campo requerido';
   const fechaObj = new Date(fecha);
 
-  if (fechaObj > maximo) return `Ingrese una fecha inferior a ${maximo.toLocaleDateString('en-CA')}`;
-  if (fechaObj < minimo) return `Ingrese una fecha superior a ${minimo.toLocaleDateString('en-CA')}`;
+  if (fechaObj > maximo && requerido) return `Ingrese una fecha inferior a ${maximo?.toLocaleDateString('en-CA')}`;
+  if (fechaObj < minimo && requerido) return `Ingrese una fecha superior a ${minimo?.toLocaleDateString('en-CA')}`;
 
   return '';
 }

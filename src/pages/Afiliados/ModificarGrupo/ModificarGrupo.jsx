@@ -9,8 +9,7 @@ import './ModificarGrupo.css'
 export function ModificarGrupo() {
   //Obtengo el id
   const { id } = useParams();
-
-  const { error, loadingGrupos, grupoFamiliar } = useGetGrupoFamiliar(id);
+  const { error, loadingGrupos, grupoFamiliar,setGrupoFamiliar } = useGetGrupoFamiliar(id);
 
   useCambiarTitulo({ title: "Modificar Grupo Familiar" });
 
@@ -26,7 +25,7 @@ export function ModificarGrupo() {
           ) : error ? ( //Muestra el error en caso de estar cargando
             <h2 className="message-error">{error}</h2>
           ) : (
-            <CardModificarGrupo grupo={grupoFamiliar}></CardModificarGrupo>
+            <CardModificarGrupo grupo={grupoFamiliar} setGrupoFamiliar={setGrupoFamiliar}/>
           )}
         </section>
       </div>
