@@ -10,7 +10,7 @@ export function useFiltrarBusqueda(credencial, grupos) {
       setAllGrupos(grupos);
       return;
     }
-    
+
     const texto = busqueda.toLowerCase();
     let resultado = [];
 
@@ -52,17 +52,7 @@ export function useFiltrarBusqueda(credencial, grupos) {
           g.integrantes.some(
             (i) => i.nombre?.toLowerCase().includes(texto)
           )
-        ).map(g=>{
-          return {
-            ...g,
-            integrantes: g.integrantes.map(i=>{
-              return{
-                ...i,
-                esElBuscado: i.nombre?.toLowerCase().includes(texto)
-              }
-            })
-          }
-        });
+        );
         break;
 
       case "apellido":
@@ -70,23 +60,13 @@ export function useFiltrarBusqueda(credencial, grupos) {
           g.integrantes.some(
             (i) => i.apellido?.toLowerCase().includes(texto)
           )
-        ).map(g=>{
-          return {
-            ...g,
-            integrantes: g.integrantes.map(i=>{
-              return{
-                ...i,
-                esElBuscado: i.apellido?.toLowerCase().includes(texto)
-              }
-            })
-          }
-        });
+        );
         break;
 
       case "grupo":
         resultado = grupos.filter((g) =>
           g.nroGrupo.toString().includes(busqueda)
-        )
+        );
         break;
 
       case "fechaNac":
@@ -94,33 +74,13 @@ export function useFiltrarBusqueda(credencial, grupos) {
           g.integrantes.some(
             (i) => i.fechaNacimiento?.includes(busqueda)
           )
-        ).map(g=>{
-          return {
-            ...g,
-            integrantes: g.integrantes.map(i=>{
-              return{
-                ...i,
-                esElBuscado: i.fechaNacimiento?.includes(busqueda)
-              }
-            })
-          }
-        });
+        );
         break;
 
       case "direccion":
         resultado = grupos.filter((g) =>
           g.direccion?.toLowerCase().includes(texto)
-        ).map(g=>{
-          return {
-            ...g,
-            integrantes: g.integrantes.map(i=>{
-              return{
-                ...i,
-                esElBuscado: i.direccion?.toLowerCase().includes(texto)
-              }
-            })
-          }
-        })
+        );
         break;
 
       case "todos":

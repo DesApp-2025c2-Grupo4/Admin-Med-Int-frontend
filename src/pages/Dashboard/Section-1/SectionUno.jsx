@@ -16,7 +16,7 @@ export function SectionUno({loadingAfiliados,countAfiliados, loadingPrestadores,
       <CardData 
         title='Total afiliados' 
         Icon={UserIcon} 
-        number={countAfiliados} 
+        number={isNaN(countAfiliados) ? 'Error' : countAfiliados} 
         loading={loadingAfiliados}
         description={'Grupos familiares activos'}
         name='Afiliados'
@@ -25,7 +25,7 @@ export function SectionUno({loadingAfiliados,countAfiliados, loadingPrestadores,
       <CardData 
         title='Total Prestadores' 
         Icon={StethoscopeIcon} 
-        number={countPrestadores} 
+        number={isNaN(countPrestadores) ? 'Error' : countPrestadores} 
         loading={loadingPrestadores}
         description={'Médicos y centros activos'}
         name='Prestadores'

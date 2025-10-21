@@ -4,7 +4,7 @@ export const useGetAfiliadosRecientes = ()=>{
   //Estados 
   const [loadingAfiliados,setloadingAfiliados] = useState(true)
   const [afiliadosRecientes, setAfiliadosRecientes] = useState(null)
-
+  
   //Fetching
   useEffect(()=>{
     const fetchAfiliadosRecientes = async ()=>{
