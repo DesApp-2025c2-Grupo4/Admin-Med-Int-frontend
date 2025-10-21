@@ -19,7 +19,7 @@ export const crearGrupo = async (dataForm)=>{
 
   //Que salga todo bien
   const grupo = await resGrupo.json()
-
+  console.log(grupo)
   //-------------------Creo al titular
   //Creo mi body para la peticion
   const dataTitular = crearObjetoPersona(dataForm, grupo.idGrupo)
@@ -60,13 +60,6 @@ export function crearObjetoPersona(data,idGrupo){
   //Obtengo fecha actual
   const hoy = new Date();
   const fechaFormateada = hoy.toISOString().split('T')[0];
-  //Formateo direcciones
-  const direccionesFormateadas = data.direcciones.map(d=>{
-    return {
-      calle:d,
-      nro:2
-    }
-  })
 
   //Formateo telefonos
   const telefonosFormateados = data.telefonos.map(t=>{
@@ -91,7 +84,7 @@ export function crearObjetoPersona(data,idGrupo){
   })
 
   //Creo el objeto
-
+  
   const integrante = {
     nombre: data.nombre,
     apellido: data.apellido,
@@ -102,7 +95,7 @@ export function crearObjetoPersona(data,idGrupo){
     fechaBaja: data.fechaBaja || null,
     idGrupo: idGrupo,
     tipoDocId: data.tipoDocId,
-    direcciones: direccionesFormateadas,
+    direcciones: data.direcciones,
     telefonos: telefonosFormateados,
     emails: emailFormateados,
     situacionesTerapeuticas: situacionesFormateadas

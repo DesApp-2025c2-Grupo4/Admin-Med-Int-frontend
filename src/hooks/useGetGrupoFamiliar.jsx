@@ -38,5 +38,5 @@ export function useGetGrupoFamiliar(id) {
     }
   }, [id])
 
-  return { error, loadingGrupos, grupoFamiliar }
+  return { error, loadingGrupos, grupoFamiliar,setGrupoFamiliar }
 }

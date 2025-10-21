@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { deleteGrupo } from "../../services/afiliados/deleteGrupo";
-
+import { useNavigate } from "react-router";
 export function useDeleteGroup({ setAllGrupos }) {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate()
   const deleteGroup = async (id) => {
     setLoadingDelete(true);
     setError(null);
@@ -20,7 +21,11 @@ export function useDeleteGroup({ setAllGrupos }) {
         alert('Grupo eliminado correctamente')
       }
       // Actualizar estado de todos los grupos
-      setAllGrupos((prev) => prev.filter((g) => g.idGrupo !== id));
+      if(setAllGrupos) {
+        setAllGrupos((prev) => prev.filter((g) => g.idGrupo !== id));
+      }else{
+        navigate('/afiliados/gestionar')
+      }
     } catch (error) {
       console.error(error);
       setError("Error al realizar la petición");

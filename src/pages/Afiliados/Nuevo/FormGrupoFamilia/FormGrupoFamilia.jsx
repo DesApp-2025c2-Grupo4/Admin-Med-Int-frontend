@@ -26,7 +26,10 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
   const [fechaFin, setFechaFin] = useState('')
   const [currentTelefono, setCurrentTelefono] = useState('')
   const [currentEmail, setCurrentEmail] = useState('')
-  const [currentDireccion, setCurrentDireccion] = useState('')
+  const [currentDireccion, setCurrentDireccion] = useState({
+    calle:'',
+    nro:''
+  })
   const [tieneSituacion, setTieneSituacion] = useState(false)
 
   const [errores, setErrores] = useState()
@@ -62,7 +65,16 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
 
   const deleteTelefono = (telefono) => handleDeleteItem('telefonos', telefono)
   const deleteEmail = (email) => handleDeleteItem('emails', email)
-  const deleteDireccion = (direccion) => handleDeleteItem('direcciones', direccion)
+  const deleteDireccion = (direccion) => {
+    const calleDireccion = direccion.calle
+    const nroDireccion = direccion.nro
+    setDataForm(prev => ({
+      ...prev,
+      direcciones: prev.direcciones.filter(
+        d => d.calle !== calleDireccion || d.nro !== nroDireccion
+      )
+    }))
+  }
   const deleteSituacion = (id) => {
     setDataForm(prev => ({
       ...prev,
@@ -96,14 +108,23 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
 
   const addDireccion = () => {
     setErrores(prev => ({ ...prev, direcciones: '' }))
-    const direccionLimpia = currentDireccion.trim().toUpperCase()
-    const erroresDeDirecciones = validarDireccion(direccionLimpia, dataForm.direcciones)
-    if (erroresDeDirecciones) {
+    const erroresDeDirecciones = validarDireccion(currentDireccion, dataForm.direcciones)
+    if (erroresDeDirecciones.nro || erroresDeDirecciones.calle) {
       setErrores(prev => ({ ...prev, direcciones: erroresDeDirecciones }))
       return
     }
-    setDataForm(prev => ({ ...prev, direcciones: [...prev.direcciones, currentDireccion.trim()] }))
-    setCurrentDireccion('')
+    const direccionAAgregar = {
+      ... currentDireccion,
+      nro: currentDireccion.nro.trim() === '' ? null : currentDireccion.nro
+    }
+    setDataForm(prev => ({
+      ...prev,
+      direcciones: [...prev.direcciones, direccionAAgregar],
+    }))
+    setCurrentDireccion({
+    calle:'',
+    nro:''
+  })
   }
 
   const addSituacion = () => {
@@ -246,7 +267,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
             ))}
           </div>
         </div>
-
+        
         <div className="input-with-button">
           <InputText
             text="Email"
@@ -265,25 +286,42 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
           </div>
         </div>
 
-        <div className="input-with-button">
-          <InputText
-            text="Dirección"
-            name="direcciones"
-            value={currentDireccion}
-            handleChange={(e) => setCurrentDireccion(e.target.value)}
-            error={errores?.direcciones } />
-          <AddButton onClick={addDireccion} className="button-add" />
-          <div className="saved-items-container">
-            {dataForm.direcciones.map((dir, index) => (
-              <ContactCard
-                key={`dir-${index}`}
-                texto={dir}
-                onDelete={() => deleteDireccion(dir)} />
-            ))}
-          </div>
-        </div>
       </div>
-
+      {/* DIRECCIONES */}
+        <SubTitleSection text="Dirección" />
+        <div className="form-contacto">
+          <div className="input-with-button">
+            <InputText text="Calle"
+              name="calle"
+              value={currentDireccion.calle}
+              handleChange={(e) => setCurrentDireccion(prev => ({
+                ...prev, [e.target.name] : e.target.value
+              }))}
+              error={errores?.direcciones?.calle }
+            />
+            <InputText
+              text='N° Calle'
+              name='nro'
+              value={currentDireccion.nro}
+              handleChange={(e) => setCurrentDireccion(prev => ({
+                ...prev, [e.target.name] : e.target.value
+              }))}
+              error={errores?.direcciones?.nro}
+              requerido={false}
+            />
+            <AddButton onClick={addDireccion} className="button-add" />
+            <div className="saved-items-container">
+              {dataForm.direcciones.map((dir, index) => (
+                <ContactCard
+                  key={`dir-${index}`}
+                  texto={dir}
+                  onDelete={() => deleteDireccion(dir)}
+                  isDireccion={true}
+                />
+              ))}
+            </div>
+          </div>
+        </div>      
       <SubTitleSection text="Situaciones terapéuticas" />
       <div className="checkbox-group">
         <label>

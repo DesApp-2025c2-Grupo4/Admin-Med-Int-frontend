@@ -1,14 +1,13 @@
-.container_form_modificarGrupo {
-    border-top: 1px solid rgba(0, 0, 0, 0.267);
-}
 
 .card_container_modificarGrupo {
+    position: relative;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     transition: transform .2s ease;
     animation: animarCard .2s linear;
     padding-bottom: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.267);
 }
 
 .container_data_modificarGrupo {
@@ -55,4 +54,15 @@
         opacity: 1;
         transform: scale(1);
     }
+}
+
+.container-loader-modificar-grupo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    z-index: 100;
+    background-color:#6b8bac52 ;
 }
