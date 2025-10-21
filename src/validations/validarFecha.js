@@ -1,6 +1,6 @@
 // validarFecha.js
 export const validarFecha = (fecha, maximo, minimo,requerido = true) => {
-  console.log(fecha)
+
   if (!fecha && requerido) return 'Campo requerido';
   const fechaObj = new Date(fecha);
 
