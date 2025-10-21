@@ -62,18 +62,18 @@ export function GestionarAfiliados() {
               <Loader />
             </div>
           ) : allGrupos && allGrupos.length > 0 ? (
-            allGrupos.map((grupo) => (
+            allGrupos.map((g) => (
               <CardGrupo
-                key={grupo.idGrupo}
-                idGrupo={grupo.idGrupo}
-                credencial={grupo.nroGrupo}
-                nombre={grupo.integrantes.find((i) => i.esTitular)?.nombre}
-                apellido={grupo.integrantes.find((i) => i.esTitular)?.apellido}
-                fechaAlta={grupo.fechaAlta}
-                planMedico={grupo.planMedico.descripcion}
-                integrantes={grupo.integrantes}
+                key={g.idGrupo}
+                idGrupo={g.idGrupo}
+                credencial={g.nroGrupo}
+                nombre={g.integrantes.find((i) => i.esTitular)?.nombre}
+                apellido={g.integrantes.find((i) => i.esTitular)?.apellido}
+                fechaAlta={g.fechaAlta}
+                planMedico={g.planMedico.descripcion}
+                integrantes={g.integrantes}
                 setAllGrupos={setAllGrupos}
-                esActivo={grupo.esActivo}
+                esActivo={g.esActivo}
               />
             ))
           ) : (
