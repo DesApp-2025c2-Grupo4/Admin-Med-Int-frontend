@@ -23,9 +23,8 @@ export function CardGrupo({
   setAllGrupos,
   esActivo
 }) {
-  console.log(esActivo)
   // 
-  const {loadingDelete, error, deleteGroup} = useDeleteGroup({setAllGrupos})
+  const {loadingDelete, deleteGroup} = useDeleteGroup({setAllGrupos})
 
   // Estados para mostrar modal
   const [showModal, setShowModal] = useState(false)
@@ -116,7 +115,7 @@ export function CardGrupo({
 }
 
 //Botones de Card
-const BotonDesplegarIntegrantes = ({id,funcion,credencial})=>{
+const BotonDesplegarIntegrantes = ({funcion,credencial})=>{
   return(
     <div 
       onClick={funcion} 
@@ -155,7 +154,7 @@ const BotonAgregarIntegrante=({id,credencial})=>{
     </Link>
   )
 }
-const BotonEliminarGrupo =({id,funcion,credencial})=>{
+const BotonEliminarGrupo =({funcion,credencial})=>{
   return(
     <Link 
       onClick={funcion}

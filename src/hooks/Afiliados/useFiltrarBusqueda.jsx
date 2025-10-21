@@ -1,115 +1,156 @@
-import { useState,useEffect } from "react";
-export function useFiltrarBusqueda(credencial,grupos){
-  const [allGrupos, setAllGrupos] = useState([]);
+import { useState, useEffect } from "react";
+
+export function useFiltrarBusqueda(credencial, grupos) {
+  const [allGrupos, setAllGrupos] = useState(grupos ?? []);
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("");
+
   const filtrar = () => {
-      if (!busqueda && !filtro) {
-        // si no hay búsqueda o filtro, muestro todos los grupos
-        setAllGrupos(grupos);
-        return;
-      }
-  
-      let resultado = [];
-  
-      switch (filtro) {
-        case "credencial":
-          resultado = grupos.filter((g) =>
+    if (!busqueda && !filtro) {
+      setAllGrupos(grupos);
+      return;
+    }
+    
+    const texto = busqueda.toLowerCase();
+    let resultado = [];
+
+    switch (filtro) {
+      case "credencial":
+        resultado = grupos
+          .filter((g) =>
             g.integrantes.some(
               (i) =>
                 i.credencial &&
-                i.credencial.toString().includes(busqueda.toLowerCase())
+                i.credencial.toString().toLowerCase().includes(texto)
             )
-          );
-          break;
-        case "activos":
-          resultado = grupos.filter((g)=>Number(g.esActivo) === 1)
-          break
-        case "inactivos":
-          resultado = grupos.filter((g)=>g.esActivo === -1)
-          break
-        case "pendientes":
-          resultado = grupos.filter((g)=>g.esActivo === 0)
-          break
-        case "nombre":
-          resultado = grupos.filter((g) =>
-            g.integrantes.some(
-              (i) =>
-                i.nombre &&
-                i.nombre.toLowerCase().includes(busqueda.toLowerCase())
-            )
-          );
-          break;
-  
-        case "apellido":
-          resultado = grupos.filter((g) =>
-            g.integrantes.some(
-              (i) =>
-                i.apellido &&
-                i.apellido.toLowerCase().includes(busqueda.toLowerCase())
-            )
-          );
-          break;
-  
-        case "grupo":
-          resultado = grupos.filter((g) =>
-            g.nroGrupo.toString().includes(busqueda)
-          );
-          break;
-  
-        case "fechaNac":
-          resultado = grupos.filter((g) =>
-            g.integrantes.some(
-              (i) => i.fechaNacimiento && i.fechaNacimiento.includes(busqueda)
-            )
-          );
-          break;
-  
-        case "direccion":
-          resultado = grupos.filter(
-            (g) =>
-              g.direccion &&
-              g.direccion.toLowerCase().includes(busqueda.toLowerCase())
-          );
-          break;
-        case "todos":
-          resultado = grupos;
-          break;
-  
-        default:
-          resultado = grupos;
-      }
-  
-      setAllGrupos(resultado);
-    };
-  useEffect(() => {
-      if (grupos) {
-        setAllGrupos(grupos);
-      }
-    }, [grupos]);
-  
-  
-    //Busco en caso de tener credencial
-    useEffect(()=>{
-      if(credencial){
-        setBusqueda(credencial.toString())
-        setFiltro('credencial')
-      }
-    },[credencial])
-    useEffect(() => {
-      if (busqueda && filtro && grupos?.length > 0) {
-        filtrar();
-      }
-    }, [busqueda, filtro, grupos]);
+          )
+          .map((g) => ({
+            ...g,
+            integrantes: g.integrantes.map((i) => ({
+              ...i,
+              esElBuscado:
+                i.credencial &&
+                i.credencial.toString().toLowerCase().includes(texto),
+            })),
+          }));
+        break;
 
-  return({
-    busqueda, 
-    setBusqueda, 
-    allGrupos, 
+      case "activos":
+        resultado = grupos.filter((g) => Number(g.esActivo) === 1);
+        break;
+
+      case "inactivos":
+        resultado = grupos.filter((g) => g.esActivo === -1);
+        break;
+
+      case "pendientes":
+        resultado = grupos.filter((g) => g.esActivo === 0);
+        break;
+
+      case "nombre":
+        resultado = grupos.filter((g) =>
+          g.integrantes.some(
+            (i) => i.nombre?.toLowerCase().includes(texto)
+          )
+        ).map(g=>{
+          return {
+            ...g,
+            integrantes: g.integrantes.map(i=>{
+              return{
+                ...i,
+                esElBuscado: i.nombre?.toLowerCase().includes(texto)
+              }
+            })
+          }
+        });
+        break;
+
+      case "apellido":
+        resultado = grupos.filter((g) =>
+          g.integrantes.some(
+            (i) => i.apellido?.toLowerCase().includes(texto)
+          )
+        ).map(g=>{
+          return {
+            ...g,
+            integrantes: g.integrantes.map(i=>{
+              return{
+                ...i,
+                esElBuscado: i.apellido?.toLowerCase().includes(texto)
+              }
+            })
+          }
+        });
+        break;
+
+      case "grupo":
+        resultado = grupos.filter((g) =>
+          g.nroGrupo.toString().includes(busqueda)
+        )
+        break;
+
+      case "fechaNac":
+        resultado = grupos.filter((g) =>
+          g.integrantes.some(
+            (i) => i.fechaNacimiento?.includes(busqueda)
+          )
+        ).map(g=>{
+          return {
+            ...g,
+            integrantes: g.integrantes.map(i=>{
+              return{
+                ...i,
+                esElBuscado: i.fechaNacimiento?.includes(busqueda)
+              }
+            })
+          }
+        });
+        break;
+
+      case "direccion":
+        resultado = grupos.filter((g) =>
+          g.direccion?.toLowerCase().includes(texto)
+        ).map(g=>{
+          return {
+            ...g,
+            integrantes: g.integrantes.map(i=>{
+              return{
+                ...i,
+                esElBuscado: i.direccion?.toLowerCase().includes(texto)
+              }
+            })
+          }
+        })
+        break;
+
+      case "todos":
+      default:
+        resultado = grupos;
+    }
+
+    setAllGrupos(resultado);
+  };
+
+  // Actualiza los grupos cuando cambian los datos originales
+  useEffect(() => {
+    setAllGrupos(grupos ?? []);
+  }, [grupos]);
+
+  // Si se recibe una credencial desde afuera, autocompleta búsqueda y filtro
+  useEffect(() => {
+    if (credencial) {
+      setBusqueda(credencial.toString());
+      setFiltro("credencial");
+    }
+  }, [credencial]);
+
+  return {
+    busqueda,
+    setBusqueda,
+    allGrupos,
     setAllGrupos,
     filtrar,
     setFiltro,
-    filtro
-  }
-  )
+    filtro,
+  };
 }

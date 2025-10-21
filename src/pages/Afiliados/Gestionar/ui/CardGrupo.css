@@ -10,9 +10,6 @@
     padding-bottom: 0.3rem;
 }
 
-.container_data{
-}
-
 .container_icons{
     display: flex;
     flex-direction: row-reverse;
@@ -80,5 +77,25 @@
     }100%{
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+.es-el-buscado{
+    border: 1px solid #00235081;
+    animation: animarEncontrado 1s;
+    background-color: #0a55b642;
+    transition: all ease .2s;
+    &:hover{
+        background-color: #052d613a !important;
+    }
+}
+
+@keyframes animarEncontrado {
+    0%{
+        border-color: #0a55b600;
+        background-color: #0a55b600;
+    }100%{
+        border-color: #00235081;
+        background-color: #0a55b642;
     }
 }

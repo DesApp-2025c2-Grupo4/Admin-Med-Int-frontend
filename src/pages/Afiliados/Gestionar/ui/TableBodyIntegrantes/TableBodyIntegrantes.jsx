@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { useEliminarIntegrante } from "../../../../../hooks/Afiliados/useEliminarIntegrante"
 import { ModalDeConfirmacion } from "../../../../../components/ModalDeConfirmacion/ModalDeConfirmacion";
 import { IconoEstado } from '../../../../../components/IconoEstado/IconoEstado'
@@ -10,13 +10,17 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
   //Estado para saber qué usuario eliminar
   const [idIntegranteEliminar, setIdIntegranteEliminar] = useState(null)
   //Estado para actualizar lista de integrantes
-  const [integrantes, setIntegrantes] = useState([...integrantesDelGrupo])
+  const [integrantes, setIntegrantes] = useState([...integrantesDelGrupo]);
+
+  useEffect(() => {
+    setIntegrantes([...integrantesDelGrupo]);
+  }, [integrantesDelGrupo]);
+
   //Estado para mostrar modal de confirmacion
   const [showModal, setShowModal] = useState(false)
   //Llamado a mi hoo
   const {loading, eliminarIntegrante} = useEliminarIntegrante({setIntegrantes})
   
-
   //funcion para Eliminar Integrante
   const handleEliminarIntegrante = ()=>{
     setShowModal(false)
@@ -71,8 +75,10 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
           { 
             (
               integrantes?.map((i) => {
+                console.log(i)
                 return (
-                  <tr className="tableGrupo__tbody-tr" key={i.personaId}>
+            
+                  <tr className={`${i.esElBuscado ? 'es-el-buscado' : ''} tableGrupo__tbody-tr`} key={i.personaId}>
                     <td className="tableGrupo__tbody-td-estado"><IconoEstado estado={i.esActivo}/></td>
                     <td className="tableGrupo__tbody-td">{i.credencial}</td>
                     <td className="tableGrupo__tbody-td">{`${i.nombre}, ${i.apellido}`}</td>
