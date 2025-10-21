@@ -27,7 +27,10 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
   const [fechaFin, setFechaFin] = useState('')
   const [currentTelefono, setCurrentTelefono] = useState('')
   const [currentEmail, setCurrentEmail] = useState('')
-  const [currentDireccion, setCurrentDireccion] = useState('')
+  const [currentDireccion, setCurrentDireccion] = useState({
+    calle:'',
+    nro:''
+  })
   const [tieneSituacion, setTieneSituacion] = useState(false)
   //Errores
   const [errores, setErrores] = useState({})
@@ -109,17 +112,23 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
 
   const addDireccion = () => {
     setErrores(prev => ({ ...prev, direcciones: '' }))
-    const direccionLimpia = currentDireccion.trim().toUpperCase()
-    const erroresDeDirecciones = validarDireccion(direccionLimpia, dataForm.direcciones)
-    if (erroresDeDirecciones) {
+    const erroresDeDirecciones = validarDireccion(currentDireccion, dataForm.direcciones)
+    if (erroresDeDirecciones.nro || erroresDeDirecciones.calle) {
       setErrores(prev => ({ ...prev, direcciones: erroresDeDirecciones }))
       return
     }
+    const direccionAAgregar = {
+      ... currentDireccion,
+      nro: currentDireccion.nro.trim() === '' ? null : currentDireccion.nro
+    }
     setDataForm(prev => ({
       ...prev,
-      direcciones: [...prev.direcciones, currentDireccion.trim()],
+      direcciones: [...prev.direcciones, direccionAAgregar],
     }))
-    setCurrentDireccion('')
+    setCurrentDireccion({
+    calle:'',
+    nro:''
+  })
   }
 
   const addSituacion = () => {
@@ -294,13 +303,29 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
               ))}
             </div>
           </div>
-          {/* DIRECCIONES */}
+          
+        </div>
+        {/* DIRECCIONES */}
+        <SubTitleSection text="Dirección" />
+        <div className="form-contacto">
           <div className="input-with-button">
-            <InputText text="Dirección"
-              name="direcciones"
-              value={currentDireccion}
-              handleChange={(e) => setCurrentDireccion(e.target.value)}
-              error={errores.direcciones }
+            <InputText text="Calle"
+              name="calle"
+              value={currentDireccion.calle}
+              handleChange={(e) => setCurrentDireccion(prev => ({
+                ...prev, [e.target.name] : e.target.value
+              }))}
+              error={errores.direcciones?.calle }
+            />
+            <InputText
+              text='N° Calle'
+              name='nro'
+              value={currentDireccion.nro}
+              handleChange={(e) => setCurrentDireccion(prev => ({
+                ...prev, [e.target.name] : e.target.value
+              }))}
+              error={errores.direcciones?.nro}
+              requerido={false}
             />
             <AddButton onClick={addDireccion} className="button-add" />
             <div className="saved-items-container">
@@ -309,12 +334,12 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
                   key={`dir-${index}`}
                   texto={dir}
                   onDelete={() => deleteDireccion(dir)}
+                  isDireccion={true}
                 />
               ))}
             </div>
           </div>
         </div>
-
         <SubTitleSection text="Situaciones terapéuticas" />
         <div className="checkbox-group">
           <label>

@@ -4,7 +4,7 @@ const URL_API = import.meta.env.VITE_URL_API;
 export async function crearIntegrante(data){
   //Formateo correctamente persona
   const objetoPersonaFormateado = crearObjetoPersona(data, data.idGrupo)
-  console.log(objetoPersonaFormateado)
+  console.log("formateado", objetoPersonaFormateado)
   //Hago la peticion
   const res = await fetch(`${URL_API}/persona`,{
     method:'POST',

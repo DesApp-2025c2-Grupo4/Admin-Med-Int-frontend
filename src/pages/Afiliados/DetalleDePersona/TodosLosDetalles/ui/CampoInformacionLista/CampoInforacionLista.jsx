@@ -2,6 +2,7 @@ import { IconoCopiar } from '../IconoCopiar/IconoCopiar'
 import './CampoInformacionLista.css'
 import { CardSituacion } from './CardSituacion/CardSituacion'
 export function CampoInformacionLista({lista,title,campo}){
+  console.log(lista)
     return(
     <div className="info__container infor__container-lista">
       <h2 className='info__title'>{title}</h2>
@@ -21,7 +22,7 @@ export function CampoInformacionLista({lista,title,campo}){
                         className='infor__container-item-lista'>
                         <p className='info__text'>{
                           campo === 'direcciones' ?
-                          `${ele.calle} - ${ele.nro}` :
+                          `${ele.calle} - ${ele.nro ? ele.nro : 'S/N'}` :
                           ele[campo]}
                         </p>
                         <IconoCopiar />
