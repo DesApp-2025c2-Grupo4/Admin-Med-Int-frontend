@@ -75,9 +75,7 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
           { 
             (
               integrantes?.map((i) => {
-                console.log(i)
                 return (
-            
                   <tr className={`${i.esElBuscado ? 'es-el-buscado' : ''} tableGrupo__tbody-tr`} key={i.personaId}>
                     <td className="tableGrupo__tbody-td-estado"><IconoEstado estado={i.esActivo}/></td>
                     <td className="tableGrupo__tbody-td">{i.credencial}</td>

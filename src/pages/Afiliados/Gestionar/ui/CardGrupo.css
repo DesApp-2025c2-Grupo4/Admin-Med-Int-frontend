@@ -23,6 +23,7 @@
     flex-direction: column;
     transition: transform .2s ease;
     animation: animarCard .2s linear;
+    position: relative;
 }
 
 .container_tableIntegrantes{
