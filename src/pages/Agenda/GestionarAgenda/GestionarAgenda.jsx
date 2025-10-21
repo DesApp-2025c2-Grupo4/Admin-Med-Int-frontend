@@ -141,9 +141,11 @@ export function GestionarAgenda() {
             <div className="centrar">
               <Loader />
             </div>
-          ) : fullAgenda && fullAgenda.length > 0 ? (
+          ) :
+            /*fullAgenda && fullAgenda.length > 0 ? (
             <TableAgenda listHeader={headerTableAgenda} data={fullAgenda} />
-          ) : (
+          ) : */
+          (
             <div className="sin-resultados-section">
               <SubTitleSection text={"No se encontraron resultados."} />
             </div>
