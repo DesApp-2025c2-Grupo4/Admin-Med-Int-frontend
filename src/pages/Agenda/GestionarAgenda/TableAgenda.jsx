@@ -53,13 +53,13 @@ export function TableAgenda({ listHeader, data }) {
           {data?.map((d) => {
             return (
               <tr className="tablePrestador__tbody-tr" key={d.agendaId}>
-                <td className="tablePrestador__tbody-td">{`${d.prestador.nombre}, ${d.prestador.apellido}`}</td>
+                <td className="tablePrestador__tbody-td">{`${d.prestador?.nombre}, ${d.prestador?.apellido}`}</td>
                 <td className="tablePrestador__tbody-td">
-                  {d.prestador.especialidad.length > 1 ? (
+                  {d.prestador?.especialidad?.length > 1 ? (
                     <>
                       <span
                         data-tooltip-id={`tooltip-${d.agendaId}`}
-                        data-tooltip-content={d.prestador.especialidad
+                        data-tooltip-content={d.prestador?.especialidad
                           .map((e) => e.descripcion)
                           .join(",\n")}
                         className="cursor-help text-blue-600 font-medium"
@@ -76,7 +76,7 @@ export function TableAgenda({ listHeader, data }) {
                       />
                     </>
                   ) : (
-                    <span>{d.prestador.especialidad[0]?.descripcion}</span>
+                    <span>{d.prestador?.especialidad[0]?.descripcion}</span>
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">
@@ -129,7 +129,7 @@ export function TableAgenda({ listHeader, data }) {
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">
-                  {d.prestador.direccion?.length > 1 ? (
+                  {d.prestador?.direccion?.length > 1 ? (
                     <>
                       <span
                         data-tooltip-id={`tooltip-direccion-${d.agendaId}`}
@@ -150,17 +150,17 @@ export function TableAgenda({ listHeader, data }) {
                       />
                     </>
                   ) : (
-                    <span>{`${d.prestador.direccion[0].calle} ${
-                      d.prestador.direccion[0].nro || ""
+                    <span>{`${d.prestador?.direccion[0].calle} ${
+                      d.prestador?.direccion[0].nro || ""
                     }`}</span>
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">
-                  {d.prestador.telefonos?.length > 1 ? (
+                  {d.prestador?.telefonos?.length > 1 ? (
                     <>
                       <span
                         data-tooltip-id={`tooltip-telefono-${d.agendaId}`}
-                        data-tooltip-content={d.prestador.telefonos
+                        data-tooltip-content={d.prestador?.telefonos
                           .map((t) => `tel: ${t.nro}`)
                           .join(",\n")}
                         className="cursor-help text-blue-600 font-medium"
@@ -177,7 +177,7 @@ export function TableAgenda({ listHeader, data }) {
                       />
                     </>
                   ) : (
-                    <span>{d.prestador.telefonos[0].nro}</span>
+                    <span>{d.prestador?.telefonos[0].nro}</span>
                   )}
                 </td>
                 <td id="icons" className="tablePrestador__tbody-td sinBorde">

@@ -1,4 +1,5 @@
 import '../ButtonBase.css'
+import './Register.css'
 export function Register({ onClick }){
     return (
         <div className="button-container">
