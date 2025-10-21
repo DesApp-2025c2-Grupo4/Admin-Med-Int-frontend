@@ -5,13 +5,10 @@ import { DetailsIcon } from "../../../assets/icons/Afiliados/DetailsIcon";
 import { ModifierIcon } from "../../../assets/icons/Afiliados/ModifierIcon";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import { useState } from "react";
-import { ModalDeConfirmacion} from '../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
+import { useState, useEffect } from "react";
+import { ModalDeConfirmacion } from "../../../components/ModalDeConfirmacion/ModalDeConfirmacion";
 import { useEliminarUnPrestador } from "../../../hooks/Prestador/useEliminarUnPrestador";
-export function TablePrestadoresGestion({
-  listHeader,
-  data
-}) {
+export function TablePrestadoresGestion({ listHeader, data }) {
   /*
     Entrada: 
       -> listHeader: Lista de encabezados para la tabla. Tiene la siguiente estructura
@@ -33,37 +30,41 @@ export function TablePrestadoresGestion({
         ]
   */
   //estados de prestadores
-  const [prestadores, setPrestadores] = useState(data)
+  const [prestadores, setPrestadores] = useState(data);
   //Estado de modal
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
   //Estado del prestador a eliminar
-  const [idPrestador, setIdPrestador] = useState()
+  const [idPrestador, setIdPrestador] = useState();
   //Llamada al hook
-  const {error, loading,eliminarPrestador} = useEliminarUnPrestador(setPrestadores)
+  const { error, loading, eliminarPrestador } =
+    useEliminarUnPrestador(setPrestadores);
+  //Renderizado de la tabla
+  useEffect(() => {
+    setPrestadores(data);
+  }, [data]);
 
   //Funcion de eliminar
-  const handleEliminarPrestador = ()=>{
-    setShowModal(false)
-    eliminarPrestador(idPrestador)
-    setIdPrestador(null)
-  }
+  const handleEliminarPrestador = () => {
+    setShowModal(false);
+    eliminarPrestador(idPrestador);
+    setIdPrestador(null);
+  };
   //HandleClick
-  const handleClick = (id)=>{
-    setShowModal(true)
-    setIdPrestador(id)
-  }
+  const handleClick = (id) => {
+    setShowModal(true);
+    setIdPrestador(id);
+  };
   //Retorno
   return (
     <div className="tablePrestador__container">
       {/* Modal para confirmar eliminacion */}
-      {
-        showModal &&
-        <ModalDeConfirmacion 
-          text={'¿Seguro que deseas eliminar?'}
-          funcionCancelar={()=>setShowModal(false)}
+      {showModal && (
+        <ModalDeConfirmacion
+          text={"¿Seguro que deseas eliminar?"}
+          funcionCancelar={() => setShowModal(false)}
           funcionConfirmar={handleEliminarPrestador}
         />
-      }
+      )}
       <table className="tablePrestador__table">
         {/* Header de la tabla */}
         <thead className="tablePrestador__thead-container">
@@ -88,10 +89,38 @@ export function TablePrestadoresGestion({
         <tbody className="tablePrestador__tbody-container">
           {prestadores?.map((d) => {
             return (
-              <tr className="tablePrestador__tbody-tr" key={d.prestadorId} style={{position: 'relative'}}>
+              <tr
+                className="tablePrestador__tbody-tr"
+                key={d.prestadorId}
+                style={{ position: "relative" }}
+              >
                 <td className="tablePrestador__tbody-td">{d.cuilCuit}</td>
                 <td className="tablePrestador__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
-                <td className="tablePrestador__tbody-td">{d.codigoPostal}</td>
+                <td className="tablePrestador__tbody-td">
+                  {d.direccion?.length > 1 ? (
+                    <>
+                      <span
+                        data-tooltip-id={`tooltip-direccion-${d.prestadorId}`}
+                        data-tooltip-content={d.direccion
+                          .map((dir) => `cp: ${dir.codigoPostal}`)
+                          .join(",\n")}
+                        className="cursor-help text-blue-600 font-medium"
+                      >
+                        {`${d.direccion[0].codigoPostal}...`}
+                      </span>
+
+                      <Tooltip
+                        id={`tooltip-direccion-${d.prestadorId}`}
+                        place="top"
+                        style={{
+                          background: "#255d99ff",
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <span>{`${d.direccion[0].codigoPostal}`}</span>
+                  )}
+                </td>
                 <td className="tablePrestador__tbody-td">
                   {d.especialidad.length > 1 ? (
                     <>
@@ -124,10 +153,12 @@ export function TablePrestadoresGestion({
                   <Link to={`detalle/${d.prestadorId}`}>
                     <DetailsIcon></DetailsIcon>
                   </Link>
-                  <Link onClick={()=>handleClick(d.prestadorId)}>
+                  <Link onClick={() => handleClick(d.prestadorId)}>
                     <DeleteIcon></DeleteIcon>
                   </Link>
-                  <Link to={`/prestadores/modificar-prestador/${d.prestadorId}`}>
+                  <Link
+                    to={`/prestadores/modificar-prestador/${d.prestadorId}`}
+                  >
                     <ModifierIcon></ModifierIcon>
                   </Link>
                 </td>

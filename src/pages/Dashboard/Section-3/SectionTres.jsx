@@ -5,7 +5,7 @@ import { Loader } from "../../../components/Loader/Loader";
 export function SectionTres({loadingPrestadores, prestadoresRecientes}){
   return(
     <section className="box-border">
-      <TitleSection text='Prestadores mas recientes' icon={true}/>
+      <TitleSection text='Prestadores Recientes' icon={true}/>
       {
         loadingPrestadores ? 
         <div className="centrar">
