@@ -54,7 +54,7 @@ export function TablePrestadores({ listHeader, data }) {
           return (
             <tr className="table__tbody-tr" key={d.prestadorId}>
               <td className="table__tbody-td">{d.cuilCuit}</td>
-              <td className="table__tbody-td">{`${d.nombre}, ${d.apellido}`}</td>
+              <td className="table__tbody-td">{d.apellido ? (`${d.nombre}, ${d.apellido}`) : (`${d.nombre}`)}</td>
               <td className="table__tbody-td">
                 {d.telefonos.length > 1 ? (
                   <>
