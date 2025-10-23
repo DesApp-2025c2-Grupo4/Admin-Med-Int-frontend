@@ -7,6 +7,8 @@ import { useDataFormAfiliados } from '../../../hooks/Formularios/useDataFormAfil
 import './ModificarIntegrante.css'
 import { SectionTelefono } from './layouts/SectionTelefonos/SectionTelefonos.jsx';
 import { SectionEmails } from './layouts/SectionEmails/SectionEmails.jsx';
+import { SectionDirecciones } from './layouts/SectionDirecciones/SectionDirecciones.jsx';
+import { SectionSituaciones } from './layouts/SectionSituaciones/SectionSituaciones.jsx';
 export function ModificarIntegrante() {
   const { id } = useParams();
   const { error, loadingPersona, persona,setPersona } = useGetDetallePersona(id);
@@ -56,6 +58,20 @@ export function ModificarIntegrante() {
           personaId={id}
           setPersona={setPersona}
           />
+      </section>
+      <section 
+        className='box-border section-modificar-integrante__hijo-container' 
+        style={{padding: '1.5rem 1.5rem 1.5rem 1.5rem'}}>
+        <SectionDirecciones
+          direcciones={persona.direcciones}
+          personaId={id}
+          setPersona={setPersona}
+          />
+      </section>
+      <section 
+        className='box-border section-modificar-integrante__hijo-container' 
+        style={{padding: '1.5rem 1.5rem 1.5rem 1.5rem'}}>
+        <SectionSituaciones situaciones={persona.situacionesTerapeuticas}/>
       </section>
     </>
     

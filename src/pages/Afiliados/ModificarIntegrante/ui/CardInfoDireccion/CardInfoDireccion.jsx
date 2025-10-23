@@ -2,12 +2,9 @@ import '../CardInfo/CardInfo.css'
 import { DeleteIcon } from '../../../../../assets/icons/Afiliados/DeleteIcon'
 import { SaveIcon } from '../../../../../assets/icons/Afiliados/SaveIcon'
 import { useState } from 'react'
-import { formatearTelefono} from '../../../../../utils/formatearNumeroDeTelefono'
 import { ModalDeConfirmacion} from '../../../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
-export function CardInfo({
+export function CardInfoDireccion({
   data,
-  name,
-  nameTabla,
   funcionActualizarDato,
   funcionEliminarDato
 }){
@@ -16,7 +13,10 @@ export function CardInfo({
   const [mensajeModal, setMensajeModal] = useState()
   const [funcionEjecutarModal, setFuncionEjecutarModal] = useState()
   //Estado para los inputs
-  const [dataCard,setDataCard] = useState({...data})
+  const [dataCard,setDataCard] = useState({
+    calle:data.calle,
+    nro:data.nro
+  })
   //funcion para escribir en inputs
   const handleChange = (e)=>{
     const nameKey = e.target.name
@@ -36,7 +36,7 @@ export function CardInfo({
   }
   const handleClickEliminar = ()=>{
     setShowModal(true)
-    setMensajeModal(`¿Seguro que desea eliminar el ${name==='nroTelefono' ? 'Telefono': 'Email'}: ${name ==='nroTelefono'? formatearTelefono(data[name]):data[name]}?`)
+    setMensajeModal(`¿Seguro que desea eliminar la direccion: ${dataCard.calle} - ${data.nro ? data.nro:'N/A'}`)
     setFuncionEjecutarModal(()=>funcionEliminarDato)
   }
   return(
@@ -47,22 +47,29 @@ export function CardInfo({
           text={mensajeModal}
           funcionConfirmar={()=>{
             setShowModal(false) 
-            return funcionEjecutarModal(data[`${nameTabla}Id`],dataCard)
+            return funcionEjecutarModal(data.direccionId,dataCard)
           }}
           funcionCancelar={()=>setShowModal(false)}
         />
       }
       <article className="card-info-container">
-        <input 
-          className="card-info-titulo" 
-          name={name}
-          value={
-            data.nroTelefono ? 
-            formatearTelefono(dataCard.nroTelefono) : 
-            dataCard.descripcion 
-          }
-          onChange={handleChange}
-        />
+        <div style={{display:'flex'}}>
+          <input 
+            name='calle'
+            className="card-info-titulo" 
+            style={{textAlign: 'right', width:'190px', padding:'0 !Important'}}
+            value={dataCard.calle}
+            onChange={handleChange}
+          />
+          <input 
+            name='nro'
+            className="card-info-titulo" 
+            value={dataCard.nro}
+            style={{borderLeft:'1px solid #59637018', width:'70px', textAlign:'left !Importan', padding:'0 !Important'}}
+            onChange={handleChange}
+          />
+        </div>
+        
         <div className="card-info-body">
           <button className='card-body-btn'onClick={handleClickGuardar}>
             <SaveIcon />
