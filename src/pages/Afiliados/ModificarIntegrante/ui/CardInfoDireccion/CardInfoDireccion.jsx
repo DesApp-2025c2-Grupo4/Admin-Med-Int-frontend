@@ -57,7 +57,7 @@ export function CardInfoDireccion({
           <input 
             name='calle'
             className="card-info-titulo" 
-            style={{textAlign: 'right', width:'190px', padding:'0 !Important'}}
+            style={{textAlign: 'left', width:'190px', padding:'0 !Important'}}
             value={dataCard.calle}
             onChange={handleChange}
           />
@@ -65,7 +65,7 @@ export function CardInfoDireccion({
             name='nro'
             className="card-info-titulo" 
             value={dataCard.nro}
-            style={{borderLeft:'1px solid #59637018', width:'70px', textAlign:'left !Importan', padding:'0 !Important'}}
+            style={{borderLeft:'1px solid #929aa318', width:'70px', textAlign:'left !Importan', padding:'0 !Important'}}
             onChange={handleChange}
           />
         </div>
