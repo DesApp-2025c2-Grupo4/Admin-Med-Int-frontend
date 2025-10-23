@@ -73,7 +73,7 @@ export function FormDatosPersonales({ data, datosParaFormulario, id,setPersona }
           </div>
         }
         <div style={{margin:'-1rem', display:'flex', justifyContent:'center'}}>
-          <TitleSection text={'Datos Personales'} />
+          <TitleSection text={'Editar Datos Personales'} />
         </div>
         <div className="form-row centrar__inputs">
           <InputSelect

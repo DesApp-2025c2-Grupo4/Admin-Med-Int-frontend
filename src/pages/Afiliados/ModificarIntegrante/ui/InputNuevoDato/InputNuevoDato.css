@@ -1,0 +1,15 @@
+/* Estilos de contenedor padre */
+.input-nuevo-dato__container{
+  margin-top:-1rem;
+}
+/* Estilos de contenedor de el input + botn */
+.input-nuevo-dato__input-container{
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+/* Error del input */
+.borde-error > div > input{
+  border-color: rgba(255, 88, 88, 0.747);
+}

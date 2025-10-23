@@ -1,0 +1,73 @@
+/* Contenedor de card principal */
+.card-info-container{
+  border: 1px solid #59637050;
+  border-top: 3px solid #094789b6;
+  border-radius: 5px;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+  justify-content: center; 
+  animation: animarEntrada .1s linear;
+  &:hover{
+    background-color: rgba(163, 163, 163, 0.03);
+  }
+}
+/* Titulo de card */
+.card-info-titulo{
+  text-align: center;
+  width: 100%;
+  padding: 10px 20px;
+  color: rgba(0, 0, 0, 0.537);
+  font-weight: 400;
+  font-size: calc(14px + 0.05vw);
+  border-bottom: 1px solid #59637050;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  transition: all ease .2s;
+  &:focus{
+    outline: none;
+    text-decoration: underline;
+    text-decoration-color: #6babff86;    
+    text-decoration-thickness: 2px;       
+    text-underline-offset: 1px; 
+  }
+}
+/* Body de card */
+.card-info-body{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+}
+/* Boton */
+.card-body-btn{
+  cursor: pointer;
+  flex: 1;
+  background: none;
+  border: none;
+  transition: all ease .2s;
+}
+/* Hover de bnoton de guardar */
+.card-body-btn:first-child:hover{
+  background-color: #094789b6;
+  & svg path{
+    stroke: white;
+  }
+}
+/* Hover de boton de eliminar */
+.card-body-btn:last-child:hover{
+  background-color: #B74545;
+  & svg path{
+    fill: white;
+  }
+}
+
+/* Divisor de botones */
+.divisor{
+  height: 100%;
+  width: 1px;
+  background-color: #59637050;
+}
