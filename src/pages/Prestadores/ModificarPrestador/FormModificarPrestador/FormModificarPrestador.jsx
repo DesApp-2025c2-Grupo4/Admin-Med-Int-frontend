@@ -5,11 +5,18 @@ import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTi
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
 import { ContactCard } from '../../../../components/ui/Cards/ContactCard/ContactCard.jsx';
 import { InputCheckbox } from '../../../../components/ui/Input/InputCheckbox/InputCheckbox.jsx';
+import { RegisterGroup } from '../../../../components/ui/RegisterGroup/RegisterGroup.jsx';
+import { updatePrestadorService } from '../../../../services/prestadores/modificarPrestador.js';
 
 export function FormModificarPrestador({ text, initialData }) {
-    const [tipoPrestador, setTipoPrestador] = useState(
-        initialData.tipoPrestador?.toLowerCase() === "centro" ? "centro" : "independiente"
-    ); 
+    console.log("Estructura de initialData de la API:", initialData);
+    const [tipoPrestador, setTipoPrestador] = useState(() => {
+        const tipo = initialData.tipoPrestador?.toLowerCase() || '';
+        if (tipo.includes("centro")) {
+            return "centro";
+        }
+        return "independiente"; 
+    });
 
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
@@ -18,10 +25,10 @@ export function FormModificarPrestador({ text, initialData }) {
     const [dataForm, setDataForm] = useState({
         cuilCuit: initialData.cuilCuit || '',
         nombreCompleto: `${initialData.nombre || ''} ${initialData.apellido || ''}`.trim(),
-        lugarIndependiente: tipoPrestador === "independiente" ? initialData.lugarIndependiente || '' : '',
-        lugarCentro: tipoPrestador === "centro" ? initialData.lugarCentro || '' : '',    
-        telefonos: initialData.telefonos?.map(t => t.nro) || [],
-        emails: initialData.email ? [initialData.email] : [],
+        lugarIndependiente: initialData.lugarIndependiente || '',
+        lugarCentro: initialData.lugarCentro || '',   
+        telefonos: initialData.telefonos?.map(t => t.nroTelefono) || [],
+        emails: initialData.email?.map(e => e.descripcion) || [],
         direcciones: initialData.direccion?.map(d => `${d.calle} ${d.nro}`) || [],
         medicinaGeneral: initialData.especialidad?.some(e => e.descripcion === "Medicina General") || false,
         psicologia: initialData.especialidad?.some(e => e.descripcion === "Psicología") || false,
@@ -33,7 +40,7 @@ export function FormModificarPrestador({ text, initialData }) {
         ginecologia: initialData.especialidad?.some(e => e.descripcion === "Ginecología") || false,
         kinesiologia: initialData.especialidad?.some(e => e.descripcion === "Kinesiología") || false,
         pediatria: initialData.especialidad?.some(e => e.descripcion === "Pediatría") || false,
-        traumatologia: initialData.especialidad?.some(e => e.descripcion === "Traumatologia") || false,
+        traumatologia: initialData.especialidad?.some(e => e.descripcion === "Traumatología") || false,
         oncologia: initialData.especialidad?.some(e => e.descripcion === "Oncología") || false,
         psiquiatria: initialData.especialidad?.some(e => e.descripcion === "Psiquiatría") || false,
     });
@@ -88,11 +95,25 @@ export function FormModificarPrestador({ text, initialData }) {
         }
     };
 
+    const handleUpdate = async () => {
+        const prestadorId = initialData.prestadorId;
+        if (!prestadorId) {
+            console.error("No se encontró el ID del prestador para actualizar.");
+            return;
+        }
+        try {
+            const result = await updatePrestadorService(dataForm, tipoPrestador, prestadorId);
+            console.log('Prestador actualizado con éxito:', result);
+            alert('Cambios guardados exitosamente.');
+        } catch (error) {
+            console.error('Error al guardar los cambios:', error.message);
+            alert(`Error al guardar: ${error.message}`);
+        }
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Datos del Prestador:", dataForm, "Tipo de Prestador:", tipoPrestador);
+        handleUpdate();
     };
-
     return (
         <form className="form-modificar-prestador" onSubmit={handleSubmit}> 
             <SubTitleSection text={text} className="form-title" /> 
@@ -108,6 +129,7 @@ export function FormModificarPrestador({ text, initialData }) {
                     value={dataForm.nombreCompleto}
                     handleChange={handleChange}
                 />
+                
             </div>
 
             <SubTitleSection text="Tipo de prestador" />
@@ -213,6 +235,11 @@ export function FormModificarPrestador({ text, initialData }) {
                         handleChange={(e) => setCurrentDireccion(e.target.value)}
                         placeholder="Calle Ejemplo 123"
                     />
+                    <InputText text="Codigo postal"
+                    name="codigoPostal"
+                    value={dataForm.codigoPostal}
+                    handleChange={handleChange}
+                    />
                     <AddButton onClick={addDireccion} className="button-add"/>
                     <div className="saved-items-container">
                         {dataForm.direcciones.map((dir, index) => (
@@ -220,6 +247,9 @@ export function FormModificarPrestador({ text, initialData }) {
                         ))}
                     </div>
                 </div>
+            </div>
+            <div className="modificar-prestador-button">
+                <RegisterGroup text={'Guardar Cambios'} type="submit"/>
             </div>
         </form>
     );
