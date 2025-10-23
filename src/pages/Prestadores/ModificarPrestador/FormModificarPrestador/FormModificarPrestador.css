@@ -41,6 +41,10 @@
     margin-right: 5px;
 }
 
+.modificar-prestador-button{
+    margin: auto;
+    max-width: 10%;
+}
 
 .checkbox-container-modificar-prestador {
     display: grid;
