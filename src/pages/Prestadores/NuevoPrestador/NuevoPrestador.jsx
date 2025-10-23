@@ -9,9 +9,6 @@ export function NuevoPrestador(){
       <section className="section__nuevo-prestador-container box-border">
         <TitleSection text="Nuevo prestador" />
         <FormNuevoPrestador text="Datos del prestador"/>
-        <div className="button-container">
-          <Register />
-        </div>
       </section>
   )
 }
