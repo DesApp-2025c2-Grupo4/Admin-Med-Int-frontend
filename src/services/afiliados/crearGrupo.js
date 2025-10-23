@@ -85,7 +85,7 @@ export function crearObjetoPersona(data,idGrupo){
   const integrante = {
     nombre: data.nombre,
     apellido: data.apellido,
-    parentesco: data.parentesco,
+    parentesco: data.parentesco ||'Titular',
     dni: data.dni,
     fechaNacimiento: data.fechaNacimiento,
     fechaAlta: data.fechaAlta,

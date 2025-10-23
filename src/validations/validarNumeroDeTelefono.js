@@ -12,11 +12,8 @@ export const validarNumeroDeTelefono = (num,listaNumeros)=>{
   if (isDuplicado) {
     return error = 'Numero existente'
   }
-  if(num?.length<8){
-    return error = 'El numero debe tener como minimo 8 digitos'
-  }
-  if(num?.length>10){
-    return error = 'El numero debe tener como maximo 10 digitos'
+  if(num?.length!=10){
+    return error = 'El numero debe tener 10 digitos'
   }
   
   return error

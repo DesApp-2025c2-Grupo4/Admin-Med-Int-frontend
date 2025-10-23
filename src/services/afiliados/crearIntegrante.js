@@ -20,6 +20,7 @@ export async function crearIntegrante(data){
   //Si sale todo bien
 
   const integrante = await res.json()
+  console.log(integrante)
 
   return integrante
 }
