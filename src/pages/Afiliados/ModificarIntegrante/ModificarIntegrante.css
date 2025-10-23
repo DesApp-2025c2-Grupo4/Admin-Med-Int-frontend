@@ -1,0 +1,36 @@
+/* Contendor principal de secciones */
+.section-modificar-integrante__container{
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 2rem;
+  position: relative;
+}
+
+/* Contenedor de una seccion */
+.section-modificar-integrante__hijo-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+/* Contenedor de los datos agregados */
+.section-data-container__datos-agregados{
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top:-0.5rem;
+}
+/* Contenedor de loaders */
+.conteiner-loader-section-editar-integrante{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  top:0;
+  left: 0;
+  padding-top: 2rem;
+  justify-content: center;
+  background-color: rgba(4, 17, 53, 0.24);
+}

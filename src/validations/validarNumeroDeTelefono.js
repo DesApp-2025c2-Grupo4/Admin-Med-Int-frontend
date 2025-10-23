@@ -7,7 +7,8 @@ export const validarNumeroDeTelefono = (num,listaNumeros)=>{
     return error = 'El numero no puede ser vacio'
   };
   const isDuplicado = listaNumeros.telefonos?.some(
-    (telGuardado) => telGuardado.trim() === num);
+    (telGuardado) => telGuardado.trim() === num.trim());
+
   if (isDuplicado) {
     return error = 'Numero existente'
   }

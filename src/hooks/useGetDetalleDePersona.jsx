@@ -38,5 +38,5 @@ export function useGetDetallePersona(id) {
     }
   }, [id])
 
-  return { error, loadingPersona, persona }
+  return { error, loadingPersona, persona,setPersona }
 }

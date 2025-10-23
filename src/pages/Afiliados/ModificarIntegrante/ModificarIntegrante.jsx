@@ -2,12 +2,18 @@ import { useParams } from "react-router";
 import { useGetDetallePersona } from "../../../hooks/useGetDetalleDePersona";
 import { Loader } from "../../../components/Loader/Loader";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
-import { FormModificarIntegrante } from "./FormModificarIntegrante/FormModificarIntegrante.jsx";
-
+import { FormDatosPersonales } from './layouts/FormDatosPersonales/FormDatosPersonales.jsx';
+import { useDataFormAfiliados } from '../../../hooks/Formularios/useDataFormAfiliados.jsx';
+import './ModificarIntegrante.css'
+import { SectionTelefono } from './layouts/SectionTelefonos/SectionTelefonos.jsx';
+import { SectionEmails } from './layouts/SectionEmails/SectionEmails.jsx';
+import { SectionDirecciones } from './layouts/SectionDirecciones/SectionDirecciones.jsx';
+import { SectionSituaciones } from './layouts/SectionSituaciones/SectionSituaciones.jsx';
 export function ModificarIntegrante() {
   const { id } = useParams();
-  const { error, loadingPersona, persona } = useGetDetallePersona(id);
-
+  const { error, loadingPersona, persona,setPersona } = useGetDetallePersona(id);
+  const {datosParaFormulario} = useDataFormAfiliados()
+  console.log(persona)
   //En caso de estar cargando
   if(loadingPersona){
     return(
@@ -23,9 +29,51 @@ export function ModificarIntegrante() {
     )
   }
   return (
-    <section className="section__modificar-integrante-container box-border">
-      <TitleSection text="Modificar Integrante" />
-      <FormModificarIntegrante text="Datos del integrante" initialData={persona} />
-    </section>
+    <>
+      <div style={{margin: '-1rem'}}>
+        <TitleSection text={`Modificar ${persona.esTitular ? 'Afiliado' : 'Integrante'}: ${persona.nombre}, ${persona.apellido}`} />
+      </div>
+      <section className="box-border" style={{marginBottom: '1rem'}}>
+        <FormDatosPersonales 
+          data={persona} 
+          datosParaFormulario={datosParaFormulario} 
+          id={id}
+          setPersona={setPersona}
+        />
+      </section>
+      <section 
+        className='box-border section-modificar-integrante__hijo-container' 
+        style={{padding: '1.5rem 1.5rem 1.5rem 1.5rem', marginBottom:'1rem'}}>
+        <SectionTelefono 
+          telefonosLista={persona.telefonos}
+          personaId={id}
+          setPersona={setPersona}
+        />
+      </section>
+      <section 
+        className='box-border section-modificar-integrante__hijo-container' 
+        style={{padding: '1.5rem 1.5rem 1.5rem 1.5rem'}}>
+        <SectionEmails 
+          emails={persona.email}
+          personaId={id}
+          setPersona={setPersona}
+          />
+      </section>
+      <section 
+        className='box-border section-modificar-integrante__hijo-container' 
+        style={{padding: '1.5rem 1.5rem 1.5rem 1.5rem'}}>
+        <SectionDirecciones
+          direcciones={persona.direcciones}
+          personaId={id}
+          setPersona={setPersona}
+          />
+      </section>
+      <section 
+        className='box-border section-modificar-integrante__hijo-container' 
+        style={{padding: '1.5rem 1.5rem 1.5rem 1.5rem'}}>
+        <SectionSituaciones situaciones={persona.situacionesTerapeuticas}/>
+      </section>
+    </>
+    
   );
 }

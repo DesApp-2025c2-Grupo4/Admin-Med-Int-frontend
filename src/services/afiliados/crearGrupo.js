@@ -19,7 +19,6 @@ export const crearGrupo = async (dataForm)=>{
 
   //Que salga todo bien
   const grupo = await resGrupo.json()
-  console.log(grupo)
   //-------------------Creo al titular
   //Creo mi body para la peticion
   const dataTitular = crearObjetoPersona(dataForm, grupo.idGrupo)
@@ -39,8 +38,6 @@ export const crearGrupo = async (dataForm)=>{
     throw new Error('Error al crear el titular')
   }
   const titular = await resTitular.json()
-  console.log("titular: ", titular)
-  console.log("Grupo:",grupo)
   return {grupo,titular}
 }
 

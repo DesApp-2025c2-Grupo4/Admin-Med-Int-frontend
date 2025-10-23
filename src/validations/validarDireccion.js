@@ -7,10 +7,11 @@ export const validarDireccion = (dir, listaDir)=>{
     error.calle = 'Ingresa una calle'
   };
   const isDuplicado = listaDir.some(
-    (dirGuardada) => dirGuardada.calle.trim().toUpperCase() === dir && dirGuardada.nro === dir.nro
-  );
+    (dirGuardada) => dirGuardada.calle.trim().toUpperCase() === dir.calle.trim().toUpperCase() && dirGuardada.nro == dir.nro
+  )
   if (isDuplicado) {
-    error.nro = 'Dirección repedita, cambiar numero y/o calle'
+    error.calle = 'Dirección repedita, cambiar numero y/o calle'
+    return error
   }
 
   //Validaciones del numero

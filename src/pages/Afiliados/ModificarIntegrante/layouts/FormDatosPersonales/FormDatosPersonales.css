@@ -1,0 +1,7 @@
+.centrar__inputs{
+  display: flex;
+  justify-content: space-between;
+}
+.centrar__inputs .input-container{
+  flex: 1;
+}

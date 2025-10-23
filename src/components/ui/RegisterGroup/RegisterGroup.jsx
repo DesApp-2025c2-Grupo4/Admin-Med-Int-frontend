@@ -1,7 +1,7 @@
 import './RegisterGroup.css'
-export function RegisterGroup({text}){
+export function RegisterGroup({text,disabled=false}){
     return (
-        <button className='btn-register-group__contenedor'>
+        <button className='btn-register-group__contenedor' disabled={disabled}>
             <svg
                 width="23"
                 height="23"
