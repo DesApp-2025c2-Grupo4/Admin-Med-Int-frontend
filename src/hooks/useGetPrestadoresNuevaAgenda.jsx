@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { listPrestador } from '../Mock/listPrestadores.js'; 
 import { fetchPrestadoresData } from '../services/agenda/getDetallePrestadores.js'; 
 
 const initialDataOptions = {
@@ -19,7 +18,7 @@ export const useGetPrestadoresNuevaAgenda = () => {
             setIsLoading(true);
             setError(null);
             try {
-                const data = await fetchPrestadoresData(listPrestador);
+                const data = await fetchPrestadoresData();
                 setDataOptions(data);   
             } catch (err) {
                 console.error("Error al cargar datos en el hook:", err);
