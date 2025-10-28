@@ -2,7 +2,7 @@ import "./GestionarAfiliados.css";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { CardGrupo } from "./ui/CardGrupo.jsx";
 import { SearchIcon } from "../../../assets/icons/Afiliados/SearchIcon.jsx";
-import { Loader } from "../../../components/Loader/Loader.jsx";
+import { LoaderConTexto } from '../../../components/LoaderConTexto/LoaderConTexto.jsx';
 import { opcionesParaFiltrarBusqueda } from "../../../constants/Afiliados/Gestionar/opcionesParaFiltrarBusqueda.js";
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
 import { useGetAllGrupos } from "../../../hooks/useGetAllGrupos.jsx";
@@ -10,21 +10,21 @@ import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitle
 import { useParams } from "react-router";
 import { useFiltrarBusqueda } from "../../../hooks/Afiliados/useFiltrarBusqueda.jsx";
 export function GestionarAfiliados() {
-  const {credencial} = useParams()
+  const { credencial } = useParams();
   const { loadingGrupos, grupos } = useGetAllGrupos();
 
   useCambiarTitulo({ title: "Gestión de Afiliados" });
 
-  //Llamo a hooks 
+  //Llamo a hooks
   const {
-    busqueda, 
-    setBusqueda, 
-    allGrupos, 
+    busqueda,
+    setBusqueda,
+    allGrupos,
     setAllGrupos,
     setFiltro,
     filtrar,
-    filtro
-  } = useFiltrarBusqueda(credencial,grupos)
+    filtro,
+  } = useFiltrarBusqueda(credencial, grupos);
   return (
     <>
       <section className="section_container box-border">
@@ -42,11 +42,11 @@ export function GestionarAfiliados() {
             value={filtro}
             onChange={(e) => setFiltro(e.target.value)}
           >
-            {
-              opcionesParaFiltrarBusqueda.map((op,i)=>
-                <option key={i}value={op.value}>{op.text}</option>
-              )
-            }
+            {opcionesParaFiltrarBusqueda.map((op, i) => (
+              <option key={i} value={op.value}>
+                {op.text}
+              </option>
+            ))}
           </select>
           <div
             className="container_icon_search"
@@ -59,7 +59,7 @@ export function GestionarAfiliados() {
         <section className="section_cards">
           {loadingGrupos ? (
             <div className="centrar">
-              <Loader />
+              <LoaderConTexto />
             </div>
           ) : allGrupos && allGrupos.length > 0 ? (
             allGrupos.map((g) => (

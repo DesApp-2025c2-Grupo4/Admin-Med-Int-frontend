@@ -221,7 +221,7 @@ export function NuevaAgendaForm() {
   if (error) {
     return (
       <div className="sin-resultados-section">
-        <SubTitleSection text={"No se encontraron resultados."} />
+        <SubTitleSection text={"No se pudo cargar el formulario."} />
       </div>
     );
   }

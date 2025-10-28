@@ -135,7 +135,7 @@ export function GestionarPrestadores() {
         </div>
         <section className="section-tabla-prestadores">
           {loadingPrestadores ? (
-            <div style={{ marginBottom: "1rem" }}>
+            <div className="centrar">
               <LoaderConTexto />
             </div>
           ) : allPrestadores && allPrestadores.length > 0 ? (
