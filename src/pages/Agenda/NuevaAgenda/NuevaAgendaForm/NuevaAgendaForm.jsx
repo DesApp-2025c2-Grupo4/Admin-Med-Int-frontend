@@ -219,7 +219,11 @@ export function NuevaAgendaForm() {
   };
 
   if (error) {
-    return <div className="error-state">{error} ❌</div>;
+    return (
+      <div className="sin-resultados-section">
+        <SubTitleSection text={"No se encontraron resultados."} />
+      </div>
+    );
   }
 
   return (
