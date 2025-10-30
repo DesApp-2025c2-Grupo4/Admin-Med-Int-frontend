@@ -182,7 +182,11 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
     
   }
   if (!loadingDataForm && !datosParaFormulario?.tiposDeDocumentos || !datosParaFormulario?.situacionesTerapeuticas || !datosParaFormulario?.planesMedicos) {
-    return <h2>No se pudieron cargar los datos para el formulario</h2>
+    return (
+      <div className="sin-resultados-section">
+        <SubTitleSection text={"No se pudieron cargar los datos del formulario."} />
+      </div>
+    );
   }
 
   return (

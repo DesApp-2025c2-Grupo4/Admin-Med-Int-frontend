@@ -4,7 +4,7 @@ export function NuevaAgenda(){
   return (
     <>
     <section className="section__nuevo-grupo-familiar-container box-border">
-      <TitleSection text="Nuevo Grupo Familiar" />
+      <TitleSection text="Nuevo Agenda" />
       <NuevaAgendaForm />
     </section>
     </>

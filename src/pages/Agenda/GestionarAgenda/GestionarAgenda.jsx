@@ -7,7 +7,7 @@ import { SearchIcon } from "../../../assets/icons/Afiliados/SearchIcon";
 import { TableAgenda } from "./TableAgenda";
 import { headerTableAgenda } from "./../../../constants/Agenda/headerTableAgenda";
 import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection";
-import { Loader } from "../../../components/Loader/Loader";
+import { LoaderConTexto } from "../../../components/LoaderConTexto/LoaderConTexto";
 
 export function GestionarAgenda() {
   const { loadingAgenda, agenda } = useGetAgenda();
@@ -139,13 +139,12 @@ export function GestionarAgenda() {
         <section className="section-tabla-agenda">
           {loadingPrestadores && loadingAgenda ? (
             <div className="centrar">
-              <Loader />
+              <LoaderConTexto />
             </div>
-          ) :
+          ) : (
             /*fullAgenda && fullAgenda.length > 0 ? (
             <TableAgenda listHeader={headerTableAgenda} data={fullAgenda} />
           ) : */
-          (
             <div className="sin-resultados-section">
               <SubTitleSection text={"No se encontraron resultados."} />
             </div>

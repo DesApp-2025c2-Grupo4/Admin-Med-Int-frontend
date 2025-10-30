@@ -23,7 +23,7 @@ export function InputSelect({text, listaDeOpciones, handleChange, value, name, r
                     </>
                 }
             </label>
-            <select name={name} id={text} value={value} onChange={handleChange}>
+            <select name={name} id={text} value={value || ""} onChange={handleChange}>
                 {listaDeOpciones.map( (o,index ) => <option key={index} value={o.id || o}> {o.descripcion || o} </option>)}
             </select>
         </div>
