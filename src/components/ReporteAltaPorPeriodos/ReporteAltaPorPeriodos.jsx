@@ -19,7 +19,7 @@ export function ReporteAltaPorPeriodos({data}) {
     }));
   };
 
-  const handleGenerarReporte = () => {
+  const handleGenerarReporte =  () => {
     const fechaDesde = periodo.fechaDesde;
     const fechaHasta = periodo.fechaHasta;
 
@@ -30,7 +30,7 @@ export function ReporteAltaPorPeriodos({data}) {
       const fechaAltaDate = new Date(d.fechaAlta);
       return fechaAltaDate >= desde && fechaAltaDate <= hasta;
     });
-
+    
     navigate("reporte-alta-generado", {
       state: {
         resultados: datosFiltrados,

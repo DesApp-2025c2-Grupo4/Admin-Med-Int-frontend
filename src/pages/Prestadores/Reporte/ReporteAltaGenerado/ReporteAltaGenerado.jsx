@@ -7,7 +7,6 @@ export function ReporteAltaGenerado() {
   const location = useLocation();
   const navigate = useNavigate();
   const {resultados,fechaDesde,fechaHasta} = location.state
-  console.log(location.state);
 
   const handleVolver = () => {
     navigate(-1);
