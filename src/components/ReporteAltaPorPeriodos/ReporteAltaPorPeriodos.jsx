@@ -30,10 +30,7 @@ export function ReporteAltaPorPeriodos({data}) {
       const fechaAltaDate = new Date(d.fechaAlta);
       return fechaAltaDate >= desde && fechaAltaDate <= hasta;
     });
-
-    console.log("Datos: "+datos)
-    console.log("DatosFiltrados: "+datosFiltrados)
-
+    
     navigate("reporte-alta-generado", {
       state: {
         resultados: datosFiltrados,
