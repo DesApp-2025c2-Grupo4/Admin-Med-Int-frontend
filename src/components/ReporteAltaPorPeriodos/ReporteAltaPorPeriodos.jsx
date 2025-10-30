@@ -4,11 +4,13 @@ import { useState } from "react";
 import { ReporteContainer } from "../ui/ReporteContainer/ReporteContainer.jsx";
 import { Button } from "../ui/Button/Button.jsx";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "../../components/Loader/Loader.jsx";
 
-export function ReporteAltaPorPeriodos({data}) {
+export function ReporteAltaPorPeriodos({ onGenerarReporte }) {
   const [periodo, setPeriodo] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const datos = data;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,25 +21,25 @@ export function ReporteAltaPorPeriodos({data}) {
     }));
   };
 
-  const handleGenerarReporte =  () => {
+  const handleGenerarReporte = async () => {
     const fechaDesde = periodo.fechaDesde;
     const fechaHasta = periodo.fechaHasta;
-
-    const desde = new Date(fechaDesde);
-    const hasta = new Date(fechaHasta);
-
-    const datosFiltrados = datos.filter((d) => {
-      const fechaAltaDate = new Date(d.fechaAlta);
-      return fechaAltaDate >= desde && fechaAltaDate <= hasta;
-    });
-    
-    navigate("reporte-alta-generado", {
-      state: {
-        resultados: datosFiltrados,
-        fechaDesde: fechaDesde,
-        fechaHasta: fechaHasta,
-      },
-    });
+    setLoading(true);
+    setError(null);
+    try {
+      const datosFiltrados = await onGenerarReporte(fechaDesde, fechaHasta);
+      navigate("reporte-alta-generado", {
+        state: {
+          resultados: datosFiltrados,
+          fechaDesde: fechaDesde,
+          fechaHasta: fechaHasta,
+        },
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,9 +57,11 @@ export function ReporteAltaPorPeriodos({data}) {
           value={periodo.fechaHasta || ""}
           handleChange={handleChange}
         />
-        {periodo.fechaDesde && periodo.fechaHasta && (
+        {periodo.fechaDesde && periodo.fechaHasta && !loading && (
           <Button text="Generar reporte" onClick={handleGenerarReporte} />
         )}
+        {loading && <Loader />} 
+        {error && <p>Error: {error}</p>} 
       </div>
     </ReporteContainer>
   );

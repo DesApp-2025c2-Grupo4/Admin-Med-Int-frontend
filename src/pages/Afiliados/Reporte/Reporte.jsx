@@ -3,19 +3,21 @@ import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
 import { ReporteAltaPorPeriodos } from "../../../components/ReporteAltaPorPeriodos/ReporteAltaPorPeriodos.jsx";
 import { ReporteSituacionesTerapeuticas } from "./ReporteSituacionesTerapeuticas/ReporteSituacionesTerapeuticas.jsx";
 import "./Reporte.css";
-import { useGetAllAfiliados } from "../../../hooks/Afiliados/useGetAllAfiliados.jsx";
+import { getAfiliadosPorPeriodo } from "../../../services/afiliados/getAfiliadosPorPeriodo.js"
 
 export function Reporte() {
-  const { afiliados } = useGetAllAfiliados();
-
   useCambiarTitulo({ title: "Reportes" });
+
+  const handleGenerarReporte = async (fechaDesde, fechaHasta) => {
+    return await getAfiliadosPorPeriodo(fechaDesde, fechaHasta);
+  };
 
   return (
     <div className="box-border">
       <TitleSection text="Reportes de afiliados" />
       <div className="reportes-contenedor">
         <ReporteSituacionesTerapeuticas />
-        <ReporteAltaPorPeriodos data={afiliados} />
+        <ReporteAltaPorPeriodos onGenerarReporte={handleGenerarReporte} />
       </div>
     </div>
   );
