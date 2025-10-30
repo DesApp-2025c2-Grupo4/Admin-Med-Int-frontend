@@ -1,9 +1,10 @@
-import { listAgenda } from "../../Mock/listAgenda";
-
+const URL_API = import.meta.env.VITE_URL_API;
 export const getAgenda = async () => {
+  const res = await fetch(`${URL_API}/agenda`);
+  const data = await res.json();
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(listAgenda); // simula respuesta del backend
+      resolve(data); // simula respuesta del backend
     }, 1000);
   });
 };

@@ -80,33 +80,25 @@ export function TableAgenda({ listHeader, data }) {
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">
-                  {d.diaDeSemana.length > 1 ? (
+                  {d.agendas.length > 1 ? (
                     <>
                       <span
                         data-tooltip-id={`tooltip-horario-${d.agendaId}`}
-                        data-tooltip-content={d.diaDeSemana
-                          .map((dia) => {
-                            const horario = d.horario.find(
-                              (h) => h.idDia === dia.idDia
-                            );
+                        data-tooltip-content={d.agendas
+                          .map((agenda) => {
+                            const horario = agenda.horarios[0]; 
                             if (horario) {
-                              return `${dia.descripcion}: ${horario.horarioInicio} - ${horario.horarioFinal}`;
+                              return `${agenda.dia.descripcion}: ${horario.horarioInicio} - ${horario.horarioFinal}`;
                             } else {
-                              return `${dia.descripcion}: (sin horario)`;
+                              return `${agenda.dia.descripcion}: (sin horario)`;
                             }
                           })
                           .join(",\n")}
                         className="cursor-help text-blue-600 font-medium"
                       >
-                        {`${d.diaDeSemana[0].descripcion}: ${
-                          d.horario.find(
-                            (h) => h.idDia === d.diaDeSemana[0].idDia
-                          )?.horarioInicio || ""
-                        } - ${
-                          d.horario.find(
-                            (h) => h.idDia === d.diaDeSemana[0].idDia
-                          )?.horarioFinal || ""
-                        }...`}
+                        {`${d.agendas[0].dia.descripcion}: ${
+                          d.agendas[0].horarios[0]?.horarioInicio || ""
+                        } - ${d.agendas[0].horarios[0]?.horarioFinal || ""}...`}
                       </span>
 
                       <Tooltip
@@ -119,13 +111,11 @@ export function TableAgenda({ listHeader, data }) {
                       />
                     </>
                   ) : (
-                    <span>{`${d.diaDeSemana[0].descripcion}: ${
-                      d.horario.find((h) => h.idDia === d.diaDeSemana[0].idDia)
-                        ?.horarioInicio || ""
-                    } - ${
-                      d.horario.find((h) => h.idDia === d.diaDeSemana[0].idDia)
-                        ?.horarioFinal || ""
-                    }`}</span>
+                    <span>
+                      {`${d.agendas[0].dia.descripcion}: ${
+                        d.agendas[0].horarios[0]?.horarioInicio || ""
+                      } - ${d.agendas[0].horarios[0]?.horarioFinal || ""}`}
+                    </span>
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">
@@ -161,11 +151,11 @@ export function TableAgenda({ listHeader, data }) {
                       <span
                         data-tooltip-id={`tooltip-telefono-${d.agendaId}`}
                         data-tooltip-content={d.prestador?.telefonos
-                          .map((t) => `tel: ${t.nro}`)
+                          .map((t) => `tel: ${t.nroTelefono}`)
                           .join(",\n")}
                         className="cursor-help text-blue-600 font-medium"
                       >
-                        {`${d.prestador.telefonos[0].nro}...`}
+                        {`${d.prestador.telefonos[0].nroTelefono}...`}
                       </span>
 
                       <Tooltip
@@ -177,7 +167,7 @@ export function TableAgenda({ listHeader, data }) {
                       />
                     </>
                   ) : (
-                    <span>{d.prestador?.telefonos[0].nro}</span>
+                    <span>{d.prestador?.telefonos[0].nroTelefono}</span>
                   )}
                 </td>
                 <td id="icons" className="tablePrestador__tbody-td sinBorde">

@@ -184,7 +184,6 @@ export function NuevaAgendaForm() {
       const diasConHorario = Object.keys(agendaHorarios).filter(
         (day) => agendaHorarios[day].length > 0
       );
-      console.log("Valores de Configuración al Enviar:", config);
       if (!config.prestador || !config.especialidad || !config.lugarAtencion) {
         alert("Debes seleccionar prestador, especialidad y lugar de atención.");
         return;
@@ -210,7 +209,6 @@ export function NuevaAgendaForm() {
         agendas,
       };
       const nuevoPrestador = await crearAgenda(dataFinal);
-      console.log("Datos a enviar al Backend:", nuevoPrestador);
       alert("Agenda guardada con éxito");
     } catch (error) {
       console.error(error);
