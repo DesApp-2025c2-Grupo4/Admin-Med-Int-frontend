@@ -3,9 +3,9 @@ import { ReporteContainer } from "../../../../components/ui/ReporteContainer/Rep
 import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx";
 import { useState } from "react";
-// import { listGrupos } from "../../../../Mock/listGrupos.js";
 import { useNavigate } from "react-router";
-import { getGrupoFamiliar } from "../../../../services/afiliados/getGrupoFamiliar.js";
+// import { getGrupoFamiliar } from "../../../../services/afiliados/getGrupoFamiliar.js";
+import { getGruposFamiliares } from "../../../../services/afiliados/getGruposFamiliares.js";
 
 export function ReporteSituacionesTerapeuticas() {
   const [nroGrupo, setNroGrupo] = useState("");
@@ -22,10 +22,13 @@ export function ReporteSituacionesTerapeuticas() {
   };
 
   const handleBuscarGrupo = async () => {
-    const grupo = await getGrupoFamiliar(nroGrupo)
-    setGrupoEncontrado(grupo || null);
+    const todosLosGrupos = await getGruposFamiliares();
+    const grupoFiltrado = todosLosGrupos.find(grupo => grupo.nroGrupo === nroGrupo);
+    // const grupo = await getGrupoFamiliar(nroGrupo)
+    setGrupoEncontrado(grupoFiltrado || null);
     setIntegranteSeleccionado(null);
     setBusquedaRealizada(true);
+    console.log(grupoFiltrado)
   };
 
   const handleIntegranteChange = (e) => {
