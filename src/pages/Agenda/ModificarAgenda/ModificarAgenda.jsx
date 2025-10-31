@@ -1,8 +1,8 @@
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useGetDetalleAgenda } from "../../../hooks/useGetDetalleAgenda.jsx";
 import { Loader } from "../../../components/Loader/Loader";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
-import { FormModificarAgenda } from "./FormModificarAgenda/FormModificarAgenda.jsx";
+import { ModificarAgendaForm } from "./ModificarAgendaForm/ModificarAgendaForm.jsx";
 
 export function ModificarAgenda() {
   const { id } = useParams();
@@ -16,7 +16,7 @@ export function ModificarAgenda() {
       ) : error ? (
         <h2 className="message-error">{error}</h2>
       ) : (
-        <FormModificarAgenda text="Agenda del prestador" initialData={agenda} />
+        <ModificarAgendaForm initialData={agenda} />
       )}
     </section>
   );

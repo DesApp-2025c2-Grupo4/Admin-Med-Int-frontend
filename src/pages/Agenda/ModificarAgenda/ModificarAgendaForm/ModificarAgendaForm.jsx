@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { InputSelect } from "../../../../components/ui/Input/InputSelect/InputSelect.jsx";
 import { DIAS_SEMANA } from "../../../../constants/listDias.js";
 import { useGetPrestadoresNuevaAgenda } from "../../../../hooks/useGetPrestadoresNuevaAgenda.jsx";
-import "./NuevaAgendaForm.css"; // se puede reutilizar
+import "../../NuevaAgenda/NuevaAgendaForm/NuevaAgendaForm.css";
 import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTitleSection.jsx";
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
 import { SaveAgenda } from "../../../../components/ui/SaveAgenda/SaveAgenda.jsx";
-import { useGetAgendaById } from "../../../../hooks/useGetAgendaById.jsx";
-import { modificarAgenda } from "../../../../services/agenda/modificarAgenda.js";
+import { useGetAgendaById } from "../../../../hooks/useGetDetalleAgenda.jsx";
+import { modificarAgenda } from "../../../../services/agenda/getDetalleAgendaById.js";
 
 const initialHorario = {
   horarioInicio: "06:00",
