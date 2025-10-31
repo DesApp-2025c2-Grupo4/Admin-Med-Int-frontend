@@ -174,7 +174,7 @@ export function TableAgenda({ listHeader, data }) {
                   <Link>
                     <DeleteIcon></DeleteIcon>
                   </Link>
-                  <Link>
+                  <Link to={`/agenda/modificar/${d.agendaId}`}>
                     <ModifierIcon></ModifierIcon>
                   </Link>
                 </td>
