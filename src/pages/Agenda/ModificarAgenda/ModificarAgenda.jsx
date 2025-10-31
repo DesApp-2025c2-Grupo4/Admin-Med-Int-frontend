@@ -1,8 +1,8 @@
 import { useParams } from "react-router";
-import { useGetDetallePrestador } from "../../../hooks/useGetDetalleDePrestador";
+import { useGetDetalleAgenda } from "../../../hooks/useGetDetalleAgenda.jsx";
 import { Loader } from "../../../components/Loader/Loader";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
-import { FormModificarPrestador } from "./FormModificarPrestador/FormModificarPrestador.jsx";
+import { FormModificarAgenda } from "./FormModificarAgenda/FormModificarAgenda.jsx";
 
 export function ModificarAgenda() {
   const { id } = useParams();
