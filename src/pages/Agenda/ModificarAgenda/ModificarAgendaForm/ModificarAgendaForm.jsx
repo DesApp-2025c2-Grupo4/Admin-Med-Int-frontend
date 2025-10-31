@@ -35,7 +35,7 @@ export function ModificarAgendaForm({ initialData }) {
   const [agendaHorarios, setAgendaHorarios] = useState(initialAgendaHorarios);
   const [nuevoHorario, setNuevoHorario] = useState(initialHorario);
 
-  // 🧠 Cargar datos de la agenda existente
+  // Cargar datos de la agenda existente
   useEffect(() => {
     if (initialData) {
       setConfig({
@@ -55,7 +55,7 @@ export function ModificarAgendaForm({ initialData }) {
     }
   }, [initialData]);
 
-  // 🧩 Manejo de selects
+  // Manejo de selects
   const handleConfigChange = (e) => {
     const { name, value } = e.target;
     setConfig((prev) => ({ ...prev, [name]: value }));
@@ -125,10 +125,12 @@ export function ModificarAgendaForm({ initialData }) {
     const prestador = rawList.find(
       (p) => p.prestadorId === Number(selectedPrestadorId)
     );
-    return prestador?.especialidad?.map((e) => ({
-      id: e.especialidadId,
-      descripcion: e.descripcion,
-    })) || [];
+    return (
+      prestador?.especialidad?.map((e) => ({
+        id: e.especialidadId,
+        descripcion: e.descripcion,
+      })) || []
+    );
   }, [config.prestador, dataOptions.rawList, dataOptions.ESPECIALIDADES]);
 
   const lugaresFiltrados = useMemo(() => {
@@ -137,13 +139,15 @@ export function ModificarAgendaForm({ initialData }) {
     const prestador = rawList.find(
       (p) => p.prestadorId === Number(selectedPrestadorId)
     );
-    return prestador?.direccion?.map((d) => ({
-      id: d.direccionId,
-      descripcion: `${d.calle} ${d.nro}`,
-    })) || [];
+    return (
+      prestador?.direccion?.map((d) => ({
+        id: d.direccionId,
+        descripcion: `${d.calle} ${d.nro}`,
+      })) || []
+    );
   }, [config.prestador, dataOptions.rawList]);
 
-  // ✅ Guardar cambios
+  // Guardar cambios
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -221,7 +225,85 @@ export function ModificarAgendaForm({ initialData }) {
       </div>
 
       <SubTitleSection text="Horarios" />
-      {/* resto del código idéntico */}
+
+      {/* --- Bloque de selección y agregado de horarios --- */}
+      <div className="section-horarios-nueva-agenda">
+        <div className="section-add-horario">
+          <InputSelect
+            text="Día"
+            listaDeOpciones={DIAS_SEMANA}
+            handleChange={handleDiaSelectChange}
+            value={diaSeleccionado}
+            name="dia"
+          />
+
+          <div className="inputs-horario">
+            <label>
+              Desde:
+              <input
+                type="time"
+                name="horarioInicio"
+                value={nuevoHorario.horarioInicio}
+                onChange={handleNuevoHorarioChange}
+              />
+            </label>
+
+            <label>
+              Hasta:
+              <input
+                type="time"
+                name="horarioFinal"
+                value={nuevoHorario.horarioFinal}
+                onChange={handleNuevoHorarioChange}
+              />
+            </label>
+
+            <label>
+              Duración turno (min):
+              <input
+                type="number"
+                name="duracionTurno"
+                value={nuevoHorario.duracionTurno}
+                onChange={handleNuevoHorarioChange}
+                min="5"
+                step="5"
+              />
+            </label>
+
+            <AddButton onClick={handleAddHorario} />
+          </div>
+        </div>
+
+        {/* --- Mostrar horarios por día --- */}
+        <div className="lista-horarios">
+          {DIAS_SEMANA.map((dia) => (
+            <div key={dia.idDia} className="dia-horarios">
+              <h4>{dia.descripcion}</h4>
+              {agendaHorarios[dia.idDia]?.length > 0 ? (
+                <ul>
+                  {agendaHorarios[dia.idDia].map((h, index) => (
+                    <li key={index} className="horario-item">
+                      <span>
+                        {h.horarioInicio} - {h.horarioFinal} ({h.duracionTurno} min)
+                      </span>
+                      <button
+                        type="button"
+                        className="remove-horario"
+                        onClick={() => handleRemoveHorario(dia.idDia, index)}
+                      >
+                        ✕
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="sin-horarios">Sin horarios cargados</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="form-footer">
         <SaveAgenda type="submit" text="Actualizar Agenda" />
       </div>
