@@ -2,32 +2,46 @@ import { Link } from "react-router";
 import { DeleteIcon } from "../../../assets/icons/Afiliados/DeleteIcon";
 import { DetailsIcon } from "../../../assets/icons/Afiliados/DetailsIcon";
 import { ModifierIcon } from "../../../assets/icons/Afiliados/ModifierIcon";
+import { useEliminarUnaAgenda } from "../../../hooks/Agenda/useEliminarAgenda";
+import { ModalDeConfirmacion } from "../../../components/ModalDeConfirmacion/ModalDeConfirmacion";
+import { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
 export function TableAgenda({ listHeader, data }) {
-  /*
-    Entrada: 
-      -> listHeader: Lista de encabezados para la tabla. Tiene la siguiente estructura
-        listHeader: ['encabezado1',...,'encabezadoN']
-      -> data: lista de horarios. tiene la siguiente estructura
-        data [
-            {
-                agendaId: 1,
-                prestadorId: 1,
-                diaDeSemana: [{ idDia: 1, descripcion: "Lunes" }],
-                horario: [
-                {
-                    idHorario: 1,
-                    idDia: 1,
-                    horarioInicio: "12:30",
-                    horarioFinal: "15:00",
-                    duracionTurno: "150",
-            },
-        ]
-  */
+    const [fullAgenda, setAgenda] = useState(data);
+    //Estado de modal
+    const [showModal, setShowModal] = useState(false);
+    //Estado del prestador a eliminar
+    const [idAgenda, setIdAgenda] = useState();
+    //Llamada al hook
+    const { error, loading, eliminarAgenda } =
+    useEliminarUnaAgenda(setAgenda);
+  
+  useEffect(() => {
+      setAgenda(data);
+  }, [data]);
+  
+  const handleEliminarAgenda = () => {
+    setShowModal(false);
+    eliminarAgenda(idAgenda);
+    setIdAgenda(null);
+  };
+  //HandleClick
+  const handleClick = (id) => {
+    setShowModal(true);
+    setIdAgenda(id);
+  };
+
   return (
     <div className="tablePrestador__container">
+      {showModal && (
+        <ModalDeConfirmacion
+          text={"¿Seguro que deseas eliminar?"}
+          funcionCancelar={() => setShowModal(false)}
+          funcionConfirmar={handleEliminarAgenda}
+        />
+      )}
       <table className="tablePrestador__table">
         {/* Header de la tabla */}
         <thead className="tablePrestador__thead-container">
@@ -50,10 +64,14 @@ export function TableAgenda({ listHeader, data }) {
         {/* Controlamos si esta cargando para centrar loader */}
 
         <tbody className="tablePrestador__tbody-container">
-          {data?.map((d) => {
+          {fullAgenda?.map((d) => {
             return (
               <tr className="tablePrestador__tbody-tr" key={d.agendaId}>
-                <td className="tablePrestador__tbody-td">{`${d.prestador?.nombre}, ${d.prestador?.apellido}`}</td>
+                <td className="tablePrestador__tbody-td">
+                  {d.prestador.apellido
+                    ? `${d.prestador.nombre}, ${d.prestador.apellido}`
+                    : `${d.prestador.nombre}`}
+                </td>
                 <td className="tablePrestador__tbody-td">
                   {d.prestador?.especialidad?.length > 1 ? (
                     <>
@@ -86,7 +104,7 @@ export function TableAgenda({ listHeader, data }) {
                         data-tooltip-id={`tooltip-horario-${d.agendaId}`}
                         data-tooltip-content={d.agendas
                           .map((agenda) => {
-                            const horario = agenda.horarios[0]; 
+                            const horario = agenda.horarios[0];
                             if (horario) {
                               return `${agenda.dia.descripcion}: ${horario.horarioInicio} - ${horario.horarioFinal}`;
                             } else {
@@ -171,7 +189,7 @@ export function TableAgenda({ listHeader, data }) {
                   )}
                 </td>
                 <td id="icons" className="tablePrestador__tbody-td sinBorde">
-                  <Link>
+                  <Link onClick={() => handleClick(d.agendaId)}>
                     <DeleteIcon></DeleteIcon>
                   </Link>
                   <Link>

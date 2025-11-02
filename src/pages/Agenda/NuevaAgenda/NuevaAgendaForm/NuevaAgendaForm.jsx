@@ -7,6 +7,7 @@ import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTi
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
 import { SaveAgenda } from "../../../../components/ui/SaveAgenda/SaveAgenda.jsx";
 import { crearAgenda } from "../../../../services/agenda/crearAgenda.js";
+import { useNavigate } from "react-router-dom";
 
 const initialHorario = {
   horarioInicio: "06:00",
@@ -21,6 +22,8 @@ const initialAgendaHorarios = DIAS_SEMANA.reduce((acc, dia) => {
 
 export function NuevaAgendaForm() {
   const { dataOptions, isLoading, error } = useGetPrestadoresNuevaAgenda();
+
+  const navigate = useNavigate();
 
   const [config, setConfig] = useState({
     prestador: "",
@@ -52,7 +55,7 @@ export function NuevaAgendaForm() {
       if (prestador) {
         const nuevaEspecialidad =
           prestador.especialidad?.[0]?.especialidadId ?? "";
-        const nuevoLugar = prestador.direccion?.[0]?.direccionId ?? ""; 
+        const nuevoLugar = prestador.direccion?.[0]?.direccionId ?? "";
         if (
           config.especialidad !== nuevaEspecialidad ||
           config.lugarAtencion !== nuevoLugar
@@ -210,6 +213,7 @@ export function NuevaAgendaForm() {
       };
       const nuevoPrestador = await crearAgenda(dataFinal);
       alert("Agenda guardada con éxito");
+      navigate("/agenda/gestionar");
     } catch (error) {
       console.error(error);
       alert("Hubo un error al crear una nueva agenda");
