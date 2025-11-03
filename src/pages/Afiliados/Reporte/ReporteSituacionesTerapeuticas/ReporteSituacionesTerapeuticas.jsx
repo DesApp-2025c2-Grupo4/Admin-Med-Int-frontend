@@ -4,7 +4,8 @@ import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { getGruposFamiliares } from "../../../../services/afiliados/getGruposFamiliares.js";
+// import { getGruposFamiliares } from "../../../../services/afiliados/getGruposFamiliares.js";
+import { getGrupoFamiliar } from "../../../../services/afiliados/getGrupoFamiliar.js";
 
 export function ReporteSituacionesTerapeuticas() {
   const [nroGrupo, setNroGrupo] = useState("");
@@ -21,11 +22,11 @@ export function ReporteSituacionesTerapeuticas() {
   };
 
   const handleBuscarGrupo = async () => {
-    const todosLosGrupos = await getGruposFamiliares();
-    const grupoFiltrado = todosLosGrupos.find(
-      (grupo) => grupo.nroGrupo === nroGrupo
-    );
-    // const grupo = await getGrupoFamiliarPorNro(nroGrupo)
+    // const todosLosGrupos = await getGruposFamiliares();
+    // const grupoFiltrado = todosLosGrupos.find(
+    //   (grupo) => grupo.nroGrupo === nroGrupo
+    // );
+    const grupoFiltrado = await getGrupoFamiliar(parseInt(nroGrupo))
     setGrupoEncontrado(grupoFiltrado || null);
     setIntegranteSeleccionado(null);
     setBusquedaRealizada(true);
