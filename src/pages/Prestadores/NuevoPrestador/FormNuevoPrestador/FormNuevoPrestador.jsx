@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './FormNuevoPrestador.css'; 
+import './FormNuevoPrestador.css';
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx";
 import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTitleSection.jsx";
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
@@ -7,35 +7,49 @@ import { ContactCard } from '../../../../components/ui/Cards/ContactCard/Contact
 import { InputCheckbox } from '../../../../components/ui/Input/InputCheckbox/InputCheckbox.jsx';
 import { Register } from '../../../../components/ui/Register/Register.jsx';
 import { crearPrestador } from '../../../../services/prestadores/crearPrestador.js';
+import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx';
+import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
 
 export function FormNuevoPrestador({ text }) {
+
+    const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
+
     const [tipoPrestador, setTipoPrestador] = useState('independiente'); 
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion] = useState('');
+    const [currentCodigoPostal, setCurrentCodigoPostal] = useState('');
 
     const [dataForm, setDataForm] = useState({
         cuilCuit: '',
         nombreCompleto: '',
-        lugarIndependiente: '', 
-        lugarCentro: '',    
+        asociadoDe: '',   
         telefonos: [],
         emails: [],
         direcciones: [],
-        medicinaGeneral: false,
-        psicologia: false,
-        psiquiatria: false,
-        nutricion: false,
-        neurologia: false,
-        oftalmologia: false,
-        urologia: false,
-        cardiologia: false,
-        ginecologia: false,
-        kinesiologia: false,
-        pediatria: false,
-        traumatologia: false,
-        oncologia: false
+        especialidades: []
     });
+
+    const centrosFormateados = [
+    { id: "", descripcion: "Ninguno" }, 
+    ...(datosParaFormulario?.centrosMedicos.map(centro => ({
+        id: centro.prestadorId, 
+        descripcion: centro.nombre 
+    })) || [])
+];
+
+    const handleChangeCheckbox = (especialidadId) => {
+        const id = Number(especialidadId); 
+        setDataForm((prev) => {
+            const yaTiene = prev.especialidades.includes(id);
+            return {
+                ...prev,
+                especialidades: yaTiene
+                    ? prev.especialidades.filter(itemId => itemId !== id)
+                    : [...prev.especialidades, id],
+            };
+        });
+    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -46,13 +60,18 @@ export function FormNuevoPrestador({ text }) {
     };
 
     const handleTipoPrestadorChange = (e) => {
-        const selectedType = e.target.value;
-        setTipoPrestador(selectedType);
-        setDataForm((prev) => ({
-            ...prev,
-            lugarIndependiente: selectedType === 'Centro' ? '' : prev.lugarIndependiente,
-            lugarCentro: selectedType === 'Independiente' ? '' : prev.lugarCentro,
-        }));
+        const { name, value, type, checked } = e.target;
+        let newValue = value;
+        if (name === 'asociadoDe' && value) {
+            newValue = Number(value); 
+        } else if (type === 'checkbox') {
+            newValue = checked;
+        }
+
+        setDataForm(prev => ({
+            ...prev,
+            [name]: newValue 
+        }));
     };
 
     const addTelefono = () => {
@@ -65,6 +84,7 @@ export function FormNuevoPrestador({ text }) {
         }
     };
 
+
     const addEmail = () => {
         if (currentEmail.trim() !== '') {
             setDataForm((prev) => ({
@@ -76,48 +96,78 @@ export function FormNuevoPrestador({ text }) {
     };
 
     const addDireccion = () => {
-        if (currentDireccion.trim() !== '') {
+        if (currentDireccion.trim() !== '' && currentCodigoPostal.trim() !== '') {
+            const nuevaDireccion = {
+                calle: currentDireccion.trim(),
+                codigoPostal: currentCodigoPostal.trim(),
+            };
             setDataForm((prev) => ({
                 ...prev,
-                direcciones: [...prev.direcciones, currentDireccion.trim()],
+                direcciones: [...prev.direcciones, nuevaDireccion],
             }));
             setCurrentDireccion('');
+            setCurrentCodigoPostal('');
+        } else {
+            alert('Por favor, ingrese tanto la dirección como el código postal.');
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const especialidadesSeleccionadas = Object.keys(dataForm)
-                .filter(key => [
-                "medicinaGeneral",
-                "psicologia",
-                "cardiologia",
-                "nutricion",
-                "psiquiatria",
-                "neurologia",
-                "oftalmologia",
-                "urologia",
-                "ginecologia",
-                "kinesiologia",
-                "pediatria",
-                "traumatologia",
-                "oncologia"
-                ].includes(key) && dataForm[key]);
-
-            const bodyToSend = {
-                ...dataForm,
-                especialidades: especialidadesSeleccionadas
-            };
-
-            const nuevoPrestador = await crearPrestador(bodyToSend, tipoPrestador);
-            console.log('Prestador creado:', nuevoPrestador);
-            alert('Prestador creado correctamente');
-        } catch (error) {
-            console.error(error);
-            alert('Hubo un error al crear el prestador');
-    }
+    const removeTelefono = (telAEliminar) => {
+        setDataForm((prev) => ({
+            ...prev,
+            telefonos: prev.telefonos.filter(tel => tel !== telAEliminar),
+        }));
     };
+
+    const removeEmail = (emailAEliminar) => {
+        setDataForm((prev) => ({
+            ...prev,
+            emails: prev.emails.filter(email => email !== emailAEliminar),
+        }));
+    };
+
+    const removeDireccion = (dirAEliminar) => {
+        setDataForm((prev) => ({
+            ...prev,
+            direcciones: prev.direcciones.filter(dir => 
+                dir.calle !== dirAEliminar.calle || dir.codigoPostal !== dirAEliminar.codigoPostal
+            ),
+        }));
+    };
+    
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Separa nombre y apellido
+    const nombreCompleto = dataForm.nombreCompleto.trim();
+    const parts = nombreCompleto.split(/\s+/).filter(p => p.length > 0);
+    const nombre = parts[0] || '';
+    const apellido = parts.slice(1).join(' ') || '.'; 
+    let asociadoDeId = null;
+    if (tipoPrestador === 'independiente' && dataForm.asociadoDe) {
+        asociadoDeId = Number(dataForm.asociadoDe);
+    }
+    // Crear el cuerpo de la solicitud
+    const bodyToSend = {
+        cuilCuit: dataForm.cuilCuit,
+        tipoPrestador: tipoPrestador === 'independiente' ? 'Independiente' : 'Centro Médico',
+        asociadoDe: asociadoDeId,
+        nombre: nombre,
+        apellido: apellido,
+        telefonos: dataForm.telefonos,
+        emails: dataForm.emails,
+        direcciones: dataForm.direcciones,
+        especialidades: dataForm.especialidades 
+    };
+
+    try {
+        const nuevoPrestador = await crearPrestador(bodyToSend); 
+        console.log('Prestador creado:', nuevoPrestador);
+        alert('Prestador creado correctamente');
+    } catch (error) {
+        console.error('Error al crear el prestador:', error);
+        alert('Hubo un error al crear el prestador. Revise la consola para más detalles.');
+    }
+};
 
     return (
         <form className="form-nuevo-prestador" onSubmit={handleSubmit}> 
@@ -136,64 +186,70 @@ export function FormNuevoPrestador({ text }) {
                 />
             </div>
             <SubTitleSection text="Tipo de prestador" />
-            <div className="form-section"> 
-                <div className="radio-group-horizontal"> 
-                    <label className="radio-label-with-input">
-                        <input
-                            type="radio"
-                            name='tipoPrestador'
-                            value="independiente"
-                            checked={tipoPrestador === 'independiente'}
-                            onChange={handleTipoPrestadorChange}
-                        />
+            <div className="prestadores-checkbox-container">
+                <div className="prestadores-checkbox-tipoIndependiente">
+                    <label className="radio-label-simple">
+                    <input
+                        type="radio"
+                        name='tipoPrestador'
+                        value="independiente"
+                        checked={tipoPrestador === 'independiente'}
+                        onChange={handleTipoPrestadorChange}
+                    />
                         Profesional independiente
-                        {tipoPrestador === 'independiente' && (
-                            <InputText 
-                                name="lugarIndependiente"
-                                value={dataForm.lugarIndependiente}
-                                handleChange={handleChange}
-                                placeholder="Lugar..." 
-                                customClass="input-lugar" 
-                            />
-                        )}
-                    </label>
-                    
-                    <label className="radio-label-with-input">
-                        <input
-                            type="radio"
-                            name='tipoPrestador'
-                            value="centro"
-                            checked={tipoPrestador === 'centro'}
-                            onChange={handleTipoPrestadorChange}
+                </label>
+                
+                {tipoPrestador === 'independiente' && (
+                    loadingDataForm ? (
+                        <p>Cargando centros...</p>
+                    ) : errorDataForm ? (
+                        <p style={{color: 'red'}}>Error al cargar centros.</p>
+                    ) : (
+                        <InputSelect 
+                            text="Asociado al Centro" 
+                            name="asociadoDe" 
+                            value={dataForm.asociadoDe} 
+                            handleChange={handleChange}
+                            listaDeOpciones={centrosFormateados} 
+                            requerido={false} 
+                            customClass="input-lugar-select" 
                         />
-                        Centro medico
-                        {tipoPrestador === 'centro' && (
-                            <InputText 
-                                name="lugarCentro"
-                                value={dataForm.lugarCentro}
-                                handleChange={handleChange}
-                                placeholder="Lugar..." 
-                                customClass="input-lugar" 
-                            />
-                        )}
-                    </label>
+                    )
+                )}
                 </div>
+                
+
+                <label className="radio-label-simple">
+                    <input
+                        type="radio"
+                        name='tipoPrestador'
+                        value="centro"
+                        checked={tipoPrestador === 'centro'}
+                        onChange={handleTipoPrestadorChange}
+                    />
+                        Centro medico
+                </label>
             </div>
+                        
 
             <SubTitleSection text="Especialidades" className="section-subtitle" />
             <div className='checkbox-container-nuevo-prestador'>
-                <InputCheckbox label="Medicina General" name="medicinaGeneral" checked={dataForm.medicinaGeneral} onChange={handleChange} />
-                <InputCheckbox label="Psicología" name="psicologia" checked={dataForm.psicologia} onChange={handleChange} />
-                <InputCheckbox label="Nutrición" name="nutricion" checked={dataForm.nutricion} onChange={handleChange} /> 
-                <InputCheckbox label="Ginecología" name="ginecologia" checked={dataForm.ginecologia} onChange={handleChange} />
-                <InputCheckbox label="Psiquiatría" name="psiquiatria" checked={dataForm.psiquiatria} onChange={handleChange} />
-                <InputCheckbox label="Oftalmología" name="oftalmologia" checked={dataForm.oftalmologia} onChange={handleChange} />
-                <InputCheckbox label="Urología" name="urologia" checked={dataForm.urologia} onChange={handleChange} />
-                <InputCheckbox label="Kinesiología" name="kinesiologia" checked={dataForm.kinesiologia} onChange={handleChange} /> 
-                <InputCheckbox label="Cardiología" name="cardiologia" checked={dataForm.cardiologia} onChange={handleChange} />
-                <InputCheckbox label="Pediatría" name="pediatria" checked={dataForm.pediatria} onChange={handleChange} />
-                <InputCheckbox label="Traumatología" name="traumatologia" checked={dataForm.traumatologia} onChange={handleChange} />
-                <InputCheckbox label="Oncología" name="oncologia" checked={dataForm.oncologia} onChange={handleChange} />
+                {loadingDataForm ? (
+                    <p>Cargando especialidades disponibles...</p>
+                    ) : errorDataForm ? (
+                    <p style={{color: 'red'}}>Error al cargar especialidades.</p>
+                ) : (
+
+                datosParaFormulario?.especialidades.map(e => (
+                    <InputCheckbox 
+                        key={e.especialidadId}
+                        label={e.descripcion}
+                        name={e.descripcion}
+                        checked={dataForm.especialidades.includes(e.especialidadId)}
+                        onChange={() => handleChangeCheckbox(e.especialidadId)} 
+                    />
+                    ))
+                )}
             </div>
         
             <SubTitleSection text="Información de contacto" className="section-subtitle" />
@@ -208,7 +264,7 @@ export function FormNuevoPrestador({ text }) {
                     <AddButton onClick={addTelefono} className="button-add" />
                     <div className="saved-items-container">
                         {dataForm.telefonos.map((tel, index) => (
-                            <ContactCard key={`tel-${index}`} texto={tel} />
+                            <ContactCard key={`tel-${index}`} texto={tel} onDelete={() => removeTelefono(tel)}/>
                         ))}
                     </div>
                 </div>
@@ -222,7 +278,7 @@ export function FormNuevoPrestador({ text }) {
                     <AddButton onClick={addEmail} className="button-add" />
                     <div className="saved-items-container">
                         {dataForm.emails.map((email, index) => (
-                            <ContactCard key={`email-${index}`} texto={email} />
+                            <ContactCard key={`email-${index}`} texto={email} onDelete={() => removeEmail(email)} />
                         ))}
                     </div>
                 </div>
@@ -230,19 +286,30 @@ export function FormNuevoPrestador({ text }) {
         
             <SubTitleSection text="Lugares de atención" className="section-subtitle" />
             <div className="form-places-section">
-                <div className="input-with-button-container">
+                <div className="input-with-button-container"> 
                     <InputText text="Dirección"
                         name="currentDireccion"
                         value={currentDireccion}
                         handleChange={(e) => setCurrentDireccion(e.target.value)}
                         placeholder="Calle Ejemplo 123"
                     />
+                    <InputText text="Código Postal"
+                        name="currentCodigoPostal"
+                        value={currentCodigoPostal}
+                        handleChange={(e) => setCurrentCodigoPostal(e.target.value)}
+                        placeholder="C1000AAB"
+                    />
                     <AddButton onClick={addDireccion} className="button-add"/>
-                    <div className="saved-items-container">
+                </div>
+                <div className="saved-items-container">
                         {dataForm.direcciones.map((dir, index) => (
-                            <ContactCard key={`dir-${index}`} texto={dir} />
+                            <ContactCard 
+                                key={`dir-${index}`} 
+                                texto={dir} 
+                                isDireccion={true} 
+                                onDelete={() => removeDireccion(dir)}
+                            />
                         ))}
-                    </div>
                 </div>
             </div>
             <div className="button-container">
