@@ -27,6 +27,16 @@ export function FormModificarPrestador({ text, initialData }) {
     const [currentDireccion, setCurrentDireccion] = useState('');
     const [currentCodigoPostal, setCurrentCodigoPostal] = useState('');
 
+    // Estados de error
+    const [errorCuilCuit, setErrorCuilCuit] = useState('');
+    const [errorTelefono, setErrorTelefono] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
+
+    // Funciones de validación
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidTelefono = (telefono) => /^[\d\s\-\(\)]+$/.test(telefono.trim().replace(/\s/g, ''));
+    const isValidCuilCuit = (cuilCuit) => /^\d{2}-\d{8}-\d{1}$/.test(cuilCuit);
+
     const isInitialIndependent = tipoPrestador === 'independiente';
 
     // Inicializa dataForm con los datos que vienen por prop
@@ -91,25 +101,54 @@ export function FormModificarPrestador({ text, initialData }) {
     };
 
     const addTelefono = () => {
-        if (currentTelefono.trim() !== '') {
-            setDataForm((prev) => ({
-                ...prev,
-                telefonos: [...prev.telefonos, currentTelefono.trim()],
-            }));
-            setCurrentTelefono('');
-        }
+    setErrorTelefono('');
+
+    if (!currentTelefono.trim()) {
+        setErrorTelefono('El teléfono no puede estar vacío.');
+        return;
+    }
+
+    if (!isValidTelefono(currentTelefono)) {
+        setErrorTelefono('El teléfono contiene caracteres inválidos.');
+        return;
+    }
+
+    if (dataForm.telefonos.includes(currentTelefono.trim())) {
+        setErrorTelefono('Ese teléfono ya fue agregado.');
+        return;
+    }
+
+    setDataForm((prev) => ({
+        ...prev,
+        telefonos: [...prev.telefonos, currentTelefono.trim()],
+    }));
+    setCurrentTelefono('');
     };
     
     const addEmail = () => {
-        if (currentEmail.trim() !== '') {
-            setDataForm((prev) => ({
-                ...prev,
-                emails: [...prev.emails, currentEmail.trim()],
-            }));
-            setCurrentEmail('');
-        }
-    };
+    setErrorEmail('');
 
+    if (!currentEmail.trim()) {
+        setErrorEmail('El email no puede estar vacío.');
+        return;
+    }
+
+    if (!isValidEmail(currentEmail)) {
+        setErrorEmail('El formato del email es inválido.');
+        return;
+    }
+
+    if (dataForm.emails.includes(currentEmail.trim())) {
+        setErrorEmail('Ese email ya fue agregado.');
+        return;
+    }
+
+    setDataForm((prev) => ({
+        ...prev,
+        emails: [...prev.emails, currentEmail.trim()],
+    }));
+    setCurrentEmail('');
+    };
     const addDireccion = () => {
         if (currentDireccion.trim() !== '' && currentCodigoPostal.trim() !== '') {
             const nuevaDireccion = {
@@ -148,6 +187,8 @@ export function FormModificarPrestador({ text, initialData }) {
 
 
     const handleUpdate = async () => {
+        setErrorCuilCuit('');
+    
         const prestadorId = initialData.prestadorId;
         if (!prestadorId) {
             console.error("No se encontró el ID del prestador para actualizar.");
@@ -160,7 +201,11 @@ export function FormModificarPrestador({ text, initialData }) {
         if (tipoPrestador === 'independiente' && dataForm.asociadoDe) {
             asociadoDeId = Number(dataForm.asociadoDe); 
         }
-    
+
+        if (!isValidCuilCuit(dataForm.cuilCuit.trim())) {
+            setErrorCuilCuit('El CUIL/CUIT debe tener el formato XX-XXXXXXXX-X (ej: 20-12345678-9).');
+            return;
+        }
 
     const bodyToSend = {
         cuilCuit: dataForm.cuilCuit,
@@ -199,6 +244,7 @@ export function FormModificarPrestador({ text, initialData }) {
                     name="cuilCuit"
                     value={dataForm.cuilCuit}
                     handleChange={handleChange} 
+                    error={errorCuilCuit}
                 />
                 <InputText text="Nombre completo"
                     name="nombreCompleto"
@@ -283,6 +329,7 @@ export function FormModificarPrestador({ text, initialData }) {
                         value={currentTelefono}
                         handleChange={(e) => setCurrentTelefono(e.target.value)}
                         placeholder="11-3488-7495"
+                        error={errorTelefono}
                     />
                     <AddButton onClick={addTelefono} className="button-add" />
                     <div className="saved-items-container">
@@ -297,6 +344,7 @@ export function FormModificarPrestador({ text, initialData }) {
                         value={currentEmail}
                         handleChange={(e) => setCurrentEmail(e.target.value)}
                         placeholder="email.ejemplo@gmail.com"
+                        error={errorEmail}
                     />
                     <AddButton onClick={addEmail} className="button-add" />
                     <div className="saved-items-container">
