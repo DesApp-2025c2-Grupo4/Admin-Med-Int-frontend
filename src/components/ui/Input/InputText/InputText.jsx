@@ -23,7 +23,7 @@ export function InputText({text, name, value, handleChange, requerido = true,err
                     </>
                 }
             </label>
-            <input type="text" name={name} value={value} onChange={handleChange} className={error ? 'border-error':''}
+            <input type="text" name={name} value={value || ''} onChange={handleChange} className={error ? 'border-error':''}
             />
             {error && <span className='error-message-form'>{error}</span>}
        </div>
