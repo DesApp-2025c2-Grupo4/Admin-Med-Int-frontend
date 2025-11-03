@@ -20,6 +20,28 @@ export function FormNuevoPrestador({ text }) {
     const [currentDireccion, setCurrentDireccion] = useState('');
     const [currentCodigoPostal, setCurrentCodigoPostal] = useState('');
 
+    // Estados para los mensajes de error
+    const [errorCuilCuit, setErrorCuilCuit] = useState(''); 
+    const [errorTelefono, setErrorTelefono] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
+
+    // Funciones de validacion 
+    const isValidEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const isValidTelefono = (telefono) => {
+        const phoneRegex = /^[\d\s\-\(\)]+$/; 
+        return phoneRegex.test(telefono.trim().replace(/\s/g, ''));
+    };
+
+    const isValidCuilCuit = (cuilCuit) => {
+        // formato XX-XXXXXXXX-X 
+        const cuitRegex = /^\d{2}-\d{8}-\d{1}$/; 
+        return cuitRegex.test(cuilCuit);
+    };
+
     const [dataForm, setDataForm] = useState({
         cuilCuit: '',
         nombreCompleto: '',
@@ -57,6 +79,9 @@ export function FormNuevoPrestador({ text }) {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+        if (name === 'cuilCuit') {
+            setErrorCuilCuit('');
+        }
     };
 
     const handleTipoPrestadorChange = (e) => {
@@ -75,24 +100,55 @@ export function FormNuevoPrestador({ text }) {
     };
 
     const addTelefono = () => {
-        if (currentTelefono.trim() !== '') {
-            setDataForm((prev) => ({
-                ...prev,
-                telefonos: [...prev.telefonos, currentTelefono.trim()],
-            }));
-            setCurrentTelefono('');
+        setErrorTelefono(''); 
+        const telefonoLimpio = currentTelefono.trim();
+
+        if (telefonoLimpio === '') {
+            setErrorTelefono('El campo de teléfono no puede estar vacío.');
+            return;
         }
+
+        if (!isValidTelefono(telefonoLimpio)) {
+            setErrorTelefono('El teléfono solo debe contener números, guiones o paréntesis.');
+            return;
+        }
+        
+        if (dataForm.telefonos.includes(telefonoLimpio)) {
+            setErrorTelefono('Este teléfono ya ha sido agregado.');
+            return;
+        }
+
+        setDataForm((prev) => ({
+            ...prev,
+            telefonos: [...prev.telefonos, telefonoLimpio],
+        }));
+        setCurrentTelefono('');
     };
 
-
     const addEmail = () => {
-        if (currentEmail.trim() !== '') {
-            setDataForm((prev) => ({
-                ...prev,
-                emails: [...prev.emails, currentEmail.trim()],
-            }));
-            setCurrentEmail('');
+        setErrorEmail(''); 
+        const emailLimpio = currentEmail.trim();
+
+        if (emailLimpio === '') {
+            setErrorEmail('El campo de email no puede estar vacío.');
+            return;
         }
+
+        if (!isValidEmail(emailLimpio)) {
+            setErrorEmail('Por favor, ingrese un formato de email válido (ej: nombre@dominio.com).');
+            return;
+        }
+        
+        if (dataForm.emails.includes(emailLimpio)) {
+            setErrorEmail('Este email ya ha sido agregado.');
+            return;
+        }
+
+        setDataForm((prev) => ({
+            ...prev,
+            emails: [...prev.emails, emailLimpio],
+        }));
+        setCurrentEmail('');
     };
 
     const addDireccion = () => {
@@ -136,37 +192,42 @@ export function FormNuevoPrestador({ text }) {
     };
     
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Separa nombre y apellido
-    const nombreCompleto = dataForm.nombreCompleto.trim();
-    const parts = nombreCompleto.split(/\s+/).filter(p => p.length > 0);
-    const nombre = parts[0] || '';
-    const apellido = parts.slice(1).join(' ') || '.'; 
-    let asociadoDeId = null;
-    if (tipoPrestador === 'independiente' && dataForm.asociadoDe) {
-        asociadoDeId = Number(dataForm.asociadoDe);
-    }
-    // Crear el cuerpo de la solicitud
-    const bodyToSend = {
-        cuilCuit: dataForm.cuilCuit,
-        tipoPrestador: tipoPrestador === 'independiente' ? 'Independiente' : 'Centro Médico',
-        asociadoDe: asociadoDeId,
-        nombre: nombre,
-        apellido: apellido,
-        telefonos: dataForm.telefonos,
-        emails: dataForm.emails,
-        direcciones: dataForm.direcciones,
-        especialidades: dataForm.especialidades 
-    };
+        e.preventDefault();
+        setErrorCuilCuit(''); 
 
-    try {
-        const nuevoPrestador = await crearPrestador(bodyToSend); 
-        console.log('Prestador creado:', nuevoPrestador);
-        alert('Prestador creado correctamente');
-    } catch (error) {
-        console.error('Error al crear el prestador:', error);
-        alert('Hubo un error al crear el prestador. Revise la consola para más detalles.');
-    }
+        if (!isValidCuilCuit(dataForm.cuilCuit.trim())) {
+            setErrorCuilCuit('El CUIL/CUIT debe tener el formato XX-XXXXXXXX-X (ej: 20-12345678-9).');
+            return; 
+        }
+        const nombreCompleto = dataForm.nombreCompleto.trim();
+        const parts = nombreCompleto.split(/\s+/).filter(p => p.length > 0);
+        const nombre = parts[0] || '';
+        const apellido = parts.slice(1).join(' ') || '.'; 
+        let asociadoDeId = null;
+        if (tipoPrestador === 'independiente' && dataForm.asociadoDe) {
+            asociadoDeId = Number(dataForm.asociadoDe);
+        }
+        // Crear el cuerpo de la solicitud
+        const bodyToSend = {
+            cuilCuit: dataForm.cuilCuit,
+            tipoPrestador: tipoPrestador === 'independiente' ? 'Independiente' : 'Centro Médico',
+            asociadoDe: asociadoDeId,
+            nombre: nombre,
+            apellido: apellido,
+            telefonos: dataForm.telefonos,
+            emails: dataForm.emails,
+            direcciones: dataForm.direcciones,
+            especialidades: dataForm.especialidades 
+        };
+
+        try {
+            const nuevoPrestador = await crearPrestador(bodyToSend); 
+            console.log('Prestador creado:', nuevoPrestador);
+            alert('Prestador creado correctamente');
+        } catch (error) {
+            console.error('Error al crear el prestador:', error);
+            alert('Hubo un error al crear el prestador. Revise la consola para más detalles.');
+        }
 };
 
     return (
@@ -178,7 +239,10 @@ export function FormNuevoPrestador({ text }) {
                     name="cuilCuit"
                     value={dataForm.cuilCuit}
                     handleChange={handleChange} 
+                    placeholder="XX-XXXXXXXX-X"
+                    error={errorCuilCuit}
                 />
+
                 <InputText text="Nombre completo"
                     name="nombreCompleto"
                     value={dataForm.nombreCompleto}
@@ -260,8 +324,10 @@ export function FormNuevoPrestador({ text }) {
                         value={currentTelefono}
                         handleChange={(e) => setCurrentTelefono(e.target.value)}
                         placeholder="11-3488-7495"
+                        error={errorTelefono}
                     />
                     <AddButton onClick={addTelefono} className="button-add" />
+                    
                     <div className="saved-items-container">
                         {dataForm.telefonos.map((tel, index) => (
                             <ContactCard key={`tel-${index}`} texto={tel} onDelete={() => removeTelefono(tel)}/>
@@ -274,8 +340,9 @@ export function FormNuevoPrestador({ text }) {
                         value={currentEmail}
                         handleChange={(e) => setCurrentEmail(e.target.value)}
                         placeholder="email.ejemplo@gmail.com"
+                        error={errorEmail}
                     />
-                    <AddButton onClick={addEmail} className="button-add" />
+                        <AddButton onClick={addEmail} className="button-add" />
                     <div className="saved-items-container">
                         {dataForm.emails.map((email, index) => (
                             <ContactCard key={`email-${index}`} texto={email} onDelete={() => removeEmail(email)} />
