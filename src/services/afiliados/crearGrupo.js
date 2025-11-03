@@ -74,6 +74,7 @@ export function crearObjetoPersona(data,idGrupo){
   
   //Formateo situaciones terapeuticas
   const situacionesFormateadas = data.situacionesTerapeuticas.map(s => {
+    delete s.descripcion
     return {
       ...s,
       fechaInicio: s.fechaInicio || fechaFormateada
