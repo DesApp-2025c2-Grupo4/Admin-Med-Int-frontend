@@ -4,8 +4,8 @@ import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-// import { getGrupoFamiliar } from "../../../../services/afiliados/getGrupoFamiliar.js";
-import { getGruposFamiliares } from "../../../../services/afiliados/getGruposFamiliares.js";
+// import { getGruposFamiliares } from "../../../../services/afiliados/getGruposFamiliares.js";
+import { getGrupoFamiliar } from "../../../../services/afiliados/getGrupoFamiliar.js";
 
 export function ReporteSituacionesTerapeuticas() {
   const [nroGrupo, setNroGrupo] = useState("");
@@ -22,29 +22,39 @@ export function ReporteSituacionesTerapeuticas() {
   };
 
   const handleBuscarGrupo = async () => {
-    const todosLosGrupos = await getGruposFamiliares();
-    const grupoFiltrado = todosLosGrupos.find(grupo => grupo.nroGrupo === nroGrupo);
-    // const grupo = await getGrupoFamiliar(nroGrupo)
+    // const todosLosGrupos = await getGruposFamiliares();
+    // const grupoFiltrado = todosLosGrupos.find(
+    //   (grupo) => grupo.nroGrupo === nroGrupo
+    // );
+    const grupoFiltrado = await getGrupoFamiliar(parseInt(nroGrupo))
     setGrupoEncontrado(grupoFiltrado || null);
     setIntegranteSeleccionado(null);
     setBusquedaRealizada(true);
-    console.log(grupoFiltrado)
+    console.log(grupoFiltrado);
   };
 
   const handleIntegranteChange = (e) => {
-    const personaId = e.target.value;
-    if (!grupoEncontrado || personaId === "") {
+    const value = e.target.value;
+    if (!grupoEncontrado || value === "") {
       setIntegranteSeleccionado(null);
       return;
     }
+    if (value === "todos") {
+      setIntegranteSeleccionado("todos");
+      return;
+    }
     const integrante = grupoEncontrado.integrantes.find(
-      i => i.personaId === parseInt(personaId)
+      (i) => i.personaId === parseInt(value)
     );
     setIntegranteSeleccionado(integrante || null);
   };
 
   const handleGenerarReporte = () => {
-    if (integranteSeleccionado) {
+    if (integranteSeleccionado === "todos") {
+      navigate("reporte-situaciones-generado", {
+        state: { integrantes: grupoEncontrado.integrantes, nroGrupo },
+      });
+    } else if (integranteSeleccionado) {
       navigate("reporte-situaciones-generado", {
         state: { integrante: integranteSeleccionado },
       });
@@ -76,11 +86,14 @@ export function ReporteSituacionesTerapeuticas() {
             id="integrante"
             name="integrante"
             value={
-              integranteSeleccionado ? integranteSeleccionado.personaId : ""
+              integranteSeleccionado === "todos"
+                ? "todos"
+                : integranteSeleccionado?.personaId || ""
             }
             onChange={handleIntegranteChange}
           >
             <option value="">Seleccione un integrante</option>
+            <option value="todos">Todos los integrantes</option>
             {grupoEncontrado.integrantes.map((i) => (
               <option key={i.personaId} value={i.personaId}>
                 {i.nombre} {i.apellido}{" "}

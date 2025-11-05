@@ -1,4 +1,5 @@
-export const headerTablaResultadosSituaciones = [
+export const headerTablaResultadosSituaciones = (esParaTodos = false) => [
+  ...(esParaTodos ? [{ titulo: "Integrante", field: "nombreIntegrante" }] : []), // Solo incluye la columna si es para todos
   { titulo: "Descripción", field: "descripcion" },
   {
     titulo: "¿es Crónica?",
