@@ -27,6 +27,7 @@ export function ReporteSituacionesGenerado() {
         situaciones.push({
           ...sit,
           nombreIntegrante: `${int.nombre} ${int.apellido}`,
+          idUnico: `${int.personaId}-${sit.situacionId}`
         });
       });
     });
@@ -36,6 +37,7 @@ export function ReporteSituacionesGenerado() {
 
   // Genera las columnas
   const columnas = headerTablaResultadosSituaciones(!!integrantes); // true si hay 'integrantes', false si hay 'integrante'
+  const keyField = integrantes ? "idUnico" : "situacionId";
 
   const handleVolver = () => {
     navigate(-1);
@@ -47,7 +49,7 @@ export function ReporteSituacionesGenerado() {
         <TablaResultados
           datos={situaciones}
           columnas={columnas} 
-          keyField="situacionId"
+          keyField={keyField}
           titulo={titulo}
         />
       ) : (
