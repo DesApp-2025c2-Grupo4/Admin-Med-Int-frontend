@@ -2,18 +2,21 @@ import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
 import { ReporteAltaPorPeriodos } from "../../../components/ReporteAltaPorPeriodos/ReporteAltaPorPeriodos.jsx";
 import "./Reporte.css";
-import { useGetAllPrestadores } from "../../../hooks/useGetAllPrestadores.jsx";
+import { getPrestadoresPorPeriodo } from "../../../services/prestadores/getPrestadoresPorPeriodo.js"
+
 
 export function ReportePrestador() {
-  const { prestadores } = useGetAllPrestadores();
-
   useCambiarTitulo({ title: "Reportes" });
+
+  const handleGenerarReporte = async (fechaDesde, fechaHasta) => {
+      return await getPrestadoresPorPeriodo(fechaDesde, fechaHasta);
+    };
 
   return (
     <div className="box-border">
       <TitleSection text="Reportes de Prestadores" />
       <div className="reportes-contenedor">
-        <ReporteAltaPorPeriodos data={prestadores} />
+        <ReporteAltaPorPeriodos onGenerarReporte={handleGenerarReporte} />
       </div>
     </div>
   );
