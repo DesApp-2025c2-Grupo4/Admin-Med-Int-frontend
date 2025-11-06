@@ -4,14 +4,15 @@ import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { InputText } from "../../../../components/ui/Input/InputText/InputText.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-// import { getGruposFamiliares } from "../../../../services/afiliados/getGruposFamiliares.js";
 import { getGrupoFamiliar } from "../../../../services/afiliados/getGrupoFamiliar.js";
+import { Loader } from "../../../../components/Loader/Loader.jsx";
 
 export function ReporteSituacionesTerapeuticas() {
   const [nroGrupo, setNroGrupo] = useState("");
   const [grupoEncontrado, setGrupoEncontrado] = useState(null);
   const [integranteSeleccionado, setIntegranteSeleccionado] = useState(null);
   const [busquedaRealizada, setBusquedaRealizada] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleNroGrupoChange = (e) => {
@@ -22,15 +23,20 @@ export function ReporteSituacionesTerapeuticas() {
   };
 
   const handleBuscarGrupo = async () => {
-    // const todosLosGrupos = await getGruposFamiliares();
-    // const grupoFiltrado = todosLosGrupos.find(
-    //   (grupo) => grupo.nroGrupo === nroGrupo
-    // );
-    const grupoFiltrado = await getGrupoFamiliar(parseInt(nroGrupo))
-    setGrupoEncontrado(grupoFiltrado || null);
-    setIntegranteSeleccionado(null);
-    setBusquedaRealizada(true);
-    console.log(grupoFiltrado);
+    setLoading(true);
+    try {
+      const grupoFiltrado = await getGrupoFamiliar(parseInt(nroGrupo));
+      setGrupoEncontrado(grupoFiltrado || null);
+      setIntegranteSeleccionado(null);
+      setBusquedaRealizada(true);
+      console.log(grupoFiltrado);
+    } catch (error) {
+      console.error(`Error al buscar el grupo ${nroGrupo}:`, error);
+      setGrupoEncontrado(null);
+      setBusquedaRealizada(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleIntegranteChange = (e) => {
@@ -70,6 +76,8 @@ export function ReporteSituacionesTerapeuticas() {
         handleChange={handleNroGrupoChange}
       />
       <Button text="Buscar Grupo" onClick={handleBuscarGrupo} />
+
+      {loading && <Loader />}
 
       {busquedaRealizada &&
         grupoEncontrado === null &&
