@@ -1,0 +1,44 @@
+.conteiner-main-login-register{
+  position: relative;
+  box-shadow: 2px 2px 20px 2px rgba(0, 0, 0, 0.151);
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 5vh 5vw;
+  border-radius: 30px;
+  overflow: hidden;
+  background-color: #102e56;
+}
+.conteiner-message-welcome-register{
+  background-color: #102e56;
+  border-radius: 0 10px 10px 0;
+  width: 55vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  animation: animarADerecha .5s ease-out;
+}
+.container-form-custom-register {
+  width: 35vw !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px 0 0 10px;
+  background-color: #ffffff65;
+  backdrop-filter: blur(20px);
+  animation: animarAIzquierda .5s ease-out;
+}
+
+@keyframes animarAIzquierda {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

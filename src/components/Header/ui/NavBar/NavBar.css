@@ -23,7 +23,23 @@
   font-size: calc(13px + 0.3vw);
   color: white;
 }
-
+.btn-logout-contaner-nav-mobile{
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  transition: all ease .2s;
+  cursor: pointer;
+  font-size: calc(13px + 0.3vw);
+  &:hover{
+    background-color: #102e56;
+  }
+}
 /* Estilos para cuando esté activo un item */
 
 .active{
@@ -36,6 +52,9 @@
 
 /* MediaQuery */
 @media (max-width: 1200px) {
+  .btn-logout-contaner-nav-mobile{
+    display: flex;
+  }
   .nav-bar__contenainer-list{
     position: absolute;
     width: 100%;

@@ -23,5 +23,5 @@ export const navBarItems = [
     path:'/agenda',
     icon: CalendarIcon
   },
-
+  
 ]
