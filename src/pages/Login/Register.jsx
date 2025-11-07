@@ -6,15 +6,18 @@ import { InputText } from '../../components/ui/Input/InputText/InputText'
 import './Register.css'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
+import { useRegistrarse} from '../../hooks/login/useRegistrarse'
+import { validarRegistrarse } from '../../validations/register/validarRegistrarse'
+import { registrarse } from '../../services/login/registrarse'
 //Exporto la aplicacion
 export function Register(){
+  const {error, loading, register,setError} = useRegistrarse()
   const navigate = useNavigate()
   useEffect(()=>{
     const token = localStorage.getItem('token')
     if(token) return navigate('/dashboard')
   },[])
   useCambiarTitulo({title:'Iniciar Sesión'})
-  const {error, loading, login} = useIniciarSesion()
   const [dataForm, setDataForm] = useState({
     user:'',
     password:'',
@@ -25,6 +28,11 @@ export function Register(){
     const ultimoCaracter = value.length
     if(value[ultimoCaracter-1] === ' ') return
     setDataForm(prev => ({ ...prev, [name]: value }))
+  }
+  const handleSubmit = ()=>{
+    const errores = validarRegistrarse(dataForm)
+    if(errores) return setError(errores)
+    registrarse(dataForm)
   }
   return (
     <main className='conteiner-main-login-register' style={{flexDirection:'row-reverse !Important'}}>
@@ -72,7 +80,7 @@ export function Register(){
               <button
                 type='button'
                 className='btn'
-                onClick={() => login(dataForm)}
+                onClick={handleSubmit}
                 disabled={loading}
               >
                 {
