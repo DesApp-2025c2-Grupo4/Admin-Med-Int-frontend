@@ -223,11 +223,9 @@ export function FormNuevoPrestador({ text }) {
 
         try {
             const nuevoPrestador = await crearPrestador(bodyToSend); 
-            console.log('Prestador creado:', nuevoPrestador);
             alert('Prestador creado correctamente');
         } catch (error) {
-            console.error('Error al crear el prestador:', error);
-            alert('Hubo un error al crear el prestador. Revise la consola para más detalles.');
+            alert('Hubo un error al crear el prestador.');
         }
 };
 
