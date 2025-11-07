@@ -29,3 +29,28 @@ li{
   padding: 0;
   margin: 0;
 }
+
+/* Redefinimos estilos de toastify */
+/* Verde suave para éxito */
+.Toastify__progress-bar--success {
+  background: rgba(37, 107, 37, 0.75) !important;
+}
+
+/* Rojo más discreto para error */
+.Toastify__progress-bar--error {
+  background: #B74545 !important;
+}
+
+/* Azul para info */
+.Toastify__progress-bar--info {
+  background: #3498db !important;
+}
+/* Ícono de éxito */
+.Toastify__toast--success .Toastify__icon {
+  color: rgba(170, 220, 20, 0.75)  !important; /* verde */
+}
+
+/* Ícono de error */
+.Toastify__toast--error .Toastify__icon {
+  color: #B74545 !important; /* rojo */
+}
