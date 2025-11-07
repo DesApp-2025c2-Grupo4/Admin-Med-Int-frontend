@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { InputSelect } from "../../../../components/ui/Input/InputSelect/InputSelect.jsx";
 import { DIAS_SEMANA } from "../../../../constants/listDias.js";
 import { useGetPrestadoresNuevaAgenda } from "../../../../hooks/useGetPrestadoresNuevaAgenda.jsx";
-import "../../NuevaAgenda/NuevaAgendaForm/NuevaAgendaForm.css";
+import "./ModificarAgendaForm.css";
 import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTitleSection.jsx";
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
 import { SaveAgenda } from "../../../../components/ui/SaveAgenda/SaveAgenda.jsx";
@@ -189,8 +189,13 @@ export function ModificarAgendaForm({ initialData }) {
     }
   };
 
-  if (isLoading) return <p>Cargando...</p>;
-  if (errorOpciones) return <p>Error al cargar opciones.</p>;
+  if (errorOpciones) {
+    return (
+      <div className="sin-resultados-section">
+        <SubTitleSection text={"No se pudo cargar el formulario."} />
+      </div>
+    );
+  }
 
   return (
     <form className="form-nueva-agenda-container" onSubmit={handleSubmit}>
@@ -202,7 +207,6 @@ export function ModificarAgendaForm({ initialData }) {
           value={config.prestador}
           name="prestador"
           defaultText="Selecciona un prestador"
-          disabled
         />
 
         <InputSelect
@@ -212,6 +216,7 @@ export function ModificarAgendaForm({ initialData }) {
           value={config.especialidad}
           name="especialidad"
           defaultText="Selecciona una especialidad"
+          disabled={!config.prestador}
         />
 
         <InputSelect
@@ -221,94 +226,108 @@ export function ModificarAgendaForm({ initialData }) {
           value={config.lugarAtencion}
           name="lugarAtencion"
           defaultText="Selecciona un lugar"
+          disabled={!config.prestador}
         />
       </div>
 
       <SubTitleSection text="Horarios" />
-
-      {/* --- Bloque de selección y agregado de horarios --- */}
-      <div className="section-horarios-nueva-agenda">
-        <div className="section-add-horario">
-          <InputSelect
-            text="Día"
-            listaDeOpciones={DIAS_SEMANA}
-            handleChange={handleDiaSelectChange}
-            value={diaSeleccionado}
-            name="dia"
-          />
-
-          <div className="inputs-horario">
-            <label>
-              Desde:
-              <input
-                type="time"
-                name="horarioInicio"
-                value={nuevoHorario.horarioInicio}
-                onChange={handleNuevoHorarioChange}
-              />
-            </label>
-
-            <label>
-              Hasta:
-              <input
-                type="time"
-                name="horarioFinal"
-                value={nuevoHorario.horarioFinal}
-                onChange={handleNuevoHorarioChange}
-              />
-            </label>
-
-            <label>
-              Duración turno (min):
-              <input
-                type="number"
-                name="duracionTurno"
-                value={nuevoHorario.duracionTurno}
-                onChange={handleNuevoHorarioChange}
-                min="5"
-                step="5"
-              />
-            </label>
-
-            <AddButton onClick={handleAddHorario} />
+      <div className="add-horario-section">
+        <InputSelect
+          text="Día"
+          listaDeOpciones={DIAS_SEMANA.map((day) => ({
+            id: day.idDia,
+            descripcion: day.label,
+          }))}
+          handleChange={handleDiaSelectChange}
+          value={diaSeleccionado}
+          name="diaSemana"
+          defaultText="Selecciona un día"
+        />
+        <div className="add-horario-group">
+          <div className="input-with-label">
+            <label className="input-label">Inicio</label>
+            <input
+              type="time"
+              name="horarioInicio"
+              value={nuevoHorario.horarioInicio}
+              onChange={handleNuevoHorarioChange}
+              className="time-input"
+            />
           </div>
-        </div>
-
-        {/* --- Mostrar solo los días con horarios cargados --- */}
-        <div className="lista-horarios">
-          {DIAS_SEMANA.filter(
-            (dia) => agendaHorarios[dia.idDia]?.length > 0
-          ).map((dia) => (
-            <div key={dia.idDia} className="dia-horarios">
-              <h4>{dia.descripcion}</h4>
-              <ul>
-                {agendaHorarios[dia.idDia].map((h, index) => (
-                  <li key={index} className="horario-item">
-                    <span>
-                      {h.horarioInicio} - {h.horarioFinal} ({h.duracionTurno} min)
-                    </span>
-                    <button
-                      type="button"
-                      className="remove-horario"
-                      onClick={() => handleRemoveHorario(dia.idDia, index)}
-                    >
-                      ✕
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* Si no hay horarios cargados aún */}
-          {Object.values(agendaHorarios).every((h) => h.length === 0) && (
-            <p className="sin-horarios">Aún no hay horarios cargados</p>
-          )}
+          <div className="input-with-label">
+            <label className="input-label">Fin</label>
+            <input
+              type="time"
+              name="horarioFinal"
+              value={nuevoHorario.horarioFinal}
+              onChange={handleNuevoHorarioChange}
+              className="time-input"
+            />
+          </div>
+          <div className="input-with-label">
+            <label className="input-label">Duración (min)</label>
+            <input
+              type="number"
+              name="duracionTurno"
+              value={nuevoHorario.duracionTurno}
+              onChange={handleNuevoHorarioChange}
+              min="5"
+              step="5"
+              className="duration-input"
+            />
+          </div>
+          <AddButton onClick={handleAddHorario} />
         </div>
       </div>
 
+      <div className="section-group agenda-visualizacion">
+        <SubTitleSection text="Horarios cargados" />
+
+        {Object.keys(agendaHorarios).every(
+          (dayKey) => agendaHorarios[dayKey].length === 0
+        ) ? (
+          <div className="no-horarios">
+            <SubTitleSection text="Aún no hay horarios cargados" />
+          </div>
+        ) : (
+          Object.keys(agendaHorarios).map((dayKey) => {
+            const horariosDelDia = agendaHorarios[dayKey];
+            const dayLabel = DIAS_SEMANA.find(
+              (d) => String(d.idDia) === String(dayKey)
+            )?.label;
+
+            if (horariosDelDia.length === 0) return null;
+
+            return (
+              <div key={dayKey} className="agenda-day-block">
+                <h3>
+                  {dayLabel} ({horariosDelDia.length} bloques)
+                </h3>
+                <div className="horarios-list-container">
+                  {horariosDelDia.map((horario, index) => (
+                    <div key={index} className="horario-item">
+                      <span className="horario-text">
+                        {horario.horarioInicio} a {horario.horarioFinal} (
+                        {horario.duracionTurno} min)
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveHorario(dayKey, index)}
+                        className="remove-horario-btn"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
       <div className="form-footer">
-        <SaveAgenda type="submit" text="Actualizar Agenda" />
+        <SaveAgenda type="submit" />
       </div>
     </form>
   );
