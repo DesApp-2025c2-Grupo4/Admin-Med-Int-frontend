@@ -9,9 +9,10 @@ import { Register } from '../../../../components/ui/Register/Register.jsx';
 import { crearPrestador } from '../../../../services/prestadores/crearPrestador.js';
 import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx';
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
+import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
 
 export function FormNuevoPrestador({ text }) {
-
+    useCambiarTitulo({ title: "Nuevo Prestador" });
     const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
 
     const [tipoPrestador, setTipoPrestador] = useState('independiente'); 

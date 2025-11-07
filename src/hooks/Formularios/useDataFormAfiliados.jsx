@@ -16,7 +16,6 @@ export function useDataFormAfiliados(){
         }
         else{
           setDatosParaFormulario(data)
-          console.log('Llego')
         }
       } catch (error) {
         console.log(error)
