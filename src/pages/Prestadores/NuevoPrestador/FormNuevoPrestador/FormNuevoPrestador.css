@@ -16,20 +16,23 @@
     min-width: 250px; 
 }
 
-.prestadores-checkbox-container{
+.prestadores-checkbox-container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.radio-label-simple input{
-    margin-right: 10px;
-}
-
-.radio-label-simple{
+.radio-label-simple {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
     font-size: 0.90rem;
     color: #6b7280;
     cursor: pointer;
+}
+
+.radio-label-simple input {
+    margin-right: 5px;
 }
 
 

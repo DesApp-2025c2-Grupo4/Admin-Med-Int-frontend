@@ -86,20 +86,15 @@ export function FormNuevoPrestador({ text }) {
     };
 
     const handleTipoPrestadorChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        let newValue = value;
-        if (name === 'asociadoDe' && value) {
-            newValue = Number(value); 
-        } else if (type === 'checkbox') {
-            newValue = checked;
-        }
+        const selectedType = e.target.value;
+        setTipoPrestador(selectedType);
 
-        setDataForm(prev => ({
-            ...prev,
-            [name]: newValue 
-        }));
+        setDataForm((prev) => ({
+            ...prev,
+            asociadoDe: '', 
+        }));
     };
-
+    
     const addTelefono = () => {
         setErrorTelefono(''); 
         const telefonoLimpio = currentTelefono.trim();
@@ -200,6 +195,22 @@ export function FormNuevoPrestador({ text }) {
             setErrorCuilCuit('El CUIL/CUIT debe tener el formato XX-XXXXXXXX-X (ej: 20-12345678-9).');
             return; 
         }
+        // Validacion que tenga al menos un contacto
+        if (dataForm.telefonos.length === 0) {
+            alert('Debe agregar al menos un teléfono.');
+            return;
+        }
+
+        if (dataForm.emails.length === 0) {
+            alert('Debe agregar al menos un email.');
+            return;
+        }
+
+        if (dataForm.direcciones.length === 0) {
+            alert('Debe agregar al menos una dirección.');
+            return;
+        }
+
         const nombreCompleto = dataForm.nombreCompleto.trim();
         const parts = nombreCompleto.split(/\s+/).filter(p => p.length > 0);
         const nombre = parts[0] || '';

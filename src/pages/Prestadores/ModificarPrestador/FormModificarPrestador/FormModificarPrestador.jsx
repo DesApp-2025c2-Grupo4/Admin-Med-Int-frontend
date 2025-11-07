@@ -204,6 +204,22 @@ export function FormModificarPrestador({ text, initialData }) {
             setErrorCuilCuit('El CUIL/CUIT debe tener el formato XX-XXXXXXXX-X (ej: 20-12345678-9).');
             return;
         }
+        
+        // Validacion que tenga al menos un contacto
+        if (dataForm.telefonos.length === 0) {
+            alert('Debe agregar al menos un teléfono.');
+            return;
+        }
+
+        if (dataForm.emails.length === 0) {
+            alert('Debe agregar al menos un email.');
+            return;
+        }
+
+        if (dataForm.direcciones.length === 0) {
+            alert('Debe agregar al menos una dirección.');
+            return;
+        }
 
     const bodyToSend = {
         cuilCuit: dataForm.cuilCuit,
