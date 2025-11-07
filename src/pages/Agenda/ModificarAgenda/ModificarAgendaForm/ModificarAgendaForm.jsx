@@ -274,33 +274,36 @@ export function ModificarAgendaForm({ initialData }) {
           </div>
         </div>
 
-        {/* --- Mostrar horarios por día --- */}
+        {/* --- Mostrar solo los días con horarios cargados --- */}
         <div className="lista-horarios">
-          {DIAS_SEMANA.map((dia) => (
+          {DIAS_SEMANA.filter(
+            (dia) => agendaHorarios[dia.idDia]?.length > 0
+          ).map((dia) => (
             <div key={dia.idDia} className="dia-horarios">
               <h4>{dia.descripcion}</h4>
-              {agendaHorarios[dia.idDia]?.length > 0 ? (
-                <ul>
-                  {agendaHorarios[dia.idDia].map((h, index) => (
-                    <li key={index} className="horario-item">
-                      <span>
-                        {h.horarioInicio} - {h.horarioFinal} ({h.duracionTurno} min)
-                      </span>
-                      <button
-                        type="button"
-                        className="remove-horario"
-                        onClick={() => handleRemoveHorario(dia.idDia, index)}
-                      >
-                        ✕
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="sin-horarios">Sin horarios cargados</p>
-              )}
+              <ul>
+                {agendaHorarios[dia.idDia].map((h, index) => (
+                  <li key={index} className="horario-item">
+                    <span>
+                      {h.horarioInicio} - {h.horarioFinal} ({h.duracionTurno} min)
+                    </span>
+                    <button
+                      type="button"
+                      className="remove-horario"
+                      onClick={() => handleRemoveHorario(dia.idDia, index)}
+                    >
+                      ✕
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
+
+          {/* Si no hay horarios cargados aún */}
+          {Object.values(agendaHorarios).every((h) => h.length === 0) && (
+            <p className="sin-horarios">Aún no hay horarios cargados</p>
+          )}
         </div>
       </div>
 
