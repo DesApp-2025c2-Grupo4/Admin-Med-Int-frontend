@@ -192,7 +192,7 @@ export function TableAgenda({ listHeader, data }) {
                   <Link onClick={() => handleClick(d.agendaId)}>
                     <DeleteIcon></DeleteIcon>
                   </Link>
-                  <Link>
+                  <Link to={`/agenda/modificar/${d.agendaId}`}>
                     <ModifierIcon></ModifierIcon>
                   </Link>
                 </td>
