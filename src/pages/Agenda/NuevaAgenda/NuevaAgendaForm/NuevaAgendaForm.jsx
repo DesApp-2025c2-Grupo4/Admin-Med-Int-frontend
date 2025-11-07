@@ -215,7 +215,6 @@ export function NuevaAgendaForm() {
       alert("Agenda guardada con éxito");
       navigate("/agenda/gestionar");
     } catch (error) {
-      console.error(error);
       alert("Hubo un error al crear una nueva agenda");
     }
   };

@@ -15,7 +15,10 @@ import { validarDireccion } from '../../../../validations/validarDireccion.js'
 import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
 import { validarFormulario } from '../../../../validations/validarFormulario.js'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
+import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
+
 export function FormGrupoFamilia({ text, component, funcionSubmit }) {
+  useCambiarTitulo({ title: "Nuevo Afiliado" });
   // OBTENGO DATOS DEL FORMULARIO
   const { loadingDataForm, datosParaFormulario } = useDataFormAfiliados()
   const ButtonComponent = component

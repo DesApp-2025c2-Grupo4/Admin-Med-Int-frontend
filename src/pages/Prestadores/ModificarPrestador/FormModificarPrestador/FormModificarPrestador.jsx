@@ -11,7 +11,6 @@ import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFor
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
 
 export function FormModificarPrestador({ text, initialData }) {
-    console.log(initialData);
     const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
     // Determina el tipo de prestador inicial
     const [tipoPrestador, setTipoPrestador] = useState(() => {
@@ -191,7 +190,6 @@ export function FormModificarPrestador({ text, initialData }) {
     
         const prestadorId = initialData.prestadorId;
         if (!prestadorId) {
-            console.error("No se encontró el ID del prestador para actualizar.");
             alert("Error: ID del prestador no disponible.");
             return;
         }
@@ -221,11 +219,8 @@ export function FormModificarPrestador({ text, initialData }) {
     try {
 
         const result = await updatePrestadorService(bodyToSend, tipoPrestador, prestadorId);
-        
-        console.log('Prestador actualizado con éxito:', result);
         alert('Cambios guardados exitosamente.');
     } catch (error) {
-        console.error('Error al guardar los cambios:', error.message);
         alert(`Error al guardar: ${error.message}`);
     }
 };

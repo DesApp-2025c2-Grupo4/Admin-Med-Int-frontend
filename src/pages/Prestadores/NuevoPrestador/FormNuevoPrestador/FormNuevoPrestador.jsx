@@ -9,9 +9,10 @@ import { Register } from '../../../../components/ui/Register/Register.jsx';
 import { crearPrestador } from '../../../../services/prestadores/crearPrestador.js';
 import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx';
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
+import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
 
 export function FormNuevoPrestador({ text }) {
-
+    useCambiarTitulo({ title: "Nuevo Prestador" });
     const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
 
     const [tipoPrestador, setTipoPrestador] = useState('independiente'); 
@@ -222,11 +223,9 @@ export function FormNuevoPrestador({ text }) {
 
         try {
             const nuevoPrestador = await crearPrestador(bodyToSend); 
-            console.log('Prestador creado:', nuevoPrestador);
             alert('Prestador creado correctamente');
         } catch (error) {
-            console.error('Error al crear el prestador:', error);
-            alert('Hubo un error al crear el prestador. Revise la consola para más detalles.');
+            alert('Hubo un error al crear el prestador.');
         }
 };
 

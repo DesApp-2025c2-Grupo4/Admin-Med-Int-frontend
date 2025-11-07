@@ -13,7 +13,6 @@ export function ModificarIntegrante() {
   const { id } = useParams();
   const { error, loadingPersona, persona,setPersona } = useGetDetallePersona(id);
   const {datosParaFormulario} = useDataFormAfiliados()
-  console.log(persona)
   //En caso de estar cargando
   if(loadingPersona){
     return(
