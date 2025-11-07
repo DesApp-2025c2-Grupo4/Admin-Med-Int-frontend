@@ -8,7 +8,7 @@ export const registrarse = async(dataForm)=>{
     },
     body: JSON.stringify(dataForm)
   })
-  const data = res.json()
+  const data = await res.json()
 
   return data
 }

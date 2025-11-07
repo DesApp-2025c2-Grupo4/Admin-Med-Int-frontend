@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
 import { useRegistrarse} from '../../hooks/login/useRegistrarse'
 import { validarRegistrarse } from '../../validations/register/validarRegistrarse'
-import { registrarse } from '../../services/login/registrarse'
 //Exporto la aplicacion
 export function Register(){
   const {error, loading, register,setError} = useRegistrarse()
+  console.log(error)
   const navigate = useNavigate()
   useEffect(()=>{
     const token = localStorage.getItem('token')
@@ -24,6 +24,7 @@ export function Register(){
     passwordRepetida:''
   })
   const handleChange = (e) => {
+    setError({})
     const { name, value } = e.target
     const ultimoCaracter = value.length
     if(value[ultimoCaracter-1] === ' ') return
@@ -31,8 +32,8 @@ export function Register(){
   }
   const handleSubmit = ()=>{
     const errores = validarRegistrarse(dataForm)
-    if(errores) return setError(errores)
-    registrarse(dataForm)
+    if(errores?.user || errores?.password || errores?.passwordRepetida) return setError(errores)
+    register(dataForm)
   }
   return (
     <main className='conteiner-main-login-register' style={{flexDirection:'row-reverse !Important'}}>
@@ -56,14 +57,14 @@ export function Register(){
                 name={'user'}
                 value={dataForm.user}
                 handleChange={handleChange}
-                error={''}
+                error={(error?.user)?error.user:null}
               />
               <InputText 
                 text={'Contraseña'}
                 name={'password'}
                 value={dataForm.password}
                 handleChange={handleChange}
-                error={''}
+                error={error?.password}
                 type='password'
               />
               <InputText 
@@ -71,7 +72,7 @@ export function Register(){
                 name={'passwordRepetida'}
                 value={dataForm.passwordRepetida}
                 handleChange={handleChange}
-                error={''}
+                error={error?.passwordRepetida}
                 type='password'
               />
             </div>
@@ -90,7 +91,7 @@ export function Register(){
                 }
               </button>
             </div>
-            <p className='message-error-servidor'>{error}</p>
+            <p className='message-error-servidor'>{error?.message}</p>
           </div>
         </form>
       </div>
