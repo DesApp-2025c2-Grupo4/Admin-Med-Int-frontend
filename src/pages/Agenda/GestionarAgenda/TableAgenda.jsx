@@ -69,7 +69,7 @@ export function TableAgenda({ listHeader, data }) {
               <tr className="tablePrestador__tbody-tr" key={d.agendaId}>
                 <td className="tablePrestador__tbody-td">
                   {d.prestador.apellido
-                    ? `${d.prestador.nombre}, ${d.prestador.apellido}`
+                    ? `${d.prestador.nombre} ${d.prestador.apellido}`
                     : `${d.prestador.nombre}`}
                 </td>
                 <td className="tablePrestador__tbody-td">

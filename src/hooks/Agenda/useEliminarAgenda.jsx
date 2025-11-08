@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { eliminarUnaAgenda } from "../../services/agenda/eliminarAgenda";
+import { toast } from "react-toastify";
+
 export function useEliminarUnaAgenda(setAgenda){
   // Estados
   const [loading,setLoading] =useState(false)
@@ -13,10 +15,10 @@ export function useEliminarUnaAgenda(setAgenda){
       const res = await eliminarUnaAgenda(id)
       if(!res){
         setError('Error al eliminar una agenda')
-        alert('Error al eliminar una agenda')
+        toast.error('Error al eliminar una agenda')
       }else{
         setData(data)
-        alert('Se eliminó correcto la agenda')
+        toast.success('Se eliminó correcto la agenda')
         setAgenda((prev) => prev.filter(p=>p.agendaId !== id))
       }
     } catch (error) {

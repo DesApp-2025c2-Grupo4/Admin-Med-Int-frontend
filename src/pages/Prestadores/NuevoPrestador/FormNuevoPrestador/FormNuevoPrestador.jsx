@@ -10,6 +10,7 @@ import { crearPrestador } from '../../../../services/prestadores/crearPrestador.
 import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx';
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
 import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
+import { toast } from "react-toastify";
 
 export function FormNuevoPrestador({ text }) {
     useCambiarTitulo({ title: "Nuevo Prestador" });
@@ -160,7 +161,7 @@ export function FormNuevoPrestador({ text }) {
             setCurrentDireccion('');
             setCurrentCodigoPostal('');
         } else {
-            alert('Por favor, ingrese tanto la dirección como el código postal.');
+            toast.error('Por favor, ingrese tanto la dirección como el código postal.')
         }
     };
 
@@ -197,17 +198,17 @@ export function FormNuevoPrestador({ text }) {
         }
         // Validacion que tenga al menos un contacto
         if (dataForm.telefonos.length === 0) {
-            alert('Debe agregar al menos un teléfono.');
+            toast.error('Debe agregar al menos un teléfono.')
             return;
         }
 
         if (dataForm.emails.length === 0) {
-            alert('Debe agregar al menos un email.');
+            toast.error('Debe agregar al menos un email.')
             return;
         }
 
         if (dataForm.direcciones.length === 0) {
-            alert('Debe agregar al menos una dirección.');
+            toast.error('Debe agregar al menos una dirección.')
             return;
         }
 
@@ -234,9 +235,9 @@ export function FormNuevoPrestador({ text }) {
 
         try {
             const nuevoPrestador = await crearPrestador(bodyToSend); 
-            alert('Prestador creado correctamente');
+            toast.success('Prestador creado correctamente')
         } catch (error) {
-            alert('Hubo un error al crear el prestador.');
+            toast.error('Hubo un error al crear el prestador.')
         }
 };
 

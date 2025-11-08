@@ -95,7 +95,7 @@ export function TablePrestadoresGestion({ listHeader, data }) {
                 style={{ position: "relative" }}
               >
                 <td className="tablePrestador__tbody-td">{d.cuilCuit}</td>
-                <td className="tablePrestador__tbody-td">{d.apellido ? (`${d.nombre}, ${d.apellido}`) : (`${d.nombre}`)}</td>
+                <td className="tablePrestador__tbody-td">{d.apellido ? (`${d.nombre} ${d.apellido}`) : (`${d.nombre}`)}</td>
                 <td className="tablePrestador__tbody-td">
                   {d.direccion?.length > 1 ? (
                     <>
