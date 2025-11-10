@@ -1,5 +1,4 @@
 .conteiner-main-login-register{
-  position: relative;
   box-shadow: 2px 2px 20px 2px rgba(0, 0, 0, 0.151);
   height: 90vh;
   width: 100vw;
@@ -31,7 +30,25 @@
   backdrop-filter: blur(20px);
   animation: animarAIzquierda .5s ease-out;
 }
-
+@media (max-width:740px){
+  .conteiner-main-login-register{
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    border-radius: 0;
+    flex-direction: column;
+  }
+  .conteiner-message-welcome-register{
+    width: 100%;
+    height: 30vh;
+  }
+  .container-form-custom-register {
+    width: 100% !important;
+    height: 70vh;
+    border-radius: 10px 10px 0 0 !important;
+  }
+}
 @keyframes animarAIzquierda {
   0% {
     transform: translateX(100%);

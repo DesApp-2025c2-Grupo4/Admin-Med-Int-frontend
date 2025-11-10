@@ -1,5 +1,4 @@
 import { useCambiarTitulo } from '../../hooks/useCambiarTitulo'
-import { useIniciarSesion } from '../../hooks/login/useIniciarSesion'
 import { Link } from 'react-router' 
 import { useState } from 'react'
 import { InputText } from '../../components/ui/Input/InputText/InputText'
@@ -36,7 +35,7 @@ export function Register(){
     register(dataForm)
   }
   return (
-    <main className='conteiner-main-login-register' style={{flexDirection:'row-reverse !Important'}}>
+    <main className='conteiner-main-login-register'>
       <div className='conteiner-message-welcome-register'>
         <h2 className='title-message-welcome'>Bienvenidos a SAMI</h2>
         <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap: '10px'}}>
