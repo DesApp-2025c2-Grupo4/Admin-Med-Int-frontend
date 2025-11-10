@@ -200,6 +200,7 @@ export function ModificarAgendaForm({ initialData }) {
   return (
     <form className="form-nueva-agenda-container" onSubmit={handleSubmit}>
       <div className="section-select-nueva-agenda">
+        {/* Prestador bloqueado */}
         <InputSelect
           text="Prestador"
           listaDeOpciones={dataOptions.PRESTADORES}
@@ -207,6 +208,7 @@ export function ModificarAgendaForm({ initialData }) {
           value={config.prestador}
           name="prestador"
           defaultText="Selecciona un prestador"
+          disabled={true}
         />
 
         <InputSelect
