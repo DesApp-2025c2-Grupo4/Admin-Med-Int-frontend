@@ -9,19 +9,18 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
 export function TableAgenda({ listHeader, data }) {
-    const [fullAgenda, setAgenda] = useState(data);
-    //Estado de modal
-    const [showModal, setShowModal] = useState(false);
-    //Estado del prestador a eliminar
-    const [idAgenda, setIdAgenda] = useState();
-    //Llamada al hook
-    const { error, loading, eliminarAgenda } =
-    useEliminarUnaAgenda(setAgenda);
-  
+  const [fullAgenda, setAgenda] = useState(data);
+  //Estado de modal
+  const [showModal, setShowModal] = useState(false);
+  //Estado del prestador a eliminar
+  const [idAgenda, setIdAgenda] = useState();
+  //Llamada al hook
+  const { error, loading, eliminarAgenda } = useEliminarUnaAgenda(setAgenda);
+
   useEffect(() => {
-      setAgenda(data);
+    setAgenda(data);
   }, [data]);
-  
+
   const handleEliminarAgenda = () => {
     setShowModal(false);
     eliminarAgenda(idAgenda);
@@ -73,29 +72,7 @@ export function TableAgenda({ listHeader, data }) {
                     : `${d.prestador.nombre}`}
                 </td>
                 <td className="tablePrestador__tbody-td">
-                  {d.prestador?.especialidad?.length > 1 ? (
-                    <>
-                      <span
-                        data-tooltip-id={`tooltip-${d.agendaId}`}
-                        data-tooltip-content={d.prestador?.especialidad
-                          .map((e) => e.descripcion)
-                          .join(",\n")}
-                        className="cursor-help text-blue-600 font-medium"
-                      >
-                        {d.prestador.especialidad[0].descripcion}...
-                      </span>
-                      <Tooltip
-                        id={`tooltip-${d.agendaId}`}
-                        place="top"
-                        style={{
-                          background: "#255d99ff",
-                          whiteSpace: "pre-line",
-                        }}
-                      />
-                    </>
-                  ) : (
-                    <span>{d.prestador?.especialidad[0]?.descripcion}</span>
-                  )}
+                 {`${d.especialidad?.descripcion}`}
                 </td>
                 <td className="tablePrestador__tbody-td">
                   {d.agendas.length > 1 ? (
@@ -137,31 +114,7 @@ export function TableAgenda({ listHeader, data }) {
                   )}
                 </td>
                 <td className="tablePrestador__tbody-td">
-                  {d.prestador?.direccion?.length > 1 ? (
-                    <>
-                      <span
-                        data-tooltip-id={`tooltip-direccion-${d.agendaId}`}
-                        data-tooltip-content={d.prestador.direccion
-                          .map((dir) => `${dir.calle} ${dir.nro || ""}`)
-                          .join(",\n")}
-                        className="cursor-help text-blue-600 font-medium"
-                      >
-                        {`${d.prestador.direccion[0].calle}...`}
-                      </span>
-
-                      <Tooltip
-                        id={`tooltip-direccion-${d.agendaId}`}
-                        place="top"
-                        style={{
-                          background: "#255d99ff",
-                        }}
-                      />
-                    </>
-                  ) : (
-                    <span>{`${d.prestador?.direccion[0].calle} ${
-                      d.prestador?.direccion[0].nro || ""
-                    }`}</span>
-                  )}
+                  {`${d.direccion.calle} ${d.direccion.nro}`}
                 </td>
                 <td className="tablePrestador__tbody-td">
                   {d.prestador?.telefonos?.length > 1 ? (
