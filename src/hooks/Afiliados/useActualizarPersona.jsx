@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { actualizarUnaPersona } from '../../services/afiliados/actualizarUnaPersona.js'
+import { toast } from 'react-toastify';
 export function useActualizarPersona(setPersona){
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState('')
@@ -10,11 +11,11 @@ export function useActualizarPersona(setPersona){
     try {
       const personaActualizada = await actualizarUnaPersona(id,data)
       setPersona(personaActualizada)
-      alert('Se actualizó correctamente')
+      toast.success('Se actualizó correctamente.')
     } catch (error) {
       console.log(error)
       setError(error)
-      alert(error)
+      toast.error(error)
     }
     finally{
       setLoading(false)

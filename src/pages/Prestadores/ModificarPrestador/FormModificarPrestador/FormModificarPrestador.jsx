@@ -9,6 +9,7 @@ import { RegisterGroup } from '../../../../components/ui/RegisterGroup/RegisterG
 import { updatePrestadorService } from '../../../../services/prestadores/modificarPrestador.js';
 import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx'
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
+import { toast } from "react-toastify";
 
 export function FormModificarPrestador({ text, initialData }) {
     const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
@@ -161,7 +162,7 @@ export function FormModificarPrestador({ text, initialData }) {
             setCurrentDireccion('');
             setCurrentCodigoPostal(''); 
         } else {
-             alert('Por favor, ingrese tanto la dirección como el código postal.');
+            toast.error('Por favor, ingrese tanto la dirección como el código postal.')
         }
     };
 
@@ -190,7 +191,7 @@ export function FormModificarPrestador({ text, initialData }) {
     
         const prestadorId = initialData.prestadorId;
         if (!prestadorId) {
-            alert("Error: ID del prestador no disponible.");
+            toast.error("Error: ID del prestador no disponible.")
             return;
         }
 
@@ -207,17 +208,17 @@ export function FormModificarPrestador({ text, initialData }) {
         
         // Validacion que tenga al menos un contacto
         if (dataForm.telefonos.length === 0) {
-            alert('Debe agregar al menos un teléfono.');
+            toast.error('Debe agregar al menos un teléfono.')
             return;
         }
 
         if (dataForm.emails.length === 0) {
-            alert('Debe agregar al menos un email.');
+            toast.error('Debe agregar al menos un email.')
             return;
         }
 
         if (dataForm.direcciones.length === 0) {
-            alert('Debe agregar al menos una dirección.');
+            toast.error('Debe agregar al menos una dirección.')
             return;
         }
 
@@ -235,9 +236,9 @@ export function FormModificarPrestador({ text, initialData }) {
     try {
 
         const result = await updatePrestadorService(bodyToSend, tipoPrestador, prestadorId);
-        alert('Cambios guardados exitosamente.');
+        toast.success('Cambios guardados exitosamente.')
     } catch (error) {
-        alert(`Error al guardar: ${error.message}`);
+        toast.error('Error al guardar.')
     }
 };
     const handleSubmit = (e) => {

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { agregarUnTelefono } from '../../../services/afiliados/Telefono/agregarUnTelefono';
+import { toast } from 'react-toastify';
 export function useAgregarTelefono(setPersona){
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -12,12 +13,12 @@ export function useAgregarTelefono(setPersona){
       const telefonoAgregado = await agregarUnTelefono(telefono, idPersona)
       if(telefonoAgregado){
         setPersona(prev=>({...prev, telefonos: [...prev.telefonos, telefonoAgregado]}))
-        alert('Telefono agregado con éxito')
+        toast.success('Se agregó el telefono correctamente')
         setData(telefonoAgregado)
       }
     } catch (error) {
       console.log(error)
-      alert(error)
+      toast.error(error)
       setError(error)
     } finally{
       setLoading(false)

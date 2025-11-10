@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { crearGrupo } from '../../services/afiliados/crearGrupo'
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 export function useCrearGrupo(){
   const [loading,setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -15,12 +16,12 @@ export function useCrearGrupo(){
         setError('Error al crear grupo')
         alert(error)
       }
-      alert('Grupo creado con exito')
+      toast.success('Grupo creado correctamente')
       setData(grupoCreado)
       navigate('/afiliados/gestionar/'+grupoCreado.titular.credencial)
     } catch (error) {
       console.error(error)
-      alert(error)
+      toast.error(error)
       setError('Error al crear un grupo :'+error)
     }finally{
       setLoading(false)

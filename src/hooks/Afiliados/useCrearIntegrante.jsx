@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { crearIntegrante } from "../../services/afiliados/crearIntegrante"
 import { useNavigate} from "react-router"
+import { toast } from "react-toastify";
+
 export const useCrearIntegrante = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
@@ -12,16 +14,14 @@ export const useCrearIntegrante = () => {
       const integranteCreado = await crearIntegrante(data)
       if(!integranteCreado){
         setError('Error al crear el integrante')
-        alert(error)
+        toast.error(error)
         return
       }
-      alert('Integrante creado con éxito')
-      console.log(integranteCreado)
+      toast.success('Integrante creado  con éxito')
       setData(integranteCreado)
       navigate('/afiliados/gestionar/'+integranteCreado.credencial)
     } catch (error) {
-      console.log(error)
-      alert(error)
+      toast.error(error)
       setError(error)
     }finally{
       setLoading(false)

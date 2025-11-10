@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { deleteGrupo } from "../../services/afiliados/deleteGrupo";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 export function useDeleteGroup({ setAllGrupos }) {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [error, setError] = useState(null);
@@ -14,11 +15,11 @@ export function useDeleteGroup({ setAllGrupos }) {
       const groupDeleted = await deleteGrupo(id);
       if (!groupDeleted) {
         setError("No se encontró el grupo");
-        alert('Error al eliminar el grupo')
+        toast.error('No se pudo eliminar el grupo')
         return;
       }
       else{
-        alert('Grupo eliminado correctamente')
+        toast.success('Grupo eliminado correctamente')
       }
       // Actualizar estado de todos los grupos
       if(setAllGrupos) {
@@ -29,7 +30,7 @@ export function useDeleteGroup({ setAllGrupos }) {
     } catch (error) {
       console.error(error);
       setError("Error al realizar la petición");
-      alert('Error al eliminar el grupo')
+      toast.error('Error en el servidor')
     } finally {
       setLoadingDelete(false);
     }

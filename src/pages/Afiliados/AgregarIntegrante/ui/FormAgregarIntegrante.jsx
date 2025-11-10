@@ -434,9 +434,7 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
 
         <div className="buttons-container__form">
           <BotonCancelar path={'/afiliados/gestionar'} />
-          <div onClick={handleSubmit} style={{ cursor: 'pointer' }}>
-            <RegisterGroup text='Registrar Integrante' />
-          </div>
+          <RegisterGroup text='Registrar Integrante' type="submit" />
         </div>
       </form>
     </>

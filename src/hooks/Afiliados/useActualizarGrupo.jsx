@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { actualizarUnGrupo } from '../../services/afiliados/actualizarUnGrupo.js'
+import { toast } from "react-toastify";
 export function useActualizarUnGrupo(id,setDataForm,setGrupoFamiliar){
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -21,11 +22,11 @@ export function useActualizarUnGrupo(id,setDataForm,setGrupoFamiliar){
         fechaAlta: grupoActualizado.fechaAlta,
         fechaBaja: grupoActualizado.fechaBaja
       })
-      alert('Actualizado con éxito')
+      toast.success('Actualizado con éxito')
       setData(grupoActualizado)
     } catch (error) {
       console.log(error)
-      alert('Error:'+error)
+      toast.error(error)
       setError(error)
     }finally{
       setLoading(false)
