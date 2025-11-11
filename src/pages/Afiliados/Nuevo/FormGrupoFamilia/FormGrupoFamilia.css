@@ -26,7 +26,7 @@
 /* Contenedor para el input y el botón de agregar */
 .input-with-button {
   display: flex;
-  align-items: flex-end !important; 
+  align-items: flex-start !important; 
   gap: 1rem; 
   flex-wrap: wrap;
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { crearGrupo } from '../../services/afiliados/crearGrupo'
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { toastConSubtitulo } from '../../components/ToastConSubtitulo/ToastConSubtitulo' 
 export function useCrearGrupo(){
   const [loading,setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -12,16 +13,21 @@ export function useCrearGrupo(){
     setLoading(true)
     try {
       const grupoCreado = await crearGrupo(dataForm)
-      if(!grupoCreado){
+      if(grupoCreado.titular.error){
         setError('Error al crear grupo')
-        toast.error('Error al crear grupo')
+        toastConSubtitulo(
+          grupoCreado.titular.error,//Titulo
+          grupoCreado.titular.details[0],
+          'error'
+        )
+        return
       }
       toast.success('Grupo creado correctamente')
       setData(grupoCreado)
       navigate('/afiliados/gestionar/1/'+grupoCreado.titular.credencial)
     } catch (error) {
       console.error(error)
-      toast.error('Error en el servidor')
+      toastConSubtitulo('Error en el servidor', error.message, 'error')
       setError('Error al crear un grupo :'+error)
     }finally{
       setLoading(false)

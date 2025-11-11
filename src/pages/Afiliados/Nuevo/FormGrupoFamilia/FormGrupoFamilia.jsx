@@ -264,7 +264,9 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
             value={currentTelefono}
             handleChange={(e) => setCurrentTelefono(e.target.value)}
             error={errores?.telefonos} />
-          <AddButton onClick={addTelefono} />
+          <div style={{paddingTop:'1rem'}}>
+            <AddButton onClick={addTelefono} />
+          </div>
           <div className="saved-items-container">
             {dataForm.telefonos.map((tel, index) => (
               <ContactCard
@@ -282,7 +284,9 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
             value={currentEmail}
             handleChange={(e) => setCurrentEmail(e.target.value)}
             error={errores?.emails} />
-          <AddButton onClick={addEmail} className="button-add" />
+          <div style={{paddingTop:'1rem'}}>
+            <AddButton onClick={addEmail} className="button-add" />
+          </div>
           <div className="saved-items-container">
             {dataForm.emails.map((email, index) => (
               <ContactCard
@@ -304,7 +308,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
               handleChange={(e) => setCurrentDireccion(prev => ({
                 ...prev, [e.target.name] : e.target.value
               }))}
-              error={errores?.direcciones?.calle }
+              error={errores?.direcciones?.calle || errores?.direcciones}
             />
             <InputText
               text='N° Calle'
@@ -316,7 +320,9 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
               error={errores?.direcciones?.nro}
               requerido={false}
             />
-            <AddButton onClick={addDireccion} className="button-add" />
+            <div style={{paddingTop:'1rem'}}>
+              <AddButton onClick={addDireccion} className="button-add" />
+            </div>
             <div className="saved-items-container">
               {dataForm.direcciones.map((dir, index) => (
                 <ContactCard

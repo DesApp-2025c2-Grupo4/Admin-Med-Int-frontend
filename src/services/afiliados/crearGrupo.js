@@ -35,9 +35,10 @@ export const crearGrupo = async (dataForm)=>{
   //En caso de error
   if(!resTitular.ok){
     //Agregan fetch para eliminar el grupo
-    throw new Error('Error al crear el titular')
+    const deleteGroup = fetch(`${URL_API}/grupo/${grupo.idGrupo}`,{method:'DELETE'}) 
   }
   const titular = await resTitular.json()
+  
   return {grupo,titular}
 }
 
