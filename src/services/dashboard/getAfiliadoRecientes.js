@@ -7,7 +7,7 @@ export const getAfiliadoRecientes = async () => {
   });
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(afiliadosOrdenados.slice(0, 5)); 
+      resolve(afiliadosOrdenados); 
     }, 1000);
   });
 }
