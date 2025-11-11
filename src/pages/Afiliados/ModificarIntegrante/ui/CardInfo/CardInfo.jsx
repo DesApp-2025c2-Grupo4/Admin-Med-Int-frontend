@@ -4,13 +4,16 @@ import { SaveIcon } from '../../../../../assets/icons/Afiliados/SaveIcon'
 import { useState } from 'react'
 import { formatearTelefono} from '../../../../../utils/formatearNumeroDeTelefono'
 import { ModalDeConfirmacion} from '../../../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
+import { toast } from 'react-toastify'
 export function CardInfo({
   data,
   name,
   nameTabla,
   funcionActualizarDato,
-  funcionEliminarDato
+  funcionEliminarDato,
+  cantidadElementos
 }){
+  console.log(cantidadElementos)
   //Estado para mostrar modal
   const [showModal, setShowModal] = useState(false)
   const [mensajeModal, setMensajeModal] = useState()
@@ -30,14 +33,24 @@ export function CardInfo({
   }
   //Funciones handleClicks
   const handleClickGuardar = ()=>{
+    if(data[name] === dataCard[name]) return
     setShowModal(true)
     setMensajeModal(`¿Seguro que desea guardar cambios?`)
     setFuncionEjecutarModal(()=>funcionActualizarDato)
   }
   const handleClickEliminar = ()=>{
+    //Veo si hay al menos un elemento
+    if(cantidadElementos === 1) return toast.error(
+      <div>
+        <div style={{ fontWeight: 'bold' }}>No se puede eliminar</div>
+        <div  style={{fontSize:'calc(12px + 0.03vw)', marginTop:'5px'
+        }}>Debe haber al menos un {name === 'nroTelefono' ? 'Teléfono' : 'Email'}.</div>
+      </div>
+    )
     setShowModal(true)
     setMensajeModal(`¿Seguro que desea eliminar el ${name==='nroTelefono' ? 'Telefono': 'Email'}: ${name ==='nroTelefono'? formatearTelefono(data[name]):data[name]}?`)
     setFuncionEjecutarModal(()=>funcionEliminarDato)
+
   }
   return(
     <>

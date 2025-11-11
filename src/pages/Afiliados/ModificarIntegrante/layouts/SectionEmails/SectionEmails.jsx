@@ -40,6 +40,7 @@ export function SectionEmails({emails, personaId, setPersona}){
           nameTabla={'email'}
           funcionActualizarDato={editarEmail}
           funcionEliminarDato={eliminarEmail}
+          cantidadElementos={emails.length}
           />)
         }
       </section>

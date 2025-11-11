@@ -8,6 +8,7 @@ export function SectionSituaciones({situaciones}){
       <div style={{margin:'-1rem -1rem -2rem -1rem', display:'flex', justifyContent:'center'}}>
         <TitleSection text={'Situaciones cargadas(NO EDITABLES)'} />
       </div>
+      <div style={{display:'flex', gap:'1rem', flexWrap:'wrap'}}>
         {
           situaciones && 
           situaciones.length !== 0 ?
@@ -25,6 +26,8 @@ export function SectionSituaciones({situaciones}){
             </div>
 
         }
+      </div>
+        
     </>
   )
 }

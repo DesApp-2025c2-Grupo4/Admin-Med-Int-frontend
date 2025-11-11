@@ -41,6 +41,7 @@ export function SectionTelefono({telefonosLista,personaId,setPersona}){
             nameTabla={'telefono'}
             funcionEliminarDato={eliminarTelefono}
             funcionActualizarDato={editarTelefono}
+            cantidadElementos={telefonosLista.length}
           />)
         }
       </section>
