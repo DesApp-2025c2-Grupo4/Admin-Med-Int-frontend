@@ -17,6 +17,7 @@
   box-sizing: border-box;
   /* Fuente */
   font-family: sans-serif;
+  scroll-behavior: smooth;
 }
 a {
   text-decoration: none;

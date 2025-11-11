@@ -9,10 +9,12 @@ import { useGetAllGrupos } from "../../../hooks/useGetAllGrupos.jsx";
 import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection.jsx";
 import { useParams } from "react-router";
 import { useFiltrarBusqueda } from "../../../hooks/Afiliados/useFiltrarBusqueda.jsx";
+import { Paginacion } from '../../../components/Paginacion/Paginacion.jsx';
+import { useValidarNumeroPagina } from '../../../hooks/paginacion/useValidarNumeroPagina.jsx';
 export function GestionarAfiliados() {
-  const { credencial } = useParams();
+  const { page, credencial} = useParams();
   const { loadingGrupos, grupos } = useGetAllGrupos();
-
+  useValidarNumeroPagina(page, grupos?.length, '/afiliados/gestionar/')
   useCambiarTitulo({ title: "Gestión de Afiliados" });
 
   //Llamo a hooks
@@ -24,7 +26,7 @@ export function GestionarAfiliados() {
     setFiltro,
     filtrar,
     filtro,
-  } = useFiltrarBusqueda(credencial, grupos);
+  } = useFiltrarBusqueda(credencial, grupos,page);
   return (
     <>
       <section className="section_container box-border">
@@ -62,7 +64,7 @@ export function GestionarAfiliados() {
               <LoaderConTexto />
             </div>
           ) : allGrupos && allGrupos.length > 0 ? (
-            allGrupos.map((g) => (
+            allGrupos.slice(page*10-10, page*10).map((g) => (
               <CardGrupo
                 key={g.idGrupo}
                 idGrupo={g.idGrupo}
@@ -83,6 +85,11 @@ export function GestionarAfiliados() {
           )}
         </section>
       </section>
+      <Paginacion 
+        nroPage={page}
+        cantidadElementos={allGrupos.length}
+        path={'/afiliados/gestionar/'}
+      />
     </>
   );
 }

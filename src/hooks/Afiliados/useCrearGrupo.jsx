@@ -18,7 +18,7 @@ export function useCrearGrupo(){
       }
       toast.success('Grupo creado correctamente')
       setData(grupoCreado)
-      navigate('/afiliados/gestionar/'+grupoCreado.titular.credencial)
+      navigate('/afiliados/gestionar/1/'+grupoCreado.titular.credencial)
     } catch (error) {
       console.error(error)
       toast.error('Error en el servidor')

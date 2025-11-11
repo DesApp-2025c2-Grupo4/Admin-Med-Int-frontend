@@ -19,7 +19,7 @@ export const useCrearIntegrante = () => {
       }
       toast.success('Integrante creado  con éxito')
       setData(integranteCreado)
-      navigate('/afiliados/gestionar/'+integranteCreado.credencial)
+      navigate('/afiliados/gestionar/1/'+integranteCreado.credencial)
     } catch (error) {
       toast.error(error)
       setError(error)
