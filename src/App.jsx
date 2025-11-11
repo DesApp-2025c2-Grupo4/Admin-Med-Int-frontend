@@ -1,7 +1,6 @@
 import './App.css'
-import { Header } from './components/Header/Header.jsx'
-import { NavBarRoutes } from './routes/NavBarRoutes.jsx'
 import { ToastContainer } from 'react-toastify';
+import { MainRoutes } from './routes/MainRoutes.jsx';
 function App() {
   return (
     <>
@@ -17,14 +16,7 @@ function App() {
         icon={false}
         theme="light"
       />
-      {/* Header de todas las pantallas */}
-      <Header />
-
-      {/* Main principal */}
-      <main>
-        {/* Rutas Para el navBar */}
-        <NavBarRoutes />
-      </main>
+      <MainRoutes />
     </>
   )
 }
