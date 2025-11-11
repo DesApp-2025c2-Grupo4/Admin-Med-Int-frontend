@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useGetAgenda } from "../../../hooks/useGetAgenda";
-import { useGetAllPrestadores } from "../../../hooks/useGetAllPrestadores";
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo";
 import { TitleSection } from "../../../components/TitleSections/TitleSection";
 import { SearchIcon } from "../../../assets/icons/Afiliados/SearchIcon";
@@ -11,7 +10,6 @@ import { LoaderConTexto } from "../../../components/LoaderConTexto/LoaderConText
 
 export function GestionarAgenda() {
   const { loadingAgenda, agenda } = useGetAgenda();
-  const { loadingPrestadores, prestadores } = useGetAllPrestadores();
   const [fullAgenda, setFullAgenda] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("");
@@ -19,27 +17,14 @@ export function GestionarAgenda() {
   useCambiarTitulo({ title: "Gestión de Agenda" });
 
   useEffect(() => {
-    if (agenda && prestadores) {
-      const agendaConPrestador = agenda.map((a) => {
-        const prestador = prestadores.find(
-          (p) => p.prestadorId === a.prestadorId
-        );
-        return { ...a, prestador };
-      });
-
-      setFullAgenda(agendaConPrestador);
+    if (agenda) {
+      setFullAgenda(agenda);
     }
-  }, [agenda, prestadores]);
+  }, [agenda]);
 
   const filtrar = () => {
     if (!busqueda || !filtro) {
-      const agendaConPrestador = agenda.map((a) => {
-        const prestador = prestadores.find(
-          (p) => p.prestadorId === a.prestadorId
-        );
-        return { ...a, prestador };
-      });
-      setFullAgenda(agendaConPrestador);
+      setFullAgenda(agenda);
       return;
     }
 
@@ -49,47 +34,38 @@ export function GestionarAgenda() {
 
     switch (filtro) {
       case "nombre":
-        resultado = fullAgenda.filter((a) =>
+        resultado = agenda.filter((a) =>
           a.prestador?.nombre?.toLowerCase().includes(busq)
         );
         break;
 
       case "apellido":
-        resultado = fullAgenda.filter((a) =>
+        resultado = agenda.filter((a) =>
           a.prestador?.apellido?.toLowerCase().includes(busq)
         );
         break;
 
       case "especialidad":
-        resultado = fullAgenda.filter((a) =>
-          a.prestador?.especialidad?.some((e) =>
-            e.descripcion?.toLowerCase().includes(busq)
-          )
+        resultado = agenda.filter((a) =>
+          a.especialidad?.descripcion?.toLowerCase().includes(busq)
         );
         break;
 
       case "lugarDeAtención":
-        resultado = fullAgenda.filter((a) =>
-          a.prestador?.direccion?.some((d) =>
-            d.calle?.toLowerCase().includes(busq)
-          )
+        resultado = agenda.filter((a) =>
+          a.direccion.calle?.toLowerCase().includes(busq)
         );
         break;
 
       case "todos":
-        resultado = agenda.map((a) => {
-          const prestador = prestadores.find(
-            (p) => p.prestadorId === a.prestadorId
-          );
-          return { ...a, prestador };
-        });
+        resultado = agenda;
         break;
 
       default:
         resultado = fullAgenda;
     }
 
-    setFullAgenda(resultado);
+    setFullAgenda([...resultado]);
   };
 
   return (
@@ -137,7 +113,7 @@ export function GestionarAgenda() {
           </div>
         </div>
         <section className="section-tabla-agenda">
-          {loadingPrestadores && loadingAgenda ? (
+          {loadingAgenda ? (
             <div className="centrar">
               <LoaderConTexto />
             </div>

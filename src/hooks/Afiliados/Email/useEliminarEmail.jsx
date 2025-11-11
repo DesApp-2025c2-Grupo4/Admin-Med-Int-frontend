@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { eliminarUnEmail } from '../../../services/afiliados/Email/eliminarUnEmail';
+import { toast } from 'react-toastify';
 
 export function useEliminarEmail(setPersona) {
   const [loadingEliminarEmail, setLoadingEliminarEmail] = useState(false);
@@ -17,12 +18,12 @@ export function useEliminarEmail(setPersona) {
           ...prev,
           email: prev.email.filter(e => e.emailId !== emailId)
         }));
-        alert('Email eliminado con éxito');
+        toast.success('Email eliminado con éxito');
         setData(emailEliminado);
       }
     } catch (error) {
       console.log(error);
-      alert(error);
+      toast.error('Error en el servidor.');
       setError(error);
     } finally {
       setLoadingEliminarEmail(false);

@@ -79,7 +79,7 @@ export function TableBodyIntegrantes({integrantesDelGrupo}){
                   <tr className={`${i.esElBuscado ? 'es-el-buscado' : ''} tableGrupo__tbody-tr`} key={i.personaId}>
                     <td className="tableGrupo__tbody-td-estado"><IconoEstado estado={i.esActivo}/></td>
                     <td className="tableGrupo__tbody-td">{i.credencial}</td>
-                    <td className="tableGrupo__tbody-td">{`${i.nombre}, ${i.apellido}`}</td>
+                    <td className="tableGrupo__tbody-td">{`${i.nombre} ${i.apellido}`}</td>
                     <td className="tableGrupo__tbody-td">{i.dni}</td>
                     <td className="tableGrupo__tbody-td">
                       {i.fechaNacimiento}

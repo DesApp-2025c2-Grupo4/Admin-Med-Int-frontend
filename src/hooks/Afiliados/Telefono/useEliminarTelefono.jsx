@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { eliminarUnTelefono } from '../../../services/afiliados/Telefono/eliminarUnTelefono';
+import { toast } from 'react-toastify';
 export function useEliminarTelefono(setPersona){
   const [loadingEliminarTelefono, setLoadingEliminarTelefono] = useState(false)
   const [error, setError] = useState('')
@@ -12,12 +13,12 @@ export function useEliminarTelefono(setPersona){
       const telefonoEliminado = await eliminarUnTelefono(telefonoId)
       if(telefonoEliminado){
         setPersona(prev=>({...prev, telefonos: prev.telefonos.filter(t=>t.telefonoId !==telefonoId)}))
-        alert('Telefono Eliminado con éxito')
+        toast.success('Telefono Eliminado con éxito')
         setData(telefonoEliminado)
       }
     } catch (error) {
       console.log(error)
-      alert(error)
+      toast.error('Error en el servidor')
       setError(error)
     } finally{
       setLoadingEliminarTelefono(false)

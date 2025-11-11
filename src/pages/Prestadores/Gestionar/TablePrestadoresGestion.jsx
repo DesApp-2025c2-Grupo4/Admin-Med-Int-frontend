@@ -9,26 +9,7 @@ import { useState, useEffect } from "react";
 import { ModalDeConfirmacion } from "../../../components/ModalDeConfirmacion/ModalDeConfirmacion";
 import { useEliminarUnPrestador } from "../../../hooks/Prestador/useEliminarUnPrestador";
 export function TablePrestadoresGestion({ listHeader, data }) {
-  /*
-    Entrada: 
-      -> listHeader: Lista de encabezados para la tabla. Tiene la siguiente estructura
-        listHeader: ['encabezado1',...,'encabezadoN']
-      -> data: lista de prestadores. tiene la siguiente estructura
-        data [
-            {
-                prestadorId: 9,
-                nombre: 'Sofia',
-                apellido: 'Castro',
-                email: 'sofia.castro@algo.com',
-                tipoPrestador: 'Independiente',
-                telefonos: [{ idTelefono: 9, nro: '2321320' }],
-                direccion: [{ idDireccion: 9, calle: 'Mitre', nro: 456 }],
-                codigoPostal: "1358",
-                cuilCuit: '20345678909',
-                especialidad: [{ idEspecialidad: 9, descripcion: 'Oftalmologia' }]
-            }
-        ]
-  */
+
   //estados de prestadores
   const [prestadores, setPrestadores] = useState(data);
   //Estado de modal
@@ -95,7 +76,7 @@ export function TablePrestadoresGestion({ listHeader, data }) {
                 style={{ position: "relative" }}
               >
                 <td className="tablePrestador__tbody-td">{d.cuilCuit}</td>
-                <td className="tablePrestador__tbody-td">{d.apellido ? (`${d.nombre}, ${d.apellido}`) : (`${d.nombre}`)}</td>
+                <td className="tablePrestador__tbody-td">{d.apellido ? (`${d.nombre} ${d.apellido}`) : (`${d.nombre}`)}</td>
                 <td className="tablePrestador__tbody-td">
                   {d.direccion?.length > 1 ? (
                     <>

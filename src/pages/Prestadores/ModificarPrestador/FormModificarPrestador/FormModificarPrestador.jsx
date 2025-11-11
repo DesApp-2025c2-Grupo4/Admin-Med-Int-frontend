@@ -9,9 +9,9 @@ import { RegisterGroup } from '../../../../components/ui/RegisterGroup/RegisterG
 import { updatePrestadorService } from '../../../../services/prestadores/modificarPrestador.js';
 import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx'
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
+import { toast } from "react-toastify";
 
 export function FormModificarPrestador({ text, initialData }) {
-    console.log(initialData);
     const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
     // Determina el tipo de prestador inicial
     const [tipoPrestador, setTipoPrestador] = useState(() => {
@@ -162,7 +162,7 @@ export function FormModificarPrestador({ text, initialData }) {
             setCurrentDireccion('');
             setCurrentCodigoPostal(''); 
         } else {
-             alert('Por favor, ingrese tanto la dirección como el código postal.');
+            toast.error('Por favor, ingrese tanto la dirección como el código postal.')
         }
     };
 
@@ -191,8 +191,7 @@ export function FormModificarPrestador({ text, initialData }) {
     
         const prestadorId = initialData.prestadorId;
         if (!prestadorId) {
-            console.error("No se encontró el ID del prestador para actualizar.");
-            alert("Error: ID del prestador no disponible.");
+            toast.error("Error: ID del prestador no disponible.")
             return;
         }
 
@@ -204,6 +203,22 @@ export function FormModificarPrestador({ text, initialData }) {
 
         if (!isValidCuilCuit(dataForm.cuilCuit.trim())) {
             setErrorCuilCuit('El CUIL/CUIT debe tener el formato XX-XXXXXXXX-X (ej: 20-12345678-9).');
+            return;
+        }
+        
+        // Validacion que tenga al menos un contacto
+        if (dataForm.telefonos.length === 0) {
+            toast.error('Debe agregar al menos un teléfono.')
+            return;
+        }
+
+        if (dataForm.emails.length === 0) {
+            toast.error('Debe agregar al menos un email.')
+            return;
+        }
+
+        if (dataForm.direcciones.length === 0) {
+            toast.error('Debe agregar al menos una dirección.')
             return;
         }
 
@@ -221,12 +236,9 @@ export function FormModificarPrestador({ text, initialData }) {
     try {
 
         const result = await updatePrestadorService(bodyToSend, tipoPrestador, prestadorId);
-        
-        console.log('Prestador actualizado con éxito:', result);
-        alert('Cambios guardados exitosamente.');
+        toast.success('Cambios guardados exitosamente.')
     } catch (error) {
-        console.error('Error al guardar los cambios:', error.message);
-        alert(`Error al guardar: ${error.message}`);
+        toast.error('Error al guardar.')
     }
 };
     const handleSubmit = (e) => {
