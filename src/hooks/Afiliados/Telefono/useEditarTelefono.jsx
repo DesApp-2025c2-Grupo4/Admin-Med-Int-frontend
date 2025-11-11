@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { editarUnTelefono } from '../../../services/afiliados/Telefono/editarUnTelefono';
+import { toast } from 'react-toastify';
 export function useEditarTelefono(setPersona){
   const [loadingEditarTelefono, setLoadingEditarTelefono] = useState(false)
   const [error, setError] = useState('')
@@ -11,12 +12,12 @@ export function useEditarTelefono(setPersona){
       const telefonoEditado = await editarUnTelefono(telefonoId,data)
       if(telefonoEditado){
         setPersona(prev=>({...prev, telefonos: prev.telefonos.filter(t=>t.telefonoId ===telefonoId ? telefonoEditado : t)}))
-        alert('Telefono Editado con éxito')
+        toast.success('Telefono Editado con éxito')
         setData(telefonoEditado)
       }
     } catch (error) {
       console.log(error)
-      alert(error)
+      toast.error('Error al Editar el telefono')
       setError(error)
     } finally{
       setLoadingEditarTelefono(false)

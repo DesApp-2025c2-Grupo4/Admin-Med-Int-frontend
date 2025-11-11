@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { editarUnEmail } from '../../../services/afiliados/Email/editarUnEmail';
+import { toast } from 'react-toastify';
 
 export function useEditarEmail(setPersona) {
   const [loadingEditarEmail, setLoadingEditarEmail] = useState(false);
@@ -15,12 +16,12 @@ export function useEditarEmail(setPersona) {
           ...prev,
           email: prev.email.map(e => e.emailId === emailId ? emailEditado : e)
         }));
-        alert('Email editado con éxito');
+        toast.success('Email editado con éxito');
         setData(emailEditado);
       }
     } catch (error) {
       console.log(error);
-      alert(error);
+      toast.success('Error en el servidor');
       setError(error);
     } finally {
       setLoadingEditarEmail(false);
