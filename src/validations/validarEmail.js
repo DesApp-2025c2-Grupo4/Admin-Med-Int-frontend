@@ -1,5 +1,4 @@
 export const validarEmail = (email,listaEmails)=>{
-  console.log(email, listaEmails)
   let error = ''
   if (email === '') {
     error = 'El email no puede ser vacio'

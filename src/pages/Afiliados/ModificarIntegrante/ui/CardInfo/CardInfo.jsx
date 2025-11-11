@@ -13,7 +13,6 @@ export function CardInfo({
   funcionEliminarDato,
   cantidadElementos
 }){
-  console.log(cantidadElementos)
   //Estado para mostrar modal
   const [showModal, setShowModal] = useState(false)
   const [mensajeModal, setMensajeModal] = useState()

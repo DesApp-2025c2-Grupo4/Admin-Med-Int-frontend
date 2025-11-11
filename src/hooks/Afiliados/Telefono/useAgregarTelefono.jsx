@@ -7,7 +7,6 @@ export function useAgregarTelefono(setPersona){
   const [data, setData] = useState('')
 
   const agregarTelefono = async (telefono, idPersona)=>{
-    console.log(telefono,idPersona)
     setLoading(true)
     try {
       const telefonoAgregado = await agregarUnTelefono(telefono, idPersona)
@@ -17,7 +16,7 @@ export function useAgregarTelefono(setPersona){
         setData(telefonoAgregado)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.error('Error en el servidor')
       setError(error)
     } finally{

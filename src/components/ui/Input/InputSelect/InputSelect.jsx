@@ -11,7 +11,6 @@ export function InputSelect({
   disabled = false,
   defaultText = "Selecciona una opción"
 }) {
-  console.log(value)
   return (
     <div className="input-container">
       <label htmlFor={text}>

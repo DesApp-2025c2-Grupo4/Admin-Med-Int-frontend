@@ -9,7 +9,6 @@ export function ReporteSituacionesGenerado() {
   const integrante = location.state?.integrante;
   const integrantes = location.state?.integrantes;
   const nroGrupo = location.state?.nroGrupo;
-  console.log(location.state);
 
   let situaciones = [];
   let titulo = "";

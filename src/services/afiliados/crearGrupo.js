@@ -99,6 +99,5 @@ export function crearObjetoPersona(data,idGrupo){
     situacionesTerapeuticas: situacionesFormateadas
   };
 
-  console.log(integrante)
   return integrante
 }

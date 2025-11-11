@@ -60,7 +60,6 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
   }
 
   const handleDeleteItem = (listName, itemToDelete) => {
-    console.log(itemToDelete)
     const normalizedItemToDelete = itemToDelete.trim().toUpperCase()
     setDataForm(prev => ({
       ...prev,
@@ -184,7 +183,6 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
     e.preventDefault()
     
     const erroresDeFormulario = validarFormulario(dataForm, grupo)
-    console.log(erroresDeFormulario)
     
     // Si hay al menos un error (valor distinto de null), se detiene el submit
     const hayErrores = Object.values(erroresDeFormulario).some(value => value !== '')

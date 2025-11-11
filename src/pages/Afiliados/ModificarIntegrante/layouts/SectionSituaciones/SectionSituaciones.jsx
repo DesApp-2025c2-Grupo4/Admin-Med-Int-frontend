@@ -2,7 +2,6 @@ import { TitleSection } from '../../../../../components/TitleSections/TitleSecti
 import { SituacionCard} from '../../../../../components/ui/Cards/SituacionCard/SituacionCard'
 import { SubTitleSection } from '../../../../../components/ui/SubTitleSection/SubTitleSection'
 export function SectionSituaciones({situaciones}){
-  console.log(situaciones)
   return(
     <>
       <div style={{margin:'-1rem -1rem -2rem -1rem', display:'flex', justifyContent:'center'}}>

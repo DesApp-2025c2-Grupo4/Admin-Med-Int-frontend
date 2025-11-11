@@ -29,7 +29,6 @@ export function ReporteSituacionesTerapeuticas() {
       setGrupoEncontrado(grupoFiltrado || null);
       setIntegranteSeleccionado(null);
       setBusquedaRealizada(true);
-      console.log(grupoFiltrado);
     } catch (error) {
       console.error(`Error al buscar el grupo ${nroGrupo}:`, error);
       setGrupoEncontrado(null);

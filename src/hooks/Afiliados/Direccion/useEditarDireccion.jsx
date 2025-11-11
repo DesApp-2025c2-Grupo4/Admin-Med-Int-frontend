@@ -20,7 +20,7 @@ export function useEditarDireccion(setPersona) {
         setData(direccionEditado);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.success('Error en el servidor')
       setError(error);
     } finally {

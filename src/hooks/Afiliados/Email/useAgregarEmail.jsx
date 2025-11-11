@@ -8,7 +8,6 @@ export function useAgregarEmail(setPersona) {
   const [data, setData] = useState('');
 
   const agregarEmail = async (email, idPersona) => {
-    console.log(email, idPersona);
     setLoading(true);
     try {
       const emailAgregado = await agregarUnEmail(email, idPersona);
@@ -21,7 +20,7 @@ export function useAgregarEmail(setPersona) {
         setData(emailAgregado);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.success('Error en el servidor')
       setError(error);
     } finally {
