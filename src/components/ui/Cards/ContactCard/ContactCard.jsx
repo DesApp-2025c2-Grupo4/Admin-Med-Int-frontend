@@ -13,7 +13,7 @@ export function ContactCard({ texto, onDelete, isDireccion = false }) {
     const textoMostrar = isDireccion
         ? [
             texto.calle,
-            texto.nro ? `- ${texto.nro}` : '', 
+            texto.nro ? `- ${texto.nro}` : 'N/A', 
             texto.codigoPostal ? `(CP: ${texto.codigoPostal})` : ''
           ]
           .filter(part => part) 
