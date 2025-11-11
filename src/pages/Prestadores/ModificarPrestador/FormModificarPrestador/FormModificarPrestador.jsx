@@ -58,7 +58,7 @@ export function FormModificarPrestador({ text, initialData }) {
         { id: "", descripcion: "Ninguno" }, 
         ...(datosParaFormulario?.centrosMedicos.map(centro => ({
             id: centro.prestadorId, 
-            descripcion: centro.nombre 
+            descripcion: `${centro.nombre} ${centro.apellido}`
         })) || [])
     ];
 

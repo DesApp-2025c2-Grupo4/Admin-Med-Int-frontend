@@ -1,8 +1,9 @@
 import { useParams } from "react-router";
 import { useGetDetallePrestador } from "../../../hooks/useGetDetalleDePrestador";
-import { Loader } from "../../../components/Loader/Loader";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { FormModificarPrestador } from "./FormModificarPrestador/FormModificarPrestador.jsx";
+import { SubTitleSection } from '../../../components/ui/SubTitleSection/SubTitleSection.jsx';
+import { LoaderConTexto } from '../../../components/LoaderConTexto/LoaderConTexto.jsx';
 
 export function ModificarPrestador() {
   const { id } = useParams();
@@ -12,9 +13,13 @@ export function ModificarPrestador() {
     <section className="section__modificar-prestador-container box-border">
       <TitleSection text="Modificar Prestador" />
       {loadingPrestador ? (
-        <Loader />
+        <div style={{display:'flex', justifyContent:'center', alignItems: 'center', height:'20vh'}}>
+          <LoaderConTexto text={'Cargando datos del formulario'} />
+        </div>
       ) : error ? (
-        <h2 className="message-error">{error}</h2>
+        <div className='error-message'>
+          <SubTitleSection text={'No se pudo cargar los datos del formulario.'}/>
+        </div>
       ) : (
         <FormModificarPrestador text="Datos del prestador" initialData={prestador} />
       )}
