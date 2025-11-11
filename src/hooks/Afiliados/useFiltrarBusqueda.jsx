@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-
+import { useNavigate } from 'react-router';
 export function useFiltrarBusqueda(credencial, grupos) {
   const [allGrupos, setAllGrupos] = useState(grupos ?? []);
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("");
-
+  const navigate = useNavigate()
   const filtrar = () => {
     if (!busqueda && !filtro) {
       setAllGrupos(grupos);
       return;
     }
-
+    navigate('/afiliados/gestionar/1')
     const texto = busqueda.toLowerCase();
     let resultado = [];
 

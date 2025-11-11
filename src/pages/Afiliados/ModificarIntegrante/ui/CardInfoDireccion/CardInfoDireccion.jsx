@@ -3,10 +3,12 @@ import { DeleteIcon } from '../../../../../assets/icons/Afiliados/DeleteIcon'
 import { SaveIcon } from '../../../../../assets/icons/Afiliados/SaveIcon'
 import { useState } from 'react'
 import { ModalDeConfirmacion} from '../../../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
+import { toast } from 'react-toastify'
 export function CardInfoDireccion({
   data,
   funcionActualizarDato,
-  funcionEliminarDato
+  funcionEliminarDato,
+  cantidadElementos
 }){
   //Estado para mostrar modal
   const [showModal, setShowModal] = useState(false)
@@ -35,6 +37,12 @@ export function CardInfoDireccion({
     setFuncionEjecutarModal(()=>funcionActualizarDato)
   }
   const handleClickEliminar = ()=>{
+    if(cantidadElementos ===1)return toast.error(
+      <div>
+        <div style={{ fontWeight: 'bold' }}>No se puede eliminar</div>
+        <div style={{fontSize:'calc(12px + 0.03vw)', marginTop:'5px'}}>Debe haber al menos una Dirección.</div>
+      </div>
+    )
     setShowModal(true)
     setMensajeModal(`¿Seguro que desea eliminar la direccion: ${dataCard.calle} - ${data.nro ? data.nro:'N/A'}`)
     setFuncionEjecutarModal(()=>funcionEliminarDato)

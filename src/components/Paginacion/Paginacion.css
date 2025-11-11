@@ -1,0 +1,27 @@
+.paginacion-container{
+  display: flex;
+  justify-content: center ;
+  gap: 1rem;
+  align-items: center;
+}
+.numero-page{
+  font-weight: 600;
+  color: #08315E;
+}
+
+.btn-paginacion{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background-color: #08315E;
+  color: #daecff;
+  cursor: pointer;
+  transition: all ease .2s;
+  &:hover{
+    background-color: #052446;
+  }
+}
+.btn-paginacion:disabled{
+  opacity: 0.5;
+}

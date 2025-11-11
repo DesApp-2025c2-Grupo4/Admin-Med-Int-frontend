@@ -38,6 +38,7 @@ export function SectionDirecciones({direcciones, personaId, setPersona}){
           nameTabla={'direccion'}
           funcionActualizarDato={editarDireccion}
           funcionEliminarDato={eliminarDireccion}
+          cantidadElementos={direcciones.length}
           />)
         }
       </section>
