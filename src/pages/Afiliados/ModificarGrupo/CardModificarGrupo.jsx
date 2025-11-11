@@ -118,17 +118,16 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
           listaDeOpciones={datosParaFormulario.planesMedicos}
           value={dataForm.planId}
           handleChange={handleChange}
-          
         />
         <InputDate
-          text="Fecha de Registro"
+          text="Fecha de Alta"
           name="fechaAlta"
           value={dataForm.fechaAlta}
           handleChange={handleChange}
           error={errores?.fechaAlta}
         />
         <InputDate
-          text="Fecha de Registro"
+          text="Fecha de Baja"
           name="fechaBaja"
           value={dataForm.fechaBaja || ''}
           handleChange={handleChange}

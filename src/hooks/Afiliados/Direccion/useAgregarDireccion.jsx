@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { agregarUnaDireccion } from '../../../services/afiliados/Direccion/agregarUnaDireccion';
+import { toast } from 'react-toastify';
 
 export function useAgregarDireccion(setPersona) {
   const [loading, setLoading] = useState(false);
@@ -16,12 +17,12 @@ export function useAgregarDireccion(setPersona) {
           ...prev,  
           direcciones: [...prev.direcciones, direccionAgregado]
         }));
-        alert('Direccion agregada con éxito');
+        toast.success('Dirección agregada correctamente.')
         setData(direccionAgregado);
       }
     } catch (error) {
       console.log(error);
-      alert(error);
+      toast.success('Error en el servidor')
       setError(error);
     } finally {
       setLoading(false);

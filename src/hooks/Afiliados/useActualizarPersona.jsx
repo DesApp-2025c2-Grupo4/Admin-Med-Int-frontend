@@ -15,7 +15,7 @@ export function useActualizarPersona(setPersona){
     } catch (error) {
       console.log(error)
       setError(error)
-      toast.error(error)
+      toast.error('Error en el servidor.')
     }
     finally{
       setLoading(false)

@@ -11,6 +11,7 @@ export function InputSelect({
   disabled = false,
   defaultText = "Selecciona una opción"
 }) {
+  console.log(value)
   return (
     <div className="input-container">
       <label htmlFor={text}>
@@ -45,7 +46,7 @@ export function InputSelect({
         {listaDeOpciones.map((o, index) => (
           <option
             key={index}
-            value={o.id || o.idDia || o.value || ""}
+            value={o.id || o.idDia || o.value || "" || o}
           >
             {o.descripcion || o.label || o.texto || o.toString()}
           </option>

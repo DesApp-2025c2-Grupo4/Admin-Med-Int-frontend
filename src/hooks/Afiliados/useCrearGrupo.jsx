@@ -14,14 +14,14 @@ export function useCrearGrupo(){
       const grupoCreado = await crearGrupo(dataForm)
       if(!grupoCreado){
         setError('Error al crear grupo')
-        alert(error)
+        toast.error('Error al crear grupo')
       }
       toast.success('Grupo creado correctamente')
       setData(grupoCreado)
       navigate('/afiliados/gestionar/'+grupoCreado.titular.credencial)
     } catch (error) {
       console.error(error)
-      toast.error(error)
+      toast.error('Error en el servidor')
       setError('Error al crear un grupo :'+error)
     }finally{
       setLoading(false)

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { eliminarUnaDireccion } from '../../../services/afiliados/Direccion/eliminarUnaDireccion';
+import { toast } from 'react-toastify';
 
 export function useEliminarDireccion(setPersona) {
   const [loadingEliminarDireccion, setLoadingEliminarDireccion] = useState(false);
@@ -15,12 +16,12 @@ export function useEliminarDireccion(setPersona) {
           ...prev,
           direcciones: prev.direcciones.filter(d => d.direccionId !== direccionId)
         }));
-        alert('Direccion eliminada con éxito');
+        toast.success('Direccion eliminada con éxito');
         setData(direccionEliminada);
       }
     } catch (error) {
       console.log(error);
-      alert(error);
+      toast.success('Error en el servidor')
       setError(error);
     } finally {
       setLoadingEliminarDireccion(false);

@@ -60,6 +60,7 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
   }
 
   const handleDeleteItem = (listName, itemToDelete) => {
+    console.log(itemToDelete)
     const normalizedItemToDelete = itemToDelete.trim().toUpperCase()
     setDataForm(prev => ({
       ...prev,
@@ -71,7 +72,16 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
 
   const deleteTelefono = (telefono) => handleDeleteItem('telefonos', telefono)
   const deleteEmail = (email) => handleDeleteItem('emails', email)
-  const deleteDireccion = (direccion) => handleDeleteItem('direcciones', direccion)
+  const deleteDireccion = (direccion) => {
+    const calleDireccion = direccion.calle
+    const nroDireccion = direccion.nro
+    setDataForm(prev => ({
+      ...prev,
+      direcciones: prev.direcciones.filter(
+        d => d.calle !== calleDireccion || d.nro !== nroDireccion
+      )
+    }))
+  }
   const deleteSituacion = (id) => {
     setDataForm(prev => ({
       ...prev,

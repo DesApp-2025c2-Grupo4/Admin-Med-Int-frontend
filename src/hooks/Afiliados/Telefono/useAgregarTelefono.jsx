@@ -18,7 +18,7 @@ export function useAgregarTelefono(setPersona){
       }
     } catch (error) {
       console.log(error)
-      toast.error(error)
+      toast.error('Error en el servidor')
       setError(error)
     } finally{
       setLoading(false)

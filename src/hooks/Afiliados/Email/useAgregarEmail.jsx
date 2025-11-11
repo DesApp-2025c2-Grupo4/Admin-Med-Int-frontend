@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { agregarUnEmail } from '../../../services/afiliados/Email/agregarUnEmail';
+import { toast } from 'react-toastify';
 
 export function useAgregarEmail(setPersona) {
   const [loading, setLoading] = useState(false);
@@ -16,12 +17,12 @@ export function useAgregarEmail(setPersona) {
           ...prev,
           email: [...prev.email, emailAgregado]
         }));
-        alert('Email agregado con éxito');
+        toast.success('Email agregado con éxito');
         setData(emailAgregado);
       }
     } catch (error) {
       console.log(error);
-      alert(error);
+      toast.success('Error en el servidor')
       setError(error);
     } finally {
       setLoading(false);

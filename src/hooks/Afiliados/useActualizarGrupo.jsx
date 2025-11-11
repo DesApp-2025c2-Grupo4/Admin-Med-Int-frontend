@@ -10,15 +10,16 @@ export function useActualizarUnGrupo(id,setDataForm,setGrupoFamiliar){
     setLoading(true)
     try {
       const grupoActualizado = await actualizarUnGrupo(id,data)
+      console.log(grupoActualizado)
       setGrupoFamiliar(prev=>({
         ...prev,
-        planMedico: grupoActualizado.planMedico,
+        planId: grupoActualizado.planId,
         fechaAlta: grupoActualizado.fechaAlta,
         fechaBaja: grupoActualizado.fechaBaja,
         esActivo:grupoActualizado.esActivo
       }))
       setDataForm({
-        planMedico: grupoActualizado.planMedico,
+        planId: grupoActualizado.planId,
         fechaAlta: grupoActualizado.fechaAlta,
         fechaBaja: grupoActualizado.fechaBaja
       })
@@ -26,7 +27,7 @@ export function useActualizarUnGrupo(id,setDataForm,setGrupoFamiliar){
       setData(grupoActualizado)
     } catch (error) {
       console.log(error)
-      toast.error(error)
+      toast.error('Error en el servidor')
       setError(error)
     }finally{
       setLoading(false)
