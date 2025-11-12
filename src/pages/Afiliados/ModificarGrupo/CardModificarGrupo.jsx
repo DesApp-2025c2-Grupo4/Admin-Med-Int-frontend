@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { DeleteIcon } from "../../../assets/icons/Afiliados/DeleteIcon";
 import { InputSelect } from "../../../components/ui/Input/InputSelect/InputSelect";
 import { InputDate } from "../../../components/ui/Input/InputDate/InputDate";
@@ -45,12 +44,11 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
     const hayErrores = Object.values(erroresObtenidos).some(value => value !== '')
     //Retorno en caso de errores
     if(hayErrores){
-      console.log('Llego aquí')
       setErrores(erroresObtenidos)
-      console.log(erroresObtenidos)
       return
     }
 
+    //Ejecuto la funcion para actualizar
     actualizarGrupo(dataForm)
     setErrores({})
   }
@@ -58,10 +56,6 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
   const handleEliminar = (id)=>{
     setShowModal(false)
     deleteGroup(id)
-  }
-  //EN CASO DE NO CARGAR DATA FORM
-  if(!datosParaFormulario?.planesMedicos){
-    return <h2>No se pudieron obtener los planes medicos</h2>
   }
 
   //Retorno
@@ -129,11 +123,16 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
       </div>
       <div className="container_botones_modificarGrupo">
         <AddMember idGrupo={grupo.idGrupo}/>
-        <div onClick={handleSubmit}>
-          <RegisterGroup text={'Guardar Cambios'}/>
+        <div onClick={handleSubmit} >
+          <RegisterGroup text={'Guardar Cambios'} disabled={huboCambios(grupo,dataForm)}/>
         </div>
       </div>
     </section>
   );
 }
 
+const huboCambios = (grupo, data) => {
+  return grupo.fechaAlta === data.fechaAlta && 
+    grupo.fechaBaja ===data.fechaBaja &&
+    grupo.planId === data.planId
+}

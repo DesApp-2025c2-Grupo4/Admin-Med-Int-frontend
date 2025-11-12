@@ -3,6 +3,7 @@ import { useGetGrupoFamiliar } from "../../../hooks/useGetGrupoFamiliar";
 import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo";
 import { TitleSection } from "../../../components/TitleSections/TitleSection";
 import { CardModificarGrupo } from "./CardModificarGrupo";
+import { SubTitleSection } from '../../../components/ui/SubTitleSection/SubTitleSection';
 import { Loader } from "../../../components/Loader/Loader";
 import './ModificarGrupo.css'
 
@@ -23,7 +24,9 @@ export function ModificarGrupo() {
               <Loader />
             </div> //Muestra el Loader en caso de estar cargando
           ) : error ? ( //Muestra el error en caso de estar cargando
-            <h2 className="message-error">{error}</h2>
+            <div className="sin-resultados-section">
+              <SubTitleSection text={"No se pudieron cargar los datos del formulario."} />
+            </div>
           ) : (
             <CardModificarGrupo grupo={grupoFamiliar} setGrupoFamiliar={setGrupoFamiliar}/>
           )}
