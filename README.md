@@ -1,4 +1,4 @@
-#Frontend: 🩺 Aplicación de Administración de Medicina Integral
+# FRONTEND: 🩺 Aplicación de Administración de Medicina Integral
 
 ## 📋 Descripción general
 La aplicación **Administración de Medicina Integral** tiene como propósito gestionar la información de **afiliados** y **prestadores médicos**, incluyendo la administración de grupos familiares, agendas de turnos y horarios de atención.  
