@@ -45,21 +45,13 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
     const hayErrores = Object.values(erroresObtenidos).some(value => value !== '')
     //Retorno en caso de errores
     if(hayErrores){
+      console.log('Llego aquí')
       setErrores(erroresObtenidos)
+      console.log(erroresObtenidos)
       return
     }
-    const dataToSend = { ...dataForm };
-    
-    // Convertir cadena vacia a null para campos de fecha opcionales
-    if (dataToSend.fechaBaja === '') {
-        dataToSend.fechaBaja = null;
-    }
 
-    if (dataToSend.fechaAlta === '') {
-        dataToSend.fechaAlta = null;
-    }
-    
-    actualizarGrupo(dataToSend)
+    actualizarGrupo(dataForm)
     setErrores({})
   }
   //Control para eliminar grupo

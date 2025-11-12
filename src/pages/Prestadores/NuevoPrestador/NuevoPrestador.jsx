@@ -1,6 +1,4 @@
 import { TitleSection } from "../../../components/TitleSections/TitleSection"
-import { AddMember } from "../../../components/ui/AddMember/AddMember"
-import { Register } from "../../../components/ui/Register/Register"
 import { FormNuevoPrestador } from "./FormNuevoPrestador/FormNuevoPrestador.jsx"
 import './NuevoPrestador.css'
 
