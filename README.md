@@ -181,7 +181,7 @@ Una vez levantado el servidor, podés acceder desde:
 - `GET /reportes/especialidades` → Cantidad de prestadores por especialidad.  
 - `GET /reportes/terapeuticas` → Situaciones terapéuticas por afiliado.  
 - `GET /reportes/prestadores-sin-agenda` → Prestadores sin agendas cargadas.
-
+```
 ---
 
 
