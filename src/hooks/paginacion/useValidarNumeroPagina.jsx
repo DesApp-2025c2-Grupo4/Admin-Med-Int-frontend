@@ -15,6 +15,7 @@ export function useValidarNumeroPagina(page, cantidadElementos, path) {
       navigate(`${path}1`)
       return
     }
+    if(cantidadElementos===0)return
     if (page > totalPaginas) {
       navigate(`${path}${totalPaginas}`)
       return

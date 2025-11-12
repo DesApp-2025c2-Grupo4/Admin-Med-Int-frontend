@@ -15,6 +15,7 @@ import { ModalDeConfirmacion} from '../../../components/ModalDeConfirmacion/Moda
 export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
   //Datos para el formulario
   const {datosParaFormulario} = useDataFormAfiliados()
+  console.log(datosParaFormulario)
   const [dataForm, setDataForm] = useState({
     planId: grupo.planId,
     fechaAlta: grupo.fechaAlta,
@@ -101,7 +102,7 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
         <InputSelect
           text="Plan médico"
           name="planId"
-          listaDeOpciones={datosParaFormulario.planesMedicos}
+          listaDeOpciones={datosParaFormulario?.planesMedicos}
           value={dataForm.planId}
           handleChange={handleChange}
         />

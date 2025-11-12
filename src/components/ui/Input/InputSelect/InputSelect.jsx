@@ -42,7 +42,7 @@ export function InputSelect({
       >
         <option value="">{defaultText}</option>
 
-        {listaDeOpciones.map((o, index) => (
+        {listaDeOpciones?.map((o, index) => (
           <option
             key={index}
             value={o.id || o.idDia || o.value || "" || o}
