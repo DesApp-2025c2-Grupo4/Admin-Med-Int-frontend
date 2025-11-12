@@ -1,6 +1,4 @@
-# 🩺 Aplicación de Administración de Medicina Integral
-
-![Logo](./src/assets/imgs/logo.png)
+#Frontend: 🩺 Aplicación de Administración de Medicina Integral
 
 ## 📋 Descripción general
 La aplicación **Administración de Medicina Integral** tiene como propósito gestionar la información de **afiliados** y **prestadores médicos**, incluyendo la administración de grupos familiares, agendas de turnos y horarios de atención.  
@@ -9,15 +7,6 @@ Está diseñada para ser utilizada por el **personal administrativo** de la empr
 ---
 
 ## 🚀 Tecnologías utilizadas
-
-### Backend
-- **Node.js** – entorno de ejecución para el servidor.
-- **Express.js** – framework para la creación de la API REST.
-- **Sequelize ORM** – para la interacción con la base de datos.
-- **PostgreSQL** – base de datos relacional.
-- **Joi** – validación de datos a nivel de request.
-- **Redis** – (opcional) para caché y optimización de consultas.
-- **Swagger** – documentación interactiva de la API.
 
 ### Frontend
 - **React.js** – desarrollo de la interfaz de usuario.
@@ -43,7 +32,6 @@ Permite gestionar afiliados y sus grupos familiares, incluyendo:
 - Generación automática de:
   - **Número de afiliado (7 dígitos)**  
   - **Número de integrante (01–99)**  
-  - Ejemplo: `0000001-01` para titular, `0000001-02` para su hijo.
 - Vigencia configurable (pasada o futura) para altas y bajas.
 
 ---
@@ -86,10 +74,8 @@ Consultas adicionales disponibles:
 
 - Altas de afiliados por período.
 - Altas de prestadores por período.
-- Cantidad de prestadores por especialidad y código postal.
+- Búsqueda de prestadores por filtros específicos: Nombre, apellido, código postal, especialidad, etc. 
 - Reporte de situaciones terapéuticas por afiliado (incluyendo grupo familiar).
-- Prestadores sin agendas de turnos cargadas.
-- Horarios de atención de prestadores sin turnos definidos.
 
 ---
 
@@ -114,53 +100,30 @@ La aplicación se divide en **dos módulos principales**:
 
 ### Requisitos previos
 - Tener instalado:
-  - Docker. 
   - Node.js.
 
 
 ### Pasos
 ```bash
 # Clonar el repositorio
-git clone https://github.com/usuario/medicina-integral.git
+git clone https://github.com/DesApp-2025c2-Grupo4/Admin-Med-Int-frontend
 
-# Una vez dentro del repositorio, instalar dependencias del backend
+# Una vez dentro del repositorio, instalar dependencias del frontend
 npm install
 
-# Configurar variables de entorno (.env)
-DB_HOST=localhost
-DB_USER=postgres
-DB_PASS=tu_clave
-DB_NAME=medicina
-DB_PORT=5432
-
-# Ejecutar migraciones y seeders
-npx sequelize db:migrate
-npx sequelize db:seed:all
+# Ejecutar seeders
+npm run seed 
 
 # Iniciar servidor
 npm run dev
-
-# Instalar dependencias del frontend
-cd ../frontend
-npm install
-npm run dev
 ```
 
-## 📚 Documentación de la API
-
-La documentación interactiva de la API se encuentra disponible a través de **Swagger**.  
-Permite visualizar los endpoints, probar requests y conocer los parámetros esperados de cada ruta.
-
-Una vez levantado el servidor, podés acceder desde: PONER ENLACE
-
----
-
-## 📚 DER - Base de datos
-
-![Diagrama Entidad-Relación](./src/assets/imgs/db_admin_med_integral%20-%20public.png)
-
----
+## 🛠️ Back-End disponible en: 
+```bash
+ https://github.com/DesApp-2025c2-Grupo4/Admin-Med-Int-backend
+```
 
 
 📅 Proyecto desarrollado en el marco de la materia **Desarrollo de Aplicaciones - Universidad Nacional de Hurlingham**.  
+
 👩‍💻 Equipo: Brenda, Alvaro, Alexis, Luana y Rocío.
