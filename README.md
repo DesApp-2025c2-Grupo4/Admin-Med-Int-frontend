@@ -153,6 +153,12 @@ Una vez levantado el servidor, podés acceder desde: PONER ENLACE
 
 ---
 
+## 📚 DER - Base de datos
+
+![Diagrama Entidad-Relación](./src/assets/imgs/db_admin_med_integral%20-%20public.png)
+
+---
+
 
 📅 Proyecto desarrollado en el marco de la materia **Desarrollo de Aplicaciones - Universidad Nacional de Hurlingham**.  
 👩‍💻 Equipo: Brenda, Alvaro, Alexis, Luana y Rocío.
