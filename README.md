@@ -111,19 +111,17 @@ La aplicación se divide en **dos módulos principales**:
 ## 🛠️ Instalación y ejecución
 
 ### Requisitos previos
-- Node.js 
-- PostgreSQL 
-- Docker
+- Tener instalado:
+  - Docker. 
+  - Node.js.
 
 
 ### Pasos
 ```bash
 # Clonar el repositorio
 git clone https://github.com/usuario/medicina-integral.git
-cd medicina-integral
 
-# Instalar dependencias del backend
-cd backend
+# Una vez dentro del repositorio, instalar dependencias del backend
 npm install
 
 # Configurar variables de entorno (.env)
