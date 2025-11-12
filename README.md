@@ -1,12 +1,189 @@
-# React + Vite
+# 🩺 Aplicación de Administración de Medicina Integral
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📋 Descripción general
+La aplicación **Administración de Medicina Integral** tiene como propósito gestionar la información de **afiliados** y **prestadores médicos**, incluyendo la administración de grupos familiares, agendas de turnos y horarios de atención.  
+Está diseñada para ser utilizada por el **personal administrativo** de la empresa, permitiendo realizar altas, bajas, modificaciones y consultas.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologías utilizadas
 
-## Expanding the ESLint configuration
+### Backend
+- **Node.js** – entorno de ejecución para el servidor.
+- **Express.js** – framework para la creación de la API REST.
+- **Sequelize ORM** – para la interacción con la base de datos.
+- **PostgreSQL** – base de datos relacional.
+- **Joi** – validación de datos a nivel de request.
+- **Redis** – (opcional) para caché y optimización de consultas.
+- **Swagger** – documentación interactiva de la API.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- **React.js** – desarrollo de la interfaz de usuario.
+- **Vite** – herramienta de build y servidor de desarrollo rápido.
+
+---
+
+## ⚙️ Funcionalidades principales
+
+### 👨‍👩‍👧 Afiliados y grupos familiares
+Permite gestionar afiliados y sus grupos familiares, incluyendo:
+
+- Alta, baja y modificación de afiliados.
+- Incorporación de nuevos integrantes a grupos familiares existentes.
+- Registro de:
+  - Tipo y número de documento  
+  - Nombre y apellido  
+  - Fecha de nacimiento  
+  - Teléfonos, mails y direcciones (múltiples por persona)  
+  - Parentesco dentro del grupo familiar  
+  - Situaciones terapéuticas  
+  - Plan médico (210, 310, 410, 510, etc.)  
+- Generación automática de:
+  - **Número de afiliado (7 dígitos)**  
+  - **Número de integrante (01–99)**  
+  - Ejemplo: `0000001-01` para titular, `0000001-02` para su hijo.
+- Vigencia configurable (pasada o futura) para altas y bajas.
+
+---
+
+### 🏥 Prestadores
+Gestión completa de prestadores médicos:
+
+- Alta, baja, modificación y consulta.
+- Datos manejados:
+  - CUIT/CUIL  
+  - Nombre completo  
+  - Especialidades (múltiples)  
+  - Tipo (Centro médico o profesional independiente)  
+  - Centro médico asociado (si aplica)  
+  - Teléfonos, mails y direcciones (múltiples lugares de atención)  
+  - Horarios de atención por lugar  
+- Búsquedas avanzadas por:
+  - CUIT/CUIL  
+  - Nombre  
+  - Código postal  
+  - Especialidad  
+  - Día de atención  
+
+---
+
+### 📅 Agendas de turnos
+Cada agenda se asocia a un prestador, especialidad y lugar de atención:
+
+- CRUD completo de agendas.  
+- Definición de duración de turno (en minutos) y horarios semanales.  
+- Validaciones automáticas:
+  - La especialidad debe estar asociada al prestador.
+  - El lugar de atención debe ser válido.
+  - Los horarios deben coincidir con los definidos para ese lugar.
+
+---
+
+### 📊 Consultas y reportes
+Consultas adicionales disponibles:
+
+- Altas de afiliados por período.
+- Altas de prestadores por período.
+- Cantidad de prestadores por especialidad y código postal.
+- Reporte de situaciones terapéuticas por afiliado (incluyendo grupo familiar).
+- Prestadores sin agendas de turnos cargadas.
+- Horarios de atención de prestadores sin turnos definidos.
+
+---
+
+## 🧩 Arquitectura del sistema
+La aplicación se divide en **dos módulos principales**:
+
+### 1. Backend (API REST)
+- Define modelos y relaciones en Sequelize.
+- Controladores modulares para cada entidad (`Afiliado`, `Prestador`, `Agenda`, etc.).
+- Validaciones con Joi y documentación con Swagger.
+- Manejo de caché con Redis.
+
+### 2. Frontend (React)
+- Formularios controlados para altas y modificaciones.
+- Listados filtrables con búsqueda dinámica.
+- Comunicación con la API mediante funciones centralizadas.
+- Uso de componentes reutilizables (tablas, modales, etc.).
+
+---
+
+## 🛠️ Instalación y ejecución
+
+### Requisitos previos
+- Node.js 
+- PostgreSQL 
+- Docker
+
+
+### Pasos
+```bash
+# Clonar el repositorio
+git clone https://github.com/usuario/medicina-integral.git
+cd medicina-integral
+
+# Instalar dependencias del backend
+cd backend
+npm install
+
+# Configurar variables de entorno (.env)
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASS=tu_clave
+DB_NAME=medicina
+DB_PORT=5432
+
+# Ejecutar migraciones y seeders
+npx sequelize db:migrate
+npx sequelize db:seed:all
+
+# Iniciar servidor
+npm run dev
+
+# Instalar dependencias del frontend
+cd ../frontend
+npm install
+npm run dev
+
+## 📚 Documentación de la API
+
+La documentación interactiva de la API se encuentra disponible a través de **Swagger**.  
+Permite visualizar los endpoints, probar requests y conocer los parámetros esperados de cada ruta.
+
+Una vez levantado el servidor, podés acceder desde:
+
+### 🔹 Endpoints principales
+
+#### Afiliados
+- `GET /afiliados` → Listar todos los afiliados.  
+- `GET /afiliados/:id` → Obtener afiliado por ID.  
+- `POST /afiliados` → Crear nuevo afiliado o grupo familiar.  
+- `PUT /afiliados/:id` → Modificar datos de afiliado existente.  
+- `DELETE /afiliados/:id` → Dar de baja afiliado y su grupo familiar.
+
+#### Prestadores
+- `GET /prestadores` → Listar prestadores con filtros por nombre, especialidad o código postal.  
+- `GET /prestadores/:id` → Obtener prestador por ID.  
+- `POST /prestadores` → Crear prestador.  
+- `PUT /prestadores/:id` → Modificar datos del prestador.  
+- `DELETE /prestadores/:id` → Eliminar prestador.
+
+#### Agendas
+- `GET /agendas` → Listar agendas con filtros por prestador o especialidad.  
+- `GET /agendas/:id` → Obtener una agenda específica.  
+- `POST /agendas` → Crear una nueva agenda de turnos.  
+- `PUT /agendas/:id` → Modificar agenda existente.  
+- `DELETE /agendas/:id` → Eliminar agenda.
+
+#### Consultas y reportes
+- `GET /reportes/afiliados` → Altas de afiliados por período.  
+- `GET /reportes/prestadores` → Altas de prestadores por período.  
+- `GET /reportes/especialidades` → Cantidad de prestadores por especialidad.  
+- `GET /reportes/terapeuticas` → Situaciones terapéuticas por afiliado.  
+- `GET /reportes/prestadores-sin-agenda` → Prestadores sin agendas cargadas.
+
+---
+
+
+📅 Proyecto desarrollado en el marco de la materia **Desarrollo de Aplicaciones - Universidad Nacional de Hurlingham**.  
+👩‍💻 Equipo: Brenda, Alvaro, Alexis, Luana y Rocío.
