@@ -111,9 +111,6 @@ git clone https://github.com/DesApp-2025c2-Grupo4/Admin-Med-Int-frontend
 # Una vez dentro del repositorio, instalar dependencias del frontend
 npm install
 
-# Ejecutar seeders
-npm run seed 
-
 # Iniciar servidor
 npm run dev
 ```
