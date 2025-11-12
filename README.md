@@ -150,38 +150,8 @@ npm run dev
 La documentación interactiva de la API se encuentra disponible a través de **Swagger**.  
 Permite visualizar los endpoints, probar requests y conocer los parámetros esperados de cada ruta.
 
-Una vez levantado el servidor, podés acceder desde:
+Una vez levantado el servidor, podés acceder desde: PONER ENLACE
 
-### 🔹 Endpoints principales
-
-#### Afiliados
-- `GET /afiliados` → Listar todos los afiliados.  
-- `GET /afiliados/:id` → Obtener afiliado por ID.  
-- `POST /afiliados` → Crear nuevo afiliado o grupo familiar.  
-- `PUT /afiliados/:id` → Modificar datos de afiliado existente.  
-- `DELETE /afiliados/:id` → Dar de baja afiliado y su grupo familiar.
-
-#### Prestadores
-- `GET /prestadores` → Listar prestadores con filtros por nombre, especialidad o código postal.  
-- `GET /prestadores/:id` → Obtener prestador por ID.  
-- `POST /prestadores` → Crear prestador.  
-- `PUT /prestadores/:id` → Modificar datos del prestador.  
-- `DELETE /prestadores/:id` → Eliminar prestador.
-
-#### Agendas
-- `GET /agendas` → Listar agendas con filtros por prestador o especialidad.  
-- `GET /agendas/:id` → Obtener una agenda específica.  
-- `POST /agendas` → Crear una nueva agenda de turnos.  
-- `PUT /agendas/:id` → Modificar agenda existente.  
-- `DELETE /agendas/:id` → Eliminar agenda.
-
-#### Consultas y reportes
-- `GET /reportes/afiliados` → Altas de afiliados por período.  
-- `GET /reportes/prestadores` → Altas de prestadores por período.  
-- `GET /reportes/especialidades` → Cantidad de prestadores por especialidad.  
-- `GET /reportes/terapeuticas` → Situaciones terapéuticas por afiliado.  
-- `GET /reportes/prestadores-sin-agenda` → Prestadores sin agendas cargadas.
-```
 ---
 
 
