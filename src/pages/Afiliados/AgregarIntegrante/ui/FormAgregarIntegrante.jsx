@@ -17,7 +17,7 @@ import { BotonCancelar } from '../../../../components/ui/CancelarBoton/BotonCanc
 import { RegisterGroup } from '../../../../components/ui/RegisterGroup/RegisterGroup.jsx'
 import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
 import { validarFormulario } from '../../../../validations/validarFormulario.js'
-
+import { toastConSubtitulo} from '../../../../components/ToastConSubtitulo/ToastConSubtitulo.jsx'
 export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
   const { loadingDataForm, datosParaFormulario } = useDataFormAfiliados()
   const { id } = useParams()
@@ -189,6 +189,11 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
     
     if (hayErrores) {
       setErrores(erroresDeFormulario)
+      toastConSubtitulo(
+        'Formulario incompleto',
+        'Completá todos los campos requeridos',
+        'error'
+      )
       return
     }
 

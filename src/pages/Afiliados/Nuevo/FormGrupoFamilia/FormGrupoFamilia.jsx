@@ -16,6 +16,7 @@ import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.j
 import { validarFormulario } from '../../../../validations/validarFormulario.js'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
+import { toastConSubtitulo} from '../../../../components/ToastConSubtitulo/ToastConSubtitulo.jsx'
 
 export function FormGrupoFamilia({ text, component, funcionSubmit }) {
   useCambiarTitulo({ title: "Nuevo Afiliado" });
@@ -172,6 +173,11 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
     
     if (hayErrores) {
       setErrores(erroresDeFormulario)
+      toastConSubtitulo(
+        'Formulario incompleto',
+        'Completá todos los campos requeridos',
+        'error'
+      )
       return
     }
     funcionSubmit(dataForm)
