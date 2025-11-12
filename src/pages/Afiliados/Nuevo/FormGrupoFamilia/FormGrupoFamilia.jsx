@@ -37,6 +37,12 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
 
   const [errores, setErrores] = useState()
 
+  const hoy = new Date();
+  const dia = hoy.getUTCDate().toString().padStart(2, '0');
+  const mes = (hoy.getUTCMonth() + 1).toString().padStart(2, '0'); 
+  const anio = hoy.getUTCFullYear();
+  const fechaHoy = `${anio}-${mes}-${dia}`;
+
   const [dataForm, setDataForm] = useState({
     nombre: '',
     apellido: '',
@@ -49,7 +55,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
     direcciones: [],
     situacionesTerapeuticas: [],
     parentensco: 'Titular',
-    fechaAlta: new Date().toISOString().split('T')[0],
+    fechaAlta: fechaHoy,
     fechaBaja: ''
   })
 
@@ -176,6 +182,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
     }
     funcionSubmit(dataForm)
   }
+
   if(loadingDataForm){
     return(
       <div className="contendor_loader-detalle">
