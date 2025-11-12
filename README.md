@@ -144,6 +144,7 @@ npm run dev
 cd ../frontend
 npm install
 npm run dev
+```
 
 ## 📚 Documentación de la API
 
@@ -151,7 +152,7 @@ La documentación interactiva de la API se encuentra disponible a través de **S
 Permite visualizar los endpoints, probar requests y conocer los parámetros esperados de cada ruta.
 
 Una vez levantado el servidor, podés acceder desde: PONER ENLACE
-```
+
 ---
 
 
