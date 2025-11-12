@@ -1,5 +1,7 @@
 # 🩺 Aplicación de Administración de Medicina Integral
 
+![Logo](./src/assets/imgs/logo.png)
+
 ## 📋 Descripción general
 La aplicación **Administración de Medicina Integral** tiene como propósito gestionar la información de **afiliados** y **prestadores médicos**, incluyendo la administración de grupos familiares, agendas de turnos y horarios de atención.  
 Está diseñada para ser utilizada por el **personal administrativo** de la empresa, permitiendo realizar altas, bajas, modificaciones y consultas.
