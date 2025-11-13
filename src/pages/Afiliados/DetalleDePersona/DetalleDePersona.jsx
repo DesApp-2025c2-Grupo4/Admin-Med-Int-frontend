@@ -1,8 +1,8 @@
 import { useParams } from 'react-router'
 import './DetalleDePersona.css'
 import { useGetDetallePersona } from '../../../hooks/useGetDetalleDePersona'
-import { Loader } from '../../../components/Loader/Loader'
 import { TitleSection } from '../../../components/TitleSections/TitleSection'
+import { SubTitleSection } from '../../../components/ui/SubTitleSection/SubTitleSection'
 import { TodosLosDetalles } from './TodosLosDetalles/TodosLosDetalles'
 import { useCambiarTitulo } from '../../../hooks/useCambiarTitulo'
 import { LoaderConTexto } from '../../../components/LoaderConTexto/LoaderConTexto'
@@ -21,10 +21,12 @@ export function DetalleDePersona() {
       <LoaderConTexto />
     </div>
   )
-
+  console.log(error)
   //En caso de error
   if(error) return(
-    <h2 className='message-error'>{error}</h2>
+    <div className='centrar'>
+      <SubTitleSection text={error} />
+    </div>
   )
 
   //Retorno el componente

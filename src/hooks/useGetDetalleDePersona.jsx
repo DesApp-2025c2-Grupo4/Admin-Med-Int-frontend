@@ -14,15 +14,17 @@ export function useGetDetallePersona(id) {
         const data = await getDetalleDePersona(id)
         if (!isMounted) return
 
-        if (data) {
+        if (!data.error) {
+          console.log(data)
           setPersona(data)
         } else {
-          setError("Resultado no encontrado")
+          setError("Persona no encontrada.")
         }
       } catch (err) {
         if (isMounted) {
+          
           console.error(err)
-          setError(`Error al obtener los datos de la persona con id ${id}`)
+          setError(`Error al obtener los datos de la persona`)
         }
       } finally {
         if (isMounted) {
