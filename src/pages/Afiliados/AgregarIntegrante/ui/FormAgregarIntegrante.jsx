@@ -408,7 +408,7 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
                         value="indefinida"
                         checked={isIndefinida}
                         onChange={handleSituacionTypeChange} />
-                      Duración indefinida
+                      Temporal
                     </label>
                   </div>
                 </div>
