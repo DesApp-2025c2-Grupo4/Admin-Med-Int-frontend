@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { DeleteIcon } from "../../../assets/icons/Afiliados/DeleteIcon";
 import { InputSelect } from "../../../components/ui/Input/InputSelect/InputSelect";
 import { InputDate } from "../../../components/ui/Input/InputDate/InputDate";
@@ -16,6 +15,7 @@ import { ModalDeConfirmacion} from '../../../components/ModalDeConfirmacion/Moda
 export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
   //Datos para el formulario
   const {datosParaFormulario} = useDataFormAfiliados()
+  console.log(datosParaFormulario)
   const [dataForm, setDataForm] = useState({
     planId: grupo.planId,
     fechaAlta: grupo.fechaAlta,
@@ -48,28 +48,15 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
       setErrores(erroresObtenidos)
       return
     }
-    const dataToSend = { ...dataForm };
-    
-    // Convertir cadena vacia a null para campos de fecha opcionales
-    if (dataToSend.fechaBaja === '') {
-        dataToSend.fechaBaja = null;
-    }
 
-    if (dataToSend.fechaAlta === '') {
-        dataToSend.fechaAlta = null;
-    }
-    
-    actualizarGrupo(dataToSend)
+    //Ejecuto la funcion para actualizar
+    actualizarGrupo(dataForm)
     setErrores({})
   }
   //Control para eliminar grupo
   const handleEliminar = (id)=>{
     setShowModal(false)
     deleteGroup(id)
-  }
-  //EN CASO DE NO CARGAR DATA FORM
-  if(!datosParaFormulario?.planesMedicos){
-    return <h2>No se pudieron obtener los planes medicos</h2>
   }
 
   //Retorno
@@ -115,7 +102,7 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
         <InputSelect
           text="Plan médico"
           name="planId"
-          listaDeOpciones={datosParaFormulario.planesMedicos}
+          listaDeOpciones={datosParaFormulario?.planesMedicos}
           value={dataForm.planId}
           handleChange={handleChange}
         />
@@ -137,11 +124,16 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
       </div>
       <div className="container_botones_modificarGrupo">
         <AddMember idGrupo={grupo.idGrupo}/>
-        <div onClick={handleSubmit}>
-          <RegisterGroup text={'Guardar Cambios'}/>
+        <div onClick={handleSubmit} >
+          <RegisterGroup text={'Guardar Cambios'} disabled={huboCambios(grupo,dataForm)}/>
         </div>
       </div>
     </section>
   );
 }
 
+const huboCambios = (grupo, data) => {
+  return grupo.fechaAlta === data.fechaAlta && 
+    grupo.fechaBaja ===data.fechaBaja &&
+    grupo.planId === data.planId
+}

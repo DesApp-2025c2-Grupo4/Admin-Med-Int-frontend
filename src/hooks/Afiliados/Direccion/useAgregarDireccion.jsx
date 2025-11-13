@@ -8,7 +8,6 @@ export function useAgregarDireccion(setPersona) {
   const [data, setData] = useState('');
 
   const agregarDireccion = async (direccion, idPersona) => {
-    console.log(direccion, idPersona);
     setLoading(true);
     try {
       const direccionAgregado = await agregarUnaDireccion(direccion, idPersona);
@@ -21,7 +20,7 @@ export function useAgregarDireccion(setPersona) {
         setData(direccionAgregado);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.success('Error en el servidor')
       setError(error);
     } finally {

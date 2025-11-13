@@ -17,7 +17,7 @@ import { BotonCancelar } from '../../../../components/ui/CancelarBoton/BotonCanc
 import { RegisterGroup } from '../../../../components/ui/RegisterGroup/RegisterGroup.jsx'
 import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js'
 import { validarFormulario } from '../../../../validations/validarFormulario.js'
-
+import { toastConSubtitulo} from '../../../../components/ToastConSubtitulo/ToastConSubtitulo.jsx'
 export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
   const { loadingDataForm, datosParaFormulario } = useDataFormAfiliados()
   const { id } = useParams()
@@ -60,7 +60,6 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
   }
 
   const handleDeleteItem = (listName, itemToDelete) => {
-    console.log(itemToDelete)
     const normalizedItemToDelete = itemToDelete.trim().toUpperCase()
     setDataForm(prev => ({
       ...prev,
@@ -184,13 +183,17 @@ export function FormAgregarIntegrante({ grupo,funcionSubmit }) {
     e.preventDefault()
     
     const erroresDeFormulario = validarFormulario(dataForm, grupo)
-    console.log(erroresDeFormulario)
     
     // Si hay al menos un error (valor distinto de null), se detiene el submit
     const hayErrores = Object.values(erroresDeFormulario).some(value => value !== '')
     
     if (hayErrores) {
       setErrores(erroresDeFormulario)
+      toastConSubtitulo(
+        'Formulario incompleto',
+        'Completá todos los campos requeridos',
+        'error'
+      )
       return
     }
 

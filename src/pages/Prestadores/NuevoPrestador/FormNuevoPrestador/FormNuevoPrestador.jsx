@@ -11,6 +11,7 @@ import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFor
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
 import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
 import { toast } from "react-toastify";
+import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx';
 
 export function FormNuevoPrestador({ text }) {
     useCambiarTitulo({ title: "Nuevo Prestador" });
@@ -58,7 +59,7 @@ export function FormNuevoPrestador({ text }) {
     { id: "", descripcion: "Ninguno" }, 
     ...(datosParaFormulario?.centrosMedicos.map(centro => ({
         id: centro.prestadorId, 
-        descripcion: centro.nombre 
+        descripcion: `${centro.nombre} ${centro.apellido}`
     })) || [])
 ];
 
@@ -240,7 +241,22 @@ export function FormNuevoPrestador({ text }) {
             toast.error('Hubo un error al crear el prestador.')
         }
 };
-
+    //Loader
+    if(loadingDataForm){
+        return(
+            <div style={{display:'flex', justifyContent:'center', alignItems: 'center', height:'20vh'}}>
+                <LoaderConTexto text={'Cargando datos del formulario'} />
+            </div>
+        )
+    }
+    //En caso de error
+    if(errorDataForm){
+        return(
+            <div className='error-message'>
+                <SubTitleSection text={'No se pudo cargar los datos del formulario.'}/>
+            </div>
+        )
+    }
     return (
         <form className="form-nuevo-prestador" onSubmit={handleSubmit}> 
             <SubTitleSection text={text} className="form-title" /> 

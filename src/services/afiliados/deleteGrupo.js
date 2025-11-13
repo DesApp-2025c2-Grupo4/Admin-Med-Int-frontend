@@ -1,6 +1,5 @@
 const URL_API = import.meta.env.VITE_URL_API;
 export async function deleteGrupo(id){
-  console.log(id)
   //Fetchin
   const res = await fetch(`${URL_API}/grupo/${id}`,{method:'DELETE'})
   //Controlo que esté todo correcto

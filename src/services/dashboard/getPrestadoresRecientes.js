@@ -7,7 +7,7 @@ export const getPrestadoresRecientes = async () => {
   });
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(prestadoresOrdenados.slice(0, 5)); 
+      resolve(prestadoresOrdenados); 
     }, 1000);
   });
 };

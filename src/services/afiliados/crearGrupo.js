@@ -35,9 +35,10 @@ export const crearGrupo = async (dataForm)=>{
   //En caso de error
   if(!resTitular.ok){
     //Agregan fetch para eliminar el grupo
-    throw new Error('Error al crear el titular')
+    const deleteGroup = fetch(`${URL_API}/grupo/${grupo.idGrupo}`,{method:'DELETE'}) 
   }
   const titular = await resTitular.json()
+  
   return {grupo,titular}
 }
 
@@ -54,6 +55,7 @@ function crearObjetoGrupo(data){
 }
 
 export function crearObjetoPersona(data,idGrupo){
+  console.log(data)
   //Obtengo fecha actual
   const hoy = new Date();
   const fechaFormateada = hoy.toISOString().split('T')[0];
@@ -81,6 +83,7 @@ export function crearObjetoPersona(data,idGrupo){
     }
   })
 
+  console.log(situacionesFormateadas)
   //Creo el objeto
   
   const integrante = {
@@ -99,6 +102,5 @@ export function crearObjetoPersona(data,idGrupo){
     situacionesTerapeuticas: situacionesFormateadas
   };
 
-  console.log(integrante)
   return integrante
 }

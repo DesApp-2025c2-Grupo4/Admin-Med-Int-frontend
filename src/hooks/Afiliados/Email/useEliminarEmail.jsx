@@ -10,9 +10,7 @@ export function useEliminarEmail(setPersona) {
   const eliminarEmail = async (emailId) => {
     setLoadingEliminarEmail(true);
     try {
-      console.log('Llegó a eliminar email');
       const emailEliminado = await eliminarUnEmail(emailId);
-      console.log()
       if (emailEliminado) {
         setPersona(prev => ({
           ...prev,
@@ -22,7 +20,7 @@ export function useEliminarEmail(setPersona) {
         setData(emailEliminado);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error('Error en el servidor.');
       setError(error);
     } finally {

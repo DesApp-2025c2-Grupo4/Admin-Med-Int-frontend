@@ -29,10 +29,10 @@ export function Dashboard(){
       />
 
       {/* Afiliados mas recientes */}
-      <SectionDos loadingAfiliados={loadingAfiliados} afiliadosRecientes={afiliadosRecientes}/>
+      <SectionDos loadingAfiliados={loadingAfiliados} afiliadosRecientes={afiliadosRecientes?.slice(0, 5)}/>
 
       {/* Prestadores mas recientes */}
-      <SectionTres loadingPrestadores={loadingPrestadores} prestadoresRecientes={prestadoresRecientes}/>
+      <SectionTres loadingPrestadores={loadingPrestadores} prestadoresRecientes={prestadoresRecientes?.slice(0, 5)}/>
     </div>
   )
 }

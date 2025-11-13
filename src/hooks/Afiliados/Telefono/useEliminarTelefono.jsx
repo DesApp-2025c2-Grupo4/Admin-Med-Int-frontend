@@ -9,7 +9,6 @@ export function useEliminarTelefono(setPersona){
   const eliminarTelefono = async (telefonoId)=>{
     setLoadingEliminarTelefono(true)
     try {
-      console.log('Lllego a eliminar')
       const telefonoEliminado = await eliminarUnTelefono(telefonoId)
       if(telefonoEliminado){
         setPersona(prev=>({...prev, telefonos: prev.telefonos.filter(t=>t.telefonoId !==telefonoId)}))
@@ -17,7 +16,7 @@ export function useEliminarTelefono(setPersona){
         setData(telefonoEliminado)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.error('Error en el servidor')
       setError(error)
     } finally{

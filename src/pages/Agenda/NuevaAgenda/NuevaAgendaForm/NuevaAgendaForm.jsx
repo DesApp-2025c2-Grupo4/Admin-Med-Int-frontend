@@ -9,6 +9,7 @@ import { SaveAgenda } from "../../../../components/ui/SaveAgenda/SaveAgenda.jsx"
 import { crearAgenda } from "../../../../services/agenda/crearAgenda.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx';
 
 const initialHorario = {
   horarioInicio: "06:00",
@@ -227,7 +228,22 @@ export function NuevaAgendaForm() {
       </div>
     );
   }
-
+  //Caso de que cargue
+  if(isLoading){
+    return(
+      <div style={{display:'flex', justifyContent:'center', alignItems: 'center', height:'20vh'}}>
+        <LoaderConTexto text={'Cargando datos del formulario'} />
+      </div>
+    )
+  }
+  //En caso de error
+  if(error){
+    return(
+      <div className='error-message'>
+        <SubTitleSection text={'No se pudo cargar los datos del formulario.'}/>
+      </div>
+    )
+  }
   return (
     <form className="form-nueva-agenda-container" onSubmit={handleSubmit}>
       <div className="section-select-nueva-agenda">

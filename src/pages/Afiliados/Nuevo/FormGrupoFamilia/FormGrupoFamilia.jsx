@@ -16,6 +16,7 @@ import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.j
 import { validarFormulario } from '../../../../validations/validarFormulario.js'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
+import { toastConSubtitulo} from '../../../../components/ToastConSubtitulo/ToastConSubtitulo.jsx'
 
 export function FormGrupoFamilia({ text, component, funcionSubmit }) {
   useCambiarTitulo({ title: "Nuevo Afiliado" });
@@ -37,6 +38,12 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
 
   const [errores, setErrores] = useState()
 
+  const hoy = new Date();
+  const dia = hoy.getUTCDate().toString().padStart(2, '0');
+  const mes = (hoy.getUTCMonth() + 1).toString().padStart(2, '0'); 
+  const anio = hoy.getUTCFullYear();
+  const fechaHoy = `${anio}-${mes}-${dia}`;
+
   const [dataForm, setDataForm] = useState({
     nombre: '',
     apellido: '',
@@ -49,7 +56,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
     direcciones: [],
     situacionesTerapeuticas: [],
     parentensco: 'Titular',
-    fechaAlta: new Date().toISOString().split('T')[0],
+    fechaAlta: fechaHoy,
     fechaBaja: ''
   })
 
@@ -172,10 +179,16 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
     
     if (hayErrores) {
       setErrores(erroresDeFormulario)
+      toastConSubtitulo(
+        'Formulario incompleto',
+        'Completá todos los campos requeridos',
+        'error'
+      )
       return
     }
     funcionSubmit(dataForm)
   }
+
   if(loadingDataForm){
     return(
       <div className="contendor_loader-detalle">
@@ -264,7 +277,9 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
             value={currentTelefono}
             handleChange={(e) => setCurrentTelefono(e.target.value)}
             error={errores?.telefonos} />
-          <AddButton onClick={addTelefono} />
+          <div style={{paddingTop:'1rem'}}>
+            <AddButton onClick={addTelefono} />
+          </div>
           <div className="saved-items-container">
             {dataForm.telefonos.map((tel, index) => (
               <ContactCard
@@ -282,7 +297,9 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
             value={currentEmail}
             handleChange={(e) => setCurrentEmail(e.target.value)}
             error={errores?.emails} />
-          <AddButton onClick={addEmail} className="button-add" />
+          <div style={{paddingTop:'1rem'}}>
+            <AddButton onClick={addEmail} className="button-add" />
+          </div>
           <div className="saved-items-container">
             {dataForm.emails.map((email, index) => (
               <ContactCard
@@ -304,7 +321,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
               handleChange={(e) => setCurrentDireccion(prev => ({
                 ...prev, [e.target.name] : e.target.value
               }))}
-              error={errores?.direcciones?.calle }
+              error={errores?.direcciones?.calle || errores?.direcciones}
             />
             <InputText
               text='N° Calle'
@@ -316,7 +333,9 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
               error={errores?.direcciones?.nro}
               requerido={false}
             />
-            <AddButton onClick={addDireccion} className="button-add" />
+            <div style={{paddingTop:'1rem'}}>
+              <AddButton onClick={addDireccion} className="button-add" />
+            </div>
             <div className="saved-items-container">
               {dataForm.direcciones.map((dir, index) => (
                 <ContactCard

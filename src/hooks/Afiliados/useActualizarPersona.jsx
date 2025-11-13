@@ -13,7 +13,7 @@ export function useActualizarPersona(setPersona){
       setPersona(personaActualizada)
       toast.success('Se actualizó correctamente.')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       setError(error)
       toast.error('Error en el servidor.')
     }

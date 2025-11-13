@@ -18,7 +18,7 @@ export function useDataFormAfiliados(){
           setDatosParaFormulario(data)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
         setErrorDataForm('Error al obtener datos del formulario')
 
       }finally{

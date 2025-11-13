@@ -2,7 +2,6 @@ import { IconoCopiar } from '../IconoCopiar/IconoCopiar'
 import './CampoInformacionLista.css'
 import { CardSituacion } from './CardSituacion/CardSituacion'
 export function CampoInformacionLista({lista,title,campo}){
-  console.log(lista)
     return(
     <div className="info__container infor__container-lista">
       <h2 className='info__title'>{title}</h2>

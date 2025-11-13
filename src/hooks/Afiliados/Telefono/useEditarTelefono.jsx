@@ -16,7 +16,7 @@ export function useEditarTelefono(setPersona){
         setData(telefonoEditado)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.error('Error al Editar el telefono')
       setError(error)
     } finally{

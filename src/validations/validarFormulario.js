@@ -12,7 +12,7 @@ export function validarFormulario(data,grupo=null){
   errores.apellido = validarTexto(data.apellido, "Apellido", 4,20)
 
   //Validar dni
-  errores.dni = validarNumero(data.dni, "DNI", 8, 15)
+  errores.dni = validarNumero(data.dni, "DNI", 8, 8)
 
   //Validar cantidad de telefonos
   if(data.telefonos.length === 0) errores.telefonos = 'Debes agregar un telefono como minimo.'

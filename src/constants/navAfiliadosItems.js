@@ -1,7 +1,7 @@
 export const navAfiliadosItems = [
     {
         name: 'Gestionar afiliados',
-        path: '/afiliados/gestionar'
+        path: '/afiliados/gestionar/1'
     },
     {
         name: 'Nuevo Grupo familiar',

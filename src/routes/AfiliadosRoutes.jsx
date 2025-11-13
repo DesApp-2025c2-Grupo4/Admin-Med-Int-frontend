@@ -13,7 +13,8 @@ export function AfiliadoRoutes(){
     return (
       <Routes>
         <Route path="gestionar/" element={<GestionarAfiliados />} />
-        <Route path="gestionar/:credencial" element={<GestionarAfiliados />} />
+        <Route path="gestionar/:page" element={<GestionarAfiliados />} />
+        <Route path="gestionar/:page/:credencial" element={<GestionarAfiliados />} />
         <Route path="gestionar/modificar-grupo-familiar/:id" element={<ModificarGrupo />}/>
         <Route path="nuevo-grupo-familiar" element={<NuevoGrupoFamiliar />} />
         <Route path="reportes" element={<Reporte />} />

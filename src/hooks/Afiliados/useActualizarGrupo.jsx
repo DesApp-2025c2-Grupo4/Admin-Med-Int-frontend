@@ -6,11 +6,9 @@ export function useActualizarUnGrupo(id,setDataForm,setGrupoFamiliar){
   const [loading, setLoading] = useState(false)
   const [data,setData] = useState('')
   const actualizarGrupo = async (data)=>{
-    console.log(data)
     setLoading(true)
     try {
       const grupoActualizado = await actualizarUnGrupo(id,data)
-      console.log(grupoActualizado)
       setGrupoFamiliar(prev=>({
         ...prev,
         planId: grupoActualizado.planId,
@@ -26,7 +24,7 @@ export function useActualizarUnGrupo(id,setDataForm,setGrupoFamiliar){
       toast.success('Actualizado con éxito')
       setData(grupoActualizado)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.error('Error en el servidor')
       setError(error)
     }finally{

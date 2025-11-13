@@ -35,7 +35,7 @@ export function DetalleDePrestador(){
       <SectionDetallesPresonales prestador={prestador}/>
       <SectionContacto prestador={prestador}/>
       <SectionProfesion prestador={prestador}/> 
-      <ButtonEditar /> 
+      <ButtonEditar path={`/prestadores/modificar-prestador/${id}`}/> 
     </article>
   )
 }

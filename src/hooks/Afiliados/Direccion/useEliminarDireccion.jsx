@@ -20,7 +20,7 @@ export function useEliminarDireccion(setPersona) {
         setData(direccionEliminada);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.success('Error en el servidor')
       setError(error);
     } finally {

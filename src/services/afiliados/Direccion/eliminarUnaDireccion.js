@@ -1,7 +1,6 @@
 const URL_API = import.meta.env.VITE_URL_API;
 
 export async function eliminarUnaDireccion(direccionId){
-  console.log('Llego')
   const res = await fetch(`${URL_API}/direcciones/${direccionId}`, {
     method: 'DELETE'
   });

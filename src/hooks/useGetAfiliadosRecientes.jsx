@@ -12,7 +12,7 @@ export const useGetAfiliadosRecientes = ()=>{
         const data = await getAfiliadoRecientes()
         setAfiliadosRecientes(data)
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }finally{
         setloadingAfiliados(false)
       }
