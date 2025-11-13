@@ -13,6 +13,8 @@ import { IconoEstado } from '../../../components/IconoEstado/IconoEstado'
 import { validarFormularioActualizar } from "../../../validations/grupo/validarFormularioActualizar";
 import { useDeleteGroup } from "../../../hooks/Afiliados/useDeleteGroup";
 import { ModalDeConfirmacion} from '../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
+import { useNavigate } from 'react-router-dom';
+
 export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
   //Datos para el formulario
   const {datosParaFormulario} = useDataFormAfiliados()
@@ -61,6 +63,7 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
     
     actualizarGrupo(dataToSend)
     setErrores({})
+    navigate("/afiliados/gestionar");
   }
   //Control para eliminar grupo
   const handleEliminar = (id)=>{

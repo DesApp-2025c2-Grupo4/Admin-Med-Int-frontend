@@ -16,13 +16,14 @@ import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.j
 import { validarFormulario } from '../../../../validations/validarFormulario.js'
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx'
 import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
+import { useNavigate } from 'react-router-dom';
 
 export function FormGrupoFamilia({ text, component, funcionSubmit }) {
   useCambiarTitulo({ title: "Nuevo Afiliado" });
   // OBTENGO DATOS DEL FORMULARIO
   const { loadingDataForm, datosParaFormulario } = useDataFormAfiliados()
   const ButtonComponent = component
-
+  const navigate = useNavigate();
   const [newSituacion, setNewSituacion] = useState("1")
   const [isIndefinida, setIsIndefinida] = useState(false)
   const [fechaInicio, setFechaInicio] = useState('')
@@ -181,6 +182,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
       return
     }
     funcionSubmit(dataForm)
+    navigate("/afiliados/gestionar");
   }
 
   if(loadingDataForm){
@@ -197,6 +199,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
         <SubTitleSection text={"No se pudieron cargar los datos del formulario."} />
       </div>
     );
+    
   }
 
   return (

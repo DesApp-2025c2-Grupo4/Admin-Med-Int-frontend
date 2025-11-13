@@ -11,11 +11,12 @@ import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFor
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
 import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 export function FormNuevoPrestador({ text }) {
     useCambiarTitulo({ title: "Nuevo Prestador" });
     const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
-
+    const navigate = useNavigate();
     const [tipoPrestador, setTipoPrestador] = useState('independiente'); 
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
@@ -232,14 +233,16 @@ export function FormNuevoPrestador({ text }) {
             direcciones: dataForm.direcciones,
             especialidades: dataForm.especialidades 
         };
-
+        
         try {
             const nuevoPrestador = await crearPrestador(bodyToSend); 
             toast.success('Prestador creado correctamente')
+            navigate("/prestadores/gestionar");
         } catch (error) {
             toast.error('Hubo un error al crear el prestador.')
         }
-};
+        
+    };
 
     return (
         <form className="form-nuevo-prestador" onSubmit={handleSubmit}> 

@@ -10,6 +10,7 @@ import { updatePrestadorService } from '../../../../services/prestadores/modific
 import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx'
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 export function FormModificarPrestador({ text, initialData }) {
     const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
@@ -244,6 +245,7 @@ export function FormModificarPrestador({ text, initialData }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         handleUpdate();
+        navigate("/prestadores/gestionar");
     };
 
     return (
