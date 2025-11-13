@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router";
 import { TablaResultados } from "../../../../../components/ui/TablaResultados/TablaResultados.jsx";
 import { Button } from "../../../../../components/ui/Button/Button.jsx";
-import { headerTablaResultadosSituaciones } from "../../../../../constants/Afiliados/Reportes/headerTablaResultadosSituaciones.js"; // Cambia el import
+import { headerTablaResultadosSituaciones } from "../../../../../constants/Afiliados/Reportes/headerTablaResultadosSituaciones.js";
 import "./ReporteSituacionesGenerado.css";
 
 export function ReporteSituacionesGenerado() {

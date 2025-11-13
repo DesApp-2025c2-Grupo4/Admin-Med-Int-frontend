@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { TablaResultados } from "../../../../components/ui/TablaResultados/TablaResultados.jsx";
 import { headerTablaResultadosAltaPeriodo } from "../../../../constants/Prestadores/Reportes/headerTablaResultadosAltaPeriodo.js";
+import "./ReporteAltaGenerado.css"
 
 export function ReporteAltaGenerado() {
   const location = useLocation();
@@ -21,7 +22,7 @@ export function ReporteAltaGenerado() {
           keyField="prestadorId"
           titulo={`Resultados del Reporte de Prestadores dados de alta en el período desde: ${fechaDesde} hasta: ${fechaHasta} `} />
       ) : (
-        <p>No hay resultados para mostrar.</p>
+        <p className="mensaje-vacio">No hay resultados para mostrar.</p>
       )}
       <Button text="Volver" onClick={handleVolver} />
     </>
