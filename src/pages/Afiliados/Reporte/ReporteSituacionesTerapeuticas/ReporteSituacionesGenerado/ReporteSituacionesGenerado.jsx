@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router";
 import { TablaResultados } from "../../../../../components/ui/TablaResultados/TablaResultados.jsx";
 import { Button } from "../../../../../components/ui/Button/Button.jsx";
 import { headerTablaResultadosSituaciones } from "../../../../../constants/Afiliados/Reportes/headerTablaResultadosSituaciones.js"; // Cambia el import
+import "./ReporteSituacionesGenerado.css";
 
 export function ReporteSituacionesGenerado() {
   const location = useLocation();
@@ -18,7 +19,7 @@ export function ReporteSituacionesGenerado() {
     // Caso individual
     situaciones = integrante.situacionesTerapeuticas || [];
     titulo = `Resultados del Reporte de situaciones terapéuticas de ${integrante.nombre} ${integrante.apellido}`;
-    mensajeSinSituaciones = `El integrante: ${integrante.nombre} ${integrante.apellido} no tiene situaciones terapéuticas actualmente.`;
+    mensajeSinSituaciones = (<>El integrante:{" "}<strong>{integrante.nombre} {integrante.apellido}</strong>{" "}no tiene situaciones terapéuticas actualmente.</>);
   } else if (integrantes) {
     // Caso de todos los integrantes
     integrantes.forEach((int) => {
@@ -26,7 +27,7 @@ export function ReporteSituacionesGenerado() {
         situaciones.push({
           ...sit,
           nombreIntegrante: `${int.nombre} ${int.apellido}`,
-          idUnico: `${int.personaId}-${sit.situacionId}`
+          idUnico: `${int.personaId}-${sit.situacionId}`,
         });
       });
     });
@@ -47,12 +48,12 @@ export function ReporteSituacionesGenerado() {
       {situaciones.length > 0 ? (
         <TablaResultados
           datos={situaciones}
-          columnas={columnas} 
+          columnas={columnas}
           keyField={keyField}
           titulo={titulo}
         />
       ) : (
-        <p>{mensajeSinSituaciones}</p>
+        <p className="mensaje-vacio">{mensajeSinSituaciones}</p>
       )}
       <Button text="Volver" onClick={handleVolver} />
     </>

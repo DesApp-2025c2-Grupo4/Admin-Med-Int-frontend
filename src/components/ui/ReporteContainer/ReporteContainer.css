@@ -1,5 +1,4 @@
 .reporte-container {
-    /* width: 600px;  */
     cursor: pointer; 
     flex-direction: column;
     gap: 1rem;
@@ -22,4 +21,5 @@
   flex-direction: column;
   gap: 10px;
   width: 250px;
+  align-items: center;
 }
