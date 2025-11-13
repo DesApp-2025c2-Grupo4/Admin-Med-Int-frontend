@@ -15,25 +15,12 @@ export const validarFechaAlta = (fecha, fechaAltaGrupo, fechaBajaDelGrupo) => {
 
   fecha = new Date(fecha); // asegurar que es Date
 
-  //La fecha es minima un año antes
-  const fechaMinima = new Date();
-  fechaMinima.setFullYear(fechaMinima.getFullYear() - 1);
-
-  //Fecha maxima 2 meses desde hoy
-  const fechaMaxima = new Date();
-  fechaMaxima.setMonth(fechaMaxima.getMonth() + 2);
 
   if (fechaAltaGrupo && fecha < fechaAltaGrupo) 
     return `Ingrese una fecha superior a ${fechaAltaGrupo.toLocaleDateString('en-CA')}`;
 
-  if (fecha < fechaMinima) 
-    return `Ingrese una fecha superior a ${fechaMinima.toLocaleDateString('en-CA')}`;
-
   if (fechaBajaDelGrupo && fecha > fechaBajaDelGrupo) 
     return `Ingrese una fecha inferior a ${fechaBajaDelGrupo.toLocaleDateString('en-CA')}`;
-
-  if (fecha > fechaMaxima) 
-    return `Ingrese una fecha inferior a ${fechaMaxima.toLocaleDateString('en-CA')}`;
 
   return '';
 }
