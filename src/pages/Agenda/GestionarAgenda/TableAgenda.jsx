@@ -72,7 +72,7 @@ export function TableAgenda({ listHeader, data }) {
                     : `${d.prestador.nombre}`}
                 </td>
                 <td className="tablePrestador__tbody-td">
-                 {`${d.especialidad?.descripcion}`}
+                  {`${d.especialidad?.descripcion}`}
                 </td>
                 <td className="tablePrestador__tbody-td">
                   {d.agendas.length > 1 ? (
@@ -81,19 +81,22 @@ export function TableAgenda({ listHeader, data }) {
                         data-tooltip-id={`tooltip-horario-${d.agendaId}`}
                         data-tooltip-content={d.agendas
                           .map((agenda) => {
-                            const horario = agenda.horarios[0];
-                            if (horario) {
-                              return `${agenda.dia.descripcion}: ${horario.horarioInicio} - ${horario.horarioFinal}`;
-                            } else {
-                              return `${agenda.dia.descripcion}: (sin horario)`;
-                            }
+                            const horarios = agenda.horarios
+                              .map(
+                                (h) => `${h.horarioInicio} - ${h.horarioFinal}`
+                              )
+                              .join(", ");
+                            return `${agenda.dia.descripcion}: ${horarios}`;
                           })
-                          .join(",\n")}
+                          .join("\n")}
                         className="cursor-help text-blue-600 font-medium"
                       >
-                        {`${d.agendas[0].dia.descripcion}: ${
-                          d.agendas[0].horarios[0]?.horarioInicio || ""
-                        } - ${d.agendas[0].horarios[0]?.horarioFinal || ""}...`}
+                        {`${
+                          d.agendas[0].dia.descripcion
+                        }: ${d.agendas[0].horarios
+                          .map((h) => `${h.horarioInicio} - ${h.horarioFinal}`)
+                          .join(", ")}`}
+                        {d.agendas.length > 1 ? "..." : ""}
                       </span>
 
                       <Tooltip
@@ -107,9 +110,9 @@ export function TableAgenda({ listHeader, data }) {
                     </>
                   ) : (
                     <span>
-                      {`${d.agendas[0].dia.descripcion}: ${
-                        d.agendas[0].horarios[0]?.horarioInicio || ""
-                      } - ${d.agendas[0].horarios[0]?.horarioFinal || ""}`}
+                      {`${d.agendas[0].dia.descripcion}: ${d.agendas[0].horarios
+                        .map((h) => `${h.horarioInicio} - ${h.horarioFinal}`)
+                        .join(", ")}`}
                     </span>
                   )}
                 </td>

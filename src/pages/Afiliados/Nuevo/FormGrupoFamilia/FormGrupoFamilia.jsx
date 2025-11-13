@@ -402,7 +402,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
                       value="indefinida"
                       checked={isIndefinida}
                       onChange={handleSituacionTypeChange} />
-                    Duración indefinida
+                    Temporal
                   </label>
                 </div>
               </div>
