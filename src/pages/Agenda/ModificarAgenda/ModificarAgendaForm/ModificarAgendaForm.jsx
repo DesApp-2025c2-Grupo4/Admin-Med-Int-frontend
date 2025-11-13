@@ -8,7 +8,7 @@ import { SubTitleSection } from "../../../../components/ui/SubTitleSection/SubTi
 import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
 import { SaveAgenda } from "../../../../components/ui/SaveAgenda/SaveAgenda.jsx";
 import { modificarAgenda } from "../../../../services/agenda/modificarAgenda.js";
-
+import { toast } from "react-toastify";
 const initialHorario = {
   horarioInicio: "06:00",
   horarioFinal: "13:00",
@@ -76,12 +76,12 @@ export function ModificarAgendaForm({ initialData }) {
       !nuevoHorario.horarioFinal ||
       !nuevoHorario.duracionTurno
     ) {
-      alert("Por favor, completa todos los campos de horario.");
+      toast.error("Por favor, completa todos los campos de horario.");
       return;
     }
 
     if (nuevoHorario.horarioInicio >= nuevoHorario.horarioFinal) {
-      alert("La hora de inicio debe ser anterior a la hora de fin.");
+      toast.error("La hora de inicio debe ser anterior a la hora de fin.");
       return;
     }
 
@@ -97,7 +97,7 @@ export function ModificarAgendaForm({ initialData }) {
     );
 
     if (seSobrepisa) {
-      alert("El horario se superpone con uno ya existente en este día.");
+      toast.error("El horario se superpone con uno ya existente en este día.");
       return;
     }
 
@@ -156,12 +156,12 @@ export function ModificarAgendaForm({ initialData }) {
       );
 
       if (!config.prestador || !config.especialidad || !config.lugarAtencion) {
-        alert("Debes seleccionar prestador, especialidad y lugar de atención.");
+       toast.error("Debes seleccionar prestador, especialidad y lugar de atención.");
         return;
       }
 
       if (diasConHorario.length === 0) {
-        alert("Debes añadir al menos un bloque de horario a algún día.");
+        toast.error("Debes añadir al menos un bloque de horario a algún día.");
         return;
       }
 
@@ -182,10 +182,9 @@ export function ModificarAgendaForm({ initialData }) {
       };
 
       await modificarAgenda(id, dataFinal);
-      alert("Agenda modificada con éxito");
+      toast.success("Agenda modificada con éxito");
     } catch (error) {
-      console.error(error);
-      alert("Hubo un error al modificar la agenda");
+      toast.error("Hubo un error al modificar la agenda");
     }
   };
 
