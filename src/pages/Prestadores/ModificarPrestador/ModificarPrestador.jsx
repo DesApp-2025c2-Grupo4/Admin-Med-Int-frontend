@@ -3,6 +3,7 @@ import { useGetDetallePrestador } from "../../../hooks/useGetDetalleDePrestador"
 import { Loader } from "../../../components/Loader/Loader";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { FormModificarPrestador } from "./FormModificarPrestador/FormModificarPrestador.jsx";
+import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection.jsx";
 
 export function ModificarPrestador() {
   const { id } = useParams();
@@ -12,9 +13,14 @@ export function ModificarPrestador() {
     <section className="section__modificar-prestador-container box-border">
       <TitleSection text="Modificar Prestador" />
       {loadingPrestador ? (
-        <Loader />
+        <div className="centrar">
+          <Loader />
+        </div>
       ) : error ? (
-        <h2 className="message-error">{error}</h2>
+        <div className="centrar">
+          <SubTitleSection text="No se ha podido cargar el formulario" className="centrar" />
+        </div>
+        
       ) : (
         <FormModificarPrestador text="Datos del prestador" initialData={prestador} />
       )}

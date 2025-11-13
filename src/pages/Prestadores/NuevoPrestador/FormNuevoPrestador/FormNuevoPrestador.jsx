@@ -10,6 +10,7 @@ import { crearPrestador } from '../../../../services/prestadores/crearPrestador.
 import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx';
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
 import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
+import { formatearTelefono } from '../../../../utils/formatearNumeroDeTelefono.js';
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 
@@ -103,6 +104,10 @@ export function FormNuevoPrestador({ text }) {
 
         if (telefonoLimpio === '') {
             setErrorTelefono('El campo de teléfono no puede estar vacío.');
+            return;
+        }
+        if (telefonoLimpio.length !== 10) {
+            setErrorTelefono('El teléfono debe contener exactamente 10 dígitos (incluyendo el código de área, ej: 11-xxxx-xxxx).');
             return;
         }
 
@@ -344,7 +349,7 @@ export function FormNuevoPrestador({ text }) {
                     
                     <div className="saved-items-container">
                         {dataForm.telefonos.map((tel, index) => (
-                            <ContactCard key={`tel-${index}`} texto={tel} onDelete={() => removeTelefono(tel)}/>
+                            <ContactCard key={`tel-${index}`} texto={formatearTelefono(tel)} onDelete={() => removeTelefono(tel)}/>
                         ))}
                     </div>
                 </div>

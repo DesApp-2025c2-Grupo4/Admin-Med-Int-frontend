@@ -27,7 +27,7 @@ export function FormModificarPrestador({ text, initialData }) {
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion] = useState('');
     const [currentCodigoPostal, setCurrentCodigoPostal] = useState('');
-
+    const navigate = useNavigate();
     // Estados de error
     const [errorCuilCuit, setErrorCuilCuit] = useState('');
     const [errorTelefono, setErrorTelefono] = useState('');
