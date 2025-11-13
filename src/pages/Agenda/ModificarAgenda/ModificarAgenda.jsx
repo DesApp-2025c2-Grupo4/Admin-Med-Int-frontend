@@ -3,6 +3,7 @@ import { useGetDetalleAgenda } from "../../../hooks/useGetDetalleAgenda.jsx";
 import { Loader } from "../../../components/Loader/Loader";
 import { TitleSection } from "../../../components/TitleSections/TitleSection.jsx";
 import { ModificarAgendaForm } from "./ModificarAgendaForm/ModificarAgendaForm.jsx";
+import { SubTitleSection } from "../../../components/ui/SubTitleSection/SubTitleSection.jsx";
 
 export function ModificarAgenda() {
   const { id } = useParams();
@@ -12,9 +13,13 @@ export function ModificarAgenda() {
     <section className="section__modificar-agenda-container box-border">
       <TitleSection text="Modificar Agenda" />
       {loadingAgenda ? (
-        <Loader />
+        <div className="centrar">
+          <Loader />
+        </div>
       ) : error ? (
-        <h2 className="message-error">{error}</h2>
+        <div className="centrar">
+          <SubTitleSection text="No se pudo cargar el formulario."></SubTitleSection>
+        </div>
       ) : (
         <ModificarAgendaForm initialData={agenda} />
       )}
