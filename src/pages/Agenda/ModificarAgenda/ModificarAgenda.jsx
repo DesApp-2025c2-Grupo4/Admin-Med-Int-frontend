@@ -18,7 +18,7 @@ export function ModificarAgenda() {
         </div>
       ) : error ? (
         <div className="centrar">
-          <SubTitleSection text="No se pudo cargar el formulario."></SubTitleSection>
+          <SubTitleSection text=" No se pudo cargar el formulario. "></SubTitleSection>
         </div>
       ) : (
         <ModificarAgendaForm initialData={agenda} />
