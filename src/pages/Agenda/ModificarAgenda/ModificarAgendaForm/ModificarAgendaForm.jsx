@@ -9,6 +9,7 @@ import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
 import { SaveAgenda } from "../../../../components/ui/SaveAgenda/SaveAgenda.jsx";
 import { modificarAgenda } from "../../../../services/agenda/modificarAgenda.js";
 import { toast } from "react-toastify";
+
 const initialHorario = {
   horarioInicio: "06:00",
   horarioFinal: "13:00",
