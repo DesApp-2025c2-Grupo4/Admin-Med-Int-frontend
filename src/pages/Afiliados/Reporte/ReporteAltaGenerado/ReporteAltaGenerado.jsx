@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/ui/Button/Button.jsx";
 import { TablaResultados } from "../../../../components/ui/TablaResultados/TablaResultados.jsx";
 import { headerTablaResultadosAltaPeriodo } from "../../../../constants/Afiliados/Reportes/headerTablaResultadosAltaPeriodo.js";
-import "../ReporteSituacionesTerapeuticas/ReporteSituacionesGenerado/ReporteSituacionesGenerado.jsx"
+import "./ReporteAltaGenerado.css"
 
 export function ReporteAltaGenerado() {
   const location = useLocation();

@@ -1,0 +1,30 @@
+.mensaje-vacio {
+  margin-top: 16px;
+  padding: clamp(12px, 2vw, 20px);
+  background-color: #e6f0fa;
+  border: 1.5px solid #08315e;
+  border-radius: 8px;
+  color: #08315e;
+  font-weight: 500;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(8, 49, 94, 0.15);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .mensaje-vacio {
+    padding: 10px 14px;
+    font-size: 1rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .mensaje-vacio {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
