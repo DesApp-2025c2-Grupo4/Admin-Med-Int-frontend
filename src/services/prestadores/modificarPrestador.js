@@ -21,10 +21,7 @@ const formatoParaAPI = (dataForm, tipoPrestador) => {
     asociadoDe: tipoPrestador === "independiente" ? (dataForm.asociadoDe || null) : null,
     emails: dataForm.emails.map(e => ({ descripcion: e })),
     telefonos: dataForm.telefonos.map(t => ({ nroTelefono: t })),
-    direcciones: dataForm.direcciones.map(d => ({
-      calle: d.calle, 
-      codigoPostal: d.codigoPostal 
-    })),
+    direcciones: dataForm.direcciones,
     especialidades: dataForm.especialidades || []
   };
 };

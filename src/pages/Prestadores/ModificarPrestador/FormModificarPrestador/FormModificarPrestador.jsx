@@ -38,7 +38,7 @@ export function FormModificarPrestador({ text, initialData }) {
     const isValidCuilCuit = (cuilCuit) => /^\d{2}-\d{8}-\d{1}$/.test(cuilCuit);
 
     const isInitialIndependent = tipoPrestador === 'independiente';
-
+    
     // Inicializa dataForm con los datos que vienen por prop
     const [dataForm, setDataForm] = useState({
         prestadorId: initialData.prestadorId, 
@@ -47,13 +47,10 @@ export function FormModificarPrestador({ text, initialData }) {
         asociadoDe: isInitialIndependent && initialData.asociadoDe ? initialData.asociadoDe : '', 
         telefonos: initialData.telefonos?.map(t => t.nroTelefono) || [],
         emails: initialData.email?.map(e => e.descripcion) || [],
-        direcciones: initialData.direccion?.map(d => ({
-            calle: `${d.calle || ''} ${d.nro || ''}`.trim(),
-            codigoPostal: d.codigoPostal 
-        })) || [],
+        direcciones: initialData.direccion,
         especialidades: initialData.especialidad?.map(e => e.especialidadId) || []
     });
-
+    console.log(dataForm)
     const centrosFormateados = [
         { id: "", descripcion: "Ninguno" }, 
         ...(datosParaFormulario?.centrosMedicos.map(centro => ({
@@ -152,6 +149,8 @@ export function FormModificarPrestador({ text, initialData }) {
     const addDireccion = () => {
         if (currentDireccion.trim() !== '' && currentCodigoPostal.trim() !== '') {
             const nuevaDireccion = {
+                direccionId:-1,
+                nro:12,
                 calle: currentDireccion.trim(),
                 codigoPostal: currentCodigoPostal.trim(),
             };
@@ -232,6 +231,7 @@ export function FormModificarPrestador({ text, initialData }) {
         direcciones: dataForm.direcciones, 
         especialidades: dataForm.especialidades 
     };
+    console.log("Dires", bodyToSend)
 
     try {
 
