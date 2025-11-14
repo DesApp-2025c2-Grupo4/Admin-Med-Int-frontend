@@ -10,8 +10,10 @@ import { updatePrestadorService } from '../../../../services/prestadores/modific
 import { useDataFormPrestadores } from '../../../../hooks/Formularios/useDataFormPrestadores.jsx'
 import { InputSelect } from '../../../../components/ui/Input/InputSelect/InputSelect.jsx';
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router';
 
 export function FormModificarPrestador({ text, initialData }) {
+    const navigate = useNavigate()
     const { errorDataForm, datosParaFormulario, loadingDataForm } = useDataFormPrestadores();
     // Determina el tipo de prestador inicial
     const [tipoPrestador, setTipoPrestador] = useState(() => {
@@ -236,6 +238,7 @@ export function FormModificarPrestador({ text, initialData }) {
     try {
 
         const result = await updatePrestadorService(bodyToSend, tipoPrestador, prestadorId);
+        navigate("/prestadores/gestionar");
         toast.success('Cambios guardados exitosamente.')
     } catch (error) {
         toast.error('Error al guardar.')
