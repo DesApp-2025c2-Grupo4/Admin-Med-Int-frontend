@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { InputSelect } from "../../../../components/ui/Input/InputSelect/InputSelect.jsx";
 import { DIAS_SEMANA } from "../../../../constants/listDias.js";
 import { useGetPrestadoresNuevaAgenda } from "../../../../hooks/useGetPrestadoresNuevaAgenda.jsx";
@@ -57,6 +57,7 @@ export function ModificarAgendaForm({ initialData }) {
   }, [initialData]);
 
   // Manejo de selects
+  const navigate = useNavigate()
   const handleConfigChange = (e) => {
     const { name, value } = e.target;
     setConfig((prev) => ({ ...prev, [name]: value }));
@@ -184,6 +185,7 @@ export function ModificarAgendaForm({ initialData }) {
 
       await modificarAgenda(id, dataFinal);
       toast.success("Agenda modificada con éxito");
+      navigate('/agenda/gestionar')
     } catch (error) {
       toast.error("Hubo un error al modificar la agenda");
     }

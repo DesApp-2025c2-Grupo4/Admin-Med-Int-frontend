@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 export function useFiltrarBusqueda(credencial, grupos) {
   const [allGrupos, setAllGrupos] = useState(grupos ?? []);
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const filtrar = () => {
     if (!busqueda && !filtro) {
       setAllGrupos(grupos);
       return;
     }
-    navigate('/afiliados/gestionar/1')
+    navigate("/afiliados/gestionar/1");
     const texto = busqueda.toLowerCase();
     let resultado = [];
 
@@ -48,39 +48,70 @@ export function useFiltrarBusqueda(credencial, grupos) {
         break;
 
       case "nombre":
-        resultado = grupos.filter((g) =>
-          g.integrantes.some(
-            (i) => i.nombre?.toLowerCase().includes(texto)
+        resultado = grupos
+          .filter((g) =>
+            g.integrantes.some((i) => i.nombre?.toLowerCase().includes(texto))
           )
-        );
+          .map((g) => ({
+            ...g,
+            integrantes: g.integrantes.map((i) => ({
+              ...i,
+              esElBuscado: i.nombre?.toLowerCase().includes(texto),
+            })),
+          }));
         break;
 
       case "apellido":
-        resultado = grupos.filter((g) =>
-          g.integrantes.some(
-            (i) => i.apellido?.toLowerCase().includes(texto)
+        resultado = grupos
+          .filter((g) =>
+            g.integrantes.some((i) => i.apellido?.toLowerCase().includes(texto))
           )
-        );
+          .map((g) => ({
+            ...g,
+            integrantes: g.integrantes.map((i) =>
+              i.apellido?.toLowerCase().includes(texto)
+                ? { ...i, esElBuscado: true }
+                : i
+            ),
+          }));
         break;
 
-      case "grupo":
+      case "grupofamiliar":
         resultado = grupos.filter((g) =>
           g.nroGrupo.toString().includes(busqueda)
         );
         break;
 
       case "fechaNac":
-        resultado = grupos.filter((g) =>
-          g.integrantes.some(
-            (i) => i.fechaNacimiento?.includes(busqueda)
+        resultado = grupos
+          .filter((g) =>
+            g.integrantes.some((i) => i.fechaNacimiento?.includes(busqueda))
           )
-        );
+          .map((g) => ({
+            ...g,
+            integrantes: g.integrantes.map((i) => ({
+              ...i,
+              esElBuscado: i.fechaNacimiento?.toLowerCase().includes(texto),
+            })),
+          }));
         break;
 
       case "direccion":
-        resultado = grupos.filter((g) =>
-          g.direccion?.toLowerCase().includes(texto)
-        );
+        resultado = grupos
+          .filter((g) =>
+            g.integrantes.some((i) =>
+              i.direcciones.some((d) => d.calle.toLowerCase().includes(texto))
+            )
+          )
+          .map((g) => ({
+            ...g,
+            integrantes: g.integrantes.map((i) => ({
+              ...i,
+              esElBuscado: i.direcciones.some((d) =>
+                d.calle.toLowerCase().includes(texto)
+              ),
+            })),
+          }));;
         break;
 
       case "todos":
