@@ -8,6 +8,7 @@ Está diseñada para ser utilizada por el **personal administrativo** de la empr
 
 ## 🚀 Tecnologías utilizadas
 
+
 ### Frontend
 - **React.js** – desarrollo de la interfaz de usuario.
 - **Vite** – herramienta de build y servidor de desarrollo rápido.
