@@ -21,7 +21,8 @@ export function SectionTelefono({telefonosLista,personaId,setPersona}){
       </div>
       {/*Parte del input */}
       <SubTitleSection text={'Nuevo Telefono:'}/>
-      <InputNuevoDato 
+      <InputNuevoDato
+        placeholder='xx-xxxxxx-xx' 
         nameDato={'nroTelefono'}
         funcionValidarDato={validarNumeroDeTelefono}
         listaDatosAgregados={telefonosValidar}
