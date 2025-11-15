@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import { ModalDeConfirmacion } from "../../../components/ModalDeConfirmacion/ModalDeConfirmacion";
 import { useEliminarUnPrestador } from "../../../hooks/Prestador/useEliminarUnPrestador";
 export function TablePrestadoresGestion({ listHeader, data }) {
-
   //estados de prestadores
   const [prestadores, setPrestadores] = useState(data);
   //Estado de modal
@@ -76,7 +75,9 @@ export function TablePrestadoresGestion({ listHeader, data }) {
                 style={{ position: "relative" }}
               >
                 <td className="tablePrestador__tbody-td">{d.cuilCuit}</td>
-                <td className="tablePrestador__tbody-td">{d.apellido ? (`${d.nombre} ${d.apellido}`) : (`${d.nombre}`)}</td>
+                <td className="tablePrestador__tbody-td">
+                  {d.apellido ? `${d.nombre} ${d.apellido}` : `${d.nombre}`}
+                </td>
                 <td className="tablePrestador__tbody-td">
                   {d.direccion?.length > 1 ? (
                     <>
@@ -131,16 +132,50 @@ export function TablePrestadoresGestion({ listHeader, data }) {
                   <span className="resaltar">{d.tipoPrestador}</span>
                 </td>
                 <td id="icons" className="tablePrestador__tbody-td sinBorde">
-                  <Link to={`detalle/${d.prestadorId}`}>
-                    <DetailsIcon></DetailsIcon>
+                  <Link
+                    to={`detalle/${d.prestadorId}`}
+                    data-tooltip-id={`detalle-${d.prestadorId}3`}
+                    data-tooltip-content="Ver detalles"
+                    className="cursor-help text-blue-600 font-medium"
+                  >
+                    <DetailsIcon></DetailsIcon><Tooltip
+                    id={`detalle-${d.prestadorId}3`}
+                    place="top"
+                    style={{
+                      whiteSpace: "pre-line",
+                    }}
+                  />
                   </Link>
-                  <Link onClick={() => handleClick(d.prestadorId)}>
+                  
+                  <Link
+                    onClick={() => handleClick(d.prestadorId)}
+                    data-tooltip-id={`eliminar-${d.prestadorId}3`}
+                    data-tooltip-content="Eliminar"
+                    className="cursor-help text-blue-600 font-medium"
+                  >
                     <DeleteIcon></DeleteIcon>
+                    <Tooltip
+                      id={`eliminar-${d.prestadorId}3`}
+                      place="top"
+                      style={{
+                        whiteSpace: "pre-line",
+                      }}
+                    />
                   </Link>
                   <Link
                     to={`/prestadores/modificar-prestador/${d.prestadorId}`}
+                    data-tooltip-id={`modificar-${d.prestadorId}3`}
+                    data-tooltip-content="Modificar"
+                    className="cursor-help text-blue-600 font-medium"
                   >
                     <ModifierIcon></ModifierIcon>
+                    <Tooltip
+                      id={`modificar-${d.prestadorId}3`}
+                      place="top"
+                      style={{
+                        whiteSpace: "pre-line",
+                      }}
+                    />
                   </Link>
                 </td>
               </tr>

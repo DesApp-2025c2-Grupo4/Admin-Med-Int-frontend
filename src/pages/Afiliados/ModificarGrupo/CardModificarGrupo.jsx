@@ -11,7 +11,8 @@ import { LoaderConTexto } from '../../../components/LoaderConTexto/LoaderConText
 import { IconoEstado } from '../../../components/IconoEstado/IconoEstado'
 import { validarFormularioActualizar } from "../../../validations/grupo/validarFormularioActualizar";
 import { useDeleteGroup } from "../../../hooks/Afiliados/useDeleteGroup";
-import { ModalDeConfirmacion} from '../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
+import { ModalDeConfirmacion } from '../../../components/ModalDeConfirmacion/ModalDeConfirmacion'
+import { Tooltip } from "react-tooltip";
 export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
   //Datos para el formulario
   const {datosParaFormulario} = useDataFormAfiliados()
@@ -62,38 +63,55 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
   //Retorno
   return (
     <section className="card_container_modificarGrupo box-border">
-      {
-        loading || loadingDelete &&
-        <div className="container-loader-modificar-grupo">
-          <LoaderConTexto text={loading ? 'Actualizando..' : 'Eliminando...'} />
-        </div>
-      }{
-        showModal &&
-        <ModalDeConfirmacion 
-          text={'¿Seguro que desea eliminar el grupo?'}
-          funcionCancelar={()=>setShowModal(false)}
-          funcionConfirmar={()=>handleEliminar(grupo.idGrupo)}
+      {loading ||
+        (loadingDelete && (
+          <div className="container-loader-modificar-grupo">
+            <LoaderConTexto
+              text={loading ? "Actualizando.." : "Eliminando..."}
+            />
+          </div>
+        ))}
+      {showModal && (
+        <ModalDeConfirmacion
+          text={"¿Seguro que desea eliminar el grupo?"}
+          funcionCancelar={() => setShowModal(false)}
+          funcionConfirmar={() => handleEliminar(grupo.idGrupo)}
         />
-      }
+      )}
       <div className="container_data_modificarGrupo">
         <div>
-          <div style={{display:'flex', gap:'15px', alignItems:'flex-start'}}>
+          <div
+            style={{ display: "flex", gap: "15px", alignItems: "flex-start" }}
+          >
             <h1 className="titleGrupo">
               Grupo Familiar {grupo?.credencial} |{" "}
               {grupo?.integrantes.find((i) => i.esTitular)?.nombre}{" "}
               {grupo?.integrantes.find((i) => i.esTitular)?.apellido}
-              
             </h1>
-            <IconoEstado estado={grupo.esActivo}/>
+            <IconoEstado estado={grupo.esActivo} />
           </div>
-          
+
           <p className="descriptionGrupo">
-            Plan: {grupo?.planMedico?.descripcion} | Fecha Alta: {grupo?.fechaAlta}
+            Plan: {grupo?.planMedico?.descripcion} | Fecha Alta:{" "}
+            {grupo?.fechaAlta}
           </p>
         </div>
         <div className="container_icons_cardModificarGrupo">
-          <div onClick={()=> setShowModal(true)} style={{cursor:'pointer'}}>
+          <div
+            onClick={() => setShowModal(true)}
+            style={{ cursor: "pointer" }}
+            data-tooltip-id={`eliminar-${grupo.idGrupo}4`}
+            data-tooltip-content="Eliminar"
+            className="cursor-help text-blue-600 font-medium"
+          >
             <DeleteIcon></DeleteIcon>
+            <Tooltip
+              id={`eliminar-${grupo.idGrupo}4`}
+              place="bottom"
+              style={{
+                whiteSpace: "pre-line",
+              }}
+            />
           </div>
         </div>
       </div>
@@ -116,16 +134,19 @@ export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
         <InputDate
           text="Fecha de Baja"
           name="fechaBaja"
-          value={dataForm.fechaBaja || ''}
+          value={dataForm.fechaBaja || ""}
           handleChange={handleChange}
           requerido={false}
           error={errores?.fechaBaja}
         />
       </div>
       <div className="container_botones_modificarGrupo">
-        <AddMember idGrupo={grupo.idGrupo}/>
-        <div onClick={handleSubmit} >
-          <RegisterGroup text={'Guardar Cambios'} disabled={huboCambios(grupo,dataForm)}/>
+        <AddMember idGrupo={grupo.idGrupo} />
+        <div onClick={handleSubmit}>
+          <RegisterGroup
+            text={"Guardar Cambios"}
+            disabled={huboCambios(grupo, dataForm)}
+          />
         </div>
       </div>
     </section>
