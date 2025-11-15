@@ -10,5 +10,6 @@ export const getPrestadoresPorPeriodo = async (fechaDesde, fechaHasta) => {
     setTimeout(() => {
       resolve(data);
     }, 1000);
+    
   });
 };
