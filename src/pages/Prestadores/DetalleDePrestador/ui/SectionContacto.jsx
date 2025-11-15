@@ -1,4 +1,4 @@
-import { CampoDeInformacion } from "../../../Afiliados/DetalleDePersona/TodosLosDetalles/ui/campoDeInformacion";
+import { CampoDeInformacion } from "../../../Afiliados/DetalleDePersona/TodosLosDetalles/ui/CampoDeInformacion";
 import { CampoInformacionLista } from "../../../Afiliados/DetalleDePersona/TodosLosDetalles/ui/CampoInformacionLista/CampoInforacionLista";
 
 export function SectionContacto({prestador}){
