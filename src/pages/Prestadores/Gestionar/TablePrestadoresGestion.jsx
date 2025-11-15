@@ -138,45 +138,42 @@ export function TablePrestadoresGestion({ listHeader, data }) {
                     data-tooltip-content="Ver detalles"
                     className="cursor-help text-blue-600 font-medium"
                   >
-                    <DetailsIcon></DetailsIcon><Tooltip
+                    <DetailsIcon />
+                  </Link>
+                  <Tooltip
                     id={`detalle-${d.prestadorId}3`}
                     place="top"
-                    style={{
-                      whiteSpace: "pre-line",
-                    }}
+                    style={{ whiteSpace: "pre-line" }}
                   />
-                  </Link>
-                  
+                                  
                   <Link
                     onClick={() => handleClick(d.prestadorId)}
                     data-tooltip-id={`eliminar-${d.prestadorId}3`}
                     data-tooltip-content="Eliminar"
                     className="cursor-help text-blue-600 font-medium"
                   >
-                    <DeleteIcon></DeleteIcon>
-                    <Tooltip
-                      id={`eliminar-${d.prestadorId}3`}
-                      place="top"
-                      style={{
-                        whiteSpace: "pre-line",
-                      }}
-                    />
+                    <DeleteIcon />
                   </Link>
+                  <Tooltip
+                    id={`eliminar-${d.prestadorId}3`}
+                    place="top"
+                    style={{ whiteSpace: "pre-line" }}
+                  />
+                                  
                   <Link
                     to={`/prestadores/modificar-prestador/${d.prestadorId}`}
                     data-tooltip-id={`modificar-${d.prestadorId}3`}
                     data-tooltip-content="Modificar"
                     className="cursor-help text-blue-600 font-medium"
                   >
-                    <ModifierIcon></ModifierIcon>
-                    <Tooltip
-                      id={`modificar-${d.prestadorId}3`}
-                      place="top"
-                      style={{
-                        whiteSpace: "pre-line",
-                      }}
-                    />
+                    <ModifierIcon />
                   </Link>
+                  <Tooltip
+                    id={`modificar-${d.prestadorId}3`}
+                    place="top"
+                    style={{ whiteSpace: "pre-line" }}
+                  />
+                                  
                 </td>
               </tr>
             );
