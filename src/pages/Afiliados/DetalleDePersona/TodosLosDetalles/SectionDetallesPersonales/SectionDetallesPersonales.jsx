@@ -1,5 +1,5 @@
 import './SectionDetallesPersonales.css'
-import { CampoDeInformacion } from '../ui/campoDeInformacion'
+import { CampoDeInformacion } from '../ui/CampoDeInformacion'
 import { CampoInformacionLista } from '../ui/CampoInformacionLista/CampoInforacionLista'
 export function SectionDetallesPersonales({persona}){
   return(

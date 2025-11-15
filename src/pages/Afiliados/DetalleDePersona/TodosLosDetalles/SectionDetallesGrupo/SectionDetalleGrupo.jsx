@@ -1,4 +1,4 @@
-import { CampoDeInformacion } from '../ui/campoDeInformacion'
+import { CampoDeInformacion } from '../ui/CampoDeInformacion'
 import './SectionDetalleGrupo.css'
 export function SectionDetalleGrupo({persona}){
   return(
