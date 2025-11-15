@@ -2,7 +2,9 @@ import { navBarItems } from '@constants/navBarItems.js'
 import './NavBar.css'
 import { BtnHamburguesa } from '../BtnHamburguesa/BtnHamburguesa'
 import { useState } from 'react'
+import { LogoutIcon } from '../../../../assets/icons/LogoutIcon'
 import { NavLink } from 'react-router-dom';
+import { logout } from '../../../../utils/logout'
 //Componente de un ítem de de la lista
 function Item({
     item,
@@ -31,14 +33,19 @@ export function NavBar(){
   //Retorno el componente
   return(
     <nav className="header__nav-bar-container">
-      <BtnHamburguesa setShowNavBar= {setShowNavBar} showNavBar = {showNavBar}/>
-        <ul className={`nav-bar__contenainer-list ${showNavBar ? 'show' : 'hidden'}`}>
-          {
-            navBarItems.map((item,index)=>
-            <Item key={index} item={item} setShowNavBar={setShowNavBar}/>
-          )
-          }
-        </ul>
-      </nav>
+      <div style={{display:'flex', gap:'1rem', flexDirection:'row-reverse', alignItems:'center'}}>
+        <BtnHamburguesa setShowNavBar= {setShowNavBar} showNavBar = {showNavBar}/>
+        <button className='btn-logout-contaner-nav-mobile' onClick={logout}>
+          <LogoutIcon />
+        </button>
+      </div>
+      <ul className={`nav-bar__contenainer-list ${showNavBar ? 'show' : 'hidden'}`}>
+        {
+          navBarItems.map((item,index)=>
+          <Item key={index} item={item} setShowNavBar={setShowNavBar}/>
+        )
+        }
+      </ul>
+    </nav>
   )
 }
