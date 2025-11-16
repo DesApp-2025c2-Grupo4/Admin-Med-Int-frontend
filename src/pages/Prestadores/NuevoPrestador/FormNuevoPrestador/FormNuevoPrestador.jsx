@@ -13,6 +13,7 @@ import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
 import { toast } from "react-toastify";
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx';
 import { useNavigate } from 'react-router';
+import { toastConSubtitulo } from '../../../../components/ToastConSubtitulo/ToastConSubtitulo.jsx';
 
 export function FormNuevoPrestador({ text }) {
     const navigate = useNavigate()
@@ -22,8 +23,11 @@ export function FormNuevoPrestador({ text }) {
     const [tipoPrestador, setTipoPrestador] = useState('independiente'); 
     const [currentTelefono, setCurrentTelefono] = useState('');
     const [currentEmail, setCurrentEmail] = useState('');
-    const [currentDireccion, setCurrentDireccion] = useState('');
-    const [currentCodigoPostal, setCurrentCodigoPostal] = useState('');
+    const [currentDireccion, setCurrentDireccion ] = useState({
+        calle:'',
+        nro:null,
+        codigoPostal: ''
+    })
 
     // Estados para los mensajes de error
     const [errorCuilCuit, setErrorCuilCuit] = useState(''); 
@@ -77,7 +81,13 @@ export function FormNuevoPrestador({ text }) {
             };
         });
     };
-
+    const handleChangeDireccion = (e)=>{
+        const {name, value} = e.target
+        setCurrentDireccion((prev) => ({
+            ...prev,
+            [name]:value
+        }))
+    } 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setDataForm(prev => ({
@@ -152,17 +162,13 @@ export function FormNuevoPrestador({ text }) {
     };
 
     const addDireccion = () => {
-        if (currentDireccion.trim() !== '' && currentCodigoPostal.trim() !== '') {
-            const nuevaDireccion = {
-                calle: currentDireccion.trim(),
-                codigoPostal: currentCodigoPostal.trim(),
-            };
+        if (currentDireccion.calle.trim() !== '' 
+        && currentDireccion.codigoPostal.trim() !== '') {
             setDataForm((prev) => ({
                 ...prev,
-                direcciones: [...prev.direcciones, nuevaDireccion],
+                direcciones: [...prev.direcciones, currentDireccion],
             }));
             setCurrentDireccion('');
-            setCurrentCodigoPostal('');
         } else {
             toast.error('Por favor, ingrese tanto la dirección como el código postal.')
         }
@@ -224,6 +230,7 @@ export function FormNuevoPrestador({ text }) {
             asociadoDeId = Number(dataForm.asociadoDe);
         }
         // Crear el cuerpo de la solicitud
+        console.log(dataForm.direcciones)
         const bodyToSend = {
             cuilCuit: dataForm.cuilCuit,
             tipoPrestador: tipoPrestador === 'independiente' ? 'Independiente' : 'Centro Médico',
@@ -232,13 +239,19 @@ export function FormNuevoPrestador({ text }) {
             apellido: apellido,
             telefonos: dataForm.telefonos,
             emails: dataForm.emails,
-            direcciones: dataForm.direcciones,
+            direcciones: dataForm.direcciones.map(d=>({...d, nro: Number(d.nro) ? d.nro : null })),
             especialidades: dataForm.especialidades 
         };
 
         try {
             const nuevoPrestador = await crearPrestador(bodyToSend); 
-            toast.success('Prestador creado correctamente')
+            toastConSubtitulo(
+                "Prestador creado correctamente",
+                "",
+                "success",
+                `/prestadores/modificar-prestador/${nuevoPrestador.prestadorId}`,
+                navigate
+            )
             navigate("/prestadores/gestionar");
 
         } catch (error) {
@@ -276,6 +289,7 @@ export function FormNuevoPrestador({ text }) {
 
                 <InputText text="Nombre completo"
                     name="nombreCompleto"
+                    placeholder='Centro Lionel Messi'
                     value={dataForm.nombreCompleto}
                     handleChange={handleChange}
                 />
@@ -385,16 +399,23 @@ export function FormNuevoPrestador({ text }) {
             <SubTitleSection text="Lugares de atención" className="section-subtitle" />
             <div className="form-places-section">
                 <div className="input-with-button-container"> 
-                    <InputText text="Dirección"
-                        name="currentDireccion"
-                        value={currentDireccion}
-                        handleChange={(e) => setCurrentDireccion(e.target.value)}
-                        placeholder="Calle Ejemplo 123"
+                    <InputText text="Calle"
+                        name="calle"
+                        value={currentDireccion.calle}
+                        handleChange={handleChangeDireccion}
+                        placeholder="Av. siempre viva"
+                    /> 
+                    <InputText text="Nro"
+                        name="nro"
+                        value={currentDireccion.nro}
+                        handleChange={handleChangeDireccion}
+                        placeholder="2020"
+                        requerido={false}
                     />
                     <InputText text="Código Postal"
-                        name="currentCodigoPostal"
-                        value={currentCodigoPostal}
-                        handleChange={(e) => setCurrentCodigoPostal(e.target.value)}
+                        name="codigoPostal"
+                        value={currentDireccion.codigoPostal}
+                        handleChange={handleChangeDireccion}
                         placeholder="C1000AAB"
                     />
                     <AddButton onClick={addDireccion} className="button-add"/>

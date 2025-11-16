@@ -215,14 +215,17 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
           name='tipoDocId'
           listaDeOpciones={datosParaFormulario.tiposDeDocumentos}
           handleChange={handleChange}
-          value={dataForm.tipoDocId} />
+          value={dataForm.tipoDocId} 
+          />
         <InputText
           text="Numero de documento"
+          placeholder='xx.xxx.xxx'
           name="dni"
           value={dataForm.dni}
           handleChange={handleChange}
           error={errores?.dni} />
         <InputText
+          placeholder='Liones Andrés'
           text="Nombres"
           name="nombre"
           value={dataForm.nombre}
@@ -232,6 +235,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
 
       <div className="form-row">
         <InputText
+          placeholder='Messi'
           text="Apellidos"
           name="apellido"
           value={dataForm.apellido}
@@ -272,6 +276,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
       <div className="form-contacto">
         <div className="input-with-button">
           <InputText
+            placeholder='xx-xxxxxx-xx'
             text="Teléfono"
             name="telefonos"
             value={currentTelefono}
@@ -292,6 +297,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
         
         <div className="input-with-button">
           <InputText
+            placeholder='lionelmessi@gmail.com'
             text="Email"
             name="emails"
             value={currentEmail}
@@ -316,6 +322,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
         <div className="form-contacto">
           <div className="input-with-button">
             <InputText text="Calle"
+              placeholder='El Goat'
               name="calle"
               value={currentDireccion.calle}
               handleChange={(e) => setCurrentDireccion(prev => ({
@@ -324,6 +331,7 @@ export function FormGrupoFamilia({ text, component, funcionSubmit }) {
               error={errores?.direcciones?.calle || errores?.direcciones}
             />
             <InputText
+              placeholder='2025'
               text='N° Calle'
               name='nro'
               value={currentDireccion.nro}

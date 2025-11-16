@@ -25,6 +25,7 @@ export function SectionDirecciones({direcciones, personaId, setPersona}){
         funcionValidarDato={validarDireccion}
         funcionEnviarDato={agregarDireccion}
         id={personaId}
+        placeholder={{calle:'El goat', nro:'2025'}}
       />
       {/* Seccion de Direcciones agreagdos */}
       <SubTitleSection text={'Direcciones Agregados: '} />

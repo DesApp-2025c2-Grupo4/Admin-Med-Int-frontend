@@ -22,6 +22,7 @@ export function SectionEmails({emails, personaId, setPersona}){
       {/* Seccion de agregar un nuevo mail */}
       <SubTitleSection text={'Nuevo Email: '}/>
       <InputNuevoDato 
+        placeholder='lionelmessi@gmail.com'
         nameDato={'descripcion'}
         listaDatosAgregados={listadoEmailValidar}
         funcionValidarDato={validarEmail}

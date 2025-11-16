@@ -17,6 +17,9 @@ function App() {
         theme="light"
       />
       <MainRoutes />
+      <div className="version-container-text">
+        <p className="version-text">version: 1.0.0-beta.1</p>
+      </div>
     </>
   )
 }

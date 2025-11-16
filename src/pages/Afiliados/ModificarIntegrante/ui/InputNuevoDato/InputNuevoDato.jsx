@@ -8,7 +8,8 @@ export function InputNuevoDato({
   funcionEnviarDato,
   funcionValidarDato,
   listaDatosAgregados,
-  id
+  id,
+  placeholder
 }){
   //Estados para manejar los datos
   const [dato, setDato] = useState(nameDato === 'direcciones' ?
@@ -71,6 +72,7 @@ export function InputNuevoDato({
                 name={'calle'}
                 value={dato.calle}
                 handleChange={handleChange}
+                placeholder={placeholder.calle}
               />
               <InputText 
                 requerido={false}
@@ -78,6 +80,7 @@ export function InputNuevoDato({
                 name={'nro'}
                 value={dato.nro}
                 handleChange={handleChange}
+                placeholder={placeholder.nro}
               />        
             </> 
             :
@@ -87,6 +90,7 @@ export function InputNuevoDato({
                 name={nameDato}
                 value={dato[nameDato]}
                 handleChange={handleChange}
+                placeholder={placeholder}
               />          
             </>
           }         

@@ -25,7 +25,10 @@
   transition: border 0.2s ease, box-shadow 0.2s ease;
   color: #6b7280;
 }
-
+.input-container input::placeholder{
+  color: rgba(0, 0, 0, 0.205);
+  font-size: calc(12px + 0.1vw);
+}
 .input-container input:focus,
 .input-container select:focus {
   border-color: #1976d2;
