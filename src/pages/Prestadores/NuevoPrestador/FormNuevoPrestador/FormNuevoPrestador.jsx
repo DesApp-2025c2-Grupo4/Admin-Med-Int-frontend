@@ -13,6 +13,7 @@ import { useCambiarTitulo } from "../../../../hooks/useCambiarTitulo.jsx";
 import { toast } from "react-toastify";
 import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx';
 import { useNavigate } from 'react-router';
+import { toastConSubtitulo } from '../../../../components/ToastConSubtitulo/ToastConSubtitulo.jsx';
 
 export function FormNuevoPrestador({ text }) {
     const navigate = useNavigate()
@@ -24,7 +25,7 @@ export function FormNuevoPrestador({ text }) {
     const [currentEmail, setCurrentEmail] = useState('');
     const [currentDireccion, setCurrentDireccion ] = useState({
         calle:'',
-        nro:'',
+        nro:null,
         codigoPostal: ''
     })
 
@@ -229,6 +230,7 @@ export function FormNuevoPrestador({ text }) {
             asociadoDeId = Number(dataForm.asociadoDe);
         }
         // Crear el cuerpo de la solicitud
+        console.log(dataForm.direcciones)
         const bodyToSend = {
             cuilCuit: dataForm.cuilCuit,
             tipoPrestador: tipoPrestador === 'independiente' ? 'Independiente' : 'Centro Médico',
@@ -237,13 +239,19 @@ export function FormNuevoPrestador({ text }) {
             apellido: apellido,
             telefonos: dataForm.telefonos,
             emails: dataForm.emails,
-            direcciones: dataForm.direcciones,
+            direcciones: dataForm.direcciones.map(d=>({...d, nro: Number(d.nro) ? d.nro : null })),
             especialidades: dataForm.especialidades 
         };
 
         try {
             const nuevoPrestador = await crearPrestador(bodyToSend); 
-            toast.success('Prestador creado correctamente')
+            toastConSubtitulo(
+                "Prestador creado correctamente",
+                "",
+                "success",
+                `/prestadores/modificar-prestador/${nuevoPrestador.prestadorId}`,
+                navigate
+            )
             navigate("/prestadores/gestionar");
 
         } catch (error) {

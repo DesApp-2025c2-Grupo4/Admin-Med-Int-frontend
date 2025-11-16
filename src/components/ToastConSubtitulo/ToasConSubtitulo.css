@@ -1,0 +1,20 @@
+
+.toas-con-subtitulo-link{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: calc(10px + 0.1vw);
+  transition: all ease .2s;
+  & svg{
+    width: 14px ;
+    height: 14px;
+    transition: all ease .2s;
+  }
+  &:hover{
+    text-decoration: underline;
+    color: rgb(41, 41, 41);
+    & svg path{
+      stroke:rgb(41, 41, 41) ;
+    }
+  }
+}
