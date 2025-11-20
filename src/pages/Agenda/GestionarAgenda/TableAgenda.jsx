@@ -145,6 +145,23 @@ export function TableAgenda({ listHeader, data }) {
                   )}
                 </td>
                 <td id="icons" className="tablePrestador__tbody-td sinBorde">
+
+                  <Link
+                    to={'/agenda/detalles/'+d.agendaId}
+                    data-tooltip-id={`detalle-${d.agendaId}4`}
+                    data-tooltip-content="Detalles"
+                    className="cursor-help text-blue-600 font-medium"
+                  >
+                    <DetailsIcon />
+                    <Tooltip
+                      id={`detalle-${d.agendaId}4`}
+                      place="bottom"
+                      style={{
+                        whiteSpace: "pre-line",
+                      }}
+                    />
+                  </Link>
+
                   <Link
                     onClick={() => handleClick(d.agendaId)}
                     data-tooltip-id={`eliminar-${d.agendaId}4`}
