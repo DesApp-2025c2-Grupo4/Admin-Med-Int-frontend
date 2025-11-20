@@ -214,6 +214,10 @@ export function NuevaAgendaForm() {
         agendas,
       };
       const nuevoPrestador = await crearAgenda(dataFinal);
+      if(nuevoPrestador.message){
+        toast.error(nuevoPrestador.message)
+        return
+      }
       toast.success("Agenda guardada con éxito")
       navigate("/agenda/gestionar");
     } catch (error) {
