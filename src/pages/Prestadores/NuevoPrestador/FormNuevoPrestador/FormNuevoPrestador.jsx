@@ -245,6 +245,14 @@ export function FormNuevoPrestador({ text }) {
 
         try {
             const nuevoPrestador = await crearPrestador(bodyToSend); 
+            if (nuevoPrestador.details){
+                toastConSubtitulo(
+                    "Error al crear prestador",
+                    nuevoPrestador.details[0],
+                    "error",
+                )
+                return
+            }
             toastConSubtitulo(
                 "Prestador creado correctamente",
                 "",
@@ -255,7 +263,8 @@ export function FormNuevoPrestador({ text }) {
             navigate("/prestadores/gestionar");
 
         } catch (error) {
-            toast.error('Hubo un error al crear el prestador.')
+            toast.error(error)
+            console.error(error)
         }
 };
     //Loader

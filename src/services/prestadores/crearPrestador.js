@@ -9,14 +9,8 @@ export async function crearPrestador(bodyToSend) {
     });
 
     if (!res.ok) {
-        let errorMsg;
-        try {
-            const errorData = await res.json();
-            errorMsg = errorData.error || errorData.message || res.statusText;
-        } catch (e) {
-            errorMsg = res.statusText;
-        }
-        throw new Error(`Error al crear el prestador: ${errorMsg}`);
+        const data = await res.json()
+        return data
     }
 
     const prestadorCreado = await res.json();

@@ -9,6 +9,7 @@ import { AddButton } from "../../../../components/ui/AddButton/AddButton.jsx";
 import { SaveAgenda } from "../../../../components/ui/SaveAgenda/SaveAgenda.jsx";
 import { modificarAgenda } from "../../../../services/agenda/modificarAgenda.js";
 import { toast } from "react-toastify";
+import { LoaderConTexto } from '../../../../components/LoaderConTexto/LoaderConTexto.jsx';
 
 const initialHorario = {
   horarioInicio: "06:00",
@@ -190,7 +191,13 @@ export function ModificarAgendaForm({ initialData }) {
       toast.error("Hubo un error al modificar la agenda");
     }
   };
-
+  if (isLoading) {
+    return (
+      <div className="centrar">
+        <LoaderConTexto />
+      </div>
+    );
+  }
   if (errorOpciones) {
     return (
       <div className="sin-resultados-section">
