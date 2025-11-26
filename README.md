@@ -123,4 +123,9 @@ npm run dev
 
 📅 Proyecto desarrollado en el marco de la materia **Desarrollo de Aplicaciones - Universidad Nacional de Hurlingham**.  
 
-👩‍💻 Equipo: Brenda, Alvaro, Alexis, Luana y Rocío.
+👩‍💻 Equipo: 
+- Brenda Lera.
+- Álvaro Bravo.
+- Alexis Giorda.
+- Luana Arias.
+- Rocío Pagliarulo.
