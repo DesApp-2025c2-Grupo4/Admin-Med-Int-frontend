@@ -54,7 +54,7 @@ export function ReportePorEspecialidad() {
                 onChange={handleChangeEspecialidad}
                 disabled={loading}
               >
-                <option value="">Seleccione una especialidad</option>
+                <option value="">Especialidad</option>
                 {especialidades?.sort((a, b) => 
                   a.descripcion.localeCompare(b.descripcion)
                 ).map((esp) => (
