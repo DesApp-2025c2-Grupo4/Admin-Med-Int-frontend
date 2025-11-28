@@ -34,7 +34,7 @@ export function ReportePorCodigoPostal() {
   };
 
   const handleChangeCodigoPostal = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, ''); // Permitir solo números
+    const value = e.target.value; // para permitir solo números agregar value.replace(/[^0-9]/g, '')
     setCodigoPostal(value);
     if (error) setError(""); // Limpiar error al escribir
   };
