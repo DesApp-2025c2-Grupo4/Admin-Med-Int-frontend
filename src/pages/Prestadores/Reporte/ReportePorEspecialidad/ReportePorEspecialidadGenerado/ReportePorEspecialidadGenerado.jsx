@@ -38,7 +38,9 @@ export function ReportePorEspecialidadGenerado() {
   return (
     <>
       {loadingPrestadores ? (
-        <Loader />
+        <div style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
+          <Loader />
+        </div>
       ) : error ? (
         <p className="error-message">{error}</p>
       ) : prestadores && prestadores.length > 0 ? (
