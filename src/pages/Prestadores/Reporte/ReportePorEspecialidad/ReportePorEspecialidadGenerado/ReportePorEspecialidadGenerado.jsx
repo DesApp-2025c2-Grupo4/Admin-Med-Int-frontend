@@ -1,15 +1,27 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../../../../components/ui/Button/Button.jsx";
 import { TablaResultados } from "../../../../../components/ui/TablaResultados/TablaResultados.jsx";
+import { Loader } from "../../../../../components/Loader/Loader.jsx";
+import { useGetAllPrestadores } from "../../../../../hooks/useGetAllPrestadores";
 
 export function ReportePorEspecialidadGenerado() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { prestadores, especialidad } = location.state;
+  const { especialidad, especialidadId } = location.state;
+
+  // Obtener todos los prestadores
+  const { prestadores, loadingPrestadores, error } = useGetAllPrestadores();
 
   const handleVolver = () => {
     navigate(-1);
   };
+
+  // Filtrar prestadores por la especialidad seleccionada
+  const prestadoresFiltrados = prestadores?.filter(prestador =>
+    prestador.especialidad?.some(
+      esp => esp.especialidadId === especialidadId
+    )
+  ) || [];
 
   //columnas de la tabla
   const columnasEspecialidad = [
@@ -32,12 +44,16 @@ export function ReportePorEspecialidadGenerado() {
 
   return (
     <>
-      {prestadores.length > 0 ? (
+      {loadingPrestadores ? (
+        <Loader />
+      ) : error ? (
+        <p className="error-message">{error}</p>
+      ) : prestadoresFiltrados.length > 0 ? (
         <TablaResultados
-          datos={prestadores}
+          datos={prestadoresFiltrados}
           columnas={columnasEspecialidad}
           keyField="prestadorId"
-          titulo={`Prestadores con especialidad: ${especialidad} (Total: ${prestadores.length})`}
+          titulo={`Prestadores con especialidad: ${especialidad} (Total: ${prestadoresFiltrados.length})`}
         />
       ) : (
         <p className="mensaje-vacio">
