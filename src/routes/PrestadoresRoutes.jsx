@@ -6,6 +6,7 @@ import { ModificarPrestador } from '../pages/Prestadores/ModificarPrestador/Modi
 import { ReporteAltaGenerado } from "../pages/Prestadores/Reporte/ReporteAltaGenerado/ReporteAltaGenerado.jsx"
 import { DetalleDePrestador } from './../pages/Prestadores/DetalleDePrestador/DetalleDePrestador.jsx';
 import { ReportePorEspecialidadGenerado } from "../pages/Prestadores/Reporte/ReportePorEspecialidad/ReportePorEspecialidadGenerado/ReportePorEspecialidadGenerado.jsx";
+import { ReportePorCodigoPostalGenerado } from "../pages/Prestadores/Reporte/ReportePorCodigoPostal/ReportePorCodigoPostalGenerado/ReportePorCodigoPostalGenerado.jsx";
 
 export function PrestadoresRoutes() {
   return (
@@ -16,6 +17,7 @@ export function PrestadoresRoutes() {
       <Route path="modificar-prestador/:id" element={<ModificarPrestador />} />
       <Route path="reportes/reporte-alta-generado" element={<ReporteAltaGenerado />} />
       <Route path="reportes/reporte-cantidad-por-especialidad-generado" element={<ReportePorEspecialidadGenerado/>} />
+      <Route path="reportes/reporte-por-codigo-postal-generado" element={<ReportePorCodigoPostalGenerado/>} />
       <Route path="gestionar/detalle/:id" element={<DetalleDePrestador />} />
       {/* Opcional: ruta por defecto */}
       <Route path="*" element={<GestionarPrestadores />} />

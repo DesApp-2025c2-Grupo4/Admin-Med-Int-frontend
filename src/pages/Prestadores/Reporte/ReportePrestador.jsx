@@ -4,6 +4,7 @@ import { ReporteAltaPorPeriodos } from "../../../components/ReporteAltaPorPeriod
 import "./Reporte.css";
 import { getPrestadoresPorPeriodo } from "../../../services/prestadores/getPrestadoresPorPeriodo.js"
 import { ReportePorEspecialidad } from "./ReportePorEspecialidad/ReportePorEspecialidad.jsx";
+import { ReportePorCodigoPostal } from "./ReportePorCodigoPostal/ReportePorCodigoPostal.jsx";
 
 
 export function ReportePrestador() {
@@ -19,6 +20,7 @@ export function ReportePrestador() {
       <div className="reportes-contenedor">
         <ReporteAltaPorPeriodos onGenerarReporte={handleGenerarReporte} />
         <ReportePorEspecialidad/>
+        <ReportePorCodigoPostal/>
       </div>
     </div>
   );

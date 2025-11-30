@@ -221,6 +221,17 @@ export function FormNuevoPrestador({ text }) {
             return;
         }
 
+        // Validación de códigos postales
+        const direccionInvalida = dataForm.direcciones.find(dir => {
+            const codigoPostal = dir.codigoPostal.trim();
+            return codigoPostal.length < 4 || codigoPostal.length > 8;
+        });
+
+        if (direccionInvalida) {
+            toast.error('Todos los códigos postales deben tener entre 4 y 8 caracteres.');
+            return;
+        }
+
         const nombreCompleto = dataForm.nombreCompleto.trim();
         const parts = nombreCompleto.split(/\s+/).filter(p => p.length > 0);
         const nombre = parts[0] || '';
@@ -257,7 +268,7 @@ export function FormNuevoPrestador({ text }) {
                 "Prestador creado correctamente",
                 "",
                 "success",
-                `/prestadores/modificar-prestador/${nuevoPrestador.prestadorId}`,
+                `/prestadores/gestionar/detalle/${nuevoPrestador.prestadorId}`,
                 navigate
             )
             navigate("/prestadores/gestionar");
