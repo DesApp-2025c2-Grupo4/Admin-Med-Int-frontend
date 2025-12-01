@@ -26,7 +26,7 @@ export function ReportePorEspecialidadGenerado() {
       field: "apellido",
       titulo: "Apellido",
       render: (value, item) => {
-        return item.tipoPrestador === "Independiente" ? value : "-";
+        return item.apellido ? value : "-";
       },
     },
     {
