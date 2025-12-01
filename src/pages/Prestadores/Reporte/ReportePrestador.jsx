@@ -3,6 +3,8 @@ import { useCambiarTitulo } from "../../../hooks/useCambiarTitulo.jsx";
 import { ReporteAltaPorPeriodos } from "../../../components/ReporteAltaPorPeriodos/ReporteAltaPorPeriodos.jsx";
 import "./Reporte.css";
 import { getPrestadoresPorPeriodo } from "../../../services/prestadores/getPrestadoresPorPeriodo.js"
+import { ReportePorEspecialidad } from "./ReportePorEspecialidad/ReportePorEspecialidad.jsx";
+import { ReportePorCodigoPostal } from "./ReportePorCodigoPostal/ReportePorCodigoPostal.jsx";
 
 
 export function ReportePrestador() {
@@ -17,6 +19,8 @@ export function ReportePrestador() {
       <TitleSection text="Reportes de Prestadores" />
       <div className="reportes-contenedor">
         <ReporteAltaPorPeriodos onGenerarReporte={handleGenerarReporte} />
+        <ReportePorEspecialidad/>
+        <ReportePorCodigoPostal/>
       </div>
     </div>
   );
