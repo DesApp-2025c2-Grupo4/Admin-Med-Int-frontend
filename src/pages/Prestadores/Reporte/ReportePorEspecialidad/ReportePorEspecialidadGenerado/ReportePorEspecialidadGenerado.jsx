@@ -19,14 +19,13 @@ export function ReportePorEspecialidadGenerado() {
   //columnas de la tabla
   const columnasEspecialidad = [
     {
-      field: "nombre",
-      titulo: "Nombre",
-    },
-    {
-      field: "apellido",
-      titulo: "Apellido",
+      field: "nombreCompleto",
+      titulo: "Nombre Completo",
       render: (value, item) => {
-        return item.apellido ? value : "-";
+        const nombre = item.nombre || "";
+        const apellido = item.apellido || "";
+        const nombreCompleto = `${nombre} ${apellido}`.trim(); 
+        return nombreCompleto || "-"; 
       },
     },
     {
