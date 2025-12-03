@@ -1,4 +1,4 @@
-import { CampoDeInformacion } from "../../../../Afiliados/DetalleDePersona/TodosLosDetalles/ui/campoDeInformacion"
+import { CampoDeInformacion } from "../../../../Afiliados/DetalleDePersona/TodosLosDetalles/ui/CampoDeInformacion"
 import { CampoDiaHorarioItem } from "../CampoDiaHorarioItem/CampoDiaHorarioItem"
 export function SectionDetalleAgenda({agenda}){
     return(
