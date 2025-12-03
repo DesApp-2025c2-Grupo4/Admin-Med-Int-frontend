@@ -10,7 +10,6 @@ import { validarRegistrarse } from '../../validations/register/validarRegistrars
 //Exporto la aplicacion
 export function Register(){
   const {error, loading, register,setError} = useRegistrarse()
-  console.log(error)
   const navigate = useNavigate()
   useEffect(()=>{
     const token = localStorage.getItem('token')
