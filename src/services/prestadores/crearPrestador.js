@@ -1,7 +1,6 @@
 const URL_API = import.meta.env.VITE_URL_API;
 
 export async function crearPrestador(bodyToSend) {
-    console.log(bodyToSend)
     const res = await fetch(`${URL_API}/prestador`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -9,14 +8,8 @@ export async function crearPrestador(bodyToSend) {
     });
 
     if (!res.ok) {
-        let errorMsg;
-        try {
-            const errorData = await res.json();
-            errorMsg = errorData.error || errorData.message || res.statusText;
-        } catch (e) {
-            errorMsg = res.statusText;
-        }
-        throw new Error(`Error al crear el prestador: ${errorMsg}`);
+        const data = await res.json()
+        return data
     }
 
     const prestadorCreado = await res.json();

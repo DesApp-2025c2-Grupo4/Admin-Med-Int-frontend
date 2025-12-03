@@ -11,7 +11,10 @@ export const crearAgenda = async (dataForm) => {
     body: JSON.stringify(dataAgenda),
   });
 
-  if (!resAgenda.ok) throw new Error(`Error en la solicitud: ${resAgenda}`);
+  if (!resAgenda.ok) {
+    const error= await resAgenda.json()
+    return error
+  }
 
   const agenda = await resAgenda.json();
   return { agenda };

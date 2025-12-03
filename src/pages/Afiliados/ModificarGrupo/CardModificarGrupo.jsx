@@ -16,7 +16,6 @@ import { Tooltip } from "react-tooltip";
 export function CardModificarGrupo({ grupo,setGrupoFamiliar }) {
   //Datos para el formulario
   const {datosParaFormulario} = useDataFormAfiliados()
-  console.log(datosParaFormulario)
   const [dataForm, setDataForm] = useState({
     planId: grupo.planId,
     fechaAlta: grupo.fechaAlta,

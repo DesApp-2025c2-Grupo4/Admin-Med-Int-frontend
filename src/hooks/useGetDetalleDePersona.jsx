@@ -15,7 +15,6 @@ export function useGetDetallePersona(id) {
         if (!isMounted) return
 
         if (!data.error) {
-          console.log(data)
           setPersona(data)
         } else {
           setError("Persona no encontrada.")

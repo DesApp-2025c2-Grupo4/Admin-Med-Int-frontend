@@ -221,6 +221,17 @@ export function FormNuevoPrestador({ text }) {
             return;
         }
 
+        // Validación de códigos postales
+        const direccionInvalida = dataForm.direcciones.find(dir => {
+            const codigoPostal = dir.codigoPostal.trim();
+            return codigoPostal.length < 4 || codigoPostal.length > 8;
+        });
+
+        if (direccionInvalida) {
+            toast.error('Todos los códigos postales deben tener entre 4 y 8 caracteres.');
+            return;
+        }
+
         const nombreCompleto = dataForm.nombreCompleto.trim();
         const parts = nombreCompleto.split(/\s+/).filter(p => p.length > 0);
         const nombre = parts[0] || '';
@@ -230,7 +241,6 @@ export function FormNuevoPrestador({ text }) {
             asociadoDeId = Number(dataForm.asociadoDe);
         }
         // Crear el cuerpo de la solicitud
-        console.log(dataForm.direcciones)
         const bodyToSend = {
             cuilCuit: dataForm.cuilCuit,
             tipoPrestador: tipoPrestador === 'independiente' ? 'Independiente' : 'Centro Médico',
@@ -245,17 +255,26 @@ export function FormNuevoPrestador({ text }) {
 
         try {
             const nuevoPrestador = await crearPrestador(bodyToSend); 
+            if (nuevoPrestador.details){
+                toastConSubtitulo(
+                    "Error al crear prestador",
+                    nuevoPrestador.details[0],
+                    "error",
+                )
+                return
+            }
             toastConSubtitulo(
                 "Prestador creado correctamente",
                 "",
                 "success",
-                `/prestadores/modificar-prestador/${nuevoPrestador.prestadorId}`,
+                `/prestadores/gestionar/detalle/${nuevoPrestador.prestadorId}`,
                 navigate
             )
             navigate("/prestadores/gestionar");
 
         } catch (error) {
-            toast.error('Hubo un error al crear el prestador.')
+            toast.error(error)
+            console.error(error)
         }
 };
     //Loader

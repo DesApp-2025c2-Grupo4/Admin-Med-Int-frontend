@@ -1,0 +1,24 @@
+.dia-horario-item {
+    padding: 0.5rem;
+    border-left: 3px solid #08315E;
+    margin: 2rem 3rem;
+}
+
+.horarios-list {
+    margin-top: 2px; 
+    margin-left: 2rem;
+}
+
+.horario-line {
+    line-height: 1.4; 
+    padding-left: 15px;
+    font-size: 0.95em;
+}
+
+.info__title{
+    padding: 0.2rem;
+}
+
+.info__text{
+    padding: 0.2rem;
+}
