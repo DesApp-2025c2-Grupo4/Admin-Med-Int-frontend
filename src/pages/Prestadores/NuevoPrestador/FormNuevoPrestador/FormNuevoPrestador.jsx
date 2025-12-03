@@ -241,7 +241,6 @@ export function FormNuevoPrestador({ text }) {
             asociadoDeId = Number(dataForm.asociadoDe);
         }
         // Crear el cuerpo de la solicitud
-        console.log(dataForm.direcciones)
         const bodyToSend = {
             cuilCuit: dataForm.cuilCuit,
             tipoPrestador: tipoPrestador === 'independiente' ? 'Independiente' : 'Centro Médico',

@@ -10,7 +10,6 @@ export function useIniciarSesion(){
     setLoading(true)
     try {
       const data = await iniciarSesion(dataForm)
-      console.log(data)
       if(!data.token){
         return setError(data.message)
       }

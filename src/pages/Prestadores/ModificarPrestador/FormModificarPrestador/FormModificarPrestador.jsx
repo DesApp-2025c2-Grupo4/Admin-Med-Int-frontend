@@ -235,7 +235,6 @@ export function FormModificarPrestador({ text, initialData }) {
       direcciones: dataForm.direcciones,
       especialidades: dataForm.especialidades
     };
-    console.log("Dires", bodyToSend)
 
     try {
       const result = await updatePrestadorService(bodyToSend, tipoPrestador, prestadorId);

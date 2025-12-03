@@ -10,7 +10,6 @@ export function useRegistrarse(){
     setLoading(true)
     try {
       const data = await registrarse(dataForm)
-      console.log("Aqui si", data)
       if(data.message){
         return setError({message: data.message})
       }
@@ -19,7 +18,6 @@ export function useRegistrarse(){
     } catch (e) {
       console.log(e)
       setError({message: 'Error en el servidor'})
-      console.log(e)
     }finally{
       setLoading(false)
     }

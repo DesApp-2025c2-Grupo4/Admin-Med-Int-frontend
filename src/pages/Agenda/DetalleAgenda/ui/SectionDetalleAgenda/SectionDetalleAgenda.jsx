@@ -1,7 +1,6 @@
 import { CampoDeInformacion } from "../../../../Afiliados/DetalleDePersona/TodosLosDetalles/ui/campoDeInformacion"
 import { CampoDiaHorarioItem } from "../CampoDiaHorarioItem/CampoDiaHorarioItem"
 export function SectionDetalleAgenda({agenda}){
-    console.log(agenda)
     return(
         <section className='section__info-container' style={{margin: '1rem 0'}}>
             <h3 className='section__info-title'>Informacion de Prestador</h3>

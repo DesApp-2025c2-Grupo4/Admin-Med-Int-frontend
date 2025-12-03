@@ -55,7 +55,6 @@ function crearObjetoGrupo(data){
 }
 
 export function crearObjetoPersona(data,idGrupo){
-  console.log(data)
   //Obtengo fecha actual
   const hoy = new Date();
   const fechaFormateada = hoy.toISOString().split('T')[0];
@@ -83,7 +82,6 @@ export function crearObjetoPersona(data,idGrupo){
     }
   })
 
-  console.log(situacionesFormateadas)
   //Creo el objeto
   
   const integrante = {

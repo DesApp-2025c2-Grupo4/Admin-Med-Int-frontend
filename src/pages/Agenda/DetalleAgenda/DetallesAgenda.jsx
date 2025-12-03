@@ -18,7 +18,6 @@ export function DetallesAgenda(){
             <LoaderConTexto />
         </div>
       )
-      console.log(error)
       //En caso de error
     if(error) return(
         <div className='centrar'>
