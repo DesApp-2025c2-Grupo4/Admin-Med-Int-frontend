@@ -1,6 +1,14 @@
 export const headerTablaResultadosAltaPeriodo = [
     { titulo: "Credencial", field: "credencial" },
-    { titulo: "Nombre", field: "nombre" },
-    { titulo: "Apellido", field: "apellido" },
+    {
+      field: "nombreCompleto",
+      titulo: "Nombre Completo",
+      render: (value, item) => {
+        const nombre = item.nombre || "";
+        const apellido = item.apellido || "";
+        const nombreCompleto = `${nombre} ${apellido}`.trim(); 
+        return nombreCompleto || "-"; 
+      },
+    },
     { titulo: "Fecha Alta", field: "fechaAlta" }
   ];

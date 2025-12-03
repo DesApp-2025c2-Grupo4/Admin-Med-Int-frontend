@@ -1,23 +1,20 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../../components/ui/Button/Button.jsx";
 import { TablaResultados } from "../../../../../components/ui/TablaResultados/TablaResultados.jsx";
 import { Loader } from "../../../../../components/Loader/Loader.jsx";
-import { useGetPrestadoresPorEspecialidad } from "../../../../../hooks/Prestador/useGetPrestadoresPorEspecialidad.jsx";
+import { useGetPrestadoresSinAgenda } from "../../../../../hooks/Prestador/useGetPrestadoresSinAgenda.jsx";
 
-export function ReportePorEspecialidadGenerado() {
-  const location = useLocation();
+export function ReportePrestadoresSinAgendaGenerado() {
   const navigate = useNavigate();
-  const { especialidad, especialidadId } = location.state;
 
-  //obtener prestadores por especialidad
-  const { prestadores, loadingPrestadores, error } = useGetPrestadoresPorEspecialidad(especialidadId);
+  const { prestadores, loadingPrestadores, error } = useGetPrestadoresSinAgenda();
 
   const handleVolver = () => {
     navigate(-1);
   };
 
   //columnas de la tabla
-  const columnasEspecialidad = [
+  const columnasSinAgenda = [
     {
       field: "nombreCompleto",
       titulo: "Nombre Completo",
@@ -32,12 +29,29 @@ export function ReportePorEspecialidadGenerado() {
       field: "tipoPrestador",
       titulo: "Tipo de prestador",
     },
+    {
+      field: "direccion",
+      titulo: "Direcciones",
+      render: (value) => {
+        if (!value || value.length === 0) return "-";
+        // Mostrar todas las direcciones del prestador
+        return value.map((dir, index) => (
+          <div key={index}>
+            {dir.calle} {dir.nro ? dir.nro : "S/N"}
+          </div>
+        ));
+      },
+    },
   ];
-
+  
   return (
     <>
       {loadingPrestadores ? (
-        <div style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center'
+        }}>
           <Loader />
         </div>
       ) : error ? (
@@ -45,13 +59,13 @@ export function ReportePorEspecialidadGenerado() {
       ) : prestadores && prestadores.length > 0 ? (
         <TablaResultados
           datos={prestadores}
-          columnas={columnasEspecialidad}
+          columnas={columnasSinAgenda}
           keyField="prestadorId"
-          titulo={`Prestadores con especialidad: ${especialidad} (Total: ${prestadores.length})`}
+          titulo={`Prestadores sin agenda (Total: ${prestadores.length})`}
         />
       ) : (
         <p className="mensaje-vacio">
-          No se encontraron prestadores con la especialidad: <strong>{especialidad}</strong>
+          No hay prestadores sin agendas
         </p>
       )}
       <Button text="Volver" onClick={handleVolver} />
