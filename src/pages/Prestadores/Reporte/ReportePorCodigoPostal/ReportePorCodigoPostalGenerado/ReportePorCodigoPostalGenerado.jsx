@@ -18,14 +18,13 @@ export function ReportePorCodigoPostalGenerado() {
   //columnas de la tabla
   const columnasCodigoPostal = [
     {
-      field: "nombre",
-      titulo: "Nombre",
-    },
-    {
-      field: "apellido",
-      titulo: "Apellido",
+      field: "nombreCompleto",
+      titulo: "Nombre Completo",
       render: (value, item) => {
-        return item.tipoPrestador === "Independiente" ? value : "-";
+        const nombre = item.nombre || "";
+        const apellido = item.apellido || "";
+        const nombreCompleto = `${nombre} ${apellido}`.trim(); 
+        return nombreCompleto || "-"; 
       },
     },
     {
